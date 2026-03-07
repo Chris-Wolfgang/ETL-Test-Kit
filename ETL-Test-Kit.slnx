@@ -34,7 +34,7 @@
     <File Path="scripts/Setup-BranchRuleset.ps1" />
     <File Path="scripts/Setup-GitHubPages.ps1" />
     <File Path="scripts/Setup-Labels.ps1" />
-    <File Path="scripts/setup.ps1" />
+
   </Folder>
   <Folder Name="/benchmarks/" />
   <Folder Name="/examples/" />
