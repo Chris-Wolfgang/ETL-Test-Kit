@@ -37,11 +37,9 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
 
 
     /// <inheritdoc/>
-#pragma warning disable CS1998 // async method with no await — required by IAsyncEnumerable contract
     protected override async IAsyncEnumerable<T> TransformWorkerAsync(
         IAsyncEnumerable<T> items,
         [EnumeratorCancellation] CancellationToken token)
-#pragma warning restore CS1998
     {
         await foreach (var item in items.WithCancellation(token).ConfigureAwait(false))
         {
