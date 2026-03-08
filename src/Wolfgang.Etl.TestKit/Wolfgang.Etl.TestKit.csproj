@@ -27,7 +27,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="testkit_icon.ico" />
+    <None Include="testkit_icon.ico" Pack="false" CopyToOutputDirectory="Never" />
   </ItemGroup>
 
   <ItemGroup>
