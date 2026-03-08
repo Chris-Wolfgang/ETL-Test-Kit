@@ -38,7 +38,11 @@
   </Folder>
   <Folder Name="/benchmarks/" />
   <Folder Name="/examples/" />
-  <Folder Name="/src/" />
-  <Folder Name="/tests/" />
+  <Folder Name="/src/">
+    <Project Path="src/Wolfgang.Etl.TestKit/Wolfgang.Etl.TestKit.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Wolfgang.Etl.TestKit.Tests.Unit/Wolfgang.Etl.TestKit.Tests.Unit.csproj" />
+  </Folder>
 </Solution>
 
