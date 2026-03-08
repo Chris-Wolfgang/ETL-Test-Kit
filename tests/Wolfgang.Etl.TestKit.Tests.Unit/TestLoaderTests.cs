@@ -1,0 +1,188 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Wolfgang.Etl.Abstractions;
+using Wolfgang.Etl.TestKit;
+using Xunit;
+
+namespace Wolfgang.Etl.TestKit.Tests.Unit;
+
+public class TestLoaderTests
+{
+    // ------------------------------------------------------------------
+    // collectItems: true — collection behaviour
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task LoadAsync_when_collectItems_is_true_GetCollectedItems_returns_all_items_in_order()
+    {
+        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3 });
+        var loader    = new TestLoader<int>(collectItems: true);
+
+        await loader.LoadAsync(extractor.ExtractAsync());
+
+        var items = loader.GetCollectedItems();
+
+        Assert.NotNull(items);
+        Assert.Equal
+        (
+            new[] { 1, 2, 3 },
+            items
+        );
+    }
+
+
+
+    [Fact]
+    public async Task LoadAsync_when_collectItems_is_true_and_source_is_empty_GetCollectedItems_returns_empty_list()
+    {
+        var extractor = new TestExtractor<int>(new List<int>());
+        var loader    = new TestLoader<int>(collectItems: true);
+
+        await loader.LoadAsync(extractor.ExtractAsync());
+
+        var items = loader.GetCollectedItems();
+
+        Assert.NotNull(items);
+        Assert.Empty(items);
+    }
+
+
+
+    [Fact]
+    public async Task LoadAsync_when_collectItems_is_true_second_run_replaces_first_run_results()
+    {
+        var loader = new TestLoader<int>(collectItems: true);
+
+        await loader.LoadAsync(new TestExtractor<int>(new List<int> { 1, 2, 3 }).ExtractAsync());
+        await loader.LoadAsync(new TestExtractor<int>(new List<int> { 7, 8 }).ExtractAsync());
+
+        var items = loader.GetCollectedItems();
+
+        Assert.NotNull(items);
+        Assert.Equal
+        (
+            new[] { 7, 8 },
+            items
+        );
+    }
+
+
+
+    [Fact]
+    public async Task GetCollectedItems_when_collectItems_is_true_returns_independent_snapshot_on_each_call()
+    {
+        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3 });
+        var loader    = new TestLoader<int>(collectItems: true);
+
+        await loader.LoadAsync(extractor.ExtractAsync());
+
+        var first  = loader.GetCollectedItems();
+        var second = loader.GetCollectedItems();
+
+        // Each call returns a new list — mutating one does not affect the other.
+        Assert.NotSame(first, second);
+        Assert.Equal(first, second);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // collectItems: false — null return
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task LoadAsync_when_collectItems_is_false_GetCollectedItems_returns_null()
+    {
+        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3 });
+        var loader    = new TestLoader<int>(collectItems: false);
+
+        await loader.LoadAsync(extractor.ExtractAsync());
+
+        Assert.Null(loader.GetCollectedItems());
+    }
+
+
+
+    [Fact]
+    public async Task LoadAsync_when_collectItems_is_false_still_enumerates_all_items()
+    {
+        // Verifies the loop runs even when not collecting — important for benchmarks.
+        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 });
+        var loader    = new TestLoader<int>(collectItems: false);
+
+        await loader.LoadAsync(extractor.ExtractAsync());
+
+        Assert.Equal(5, loader.CurrentItemCount);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // CurrentItemCount
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task LoadAsync_when_collectItems_is_true_increments_CurrentItemCount()
+    {
+        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3 });
+        var loader    = new TestLoader<int>(collectItems: true);
+
+        await loader.LoadAsync(extractor.ExtractAsync());
+
+        Assert.Equal(3, loader.CurrentItemCount);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // CreateProgressReport
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task CreateProgressReport_returns_Report_reflecting_CurrentItemCount()
+    {
+        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3 });
+        var loader = new ExposedTestLoader<int>(collectItems: false);
+
+        await loader.LoadAsync(extractor.ExtractAsync());
+
+        var report = loader.GetProgressReport();
+
+        Assert.Equal(3, report.CurrentCount);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // Full pipeline
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task Full_pipeline_extractor_transformer_loader_produces_correct_results()
+    {
+        var extractor   = new TestExtractor<int>(new List<int> { 10, 20, 30 });
+        var transformer = new TestTransformer<int>();
+        var loader      = new TestLoader<int>(collectItems: true);
+
+        await loader.LoadAsync(transformer.TransformAsync(extractor.ExtractAsync()));
+
+        var items = loader.GetCollectedItems();
+
+        Assert.NotNull(items);
+        Assert.Equal
+        (
+            new[] { 10, 20, 30 },
+            items
+        );
+        Assert.Equal(3, extractor.CurrentItemCount);
+        Assert.Equal(3, transformer.CurrentItemCount);
+        Assert.Equal(3, loader.CurrentItemCount);
+    }
+
+
+    private sealed class ExposedTestLoader<T>(bool collectItems) : TestLoader<T>(collectItems)
+    {
+        public Report GetProgressReport() => CreateProgressReport();
+    }
+}
