@@ -14,7 +14,7 @@ An Extractor, Transformer and Loader designed to be used in testing libraries bu
 dotnet add package Wolfgang.Etl.TestKit
 ```
 
-**NuGet Package:** Coming soon to NuGet.org
+**NuGet Package:** [Wolfgang.Etl.TestKit](https://www.nuget.org/packages/Wolfgang.Etl.TestKit)
 
 ---
 
@@ -35,16 +35,16 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 
 ## 🚀 Quick Start
 
-{{QUICK_START_EXAMPLE}}
+
 
 ---
 
 ## ✨ Features
 
-{{FEATURES_TABLE}}
+
 
 **Examples:**
-{{FEATURE_EXAMPLES}}
+
 
 ---
 
@@ -177,5 +177,5 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
 
 ## 🙏 Acknowledgments
 
-{{ACKNOWLEDGMENTS}}
+Built with Claude Sonet
 
