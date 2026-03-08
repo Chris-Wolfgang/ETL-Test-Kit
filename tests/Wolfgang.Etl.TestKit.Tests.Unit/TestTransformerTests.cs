@@ -83,21 +83,21 @@ public class TestTransformerTests
     // ------------------------------------------------------------------
 
     [Fact]
-    public async Task CreateProgressReport_returns_Report_with_current_item_count()
+    public async Task CreateProgressReport_returns_Report_reflecting_CurrentItemCount()
     {
-        var extractor   = new TestExtractor<int>(new List<int> { 1, 2, 3 });
-        var transformer = new TestTransformer<int>();
-        Report? report  = null;
+        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3 });
+        var transformer = new ExposedTestTransformer<int>();
 
-        await transformer
-            .TransformAsync
-            (
-                extractor.ExtractAsync(),
-                new Progress<Report>(r => report = r)
-            )
-            .ToListAsync();
+        await transformer.TransformAsync(extractor.ExtractAsync()).ToListAsync();
 
-        Assert.NotNull(report);
-        Assert.True(report!.CurrentCount >= 0);
+        var report = transformer.GetProgressReport();
+
+        Assert.Equal(3, report.CurrentCount);
+    }
+
+
+    private sealed class ExposedTestTransformer<T> : TestTransformer<T>
+    {
+        public Report GetProgressReport() => CreateProgressReport();
     }
 }
