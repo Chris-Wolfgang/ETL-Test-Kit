@@ -1,0 +1,184 @@
+{
+  "source_base_path": "D:/a/ETL-Test-Kit/ETL-Test-Kit/docfx_project",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.TestExtractor-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.TestExtractor-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.TestExtractor<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.TestExtractor-1.yml\" sourcestartlinenumber=\"1\">An in-memory extractor for use in tests, examples, and benchmarks.\nYields items from either an <xref href=\"System.Collections.Generic.IEnumerable%601\" data-throw-if-not-resolved=\"false\"></xref> or an\n<xref href=\"System.Collections.Generic.IEnumerator%601\" data-throw-if-not-resolved=\"false\"></xref>, depending on which constructor is used.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.TestLoader-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.TestLoader-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.TestLoader<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.TestLoader-1.yml\" sourcestartlinenumber=\"1\">A simple in-memory loader for use in tests, examples, and benchmarks.\nIterates all items from the source stream and, when constructed with\n<code>collectItems: true</code>, makes them available via <xref href=\"Wolfgang.Etl.TestKit.TestLoader%601.GetCollectedItems\" data-throw-if-not-resolved=\"false\"></xref>\nafter the load completes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.TestTransformer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.TestTransformer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.TestTransformer<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.TestTransformer-1.yml\" sourcestartlinenumber=\"1\">A pass-through transformer for use in tests, examples, and benchmarks.\nReturns each item unchanged, with no transformation applied.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit",
+      "Summary": null
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/getting-started.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/introduction.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/introduction.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "logo.svg",
+      "output": {
+        "resource": {
+          "relative_path": "logo.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
