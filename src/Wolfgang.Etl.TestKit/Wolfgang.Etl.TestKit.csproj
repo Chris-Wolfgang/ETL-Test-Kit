@@ -22,12 +22,12 @@
     <SignAssembly>False</SignAssembly>
     <PackageTags>ETL;Extract-Transform-Load;TestKit;Testing;Benchmarks</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <ApplicationIcon>testkit_icon.ico</ApplicationIcon>
+    <ApplicationIcon>..\..\assets\testkit_icon.ico</ApplicationIcon>
     <PackageIcon>testkit_icon_128.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="testkit_icon.ico" Pack="false" CopyToOutputDirectory="Never" />
+    <None Include="..\..\assets\testkit_icon.ico" Pack="false" CopyToOutputDirectory="Never" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,6 +51,7 @@
 
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.Memory" Version="10.0.4" />
     <PackageReference Include="Wolfgang.Etl.Abstractions" Version="0.9.7" />
     <PackageReference Include="System.Linq.Async" Version="7.0.0" />
   </ItemGroup>

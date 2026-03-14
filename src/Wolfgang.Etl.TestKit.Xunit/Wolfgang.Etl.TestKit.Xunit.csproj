@@ -23,16 +23,16 @@
     <IsTestProject>false</IsTestProject>
     <PackageTags>ETL;Extract-Transform-Load;TestKit;Testing;xUnit;ContractTests</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <ApplicationIcon>..\..\assets\testkit_icon.ico</ApplicationIcon>
-    <PackageIcon>testkit_icon_128.png</PackageIcon>
+    <ApplicationIcon>..\..\assets\testkit_xunit_icon.ico</ApplicationIcon>
+    <PackageIcon>testkit_xunit_icon_128.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\assets\testkit_icon.ico" Pack="false" CopyToOutputDirectory="Never" />
+    <None Include="..\..\assets\testkit_xunit_icon.ico" Pack="false" CopyToOutputDirectory="Never" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\assets\testkit_icon_128.png">
+    <None Include="..\..\assets\testkit_xunit_icon_128.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
