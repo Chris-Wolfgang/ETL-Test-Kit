@@ -38,8 +38,8 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 ///   <item><description>Progress callbacks fire when the timer fires.</description></item>
 /// </list>
 /// <para>
-/// You are responsible for implementing <see cref="MaximumItemCount"/> and
-/// <see cref="SkipItemCount"/> behaviour in your <c>TransformWorkerAsync</c> override.
+/// You are responsible for implementing <c>MaximumItemCount</c> and
+/// <c>SkipItemCount</c> behaviour in your <c>TransformWorkerAsync</c> override.
 /// </para>
 /// </remarks>
 /// <example>
@@ -254,7 +254,11 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
                 received.Add(item);
                 if (received.Count == 1)
                 {
+                    #if NET8_0_OR_GREATER
+                    await cts.CancelAsync();
+                    #else
                     cts.Cancel();
+                    #endif
                 }
             }
         });
@@ -273,7 +277,11 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     {
         var sut = CreateSut();
         using var cts = new CancellationTokenSource();
+#if NET8_0_OR_GREATER
+        await cts.CancelAsync();
+#else
         cts.Cancel();
+#endif
 
         var received = new List<TItem>();
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
@@ -509,7 +517,11 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
                 received.Add(item);
                 if (received.Count == 1)
                 {
+                    #if NET8_0_OR_GREATER
+                    await cts.CancelAsync();
+                    #else
                     cts.Cancel();
+                    #endif
                 }
             }
         });

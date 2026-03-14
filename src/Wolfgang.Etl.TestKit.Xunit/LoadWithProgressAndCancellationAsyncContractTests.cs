@@ -132,14 +132,24 @@ public abstract class LoadWithProgressAndCancellationAsyncContractTests<TSut, TI
 
         await Assert.ThrowsAsync<OperationCanceledException>(async () =>
         {
-            await sut.LoadAsync(
-                source.ToAsyncEnumerable().Select(item =>
+            await sut.LoadAsync(CancellingSequenceAsync(), cts.Token);
+
+            async IAsyncEnumerable<TItem> CancellingSequenceAsync()
+            {
+                foreach (var item in source)
                 {
                     itemsLoaded++;
-                    if (itemsLoaded == 1) cts.Cancel();
-                    return item;
-                }),
-                cts.Token);
+                    if (itemsLoaded == 1)
+                    {
+#if NET8_0_OR_GREATER
+                        await cts.CancelAsync();
+#else
+                        cts.Cancel();
+#endif
+                    }
+                    yield return item;
+                }
+            }
         });
 
         Assert.Equal(1, itemsLoaded);
@@ -153,13 +163,17 @@ public abstract class LoadWithProgressAndCancellationAsyncContractTests<TSut, TI
     /// already-cancelled token.
     /// </summary>
     [Fact]
-    public Task LoadAsync_with_already_cancelled_token_throws_OperationCanceledException()
+    public async Task LoadAsync_with_already_cancelled_token_throws_OperationCanceledException()
     {
         var sut = CreateSut();
         using var cts = new CancellationTokenSource();
+#if NET8_0_OR_GREATER
+        await cts.CancelAsync();
+#else
         cts.Cancel();
+#endif
 
-        return Assert.ThrowsAnyAsync<OperationCanceledException>(() => sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), cts.Token));
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), cts.Token));
     }
 
 
@@ -320,15 +334,24 @@ public abstract class LoadWithProgressAndCancellationAsyncContractTests<TSut, TI
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await sut.LoadAsync(
-                source.ToAsyncEnumerable().Select(item =>
+            await sut.LoadAsync(CancellingSequenceAsync(), progress, cts.Token);
+
+            async IAsyncEnumerable<TItem> CancellingSequenceAsync()
+            {
+                foreach (var item in source)
                 {
                     itemsLoaded++;
-                    if (itemsLoaded == 1) cts.Cancel();
-                    return item;
-                }),
-                progress,
-                cts.Token);
+                    if (itemsLoaded == 1)
+                    {
+#if NET8_0_OR_GREATER
+                        await cts.CancelAsync();
+#else
+                        cts.Cancel();
+#endif
+                    }
+                    yield return item;
+                }
+            }
         });
 
         Assert.Equal(1, itemsLoaded);

@@ -143,7 +143,11 @@ public abstract class ExtractWithProgressAndCancellationAsyncContractTests<TSut,
                 received.Add(item);
                 if (received.Count == 1)
                 {
+                    #if NET8_0_OR_GREATER
+                    await cts.CancelAsync();
+                    #else
                     cts.Cancel();
+                    #endif
                 }
             }
         });
@@ -163,7 +167,11 @@ public abstract class ExtractWithProgressAndCancellationAsyncContractTests<TSut,
     {
         var sut = CreateSut();
         using var cts = new CancellationTokenSource();
+#if NET8_0_OR_GREATER
+        await cts.CancelAsync();
+#else
         cts.Cancel();
+#endif
 
         var received = new List<TItem>();
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
@@ -349,7 +357,11 @@ public abstract class ExtractWithProgressAndCancellationAsyncContractTests<TSut,
                 received.Add(item);
                 if (received.Count == 1)
                 {
+                    #if NET8_0_OR_GREATER
+                    await cts.CancelAsync();
+                    #else
                     cts.Cancel();
+                    #endif
                 }
             }
         });

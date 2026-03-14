@@ -35,7 +35,7 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 ///   <item><description><c>CreateProgressReport</c> reflects <c>CurrentItemCount</c>.</description></item>
 /// </list>
 /// <para>
-/// You are responsible for implementing <see cref="MaximumItemCount"/> behaviour in
+/// You are responsible for implementing <c>MaximumItemCount</c> behaviour in
 /// your <c>ExtractWorkerAsync</c> override. The contract tests for
 /// <see cref="ExtractorBase{TSource, TProgress}.MaximumItemCount"/> will only pass if
 /// your extractor checks that property and stops yielding when the limit is reached.
@@ -103,14 +103,6 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// </example>
     protected abstract TSut CreateSutWithTimer(IProgressTimer timer);
 
-    /// <summary>
-    /// Returns the expected items that <c>ExtractAsync</c> should yield in full.
-    /// </summary>
-    /// <returns>
-    /// A non-empty <see cref="IReadOnlyList{T}"/> containing at least three items, in the
-    /// order they are expected to be yielded. The same sequence must be returned each time
-    /// this method is called within a single test class instance.
-    /// </returns>
 
 
 
@@ -239,7 +231,11 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
                 received.Add(item);
                 if (received.Count == 1)
                 {
+                    #if NET8_0_OR_GREATER
+                    await cts.CancelAsync();
+                    #else
                     cts.Cancel();
+                    #endif
                 }
             }
         });
@@ -258,7 +254,11 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     {
         var sut = CreateSut();
         using var cts = new CancellationTokenSource();
+#if NET8_0_OR_GREATER
+        await cts.CancelAsync();
+#else
         cts.Cancel();
+#endif
 
         var received = new List<TItem>();
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
@@ -463,7 +463,11 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
                 received.Add(item);
                 if (received.Count == 1)
                 {
+                    #if NET8_0_OR_GREATER
+                    await cts.CancelAsync();
+                    #else
                     cts.Cancel();
+                    #endif
                 }
             }
         });

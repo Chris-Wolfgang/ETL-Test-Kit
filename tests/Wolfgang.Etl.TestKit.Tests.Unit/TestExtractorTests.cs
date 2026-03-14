@@ -313,7 +313,7 @@ public class TestExtractorTests
 
         var report = extractor.GetProgressReport();
 
-        Assert.Equal(3, report.CurrentCount);
+        Assert.Equal(3, report.CurrentItemCount);
     }
 
 
@@ -420,7 +420,7 @@ public class TestExtractorTests
 
 
 
-    private sealed class ExposedTestExtractor<T>(IEnumerable<T> items) : TestExtractor<T>(items)
+    private sealed class ExposedTestExtractor<T>(IEnumerable<T> items) : TestExtractor<T>(items) where T : notnull
     {
         public Report GetProgressReport() => CreateProgressReport();
     }

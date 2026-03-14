@@ -36,8 +36,8 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 ///   <item><description>Progress callbacks fire when the timer fires.</description></item>
 /// </list>
 /// <para>
-/// You are responsible for implementing <see cref="MaximumItemCount"/> and
-/// <see cref="SkipItemCount"/> behaviour in your <c>LoadWorkerAsync</c> override.
+/// You are responsible for implementing <c>MaximumItemCount</c> and
+/// <c>SkipItemCount</c> behaviour in your <c>LoadWorkerAsync</c> override.
 /// </para>
 /// </remarks>
 /// <example>
@@ -212,13 +212,17 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="OperationCanceledException"/> when the token is already cancelled.
     /// </summary>
     [Fact]
-    public Task LoadAsync_with_cancelled_token_throws_OperationCanceledException()
+    public async Task LoadAsync_with_cancelled_token_throws_OperationCanceledException()
     {
         var sut = CreateSut();
         using var cts = new CancellationTokenSource();
+#if NET8_0_OR_GREATER
+        await cts.CancelAsync();
+#else
         cts.Cancel();
+#endif
 
-        return Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
             sut.LoadAsync(CreateInputItems(), cts.Token));
     }
 
@@ -241,14 +245,24 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await sut.LoadAsync(
-                source.ToAsyncEnumerable().Select(item =>
+            await sut.LoadAsync(CancellingSequenceAsync(), cts.Token);
+
+            async IAsyncEnumerable<TItem> CancellingSequenceAsync()
+            {
+                foreach (var item in source)
                 {
                     itemsLoaded++;
-                    if (itemsLoaded == 1) cts.Cancel();
-                    return item;
-                }),
-                cts.Token);
+                    if (itemsLoaded == 1)
+                    {
+#if NET8_0_OR_GREATER
+                        await cts.CancelAsync();
+#else
+                        cts.Cancel();
+#endif
+                    }
+                    yield return item;
+                }
+            }
         });
 
         Assert.Equal(1, itemsLoaded);
@@ -440,14 +454,18 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="OperationCanceledException"/> when the token is already cancelled.
     /// </summary>
     [Fact]
-    public Task LoadAsync_with_progress_and_cancelled_token_throws_OperationCanceledException()
+    public async Task LoadAsync_with_progress_and_cancelled_token_throws_OperationCanceledException()
     {
         var sut = CreateSut();
         var progress = new SynchronousProgress<TProgress>(_ => { });
         using var cts = new CancellationTokenSource();
+#if NET8_0_OR_GREATER
+        await cts.CancelAsync();
+#else
         cts.Cancel();
+#endif
 
-        return Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
             sut.LoadAsync(CreateInputItems(), progress, cts.Token));
     }
 

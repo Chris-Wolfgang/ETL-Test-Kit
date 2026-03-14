@@ -157,12 +157,12 @@ public class TestTransformerTests
 
         var report = transformer.GetProgressReport();
 
-        Assert.Equal(3, report.CurrentCount);
+        Assert.Equal(3, report.CurrentItemCount);
     }
 
 
 
-    private sealed class ExposedTestTransformer<T> : TestTransformer<T>
+    private sealed class ExposedTestTransformer<T> : TestTransformer<T> where T : notnull
     {
         public Report GetProgressReport() => CreateProgressReport();
     }

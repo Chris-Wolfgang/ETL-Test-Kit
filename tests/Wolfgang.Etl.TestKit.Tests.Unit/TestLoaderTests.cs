@@ -194,7 +194,7 @@ public class TestLoaderTests
 
         var report = loader.GetProgressReport();
 
-        Assert.Equal(3, report.CurrentCount);
+        Assert.Equal(3, report.CurrentItemCount);
     }
 
 
@@ -269,7 +269,7 @@ public class TestLoaderTests
 
 
 
-    private sealed class ExposedTestLoader<T>(bool collectItems) : TestLoader<T>(collectItems)
+    private sealed class ExposedTestLoader<T>(bool collectItems) : TestLoader<T>(collectItems) where T : notnull
     {
         public Report GetProgressReport() => CreateProgressReport();
     }
