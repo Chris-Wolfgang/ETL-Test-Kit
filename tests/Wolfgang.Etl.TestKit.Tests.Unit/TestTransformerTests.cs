@@ -4,12 +4,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
 using Wolfgang.Etl.TestKit;
+using Wolfgang.Etl.TestKit.Xunit;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Tests.Unit;
 
 public class TestTransformerTests
 {
+    // ------------------------------------------------------------------
+    // Constructor — argument validation
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public void Constructor_with_timer_when_timer_is_null_throws_ArgumentNullException()
+    {
+        Assert.Throws<ArgumentNullException>
+        (
+            () => new TestTransformerWithTimer(null!)
+        );
+    }
+
+
+
     // ------------------------------------------------------------------
     // Pass-through behaviour
     // ------------------------------------------------------------------
@@ -45,6 +61,19 @@ public class TestTransformerTests
 
 
     [Fact]
+    public async Task TransformAsync_with_single_item_source_yields_that_item_unchanged()
+    {
+        var extractor   = new TestExtractor<int>(new List<int> { 42 });
+        var transformer = new TestTransformer<int>();
+
+        var results = await transformer.TransformAsync(extractor.ExtractAsync()).ToListAsync();
+
+        Assert.Equal(new[] { 42 }, results);
+    }
+
+
+
+    [Fact]
     public async Task TransformAsync_with_reference_type_yields_same_references()
     {
         // Verifies pass-through — no copying or wrapping of reference types.
@@ -57,6 +86,42 @@ public class TestTransformerTests
 
         Assert.Same(a, results[0]);
         Assert.Same(b, results[1]);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // SkipItemCount
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task TransformAsync_skips_items_up_to_SkipItemCount()
+    {
+        var extractor   = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 });
+        var transformer = new TestTransformer<int>();
+        transformer.SkipItemCount = 2;
+
+        var results = await transformer.TransformAsync(extractor.ExtractAsync()).ToListAsync();
+
+        Assert.Equal(new[] { 3, 4, 5 }, results);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // MaximumItemCount
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task TransformAsync_stops_at_MaximumItemCount()
+    {
+        var extractor   = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 });
+        var transformer = new TestTransformer<int>();
+        transformer.MaximumItemCount = 2;
+
+        var results = await transformer.TransformAsync(extractor.ExtractAsync()).ToListAsync();
+
+        Assert.Equal(new[] { 1, 2 }, results);
     }
 
 
@@ -96,8 +161,16 @@ public class TestTransformerTests
     }
 
 
+
     private sealed class ExposedTestTransformer<T> : TestTransformer<T>
     {
         public Report GetProgressReport() => CreateProgressReport();
+    }
+
+
+
+    private sealed class TestTransformerWithTimer : TestTransformer<int>
+    {
+        public TestTransformerWithTimer(IProgressTimer timer) : base(timer) { }
     }
 }

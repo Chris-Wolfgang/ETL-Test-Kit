@@ -25,6 +25,13 @@ namespace Wolfgang.Etl.TestKit;
 /// without materializing all items in memory at once. The caller owns the enumerator's
 /// lifetime — the extractor does not dispose it.
 /// </para>
+/// <para>
+/// Set <see cref="ExtractorBase{TSource,TProgress}.SkipItemCount"/> to skip the first N
+/// items before yielding. Set
+/// <see cref="ExtractorBase{TSource,TProgress}.MaximumItemCount"/> to stop after yielding
+/// that many items. Both default to their base-class values (0 and
+/// <see cref="int.MaxValue"/> respectively).
+/// </para>
 /// </remarks>
 /// <example>
 /// <code>
@@ -43,6 +50,7 @@ namespace Wolfgang.Etl.TestKit;
 /// </code>
 /// </example>
 public class TestExtractor<T> : ExtractorBase<T, Report>
+    where T : notnull
 {
     // ------------------------------------------------------------------
     // Fields
@@ -50,6 +58,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
     private readonly IEnumerable<T>? _enumerable;
     private readonly IEnumerator<T>? _enumerator;
+    private readonly IProgressTimer? _progressTimer;
 
 
 
@@ -95,6 +104,51 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
 
 
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> that yields items from
+    /// the specified <see cref="IEnumerable{T}"/> and uses the supplied
+    /// <see cref="IProgressTimer"/> to drive progress callbacks.
+    /// </summary>
+    /// <param name="items">The sequence of items to extract.</param>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="items"/> or <paramref name="timer"/> is <see langword="null"/>.
+    /// </exception>
+    protected TestExtractor(IEnumerable<T> items, IProgressTimer timer)
+    {
+        _enumerable    = items ?? throw new ArgumentNullException(nameof(items));
+        _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> that yields items from
+    /// the specified <see cref="IEnumerator{T}"/> and uses the supplied
+    /// <see cref="IProgressTimer"/> to drive progress callbacks.
+    /// </summary>
+    /// <param name="enumerator">
+    /// The enumerator to draw items from. The caller is responsible for the
+    /// enumerator's lifetime — the extractor does not dispose it.
+    /// </param>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="enumerator"/> or <paramref name="timer"/> is <see langword="null"/>.
+    /// </exception>
+    protected TestExtractor(IEnumerator<T> enumerator, IProgressTimer timer)
+    {
+        _enumerator    = enumerator ?? throw new ArgumentNullException(nameof(enumerator));
+        _progressTimer = timer      ?? throw new ArgumentNullException(nameof(timer));
+    }
+
+
+
     // ------------------------------------------------------------------
     // ExtractorBase overrides
     // ------------------------------------------------------------------
@@ -110,24 +164,43 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
         [EnumeratorCancellation] CancellationToken token
     )
     {
-        if (_enumerable != null)
+        _progressTimer?.Start(ReportingInterval);
+
+        token.ThrowIfCancellationRequested();
+
+        var enumerator     = (_enumerator ?? _enumerable!.GetEnumerator())!;
+        var ownsEnumerator = _enumerator == null;
+
+        try
         {
-            foreach (var item in _enumerable)
+            while (enumerator.MoveNext())
             {
                 token.ThrowIfCancellationRequested();
+
+                if (CurrentSkippedItemCount < SkipItemCount)
+                {
+                    IncrementCurrentSkippedItemCount();
+                    continue;
+                }
+
+                if (CurrentItemCount >= MaximumItemCount)
+                {
+                    yield break;
+                }
+
                 IncrementCurrentItemCount();
-                yield return item;
+                yield return enumerator.Current;
             }
         }
-        else
+        finally
         {
-            while (_enumerator!.MoveNext())
+            _progressTimer?.StopTimer();
+            if (ownsEnumerator)
             {
-                token.ThrowIfCancellationRequested();
-                IncrementCurrentItemCount();
-                yield return _enumerator.Current;
+                enumerator.Dispose();
             }
         }
+
         await Task.Yield(); // satisfies async method contract without causing extra allocations
     }
 }

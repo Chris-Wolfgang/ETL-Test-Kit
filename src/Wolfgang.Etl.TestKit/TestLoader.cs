@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -27,6 +28,12 @@ namespace Wolfgang.Etl.TestKit;
 /// mid-load to inspect items received so far, or post-load for the full result.
 /// Each new <c>LoadAsync</c> call clears the buffer before it begins.
 /// </para>
+/// <para>
+/// Set <see cref="LoaderBase{TDestination,TProgress}.SkipItemCount"/> to skip the first
+/// N items before loading. Set
+/// <see cref="LoaderBase{TDestination,TProgress}.MaximumItemCount"/> to stop after
+/// loading that many items.
+/// </para>
 /// </remarks>
 /// <example>
 /// <code>
@@ -36,10 +43,6 @@ namespace Wolfgang.Etl.TestKit;
 /// var results = loader.GetCollectedItems();
 /// Assert.Equal(expected, results);
 ///
-/// // Second run — buffer is cleared at the start of each LoadAsync:
-/// await loader.LoadAsync(extractor.ExtractAsync());
-/// var results2 = loader.GetCollectedItems(); // contains only the second run's items
-///
 /// // Benchmark scenario — measure throughput without storing items:
 /// var loader = new TestLoader&lt;MyRecord&gt;(collectItems: false);
 /// await loader.LoadAsync(extractor.ExtractAsync());
@@ -47,6 +50,7 @@ namespace Wolfgang.Etl.TestKit;
 /// </code>
 /// </example>
 public class TestLoader<T> : LoaderBase<T, Report>
+    where T : notnull
 {
     // ------------------------------------------------------------------
     // Fields
@@ -54,11 +58,12 @@ public class TestLoader<T> : LoaderBase<T, Report>
 
     private readonly bool _collectItems;
     private readonly List<T> _buffer = new List<T>();
+    private readonly IProgressTimer? _progressTimer;
 
 
 
     // ------------------------------------------------------------------
-    // Constructor
+    // Constructors
     // ------------------------------------------------------------------
 
     /// <summary>
@@ -73,6 +78,29 @@ public class TestLoader<T> : LoaderBase<T, Report>
     public TestLoader(bool collectItems)
     {
         _collectItems = collectItems;
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestLoader{T}"/> with the supplied
+    /// <see cref="IProgressTimer"/> to drive progress callbacks.
+    /// </summary>
+    /// <param name="collectItems">
+    /// When <see langword="true"/>, loaded items are accumulated and accessible
+    /// via <see cref="GetCollectedItems"/>.
+    /// </param>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="timer"/> is <see langword="null"/>.
+    /// </exception>
+    protected TestLoader(bool collectItems, IProgressTimer timer)
+    {
+        _collectItems  = collectItems;
+        _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
     }
 
 
@@ -95,14 +123,6 @@ public class TestLoader<T> : LoaderBase<T, Report>
     /// A <see cref="IReadOnlyList{T}"/> containing a point-in-time copy of the
     /// collected items, or <see langword="null"/> when collection is disabled.
     /// </returns>
-    /// <example>
-    /// <code>
-    /// await loader.LoadAsync(extractor.ExtractAsync());
-    /// var items = loader.GetCollectedItems();
-    /// Assert.NotNull(items);
-    /// Assert.Equal(3, items.Count);
-    /// </code>
-    /// </example>
     public IReadOnlyList<T>? GetCollectedItems() =>
         _collectItems
             ? _buffer.ToList()
@@ -125,16 +145,40 @@ public class TestLoader<T> : LoaderBase<T, Report>
         IAsyncEnumerable<T> items,
         CancellationToken token)
     {
+        _progressTimer?.Start(ReportingInterval);
+
+        token.ThrowIfCancellationRequested();
+
         _buffer.Clear();
 
-        await foreach (var item in items.WithCancellation(token).ConfigureAwait(false))
+        try
         {
-            if (_collectItems)
+            await foreach (var item in items.WithCancellation(token).ConfigureAwait(false))
             {
-                _buffer.Add(item);
-            }
+                token.ThrowIfCancellationRequested();
 
-            IncrementCurrentItemCount();
+                if (CurrentSkippedItemCount < SkipItemCount)
+                {
+                    IncrementCurrentSkippedItemCount();
+                    continue;
+                }
+
+                if (CurrentItemCount >= MaximumItemCount)
+                {
+                    break;
+                }
+
+                if (_collectItems)
+                {
+                    _buffer.Add(item);
+                }
+
+                IncrementCurrentItemCount();
+            }
+        }
+        finally
+        {
+            _progressTimer?.StopTimer();
         }
     }
 }
