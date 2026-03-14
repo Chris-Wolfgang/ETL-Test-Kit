@@ -1,0 +1,11 @@
+<Project>
+
+  <!--
+    Suppress CA1707 (identifiers should not contain underscores) for all test projects.
+    Test method names intentionally use underscores by xUnit convention.
+  -->
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);CA1707</NoWarn>
+  </PropertyGroup>
+
+</Project>

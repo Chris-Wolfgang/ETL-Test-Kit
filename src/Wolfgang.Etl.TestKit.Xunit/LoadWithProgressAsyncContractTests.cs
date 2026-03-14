@@ -68,14 +68,11 @@ public abstract class LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>
     /// throws <see cref="ArgumentNullException"/> when <c>progress</c> is <see langword="null"/>.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_null_progress_throws_ArgumentNullException()
+    public Task LoadAsync_with_null_progress_throws_ArgumentNullException()
     {
         var sut = CreateSut();
 
-        await Assert.ThrowsAsync<ArgumentNullException>(async () =>
-        {
-            await sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), (IProgress<TProgress>)null!);
-        });
+        return Assert.ThrowsAsync<ArgumentNullException>(() => sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), (IProgress<TProgress>)null!));
     }
 
 
@@ -85,12 +82,12 @@ public abstract class LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>
     /// completes without throwing when supplied valid arguments.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_progress_completes_without_throwing()
+    public Task LoadAsync_with_progress_completes_without_throwing()
     {
         var sut = CreateSut();
         var progress = new Progress<TProgress>();
 
-        await sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), progress);
+        return sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), progress);
     }
 
 

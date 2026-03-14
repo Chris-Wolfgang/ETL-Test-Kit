@@ -109,11 +109,11 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// when <c>items</c> is <see langword="null"/>.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_null_items_throws_ArgumentNullException()
+    public Task LoadAsync_with_null_items_throws_ArgumentNullException()
     {
         var sut = CreateSut();
 
-        await Assert.ThrowsAsync<ArgumentNullException>(() =>
+        return Assert.ThrowsAsync<ArgumentNullException>(() =>
             sut.LoadAsync((IAsyncEnumerable<TItem>)null!));
     }
 
@@ -122,11 +122,11 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// items are supplied.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_completes_successfully()
+    public Task LoadAsync_completes_successfully()
     {
         var sut = CreateSut();
 
-        await sut.LoadAsync(CreateInputItems());
+        return sut.LoadAsync(CreateInputItems());
     }
 
 
@@ -136,11 +136,11 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// contains no items.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_empty_source_completes_without_error()
+    public Task LoadAsync_with_empty_source_completes_without_error()
     {
         var sut = CreateSutWithNoItems();
 
-        await sut.LoadAsync(AsyncEnumerable.Empty<TItem>());
+        return sut.LoadAsync(AsyncEnumerable.Empty<TItem>());
     }
 
 
@@ -171,11 +171,11 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="ArgumentNullException"/> when <c>items</c> is <see langword="null"/>.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_token_and_null_items_throws_ArgumentNullException()
+    public Task LoadAsync_with_token_and_null_items_throws_ArgumentNullException()
     {
         var sut = CreateSut();
 
-        await Assert.ThrowsAsync<ArgumentNullException>(() =>
+        return Assert.ThrowsAsync<ArgumentNullException>(() =>
             sut.LoadAsync((IAsyncEnumerable<TItem>)null!, CancellationToken.None));
     }
 
@@ -184,11 +184,11 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="CancellationToken.None"/>.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_token_completes_successfully()
+    public Task LoadAsync_with_token_completes_successfully()
     {
         var sut = CreateSut();
 
-        await sut.LoadAsync(CreateInputItems(), CancellationToken.None);
+        return sut.LoadAsync(CreateInputItems(), CancellationToken.None);
     }
 
 
@@ -198,11 +198,11 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// when the source contains no items.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_token_and_empty_source_completes_without_error()
+    public Task LoadAsync_with_token_and_empty_source_completes_without_error()
     {
         var sut = CreateSutWithNoItems();
 
-        await sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), CancellationToken.None);
+        return sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), CancellationToken.None);
     }
 
 
@@ -212,13 +212,13 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="OperationCanceledException"/> when the token is already cancelled.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_cancelled_token_throws_OperationCanceledException()
+    public Task LoadAsync_with_cancelled_token_throws_OperationCanceledException()
     {
         var sut = CreateSut();
         using var cts = new CancellationTokenSource();
         cts.Cancel();
 
-        await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+        return Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
             sut.LoadAsync(CreateInputItems(), cts.Token));
     }
 
@@ -265,12 +265,12 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="ArgumentNullException"/> when <c>items</c> is <see langword="null"/>.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_progress_and_null_items_throws_ArgumentNullException()
+    public Task LoadAsync_with_progress_and_null_items_throws_ArgumentNullException()
     {
         var sut = CreateSut();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        await Assert.ThrowsAsync<ArgumentNullException>(() =>
+        return Assert.ThrowsAsync<ArgumentNullException>(() =>
             sut.LoadAsync((IAsyncEnumerable<TItem>)null!, progress));
     }
 
@@ -279,11 +279,11 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="ArgumentNullException"/> when <c>progress</c> is <see langword="null"/>.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_null_progress_throws_ArgumentNullException()
+    public Task LoadAsync_with_null_progress_throws_ArgumentNullException()
     {
         var sut = CreateSut();
 
-        await Assert.ThrowsAsync<ArgumentNullException>(() =>
+        return Assert.ThrowsAsync<ArgumentNullException>(() =>
             sut.LoadAsync(CreateInputItems(), (IProgress<TProgress>)null!));
     }
 
@@ -292,12 +292,12 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// are supplied.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_progress_completes_successfully()
+    public Task LoadAsync_with_progress_completes_successfully()
     {
         var sut = CreateSut();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        await sut.LoadAsync(CreateInputItems(), progress);
+        return sut.LoadAsync(CreateInputItems(), progress);
     }
 
 
@@ -307,12 +307,12 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// the source contains no items.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_progress_and_empty_source_completes_without_error()
+    public Task LoadAsync_with_progress_and_empty_source_completes_without_error()
     {
         var sut = CreateSutWithNoItems();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        await sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), progress);
+        return sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), progress);
     }
 
 
@@ -383,12 +383,12 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="ArgumentNullException"/> when <c>items</c> is <see langword="null"/>.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_progress_and_token_and_null_items_throws_ArgumentNullException()
+    public Task LoadAsync_with_progress_and_token_and_null_items_throws_ArgumentNullException()
     {
         var sut = CreateSut();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        await Assert.ThrowsAsync<ArgumentNullException>(() =>
+        return Assert.ThrowsAsync<ArgumentNullException>(() =>
             sut.LoadAsync((IAsyncEnumerable<TItem>)null!, progress, CancellationToken.None));
     }
 
@@ -397,11 +397,11 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="ArgumentNullException"/> when <c>progress</c> is <see langword="null"/>.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_progress_and_token_and_null_progress_throws_ArgumentNullException()
+    public Task LoadAsync_with_progress_and_token_and_null_progress_throws_ArgumentNullException()
     {
         var sut = CreateSut();
 
-        await Assert.ThrowsAsync<ArgumentNullException>(() =>
+        return Assert.ThrowsAsync<ArgumentNullException>(() =>
             sut.LoadAsync(CreateInputItems(), (IProgress<TProgress>)null!, CancellationToken.None));
     }
 
@@ -410,12 +410,12 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// when valid arguments are supplied.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_progress_and_token_completes_successfully()
+    public Task LoadAsync_with_progress_and_token_completes_successfully()
     {
         var sut = CreateSut();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        await sut.LoadAsync(CreateInputItems(), progress, CancellationToken.None);
+        return sut.LoadAsync(CreateInputItems(), progress, CancellationToken.None);
     }
 
 
@@ -425,12 +425,12 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// without error when the source contains no items.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_progress_and_token_and_empty_source_completes_without_error()
+    public Task LoadAsync_with_progress_and_token_and_empty_source_completes_without_error()
     {
         var sut = CreateSutWithNoItems();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        await sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), progress, CancellationToken.None);
+        return sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), progress, CancellationToken.None);
     }
 
 
@@ -440,14 +440,14 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="OperationCanceledException"/> when the token is already cancelled.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_progress_and_cancelled_token_throws_OperationCanceledException()
+    public Task LoadAsync_with_progress_and_cancelled_token_throws_OperationCanceledException()
     {
         var sut = CreateSut();
         var progress = new SynchronousProgress<TProgress>(_ => { });
         using var cts = new CancellationTokenSource();
         cts.Cancel();
 
-        await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+        return Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
             sut.LoadAsync(CreateInputItems(), progress, cts.Token));
     }
 

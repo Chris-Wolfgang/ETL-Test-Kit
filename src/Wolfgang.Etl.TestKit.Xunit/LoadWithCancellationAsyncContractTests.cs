@@ -70,11 +70,11 @@ public abstract class LoadWithCancellationAsyncContractTests<TSut, TItem>
     /// completes without throwing when passed <see cref="CancellationToken.None"/>.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_cancellation_token_completes_without_throwing()
+    public Task LoadAsync_with_cancellation_token_completes_without_throwing()
     {
         var sut = CreateSut();
 
-        await sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), CancellationToken.None);
+        return sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), CancellationToken.None);
     }
 
 
@@ -117,15 +117,12 @@ public abstract class LoadWithCancellationAsyncContractTests<TSut, TItem>
     /// already-cancelled token.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_already_cancelled_token_throws_OperationCanceledException()
+    public Task LoadAsync_with_already_cancelled_token_throws_OperationCanceledException()
     {
         var sut = CreateSut();
         using var cts = new CancellationTokenSource();
         cts.Cancel();
 
-        await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
-        {
-            await sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), cts.Token);
-        });
+        return Assert.ThrowsAnyAsync<OperationCanceledException>(() => sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), cts.Token));
     }
 }
