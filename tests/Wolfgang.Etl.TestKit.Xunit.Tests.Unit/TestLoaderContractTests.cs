@@ -15,7 +15,7 @@ public class TestLoaderContractTests
 {
     /// <inheritdoc/>
     protected override TestLoader<int> CreateSut(int itemCount) =>
-        new TestLoader<int>(collectItems: false);
+        new(collectItems: false);
 
     /// <inheritdoc/>
     protected override TestLoader<int> CreateSutWithTimer(IProgressTimer timer) =>

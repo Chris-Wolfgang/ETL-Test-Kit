@@ -17,7 +17,7 @@ public class TestExtractorContractTests
 {
     /// <inheritdoc/>
     protected override TestExtractor<int> CreateSut(int itemCount) =>
-        new TestExtractor<int>(Enumerable.Range(1, itemCount).ToList());
+        new(Enumerable.Range(1, itemCount).ToList());
 
     /// <inheritdoc/>
     protected override TestExtractor<int> CreateSutWithTimer(IProgressTimer timer) =>

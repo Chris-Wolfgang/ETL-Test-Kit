@@ -5,6 +5,5 @@ namespace Wolfgang.Etl.TestKit.Xunit.Tests.Unit;
 public class TestExtractorAsyncContractTests
     : ExtractAsyncContractTests<TestExtractor<int>, int>
 {
-    protected override TestExtractor<int> CreateSut(int itemCount) =>
-        new TestExtractor<int>(Enumerable.Range(1, itemCount).ToList());
+    protected override TestExtractor<int> CreateSut(int itemCount) => new(Enumerable.Range(1, itemCount).ToList());
 }

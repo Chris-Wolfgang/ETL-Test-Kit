@@ -15,7 +15,7 @@ public class TestTransformerContractTests
 {
     /// <inheritdoc/>
     protected override TestTransformer<int> CreateSut(int itemCount) =>
-        new TestTransformer<int>();
+        new();
 
     /// <inheritdoc/>
     protected override TestTransformer<int> CreateSutWithTimer(IProgressTimer timer) =>
