@@ -79,8 +79,22 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
     // ------------------------------------------------------------------
 
     /// <inheritdoc/>
+    protected override IProgressTimer CreateProgressTimer(IProgress<Report> progress)
+    {
+        if (_progressTimer is null)
+        {
+            return base.CreateProgressTimer(progress);
+        }
+
+        _progressTimer.Elapsed += () => progress.Report(CreateProgressReport());
+        return _progressTimer;
+    }
+
+
+
+    /// <inheritdoc/>
     protected override Report CreateProgressReport() =>
-        new Report(CurrentItemCount);
+        new(CurrentItemCount);
 
 
 
@@ -89,8 +103,6 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
         IAsyncEnumerable<T> items,
         [EnumeratorCancellation] CancellationToken token)
     {
-        _progressTimer?.Start(ReportingInterval);
-
         token.ThrowIfCancellationRequested();
 
         try

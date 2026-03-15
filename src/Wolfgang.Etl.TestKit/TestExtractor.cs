@@ -154,6 +154,20 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     // ------------------------------------------------------------------
 
     /// <inheritdoc/>
+    protected override IProgressTimer CreateProgressTimer(IProgress<Report> progress)
+    {
+        if (_progressTimer is null)
+        {
+            return base.CreateProgressTimer(progress);
+        }
+
+        _progressTimer.Elapsed += () => progress.Report(CreateProgressReport());
+        return _progressTimer;
+    }
+
+
+
+    /// <inheritdoc/>
     protected override Report CreateProgressReport() => new(CurrentItemCount);
 
 
@@ -164,8 +178,6 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
         [EnumeratorCancellation] CancellationToken token
     )
     {
-        _progressTimer?.Start(ReportingInterval);
-
         token.ThrowIfCancellationRequested();
 
         var enumerator     = (_enumerator ?? _enumerable!.GetEnumerator())!;

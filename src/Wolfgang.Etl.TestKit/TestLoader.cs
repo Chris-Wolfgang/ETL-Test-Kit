@@ -57,7 +57,7 @@ public class TestLoader<T> : LoaderBase<T, Report>
     // ------------------------------------------------------------------
 
     private readonly bool _collectItems;
-    private readonly List<T> _buffer = new List<T>();
+    private readonly List<T> _buffer = new();
     private readonly IProgressTimer? _progressTimer;
 
 
@@ -135,8 +135,22 @@ public class TestLoader<T> : LoaderBase<T, Report>
     // ------------------------------------------------------------------
 
     /// <inheritdoc/>
+    protected override IProgressTimer CreateProgressTimer(IProgress<Report> progress)
+    {
+        if (_progressTimer is null)
+        {
+            return base.CreateProgressTimer(progress);
+        }
+
+        _progressTimer.Elapsed += () => progress.Report(CreateProgressReport());
+        return _progressTimer;
+    }
+
+
+
+    /// <inheritdoc/>
     protected override Report CreateProgressReport() =>
-        new Report(CurrentItemCount);
+        new(CurrentItemCount);
 
 
 
@@ -145,8 +159,6 @@ public class TestLoader<T> : LoaderBase<T, Report>
         IAsyncEnumerable<T> items,
         CancellationToken token)
     {
-        _progressTimer?.Start(ReportingInterval);
-
         token.ThrowIfCancellationRequested();
 
         _buffer.Clear();
