@@ -376,7 +376,7 @@ public class TestExtractorTests
     // ------------------------------------------------------------------
 
     [Fact]
-    public async Task ExtractAsync_skips_items_up_to_SkipItemCount()
+    public async Task ExtractAsync_with_enumerable_skips_items_up_to_SkipItemCount()
     {
         var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 });
         extractor.SkipItemCount = 2;
@@ -388,12 +388,38 @@ public class TestExtractorTests
 
 
 
+    [Fact]
+    public async Task ExtractAsync_with_enumerator_skips_items_up_to_SkipItemCount()
+    {
+        var extractor = new TestExtractor<int>(GenerateInts(5));
+        extractor.SkipItemCount = 2;
+
+        var results = await extractor.ExtractAsync().ToListAsync();
+
+        Assert.Equal(new[] { 2, 3, 4 }, results);
+    }
+
+
+
+    [Fact]
+    public async Task ExtractAsync_with_enumerable_skips_items_and_CurrentSkippedItemCount_is_correct()
+    {
+        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 });
+        extractor.SkipItemCount = 3;
+
+        await extractor.ExtractAsync().ToListAsync();
+
+        Assert.Equal(3, extractor.CurrentSkippedItemCount);
+    }
+
+
+
     // ------------------------------------------------------------------
     // MaximumItemCount
     // ------------------------------------------------------------------
 
     [Fact]
-    public async Task ExtractAsync_stops_at_MaximumItemCount()
+    public async Task ExtractAsync_with_enumerable_stops_at_MaximumItemCount()
     {
         var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 });
         extractor.MaximumItemCount = 2;
@@ -401,6 +427,33 @@ public class TestExtractorTests
         var results = await extractor.ExtractAsync().ToListAsync();
 
         Assert.Equal(new[] { 1, 2 }, results);
+    }
+
+
+
+    [Fact]
+    public async Task ExtractAsync_with_enumerator_stops_at_MaximumItemCount()
+    {
+        var extractor = new TestExtractor<int>(GenerateInts(10));
+        extractor.MaximumItemCount = 3;
+
+        var results = await extractor.ExtractAsync().ToListAsync();
+
+        Assert.Equal(new[] { 0, 1, 2 }, results);
+    }
+
+
+
+    [Fact]
+    public async Task ExtractAsync_with_enumerator_combines_SkipItemCount_and_MaximumItemCount()
+    {
+        var extractor = new TestExtractor<int>(GenerateInts(10));
+        extractor.SkipItemCount = 2;
+        extractor.MaximumItemCount = 3;
+
+        var results = await extractor.ExtractAsync().ToListAsync();
+
+        Assert.Equal(new[] { 2, 3, 4 }, results);
     }
 
 

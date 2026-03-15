@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
+using Wolfgang.Etl.TestKit.Xunit;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Tests.Unit;
@@ -156,6 +157,24 @@ public class TestTransformerTests
         var report = transformer.GetProgressReport();
 
         Assert.Equal(3, report.CurrentItemCount);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // Timer constructor — success path
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task Constructor_with_timer_creates_transformer_that_yields_items()
+    {
+        using var timer = new ManualProgressTimer();
+        var transformer = new TestTransformerWithTimer(timer);
+        var extractor   = new TestExtractor<int>(new List<int> { 1, 2, 3 });
+
+        var results = await transformer.TransformAsync(extractor.ExtractAsync()).ToListAsync();
+
+        Assert.Equal(new[] { 1, 2, 3 }, results);
     }
 
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
+using Wolfgang.Etl.TestKit.Xunit;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Tests.Unit;
@@ -148,6 +149,29 @@ public class TestLoaderTests
 
 
     [Fact]
+    public void GetCollectedItems_when_collectItems_is_true_before_any_load_returns_empty_list()
+    {
+        var loader = new TestLoader<int>(collectItems: true);
+
+        var items = loader.GetCollectedItems();
+
+        Assert.NotNull(items);
+        Assert.Empty(items);
+    }
+
+
+
+    [Fact]
+    public void GetCollectedItems_when_collectItems_is_false_before_any_load_returns_null()
+    {
+        var loader = new TestLoader<int>(collectItems: false);
+
+        Assert.Null(loader.GetCollectedItems());
+    }
+
+
+
+    [Fact]
     public async Task LoadAsync_when_collectItems_is_false_still_enumerates_all_items()
     {
         // Verifies the loop runs even when not collecting — important for benchmarks.
@@ -263,6 +287,40 @@ public class TestLoaderTests
 
         Assert.NotNull(items);
         Assert.Equal(new[] { 1, 2 }, items);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // Timer constructor — collectItems behaviour
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task Constructor_with_timer_and_collectItems_true_collects_items()
+    {
+        using var timer = new ManualProgressTimer();
+        var loader = new TestLoaderWithTimer(collectItems: true, timer);
+
+        await loader.LoadAsync(new TestExtractor<int>(new List<int> { 1, 2, 3 }).ExtractAsync());
+
+        var items = loader.GetCollectedItems();
+
+        Assert.NotNull(items);
+        Assert.Equal(new[] { 1, 2, 3 }, items);
+    }
+
+
+
+    [Fact]
+    public async Task Constructor_with_timer_and_collectItems_false_does_not_collect_items()
+    {
+        using var timer = new ManualProgressTimer();
+        var loader = new TestLoaderWithTimer(collectItems: false, timer);
+
+        await loader.LoadAsync(new TestExtractor<int>(new List<int> { 1, 2, 3 }).ExtractAsync());
+
+        Assert.Null(loader.GetCollectedItems());
+        Assert.Equal(3, loader.CurrentItemCount);
     }
 
 
