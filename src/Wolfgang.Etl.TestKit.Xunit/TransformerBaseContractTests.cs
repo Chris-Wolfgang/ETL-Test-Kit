@@ -77,7 +77,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// injected via the derived class's protected constructor.
     /// </summary>
     /// <param name="timer">
-    /// The <see cref="IProgressTimer"/> to inject. Typically a
+    /// The <see cref="IProgressTimer"/> to inject. Typically, a
     /// <see cref="ManualProgressTimer"/> so that progress callbacks can be fired
     /// on demand during tests.
     /// </param>
@@ -379,9 +379,9 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         TProgress? captured = default;
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
 
-        var task = sut.TransformAsync(CreateInputItems(), progress).ToListAsync().AsTask();
+        await using var enumerator = sut.TransformAsync(CreateInputItems(), progress).GetAsyncEnumerator();
+        await enumerator.MoveNextAsync();
         timer.Fire();
-        await task;
 
         Assert.NotNull(captured);
     }
@@ -541,9 +541,9 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         TProgress? captured = default;
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
 
-        var task = sut.TransformAsync(CreateInputItems(), progress, CancellationToken.None).ToListAsync().AsTask();
+        await using var enumerator = sut.TransformAsync(CreateInputItems(), progress, CancellationToken.None).GetAsyncEnumerator();
+        await enumerator.MoveNextAsync();
         timer.Fire();
-        await task;
 
         Assert.NotNull(captured);
     }

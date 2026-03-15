@@ -340,9 +340,9 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
         TProgress? captured = default;
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
 
-        var task = sut.ExtractAsync(progress).ToListAsync().AsTask();
+        await using var enumerator = sut.ExtractAsync(progress).GetAsyncEnumerator();
+        await enumerator.MoveNextAsync();
         timer.Fire();
-        await task;
 
         Assert.NotNull(captured);
     }
@@ -487,9 +487,9 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
         TProgress? captured = default;
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
 
-        var task = sut.ExtractAsync(progress, CancellationToken.None).ToListAsync().AsTask();
+        await using var enumerator = sut.ExtractAsync(progress, CancellationToken.None).GetAsyncEnumerator();
+        await enumerator.MoveNextAsync();
         timer.Fire();
-        await task;
 
         Assert.NotNull(captured);
     }

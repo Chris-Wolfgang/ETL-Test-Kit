@@ -98,6 +98,22 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     private IAsyncEnumerable<TItem> CreateInputItems() =>
         Enumerable.Range(1, DefaultItemCount).Cast<TItem>().ToAsyncEnumerable();
 
+    /// <summary>
+    /// Returns an input sequence that pauses after the first item until
+    /// <paramref name="gate"/> is released, keeping the load pipeline alive
+    /// so the test can call <see cref="ManualProgressTimer.Fire"/> mid-flight.
+    /// </summary>
+    private async IAsyncEnumerable<TItem> CreateGatedInputItems(TaskCompletionSource<bool> gate)
+    {
+        var items = Enumerable.Range(1, DefaultItemCount).Cast<TItem>().ToList();
+        yield return items[0];
+        await gate.Task.ConfigureAwait(false);
+        for (var i = 1; i < items.Count; i++)
+        {
+            yield return items[i];
+        }
+    }
+
 
 
     // ------------------------------------------------------------------
@@ -342,9 +358,11 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var sut = CreateSutWithTimer(timer);
         TProgress? captured = default;
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
+        var gate = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
-        var task = sut.LoadAsync(CreateInputItems(), progress);
+        var task = sut.LoadAsync(CreateGatedInputItems(gate), progress);
         timer.Fire();
+        gate.SetResult(true);
         await task;
 
         Assert.NotNull(captured);
@@ -480,9 +498,11 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var sut = CreateSutWithTimer(timer);
         TProgress? captured = default;
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
+        var gate = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
-        var task = sut.LoadAsync(CreateInputItems(), progress, CancellationToken.None);
+        var task = sut.LoadAsync(CreateGatedInputItems(gate), progress, CancellationToken.None);
         timer.Fire();
+        gate.SetResult(true);
         await task;
 
         Assert.NotNull(captured);
