@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Test-Kit/new/v0.1.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_TestLoader_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.TestLoader%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Test-Kit/new/v0.5.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_TestLoader_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.TestLoader%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,7 +75,7 @@
 
 
   <h1 id="Wolfgang_Etl_TestKit_TestLoader_1" data-uid="Wolfgang.Etl.TestKit.TestLoader`1" class="text-break">
-Class TestLoader&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.1.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L49"><i class="bi bi-code-slash"></i></a>
+Class TestLoader&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.5.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L52"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -91,7 +91,7 @@ after the load completes.</p>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class TestLoader&lt;T&gt; : LoaderBase&lt;T, Report&gt;, ILoadWithProgressAndCancellationAsync&lt;T, Report&gt;, ILoadWithProgressAsync&lt;T, Report&gt;, ILoadWithCancellationAsync&lt;T&gt;, ILoadAsync&lt;T&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class TestLoader&lt;T&gt; : LoaderBase&lt;T, Report&gt;, ILoadWithProgressAndCancellationAsync&lt;T, Report&gt;, ILoadWithProgressAsync&lt;T, Report&gt;, ILoadWithCancellationAsync&lt;T&gt;, ILoadAsync&lt;T&gt; where T : notnull</code></pre>
   </div>
 
 
@@ -137,6 +137,9 @@ after the load completes.</p>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">LoaderBase&lt;T, Report&gt;.LoadAsync(IAsyncEnumerable&lt;T&gt;, IProgress&lt;Report&gt;, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">LoaderBase&lt;T, Report&gt;.CreateProgressTimer(IProgress&lt;Report&gt;)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">LoaderBase&lt;T, Report&gt;.LoadWorkerAsync(IAsyncEnumerable&lt;T&gt;, CancellationToken)</a>
@@ -197,10 +200,6 @@ await loader.LoadAsync(extractor.ExtractAsync());
 var results = loader.GetCollectedItems();
 Assert.Equal(expected, results);
 
-// Second run — buffer is cleared at the start of each LoadAsync:
-await loader.LoadAsync(extractor.ExtractAsync());
-var results2 = loader.GetCollectedItems(); // contains only the second run's items
-
 // Benchmark scenario — measure throughput without storing items:
 var loader = new TestLoader&lt;MyRecord&gt;(collectItems: false);
 await loader.LoadAsync(extractor.ExtractAsync());
@@ -221,6 +220,12 @@ a snapshot of that buffer at the moment it is called — callers may call it
 mid-load to inspect items received so far, or post-load for the full result.
 Each new <code>LoadAsync</code> call clears the buffer before it begins.
 </p>
+<p>
+Set <span class="xref">Wolfgang.Etl.Abstractions.LoaderBase&lt;TDestination, TProgress&gt;.SkipItemCount</span> to skip the first
+N items before loading. Set
+<span class="xref">Wolfgang.Etl.Abstractions.LoaderBase&lt;TDestination, TProgress&gt;.MaximumItemCount</span> to stop after
+loading that many items.
+</p>
 </div>
 
 
@@ -232,7 +237,7 @@ Each new <code>LoadAsync</code> call clears the buffer before it begins.
 
   <h3 id="Wolfgang_Etl_TestKit_TestLoader_1__ctor_System_Boolean_" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.#ctor(System.Boolean)">
   TestLoader(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.1.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.5.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L79"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.TestLoader-1.html">TestLoader&lt;T&gt;</a>.</p>
@@ -264,6 +269,51 @@ When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/built
 
 
 
+  <a id="Wolfgang_Etl_TestKit_TestLoader_1__ctor_" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.#ctor*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_TestLoader_1__ctor_System_Boolean_Wolfgang_Etl_Abstractions_IProgressTimer_" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.#ctor(System.Boolean,Wolfgang.Etl.Abstractions.IProgressTimer)">
+  TestLoader(bool, IProgressTimer)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.5.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.TestLoader-1.html">TestLoader&lt;T&gt;</a> with the supplied
+<span class="xref">Wolfgang.Etl.Abstractions.IProgressTimer</span> to drive progress callbacks.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected TestLoader(bool collectItems, IProgressTimer timer)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>collectItems</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, loaded items are accumulated and accessible
+via <a class="xref" href="Wolfgang.Etl.TestKit.TestLoader-1.html#Wolfgang_Etl_TestKit_TestLoader_1_GetCollectedItems">GetCollectedItems()</a>.</p>
+</dd>
+    <dt><code>timer</code> <span class="xref">IProgressTimer</span></dt>
+    <dd><p>The timer used to drive progress callbacks. Inject a
+<code>ManualProgressTimer</code> in tests to fire callbacks on demand.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">timer</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -272,11 +322,11 @@ When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/built
 
   <h3 id="Wolfgang_Etl_TestKit_TestLoader_1_CreateProgressReport" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.CreateProgressReport">
   CreateProgressReport()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.1.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L118"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.5.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L158"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a progress report of type TProgress. This gives the derived class the opportunity to
-implement a custom progress report that is specific to the extraction process.</p>
+implement a custom progress report that is specific to the loading process.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -302,11 +352,52 @@ implement a custom progress report that is specific to the extraction process.</
 
 
 
+  <a id="Wolfgang_Etl_TestKit_TestLoader_1_CreateProgressTimer_" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.CreateProgressTimer*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_TestLoader_1_CreateProgressTimer_System_IProgress_Wolfgang_Etl_Abstractions_Report__" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.CreateProgressTimer(System.IProgress{Wolfgang.Etl.Abstractions.Report})">
+  CreateProgressTimer(IProgress&lt;Report&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.5.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L139"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates the <span class="xref">Wolfgang.Etl.Abstractions.IProgressTimer</span> used to drive progress callbacks.
+Override this method in a derived class to inject a custom timer
+(for example, a custom implementation that allows manual control in unit tests).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override IProgressTimer CreateProgressTimer(IProgress&lt;Report&gt; progress)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>progress</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress</a>&lt;<span class="xref">Report</span>&gt;</dt>
+    <dd><p>The progress sink that will receive callbacks.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IProgressTimer</span></dt>
+    <dd><p>A started <span class="xref">Wolfgang.Etl.Abstractions.IProgressTimer</span> instance.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Wolfgang_Etl_TestKit_TestLoader_1_GetCollectedItems_" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.GetCollectedItems*"></a>
 
   <h3 id="Wolfgang_Etl_TestKit_TestLoader_1_GetCollectedItems" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.GetCollectedItems">
   GetCollectedItems()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.1.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L106"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.5.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L127"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns a snapshot of the items collected so far, or <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>
@@ -332,12 +423,6 @@ collected items, or <a href="https://learn.microsoft.com/dotnet/csharp/language-
 
 
 
-  <h4 class="section" id="Wolfgang_Etl_TestKit_TestLoader_1_GetCollectedItems_examples">Examples</h4>
-  <pre><code class="lang-csharp">await loader.LoadAsync(extractor.ExtractAsync());
-var items = loader.GetCollectedItems();
-Assert.NotNull(items);
-Assert.Equal(3, items.Count);</code></pre>
-
 
   <h4 class="section" id="Wolfgang_Etl_TestKit_TestLoader_1_GetCollectedItems_remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>The snapshot is taken at the moment this method is called. It may be called
@@ -353,7 +438,7 @@ begins, so a post-load call always reflects the most recent run only.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_TestLoader_1_LoadWorkerAsync_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken)">
   LoadWorkerAsync(IAsyncEnumerable&lt;T&gt;, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.1.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L124"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.5.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L164"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>This method is the core implementation of the loading logic and should be
@@ -378,7 +463,7 @@ overridden by derived classes.</p>
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
-    <dd><p>Task</p>
+    <dd><p>A task representing the asynchronous operation.</p>
 </dd>
   </dl>
 
@@ -389,7 +474,7 @@ overridden by derived classes.</p>
 
 
   <h4 class="section" id="Wolfgang_Etl_TestKit_TestLoader_1_LoadWorkerAsync_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Items may be an empty sequence if no data is available or if the extraction fails.</p>
+  <div class="markdown level1 remarks"><p>Items may be an empty sequence if no data is available or if the loading fails.</p>
 </div>
 
   <h4 class="section">Exceptions</h4>
@@ -405,7 +490,7 @@ overridden by derived classes.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.1.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L49" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.5.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L52" class="edit-link">Edit this page</a>
         </div>
 
 

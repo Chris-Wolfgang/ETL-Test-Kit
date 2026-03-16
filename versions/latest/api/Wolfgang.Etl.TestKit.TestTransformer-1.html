@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Test-Kit/new/v0.1.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_TestTransformer_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.TestTransformer%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Test-Kit/new/v0.5.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_TestTransformer_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.TestTransformer%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,7 +75,7 @@
 
 
   <h1 id="Wolfgang_Etl_TestKit_TestTransformer_1" data-uid="Wolfgang.Etl.TestKit.TestTransformer`1" class="text-break">
-Class TestTransformer&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.1.0/src/Wolfgang.Etl.TestKit/TestTransformer.cs/#L27"><i class="bi bi-code-slash"></i></a>
+Class TestTransformer&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.5.0/src/Wolfgang.Etl.TestKit/TestTransformer.cs/#L36"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -89,7 +89,7 @@ Returns each item unchanged, with no transformation applied.</p>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class TestTransformer&lt;T&gt; : TransformerBase&lt;T, T, Report&gt;, ITransformWithProgressAndCancellationAsync&lt;T, T, Report&gt;, ITransformWithCancellationAsync&lt;T, T&gt;, ITransformWithProgressAsync&lt;T, T, Report&gt;, ITransformAsync&lt;T, T&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class TestTransformer&lt;T&gt; : TransformerBase&lt;T, T, Report&gt;, ITransformWithProgressAndCancellationAsync&lt;T, T, Report&gt;, ITransformWithCancellationAsync&lt;T, T&gt;, ITransformWithProgressAsync&lt;T, T, Report&gt;, ITransformAsync&lt;T, T&gt; where T : notnull</code></pre>
   </div>
 
 
@@ -135,6 +135,9 @@ Returns each item unchanged, with no transformation applied.</p>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">TransformerBase&lt;T, T, Report&gt;.TransformAsync(IAsyncEnumerable&lt;T&gt;, IProgress&lt;Report&gt;, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">TransformerBase&lt;T, T, Report&gt;.CreateProgressTimer(IProgress&lt;Report&gt;)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">TransformerBase&lt;T, T, Report&gt;.TransformWorkerAsync(IAsyncEnumerable&lt;T&gt;, CancellationToken)</a>
@@ -197,9 +200,90 @@ await loader.LoadAsync(transformer.TransformAsync(extractor.ExtractAsync()));</c
 
 
   <h2 id="Wolfgang_Etl_TestKit_TestTransformer_1_remarks">Remarks</h2>
-  <div class="markdown level0 remarks"><p>Useful when a pipeline requires a transformer in the chain but the test or
-benchmark is focused on the extractor or loader in isolation.</p>
+  <div class="markdown level0 remarks"><p>
+Useful when a pipeline requires a transformer in the chain but the test or
+benchmark is focused on the extractor or loader in isolation.
+</p>
+<p>
+Set <span class="xref">Wolfgang.Etl.Abstractions.TransformerBase&lt;TSource, TDestination, TProgress&gt;.SkipItemCount</span> to
+skip the first N items before yielding. Set
+<span class="xref">Wolfgang.Etl.Abstractions.TransformerBase&lt;TSource, TDestination, TProgress&gt;.MaximumItemCount</span> to
+stop after yielding that many items.
+</p>
 </div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Wolfgang_Etl_TestKit_TestTransformer_1__ctor_" data-uid="Wolfgang.Etl.TestKit.TestTransformer`1.#ctor*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_TestTransformer_1__ctor" data-uid="Wolfgang.Etl.TestKit.TestTransformer`1.#ctor">
+  TestTransformer()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.5.0/src/Wolfgang.Etl.TestKit/TestTransformer.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.TestTransformer-1.html">TestTransformer&lt;T&gt;</a> using the default
+production timer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TestTransformer()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_Etl_TestKit_TestTransformer_1__ctor_" data-uid="Wolfgang.Etl.TestKit.TestTransformer`1.#ctor*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_TestTransformer_1__ctor_Wolfgang_Etl_Abstractions_IProgressTimer_" data-uid="Wolfgang.Etl.TestKit.TestTransformer`1.#ctor(Wolfgang.Etl.Abstractions.IProgressTimer)">
+  TestTransformer(IProgressTimer)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.5.0/src/Wolfgang.Etl.TestKit/TestTransformer.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.TestTransformer-1.html">TestTransformer&lt;T&gt;</a> with the supplied
+<span class="xref">Wolfgang.Etl.Abstractions.IProgressTimer</span> to drive progress callbacks.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected TestTransformer(IProgressTimer timer)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>timer</code> <span class="xref">IProgressTimer</span></dt>
+    <dd><p>The timer used to drive progress callbacks. Inject a
+<code>ManualProgressTimer</code> in tests to fire callbacks on demand.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">timer</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
 
 
   <h2 class="section" id="methods">Methods
@@ -210,7 +294,7 @@ benchmark is focused on the extractor or loader in isolation.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_TestTransformer_1_CreateProgressReport" data-uid="Wolfgang.Etl.TestKit.TestTransformer`1.CreateProgressReport">
   CreateProgressReport()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.1.0/src/Wolfgang.Etl.TestKit/TestTransformer.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.5.0/src/Wolfgang.Etl.TestKit/TestTransformer.cs/#L102"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a progress report object of type TProgress.</p>
@@ -239,11 +323,52 @@ benchmark is focused on the extractor or loader in isolation.</p>
 
 
 
+  <a id="Wolfgang_Etl_TestKit_TestTransformer_1_CreateProgressTimer_" data-uid="Wolfgang.Etl.TestKit.TestTransformer`1.CreateProgressTimer*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_TestTransformer_1_CreateProgressTimer_System_IProgress_Wolfgang_Etl_Abstractions_Report__" data-uid="Wolfgang.Etl.TestKit.TestTransformer`1.CreateProgressTimer(System.IProgress{Wolfgang.Etl.Abstractions.Report})">
+  CreateProgressTimer(IProgress&lt;Report&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.5.0/src/Wolfgang.Etl.TestKit/TestTransformer.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates the <span class="xref">Wolfgang.Etl.Abstractions.IProgressTimer</span> used to drive progress callbacks.
+Override this method in a derived class to inject a custom timer
+(for example, a custom implementation that allows manual control in unit tests).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override IProgressTimer CreateProgressTimer(IProgress&lt;Report&gt; progress)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>progress</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress</a>&lt;<span class="xref">Report</span>&gt;</dt>
+    <dd><p>The progress sink that will receive callbacks.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IProgressTimer</span></dt>
+    <dd><p>A started <span class="xref">Wolfgang.Etl.Abstractions.IProgressTimer</span> instance.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Wolfgang_Etl_TestKit_TestTransformer_1_TransformWorkerAsync_" data-uid="Wolfgang.Etl.TestKit.TestTransformer`1.TransformWorkerAsync*"></a>
 
   <h3 id="Wolfgang_Etl_TestKit_TestTransformer_1_TransformWorkerAsync_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.TestKit.TestTransformer`1.TransformWorkerAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken)">
   TransformWorkerAsync(IAsyncEnumerable&lt;T&gt;, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.1.0/src/Wolfgang.Etl.TestKit/TestTransformer.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.5.0/src/Wolfgang.Etl.TestKit/TestTransformer.cs/#L108"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The worker method that performs the actual transformation.</p>
@@ -267,7 +392,8 @@ benchmark is focused on the extractor or loader in isolation.</p>
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;T&gt;</dt>
-    <dd></dd>
+    <dd><p>IAsyncEnumerable&lt;TDestination&gt; - The result may be an empty sequence if no data is available or if the transformation fails.</p>
+</dd>
   </dl>
 
 
@@ -284,7 +410,7 @@ benchmark is focused on the extractor or loader in isolation.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.1.0/src/Wolfgang.Etl.TestKit/TestTransformer.cs/#L27" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.5.0/src/Wolfgang.Etl.TestKit/TestTransformer.cs/#L36" class="edit-link">Edit this page</a>
         </div>
 
 
