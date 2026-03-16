@@ -57,7 +57,7 @@ public class TestLoader<T> : LoaderBase<T, Report>
     // ------------------------------------------------------------------
 
     private readonly bool _collectItems;
-    private readonly List<T> _buffer = new();
+    private readonly List<T> _buffer = new List<T>();
     private readonly IProgressTimer? _progressTimer;
 
 
@@ -150,7 +150,7 @@ public class TestLoader<T> : LoaderBase<T, Report>
 
     /// <inheritdoc/>
     protected override Report CreateProgressReport() =>
-        new(CurrentItemCount);
+        new Report(CurrentItemCount);
 
 
 
