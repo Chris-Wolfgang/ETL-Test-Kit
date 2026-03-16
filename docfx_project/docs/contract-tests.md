@@ -4,7 +4,7 @@ The `Wolfgang.Etl.TestKit.Xunit` package provides a suite of abstract xUnit base
 that verify any ETL component built on `Wolfgang.Etl.Abstractions` satisfies its
 contractual obligations.
 
-Inherit from the appropriate base class in your own test project, implement two factory
+Inherit from the appropriate base class in your own test project, implement the factory
 methods, and you instantly gain a comprehensive test suite covering extraction,
 transformation, and loading behaviour, cancellation, progress reporting, and property
 validation — with no test code to write yourself.
@@ -68,8 +68,8 @@ public overloads and every property defined by the base class.
 public class MyExtractorContractTests
     : ExtractorBaseContractTests<MyExtractor, MyRecord, MyProgress>
 {
-    protected override MyExtractor CreateSut() =>
-        new MyExtractor("path/to/test-data.csv");
+    protected override MyExtractor CreateSut(int itemCount) =>
+        new MyExtractor("path/to/test-data.csv", itemCount);
 
     protected override IReadOnlyList<MyRecord> CreateExpectedItems() =>
         new List<MyRecord>
@@ -80,6 +80,9 @@ public class MyExtractorContractTests
             new("Dave",  28),
             new("Eve",   42),
         };
+
+    protected override MyExtractor CreateSutWithTimer(IProgressTimer timer) =>
+        new MyExtractor("path/to/test-data.csv", timer);
 }
 ```
 
@@ -101,7 +104,8 @@ That single class exercises:
 public class MyTransformerContractTests
     : TransformerBaseContractTests<MyTransformer, MyRecord, MyProgress>
 {
-    protected override MyTransformer CreateSut() => new MyTransformer();
+    protected override MyTransformer CreateSut(int itemCount) =>
+        new MyTransformer();
 
     protected override IReadOnlyList<MyRecord> CreateExpectedItems() =>
         new List<MyRecord>
@@ -112,6 +116,9 @@ public class MyTransformerContractTests
             new("Dave",  28),
             new("Eve",   42),
         };
+
+    protected override MyTransformer CreateSutWithTimer(IProgressTimer timer) =>
+        new MyTransformer(timer);
 }
 ```
 
@@ -133,9 +140,10 @@ That single class exercises:
 public class MyLoaderContractTests
     : LoaderBaseContractTests<MyLoader, MyRecord, MyProgress>
 {
-    protected override MyLoader CreateSut() => new MyLoader(connectionString);
+    protected override MyLoader CreateSut(int itemCount) =>
+        new MyLoader(connectionString);
 
-    protected override IReadOnlyList<MyRecord> CreateExpectedItems() =>
+    protected override IReadOnlyList<MyRecord> CreateSourceItems() =>
         new List<MyRecord>
         {
             new("Alice", 30),
@@ -144,6 +152,9 @@ public class MyLoaderContractTests
             new("Dave",  28),
             new("Eve",   42),
         };
+
+    protected override MyLoader CreateSutWithTimer(IProgressTimer timer) =>
+        new MyLoader(connectionString, timer);
 }
 ```
 
@@ -221,10 +232,10 @@ If your extractor implements `IExtractAsync<T>` directly rather than inheriting 
 public class MyLightweightExtractorContractTests
     : ExtractAsyncContractTests<MyLightweightExtractor, MyRecord>
 {
-    protected override MyLightweightExtractor CreateSut() =>
-        new MyLightweightExtractor();
+    protected override MyLightweightExtractor CreateSut(int itemCount) =>
+        new MyLightweightExtractor(itemCount);
 
     protected override IReadOnlyList<MyRecord> CreateExpectedItems() =>
-        new List<MyRecord> { new("a"), new("b"), new("c") };
+        new List<MyRecord> { new("a"), new("b"), new("c"), new("d"), new("e") };
 }
 ```

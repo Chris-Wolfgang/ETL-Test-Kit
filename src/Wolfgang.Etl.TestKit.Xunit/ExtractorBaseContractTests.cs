@@ -46,11 +46,14 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// public class MyExtractorContractTests
 ///     : ExtractorBaseContractTests&lt;MyExtractor, MyRecord, MyProgress&gt;
 /// {
-///     protected override MyExtractor CreateSut() =>
-///         new MyExtractor(GetTestData());
+///     protected override MyExtractor CreateSut(int itemCount) =>
+///         new MyExtractor("path/to/test-data.csv", itemCount);
 ///
 ///     protected override IReadOnlyList&lt;MyRecord&gt; CreateExpectedItems() =>
 ///         new List&lt;MyRecord&gt; { new("a"), new("b"), new("c"), new("d"), new("e") };
+///
+///     protected override MyExtractor CreateSutWithTimer(IProgressTimer timer) =>
+///         new MyExtractor("path/to/test-data.csv", timer);
 /// }
 /// </code>
 /// </example>

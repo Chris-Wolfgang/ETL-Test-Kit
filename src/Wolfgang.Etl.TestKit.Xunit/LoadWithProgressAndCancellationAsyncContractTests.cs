@@ -28,7 +28,8 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// public class MyLoaderFullContractTests
 ///     : LoadWithProgressAndCancellationAsyncContractTests&lt;MyLoader, MyRecord, MyProgress&gt;
 /// {
-///     protected override MyLoader CreateSut() => new MyLoader();
+///     protected override MyLoader CreateSut(int itemCount) =>
+///         new MyLoader(connectionString);
 ///
 ///     protected override IReadOnlyList&lt;MyRecord&gt; CreateSourceItems() =>
 ///         new List&lt;MyRecord&gt; { new("a"), new("b"), new("c") };

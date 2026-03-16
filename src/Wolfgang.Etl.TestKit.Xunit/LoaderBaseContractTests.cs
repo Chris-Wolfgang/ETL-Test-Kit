@@ -45,13 +45,14 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// public class MyLoaderContractTests
 ///     : LoaderBaseContractTests&lt;MyLoader, MyRecord, MyProgress&gt;
 /// {
-///     protected override MyLoader CreateSut() => new MyLoader();
+///     protected override MyLoader CreateSut(int itemCount) =>
+///         new MyLoader(connectionString);
+///
+///     protected override IReadOnlyList&lt;MyRecord&gt; CreateSourceItems() =>
+///         new List&lt;MyRecord&gt; { new("a"), new("b"), new("c"), new("d"), new("e") };
 ///
 ///     protected override MyLoader CreateSutWithTimer(IProgressTimer timer) =>
-///         new MyLoader(timer);
-///
-///     protected override IReadOnlyList&lt;MyRecord&gt; CreateExpectedItems() =>
-///         new List&lt;MyRecord&gt; { new("a"), new("b"), new("c"), new("d"), new("e") };
+///         new MyLoader(connectionString, timer);
 /// }
 /// </code>
 /// </example>

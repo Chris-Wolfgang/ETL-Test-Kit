@@ -31,7 +31,8 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// public class MyExtractorCancellationContractTests
 ///     : ExtractWithCancellationAsyncContractTests&lt;MyExtractor, MyRecord&gt;
 /// {
-///     protected override MyExtractor CreateSut() => new MyExtractor(GetTestData());
+///     protected override MyExtractor CreateSut(int itemCount) =>
+///         new MyExtractor(GetTestData(), itemCount);
 ///
 ///     protected override IReadOnlyList&lt;MyRecord&gt; CreateExpectedItems() =>
 ///         new List&lt;MyRecord&gt; { new("a"), new("b"), new("c") };

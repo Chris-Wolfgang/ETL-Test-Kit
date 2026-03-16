@@ -26,7 +26,8 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// public class MyTransformerCancellationContractTests
 ///     : TransformWithCancellationAsyncContractTests&lt;MyTransformer, MyRecord&gt;
 /// {
-///     protected override MyTransformer CreateSut() => new MyTransformer();
+///     protected override MyTransformer CreateSut(int itemCount) =>
+///         new MyTransformer();
 ///
 ///     protected override IReadOnlyList&lt;MyRecord&gt; CreateExpectedItems() =>
 ///         new List&lt;MyRecord&gt; { new("a"), new("b"), new("c") };

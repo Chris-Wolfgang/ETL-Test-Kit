@@ -59,6 +59,7 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     private readonly IEnumerable<T>? _enumerable;
     private readonly IEnumerator<T>? _enumerator;
     private readonly IProgressTimer? _progressTimer;
+    private bool _progressTimerWired;
 
 
 
@@ -161,7 +162,12 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
             return base.CreateProgressTimer(progress);
         }
 
-        _progressTimer.Elapsed += () => progress.Report(CreateProgressReport());
+        if (!_progressTimerWired)
+        {
+            _progressTimerWired = true;
+            _progressTimer.Elapsed += () => progress.Report(CreateProgressReport());
+        }
+
         return _progressTimer;
     }
 

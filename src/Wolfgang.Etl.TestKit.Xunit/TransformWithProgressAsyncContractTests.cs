@@ -22,7 +22,8 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// public class MyTransformerProgressContractTests
 ///     : TransformWithProgressAsyncContractTests&lt;MyTransformer, MyRecord, MyProgress&gt;
 /// {
-///     protected override MyTransformer CreateSut() => new MyTransformer();
+///     protected override MyTransformer CreateSut(int itemCount) =>
+///         new MyTransformer();
 ///
 ///     protected override IReadOnlyList&lt;MyRecord&gt; CreateExpectedItems() =>
 ///         new List&lt;MyRecord&gt; { new("a"), new("b"), new("c") };

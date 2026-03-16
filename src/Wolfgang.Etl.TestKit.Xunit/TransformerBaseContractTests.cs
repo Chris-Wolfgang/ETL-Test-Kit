@@ -47,13 +47,14 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// public class MyTransformerContractTests
 ///     : TransformerBaseContractTests&lt;MyTransformer, MyRecord, MyProgress&gt;
 /// {
-///     protected override MyTransformer CreateSut() => new MyTransformer();
-///
-///     protected override MyTransformer CreateSutWithTimer(IProgressTimer timer) =>
-///         new MyTransformer(timer);
+///     protected override MyTransformer CreateSut(int itemCount) =>
+///         new MyTransformer();
 ///
 ///     protected override IReadOnlyList&lt;MyRecord&gt; CreateExpectedItems() =>
 ///         new List&lt;MyRecord&gt; { new("a"), new("b"), new("c"), new("d"), new("e") };
+///
+///     protected override MyTransformer CreateSutWithTimer(IProgressTimer timer) =>
+///         new MyTransformer(timer);
 /// }
 /// </code>
 /// </example>
