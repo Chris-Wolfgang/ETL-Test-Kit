@@ -402,7 +402,8 @@ dotnet_diagnostic.SA1600.severity = none
 dotnet_diagnostic.SA1601.severity = none
 dotnet_diagnostic.SA1602.severity = none
 
-# Benchmark projects - relaxed naming, no doc requirements
+
+# Benchmark, no doc requirements
 [benchmarks/**/*.cs]
 # Allow Benchmark_Method_Names
 dotnet_diagnostic.SA1300.severity = none

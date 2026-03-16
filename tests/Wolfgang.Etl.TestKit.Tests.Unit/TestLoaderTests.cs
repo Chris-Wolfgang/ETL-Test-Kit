@@ -2,13 +2,28 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
-using Wolfgang.Etl.TestKit;
+using Wolfgang.Etl.TestKit.Xunit;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Tests.Unit;
 
 public class TestLoaderTests
 {
+    // ------------------------------------------------------------------
+    // Constructor — argument validation
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public void Constructor_with_timer_when_timer_is_null_throws_ArgumentNullException()
+    {
+        Assert.Throws<ArgumentNullException>
+        (
+            () => new TestLoaderWithTimer(collectItems: false, null!)
+        );
+    }
+
+
+
     // ------------------------------------------------------------------
     // collectItems: true — collection behaviour
     // ------------------------------------------------------------------
@@ -45,6 +60,35 @@ public class TestLoaderTests
 
         Assert.NotNull(items);
         Assert.Empty(items);
+    }
+
+
+
+    [Fact]
+    public async Task LoadAsync_when_collectItems_is_true_and_source_has_one_item_GetCollectedItems_returns_that_item()
+    {
+        var extractor = new TestExtractor<int>(new List<int> { 42 });
+        var loader    = new TestLoader<int>(collectItems: true);
+
+        await loader.LoadAsync(extractor.ExtractAsync());
+
+        var items = loader.GetCollectedItems();
+
+        Assert.NotNull(items);
+        Assert.Equal(new[] { 42 }, items);
+    }
+
+
+
+    [Fact]
+    public async Task LoadAsync_when_collectItems_is_false_and_source_has_one_item_still_enumerates_it()
+    {
+        var extractor = new TestExtractor<int>(new List<int> { 42 });
+        var loader    = new TestLoader<int>(collectItems: false);
+
+        await loader.LoadAsync(extractor.ExtractAsync());
+
+        Assert.Equal(1, loader.CurrentItemCount);
     }
 
 
@@ -105,6 +149,29 @@ public class TestLoaderTests
 
 
     [Fact]
+    public void GetCollectedItems_when_collectItems_is_true_before_any_load_returns_empty_list()
+    {
+        var loader = new TestLoader<int>(collectItems: true);
+
+        var items = loader.GetCollectedItems();
+
+        Assert.NotNull(items);
+        Assert.Empty(items);
+    }
+
+
+
+    [Fact]
+    public void GetCollectedItems_when_collectItems_is_false_before_any_load_returns_null()
+    {
+        var loader = new TestLoader<int>(collectItems: false);
+
+        Assert.Null(loader.GetCollectedItems());
+    }
+
+
+
+    [Fact]
     public async Task LoadAsync_when_collectItems_is_false_still_enumerates_all_items()
     {
         // Verifies the loop runs even when not collecting — important for benchmarks.
@@ -149,7 +216,7 @@ public class TestLoaderTests
 
         var report = loader.GetProgressReport();
 
-        Assert.Equal(3, report.CurrentCount);
+        Assert.Equal(3, report.CurrentItemCount);
     }
 
 
@@ -181,8 +248,93 @@ public class TestLoaderTests
     }
 
 
-    private sealed class ExposedTestLoader<T>(bool collectItems) : TestLoader<T>(collectItems)
+
+    // ------------------------------------------------------------------
+    // SkipItemCount
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task LoadAsync_skips_items_up_to_SkipItemCount()
+    {
+        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 });
+        var loader    = new TestLoader<int>(collectItems: true);
+        loader.SkipItemCount = 2;
+
+        await loader.LoadAsync(extractor.ExtractAsync());
+
+        var items = loader.GetCollectedItems();
+
+        Assert.NotNull(items);
+        Assert.Equal(new[] { 3, 4, 5 }, items);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // MaximumItemCount
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task LoadAsync_stops_at_MaximumItemCount()
+    {
+        var extractor = new TestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 });
+        var loader    = new TestLoader<int>(collectItems: true);
+        loader.MaximumItemCount = 2;
+
+        await loader.LoadAsync(extractor.ExtractAsync());
+
+        var items = loader.GetCollectedItems();
+
+        Assert.NotNull(items);
+        Assert.Equal(new[] { 1, 2 }, items);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // Timer constructor — collectItems behaviour
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task Constructor_with_timer_and_collectItems_true_collects_items()
+    {
+        using var timer = new ManualProgressTimer();
+        var loader = new TestLoaderWithTimer(collectItems: true, timer);
+
+        await loader.LoadAsync(new TestExtractor<int>(new List<int> { 1, 2, 3 }).ExtractAsync());
+
+        var items = loader.GetCollectedItems();
+
+        Assert.NotNull(items);
+        Assert.Equal(new[] { 1, 2, 3 }, items);
+    }
+
+
+
+    [Fact]
+    public async Task Constructor_with_timer_and_collectItems_false_does_not_collect_items()
+    {
+        using var timer = new ManualProgressTimer();
+        var loader = new TestLoaderWithTimer(collectItems: false, timer);
+
+        await loader.LoadAsync(new TestExtractor<int>(new List<int> { 1, 2, 3 }).ExtractAsync());
+
+        Assert.Null(loader.GetCollectedItems());
+        Assert.Equal(3, loader.CurrentItemCount);
+    }
+
+
+
+    private sealed class ExposedTestLoader<T>(bool collectItems) : TestLoader<T>(collectItems) where T : notnull
     {
         public Report GetProgressReport() => CreateProgressReport();
+    }
+
+
+
+    private sealed class TestLoaderWithTimer : TestLoader<int>
+    {
+        public TestLoaderWithTimer(bool collectItems, IProgressTimer timer)
+            : base(collectItems, timer) { }
     }
 }

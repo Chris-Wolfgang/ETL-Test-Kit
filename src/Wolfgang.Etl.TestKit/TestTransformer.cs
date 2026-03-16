@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -12,8 +13,16 @@ namespace Wolfgang.Etl.TestKit;
 /// </summary>
 /// <typeparam name="T">The type of item to transform.</typeparam>
 /// <remarks>
+/// <para>
 /// Useful when a pipeline requires a transformer in the chain but the test or
 /// benchmark is focused on the extractor or loader in isolation.
+/// </para>
+/// <para>
+/// Set <see cref="TransformerBase{TSource,TDestination,TProgress}.SkipItemCount"/> to
+/// skip the first N items before yielding. Set
+/// <see cref="TransformerBase{TSource,TDestination,TProgress}.MaximumItemCount"/> to
+/// stop after yielding that many items.
+/// </para>
 /// </remarks>
 /// <example>
 /// <code>
@@ -25,10 +34,69 @@ namespace Wolfgang.Etl.TestKit;
 /// </code>
 /// </example>
 public class TestTransformer<T> : TransformerBase<T, T, Report>
+    where T : notnull
 {
+    // ------------------------------------------------------------------
+    // Fields
+    // ------------------------------------------------------------------
+
+    private readonly IProgressTimer? _progressTimer;
+    private bool _progressTimerWired;
+
+
+
+    // ------------------------------------------------------------------
+    // Constructors
+    // ------------------------------------------------------------------
+
+    /// <summary>
+    /// Initializes a new <see cref="TestTransformer{T}"/> using the default
+    /// production timer.
+    /// </summary>
+    public TestTransformer() { }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestTransformer{T}"/> with the supplied
+    /// <see cref="IProgressTimer"/> to drive progress callbacks.
+    /// </summary>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="timer"/> is <see langword="null"/>.
+    /// </exception>
+    protected TestTransformer(IProgressTimer timer)
+    {
+        _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
+    }
+
+
+
     // ------------------------------------------------------------------
     // TransformerBase overrides
     // ------------------------------------------------------------------
+
+    /// <inheritdoc/>
+    protected override IProgressTimer CreateProgressTimer(IProgress<Report> progress)
+    {
+        if (_progressTimer is null)
+        {
+            return base.CreateProgressTimer(progress);
+        }
+
+        if (!_progressTimerWired)
+        {
+            _progressTimerWired = true;
+            _progressTimer.Elapsed += () => progress.Report(CreateProgressReport());
+        }
+
+        return _progressTimer;
+    }
+
+
 
     /// <inheritdoc/>
     protected override Report CreateProgressReport() =>
@@ -41,10 +109,32 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
         IAsyncEnumerable<T> items,
         [EnumeratorCancellation] CancellationToken token)
     {
-        await foreach (var item in items.WithCancellation(token).ConfigureAwait(false))
+        token.ThrowIfCancellationRequested();
+
+        try
         {
-            IncrementCurrentItemCount();
-            yield return item;
+            await foreach (var item in items.WithCancellation(token).ConfigureAwait(false))
+            {
+                token.ThrowIfCancellationRequested();
+
+                if (CurrentSkippedItemCount < SkipItemCount)
+                {
+                    IncrementCurrentSkippedItemCount();
+                    continue;
+                }
+
+                if (CurrentItemCount >= MaximumItemCount)
+                {
+                    yield break;
+                }
+
+                IncrementCurrentItemCount();
+                yield return item;
+            }
+        }
+        finally
+        {
+            _progressTimer?.StopTimer();
         }
     }
 }

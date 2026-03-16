@@ -40,9 +40,11 @@
   <Folder Name="/examples/" />
   <Folder Name="/src/">
     <Project Path="src/Wolfgang.Etl.TestKit/Wolfgang.Etl.TestKit.csproj" />
+    <Project Path="src/Wolfgang.Etl.TestKit.Xunit/Wolfgang.Etl.TestKit.Xunit.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Wolfgang.Etl.TestKit.Tests.Unit/Wolfgang.Etl.TestKit.Tests.Unit.csproj" />
+    <Project Path="tests/Wolfgang.Etl.TestKit.Xunit.Tests.Unit/Wolfgang.Etl.TestKit.Xunit.Tests.Unit.csproj" />
   </Folder>
 </Solution>
 
