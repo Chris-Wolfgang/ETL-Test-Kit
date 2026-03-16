@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Wolfgang.Etl.Abstractions;
 
 namespace Wolfgang.Etl.TestKit.Xunit.Tests.Unit;
@@ -15,7 +17,11 @@ public class TestTransformerContractTests
 {
     /// <inheritdoc/>
     protected override TestTransformer<int> CreateSut(int itemCount) =>
-        new();
+        new TestTransformer<int>();
+
+    /// <inheritdoc/>
+    protected override IReadOnlyList<int> CreateExpectedItems() =>
+        Enumerable.Range(1, 5).ToList();
 
     /// <inheritdoc/>
     protected override TestTransformer<int> CreateSutWithTimer(IProgressTimer timer) =>

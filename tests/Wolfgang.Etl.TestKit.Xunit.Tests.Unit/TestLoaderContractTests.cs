@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Wolfgang.Etl.Abstractions;
 
 namespace Wolfgang.Etl.TestKit.Xunit.Tests.Unit;
@@ -15,7 +17,11 @@ public class TestLoaderContractTests
 {
     /// <inheritdoc/>
     protected override TestLoader<int> CreateSut(int itemCount) =>
-        new(collectItems: false);
+        new TestLoader<int>(collectItems: false);
+
+    /// <inheritdoc/>
+    protected override IReadOnlyList<int> CreateSourceItems() =>
+        Enumerable.Range(1, 5).ToList();
 
     /// <inheritdoc/>
     protected override TestLoader<int> CreateSutWithTimer(IProgressTimer timer) =>
