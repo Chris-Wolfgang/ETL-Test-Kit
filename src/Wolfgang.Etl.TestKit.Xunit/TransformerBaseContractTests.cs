@@ -77,7 +77,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// injected via the derived class's protected constructor.
     /// </summary>
     /// <param name="timer">
-    /// The <see cref="IProgressTimer"/> to inject. Typically, a
+    /// The <see cref="IProgressTimer"/> to inject. Typically a
     /// <see cref="ManualProgressTimer"/> so that progress callbacks can be fired
     /// on demand during tests.
     /// </param>
@@ -92,11 +92,15 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// <summary>Creates the SUT with an empty source.</summary>
     private TSut CreateSutWithNoItems() => CreateSut(0);
 
-    /// <summary>Returns the expected items for the default SUT — integers 1 to <see cref="DefaultItemCount"/>.</summary>
-    private IReadOnlyList<TItem> CreateExpectedItems() =>
-        Enumerable.Range(1, DefaultItemCount).Cast<TItem>().ToList();
+    /// <summary>
+    /// Returns the expected items that the SUT should yield when created with
+    /// <see cref="CreateSut(int)"/>. Must return at least 5 items.
+    /// </summary>
+    protected abstract IReadOnlyList<TItem> CreateExpectedItems();
+
+    /// <summary>Returns the expected items as an async enumerable for feeding into the transformer.</summary>
     private IAsyncEnumerable<TItem> CreateInputItems() =>
-        Enumerable.Range(1, DefaultItemCount).Cast<TItem>().ToAsyncEnumerable();
+        CreateExpectedItems().ToAsyncEnumerable();
 
 
 

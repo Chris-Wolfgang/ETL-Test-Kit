@@ -64,11 +64,9 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     // ------------------------------------------------------------------
 
     /// <summary>
-    /// Creates the system under test using the default production timer.
-    /// </summary>
-    /// <returns>A new, fully initialised instance of <typeparamref name="TSut"/>.</returns>
-    /// <summary>
     /// Creates the system under test configured to yield exactly <paramref name="itemCount"/> items.
+    /// The items yielded must match the first <paramref name="itemCount"/> items returned by
+    /// <see cref="CreateExpectedItems"/>.
     /// </summary>
     /// <param name="itemCount">The number of items the SUT should yield. Pass 0 for an empty source.</param>
     protected abstract TSut CreateSut(int itemCount);
@@ -81,9 +79,13 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// <summary>Creates the SUT with an empty source.</summary>
     private TSut CreateSutWithNoItems() => CreateSut(0);
 
-    /// <summary>Returns the expected items for the default SUT — integers 1 to <see cref="DefaultItemCount"/>.</summary>
-    private IReadOnlyList<TItem> CreateExpectedItems() =>
-        Enumerable.Range(1, DefaultItemCount).Cast<TItem>().ToList();
+    /// <summary>
+    /// Returns the expected items that the SUT should yield when created with
+    /// <see cref="CreateSut(int)"/>. Must return at least 5 items.
+    /// The first <c>itemCount</c> items from this list are the expected output
+    /// when <c>CreateSut(itemCount)</c> is called.
+    /// </summary>
+    protected abstract IReadOnlyList<TItem> CreateExpectedItems();
 
     /// <summary>
     /// Creates the system under test with the supplied <see cref="IProgressTimer"/>
@@ -705,5 +707,25 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     {
         var sut = CreateSut();
         Assert.Throws<ArgumentOutOfRangeException>(() => sut.SkipItemCount = -1);
+    }
+
+    /// <summary>
+    /// Verifies that <c>SkipItemCount</c> causes the extractor to skip the first
+    /// N items and only yield items after the skip budget is exhausted.
+    /// </summary>
+    [Fact]
+    public async Task ExtractAsync_skips_items_up_to_SkipItemCount()
+    {
+        var sut = CreateSut();
+        var expected = CreateExpectedItems();
+        Assert.True(expected.Count >= 3, "CreateExpectedItems() must return at least 3 items.");
+
+        sut.SkipItemCount = 1;
+
+        var actual = await sut.ExtractAsync().ToListAsync();
+
+        Assert.Equal(expected.Count - 1, actual.Count);
+        Assert.Equal(expected[1], actual[0]);
+        Assert.Equal(1, sut.CurrentSkippedItemCount);
     }
 }

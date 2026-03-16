@@ -65,9 +65,11 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     // ------------------------------------------------------------------
 
     /// <summary>
-    /// Creates the system under test configured to yield exactly <paramref name="itemCount"/> items.
+    /// Creates the system under test configured to handle exactly <paramref name="itemCount"/> items.
+    /// The items fed to the loader must match the first <paramref name="itemCount"/> items
+    /// returned by <see cref="CreateSourceItems"/>.
     /// </summary>
-    /// <param name="itemCount">The number of items the SUT should yield. Pass 0 for an empty source.</param>
+    /// <param name="itemCount">The number of items the SUT should handle. Pass 0 for an empty source.</param>
     protected abstract TSut CreateSut(int itemCount);
 
     /// <summary>
@@ -81,6 +83,13 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// </param>
     protected abstract TSut CreateSutWithTimer(IProgressTimer timer);
 
+    /// <summary>
+    /// Returns the source items used to feed the loader. Must return at least 5 items.
+    /// The first <c>itemCount</c> items from this list are fed when
+    /// <c>CreateSut(itemCount)</c> is called.
+    /// </summary>
+    protected abstract IReadOnlyList<TItem> CreateSourceItems();
+
 
     private const int DefaultItemCount = 5;
 
@@ -90,13 +99,9 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// <summary>Creates the SUT with an empty source.</summary>
     private TSut CreateSutWithNoItems() => CreateSut(0);
 
-    /// <summary>Returns the default source items — integers 1 to <see cref="DefaultItemCount"/>.</summary>
-    private IReadOnlyList<TItem> CreateSourceItems() =>
-        Enumerable.Range(1, DefaultItemCount).Cast<TItem>().ToList();
-
-    /// <summary>Returns the default input sequence — integers 1 to <see cref="DefaultItemCount"/>.</summary>
+    /// <summary>Returns the default input sequence as an async enumerable.</summary>
     private IAsyncEnumerable<TItem> CreateInputItems() =>
-        Enumerable.Range(1, DefaultItemCount).Cast<TItem>().ToAsyncEnumerable();
+        CreateSourceItems().ToAsyncEnumerable();
 
     /// <summary>
     /// Returns an input sequence that pauses after the first item until
@@ -105,7 +110,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// </summary>
     private async IAsyncEnumerable<TItem> CreateGatedInputItems(TaskCompletionSource<bool> gate)
     {
-        var items = Enumerable.Range(1, DefaultItemCount).Cast<TItem>().ToList();
+        var items = CreateSourceItems();
         yield return items[0];
         await gate.Task.ConfigureAwait(false);
         for (var i = 1; i < items.Count; i++)

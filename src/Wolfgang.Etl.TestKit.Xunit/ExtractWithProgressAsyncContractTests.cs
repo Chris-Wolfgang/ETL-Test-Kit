@@ -50,10 +50,10 @@ public abstract class ExtractWithProgressAsyncContractTests<TSut, TItem, TProgre
     // Factory methods
     // ------------------------------------------------------------------
 
-    /// <summary>Creates the system under test.</summary>
-    /// <returns>A new, fully initialised instance of <typeparamref name="TSut"/>.</returns>
     /// <summary>
     /// Creates the system under test configured to yield exactly <paramref name="itemCount"/> items.
+    /// The items yielded must match the first <paramref name="itemCount"/> items returned by
+    /// <see cref="CreateExpectedItems"/>.
     /// </summary>
     /// <param name="itemCount">The number of items the SUT should yield. Pass 0 for an empty source.</param>
     protected abstract TSut CreateSut(int itemCount);
@@ -66,10 +66,11 @@ public abstract class ExtractWithProgressAsyncContractTests<TSut, TItem, TProgre
     /// <summary>Creates the SUT with an empty source.</summary>
     private TSut CreateSutWithNoItems() => CreateSut(0);
 
-
-    /// <summary>Returns the expected items for the default SUT — integers 1 to <see cref="DefaultItemCount"/>.</summary>
-    private IReadOnlyList<TItem> CreateExpectedItems() =>
-        Enumerable.Range(1, DefaultItemCount).Cast<TItem>().ToList();
+    /// <summary>
+    /// Returns the expected items that the SUT should yield when created with
+    /// <see cref="CreateSut(int)"/>. Must return at least 5 items.
+    /// </summary>
+    protected abstract IReadOnlyList<TItem> CreateExpectedItems();
 
 
 

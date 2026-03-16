@@ -47,6 +47,8 @@ public abstract class ExtractAsyncContractTests<TSut, TItem>
 
     /// <summary>
     /// Creates the system under test configured to yield exactly <paramref name="itemCount"/> items.
+    /// The items yielded must match the first <paramref name="itemCount"/> items returned by
+    /// <see cref="CreateExpectedItems"/>.
     /// </summary>
     /// <param name="itemCount">The number of items the SUT should yield. Pass 0 for an empty source.</param>
     protected abstract TSut CreateSut(int itemCount);
@@ -56,10 +58,11 @@ public abstract class ExtractAsyncContractTests<TSut, TItem>
     /// <summary>Creates the SUT with <see cref="DefaultItemCount"/> items.</summary>
     private TSut CreateSut() => CreateSut(DefaultItemCount);
 
-
-    /// <summary>Returns the expected items for the default SUT — integers 1 to <see cref="DefaultItemCount"/>.</summary>
-    private IReadOnlyList<TItem> CreateExpectedItems() =>
-        Enumerable.Range(1, DefaultItemCount).Cast<TItem>().ToList();
+    /// <summary>
+    /// Returns the expected items that the SUT should yield when created with
+    /// <see cref="CreateSut(int)"/>. Must return at least 5 items.
+    /// </summary>
+    protected abstract IReadOnlyList<TItem> CreateExpectedItems();
 
 
 

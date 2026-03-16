@@ -58,9 +58,11 @@ public abstract class TransformWithProgressAndCancellationAsyncContractTests<TSu
     private TSut CreateSut() => CreateSut(DefaultItemCount);
 
 
-    /// <summary>Returns the expected items for the default SUT — integers 1 to <see cref="DefaultItemCount"/>.</summary>
-    private IReadOnlyList<TItem> CreateExpectedItems() =>
-        Enumerable.Range(1, DefaultItemCount).Cast<TItem>().ToList();
+    /// <summary>
+    /// Returns the expected items that the SUT should yield when created with
+    /// <see cref="CreateSut(int)"/>. Must return at least 5 items.
+    /// </summary>
+    protected abstract IReadOnlyList<TItem> CreateExpectedItems();
 
 
 

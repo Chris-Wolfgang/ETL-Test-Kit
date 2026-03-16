@@ -52,9 +52,10 @@ public abstract class LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>
     private TSut CreateSut() => CreateSut(DefaultItemCount);
 
 
-    /// <summary>Returns the default source items — integers 1 to <see cref="DefaultItemCount"/>.</summary>
-    private IReadOnlyList<TItem> CreateSourceItems() =>
-        Enumerable.Range(1, DefaultItemCount).Cast<TItem>().ToList();
+    /// <summary>
+    /// Returns the source items used to feed the loader. Must return at least 5 items.
+    /// </summary>
+    protected abstract IReadOnlyList<TItem> CreateSourceItems();
 
 
 
