@@ -55,13 +55,13 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Bcl.Memory" Version="10.0.4" />
+    <PackageReference Include="Microsoft.Bcl.Memory" Version="10.0.5" />
     <PackageReference Include="Wolfgang.Etl.Abstractions" Version="0.10.2" />
     <PackageReference Include="System.Linq.Async" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="Meziantou.Analyzer" Version="3.0.23" />
+    <PackageReference Update="Meziantou.Analyzer" Version="3.0.25" />
     <PackageReference Update="SonarAnalyzer.CSharp" Version="10.21.0.135717" />
   </ItemGroup>
 
