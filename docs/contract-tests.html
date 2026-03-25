@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Verifying ETL Components with Wolfgang.Etl.TestKit.Xunit | Wolfgang.Etl.TestKit Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Verifying ETL Components with Wolfgang.Etl.TestKit.Xunit | Wolfgang.Etl.TestKit Documentation ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.6.0/docfx_project/docs/contract-tests.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.Etl.TestKit">
+            Wolfgang.Etl.TestKit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="verifying-etl-components-with-wolfgangetltestkitxunit">Verifying ETL Components with Wolfgang.Etl.TestKit.Xunit</h1>
+
+<p>The <code>Wolfgang.Etl.TestKit.Xunit</code> package provides a suite of abstract xUnit base classes
+that verify any ETL component built on <code>Wolfgang.Etl.Abstractions</code> satisfies its
+contractual obligations.</p>
+<p>Inherit from the appropriate base class in your own test project, implement the factory
+methods, and you instantly gain a comprehensive test suite covering extraction,
+transformation, and loading behaviour, cancellation, progress reporting, and property
+validation — with no test code to write yourself.</p>
+<hr>
+<h2 id="installation">Installation</h2>
+<p>Add <code>Wolfgang.Etl.TestKit.Xunit</code> to your <strong>test</strong> project.</p>
+<p><strong>.NET CLI:</strong></p>
+<pre><code class="lang-bash">dotnet add package Wolfgang.Etl.TestKit.Xunit
+</code></pre>
+<p><strong>Package Manager Console:</strong></p>
+<pre><code class="lang-powershell">Install-Package Wolfgang.Etl.TestKit.Xunit
+</code></pre>
+<p>The package requires xUnit 2.7 or later and targets <code>net462</code>, <code>net481</code>,
+<code>netstandard2.0</code>, <code>net8.0</code>, and <code>net10.0</code>.</p>
+<hr>
+<h2 id="choosing-the-right-base-class">Choosing the right base class</h2>
+<p>There are two tiers of base class:</p>
+<h3 id="interface-contract-classes-thin">Interface contract classes (thin)</h3>
+<p>Use these when your type implements one of the ETL interfaces directly but does <strong>not</strong>
+inherit from an <code>ExtractorBase</code>, <code>TransformerBase</code>, or <code>LoaderBase</code>. They test only the
+obligations declared by that interface.</p>
+<table>
+<thead>
+<tr>
+<th>Base class</th>
+<th>Interface verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ExtractAsyncContractTests&lt;TSut, TItem&gt;</code></td>
+<td><code>IExtractAsync&lt;TSource&gt;</code></td>
+</tr>
+<tr>
+<td><code>ExtractWithCancellationAsyncContractTests&lt;TSut, TItem&gt;</code></td>
+<td><code>IExtractWithCancellationAsync&lt;TSource&gt;</code></td>
+</tr>
+<tr>
+<td><code>ExtractWithProgressAsyncContractTests&lt;TSut, TItem, TProgress&gt;</code></td>
+<td><code>IExtractWithProgressAsync&lt;TSource, TProgress&gt;</code></td>
+</tr>
+<tr>
+<td><code>ExtractWithProgressAndCancellationAsyncContractTests&lt;TSut, TItem, TProgress&gt;</code></td>
+<td><code>IExtractWithProgressAndCancellationAsync&lt;TSource, TProgress&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="base-class-contract-classes-comprehensive">Base class contract classes (comprehensive)</h3>
+<p>Use these when your type inherits from one of the abstract base classes. They cover all
+public overloads and every property defined by the base class.</p>
+<table>
+<thead>
+<tr>
+<th>Base class</th>
+<th>What is tested</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ExtractorBaseContractTests&lt;TSut, TItem, TProgress&gt;</code></td>
+<td>All <code>ExtractorBase</code> behaviour</td>
+</tr>
+<tr>
+<td><code>TransformerBaseContractTests&lt;TSut, TItem, TProgress&gt;</code></td>
+<td>All <code>TransformerBase</code> behaviour</td>
+</tr>
+<tr>
+<td><code>LoaderBaseContractTests&lt;TSut, TItem, TProgress&gt;</code></td>
+<td>All <code>LoaderBase</code> behaviour</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="extractor-example">Extractor example</h2>
+<pre><code class="lang-csharp">public class MyExtractorContractTests
+    : ExtractorBaseContractTests&lt;MyExtractor, MyRecord, MyProgress&gt;
+{
+    protected override MyExtractor CreateSut(int itemCount) =&gt;
+        new MyExtractor(&quot;path/to/test-data.csv&quot;, itemCount);
+
+    protected override IReadOnlyList&lt;MyRecord&gt; CreateExpectedItems() =&gt;
+        new List&lt;MyRecord&gt;
+        {
+            new(&quot;Alice&quot;, 30),
+            new(&quot;Bob&quot;,   25),
+            new(&quot;Carol&quot;, 35),
+            new(&quot;Dave&quot;,  28),
+            new(&quot;Eve&quot;,   42),
+        };
+
+    protected override MyExtractor CreateSutWithTimer(IProgressTimer timer) =&gt;
+        new MyExtractor(&quot;path/to/test-data.csv&quot;, timer);
+}
+</code></pre>
+<p>That single class exercises:</p>
+<ul>
+<li>All four <code>ExtractAsync</code> overloads return the expected items in order.</li>
+<li><code>CurrentItemCount</code> increments as items are yielded.</li>
+<li><code>ReportingInterval</code> rejects values less than 1.</li>
+<li><code>MaximumItemCount</code> stops extraction at the specified limit and rejects values less than 0.</li>
+<li><code>SkipItemCount</code> skips the specified number of items and rejects values less than 0.</li>
+<li>Progress callbacks fire when the timer fires.</li>
+<li>Cancellation is honoured on all cancellable overloads.</li>
+</ul>
+<hr>
+<h2 id="transformer-example">Transformer example</h2>
+<pre><code class="lang-csharp">public class MyTransformerContractTests
+    : TransformerBaseContractTests&lt;MyTransformer, MyRecord, MyProgress&gt;
+{
+    protected override MyTransformer CreateSut(int itemCount) =&gt;
+        new MyTransformer();
+
+    protected override IReadOnlyList&lt;MyRecord&gt; CreateExpectedItems() =&gt;
+        new List&lt;MyRecord&gt;
+        {
+            new(&quot;Alice&quot;, 30),
+            new(&quot;Bob&quot;,   25),
+            new(&quot;Carol&quot;, 35),
+            new(&quot;Dave&quot;,  28),
+            new(&quot;Eve&quot;,   42),
+        };
+
+    protected override MyTransformer CreateSutWithTimer(IProgressTimer timer) =&gt;
+        new MyTransformer(timer);
+}
+</code></pre>
+<p>That single class exercises:</p>
+<ul>
+<li>All four <code>TransformAsync</code> overloads return the expected items in order.</li>
+<li><code>CurrentItemCount</code> increments as items are transformed.</li>
+<li><code>ReportingInterval</code> rejects values less than 1.</li>
+<li><code>MaximumItemCount</code> stops transformation at the specified limit and rejects values less than 1.</li>
+<li><code>SkipItemCount</code> skips the specified number of items and rejects values less than 0.</li>
+<li>Progress callbacks fire when the timer fires.</li>
+<li>Cancellation is honoured on all cancellable overloads.</li>
+</ul>
+<hr>
+<h2 id="loader-example">Loader example</h2>
+<pre><code class="lang-csharp">public class MyLoaderContractTests
+    : LoaderBaseContractTests&lt;MyLoader, MyRecord, MyProgress&gt;
+{
+    protected override MyLoader CreateSut(int itemCount) =&gt;
+        new MyLoader(connectionString);
+
+    protected override IReadOnlyList&lt;MyRecord&gt; CreateSourceItems() =&gt;
+        new List&lt;MyRecord&gt;
+        {
+            new(&quot;Alice&quot;, 30),
+            new(&quot;Bob&quot;,   25),
+            new(&quot;Carol&quot;, 35),
+            new(&quot;Dave&quot;,  28),
+            new(&quot;Eve&quot;,   42),
+        };
+
+    protected override MyLoader CreateSutWithTimer(IProgressTimer timer) =&gt;
+        new MyLoader(connectionString, timer);
+}
+</code></pre>
+<p>That single class exercises:</p>
+<ul>
+<li>All four <code>LoadAsync</code> overloads complete successfully.</li>
+<li><code>CurrentItemCount</code> increments as items are loaded.</li>
+<li><code>ReportingInterval</code> rejects values less than 1.</li>
+<li><code>MaximumItemCount</code> stops loading at the specified limit and rejects values less than 1.</li>
+<li><code>SkipItemCount</code> skips the specified number of items and rejects values less than 0.</li>
+<li>Progress callbacks fire when the timer fires.</li>
+<li>Cancellation is honoured on all cancellable overloads.</li>
+</ul>
+<hr>
+<h2 id="maximumitemcount-and-skipitemcount-requirements">MaximumItemCount and SkipItemCount requirements</h2>
+<p>The <code>MaximumItemCount</code> and <code>SkipItemCount</code> contract tests will only pass if your worker
+method implementation checks these properties and acts accordingly. The base class sets
+the properties but cannot enforce them on your behalf — that is intentional, because the
+mechanism for stopping or skipping is specific to your data source.</p>
+<p>A typical extractor implementation looks like this:</p>
+<pre><code class="lang-csharp">protected override async IAsyncEnumerable&lt;MyRecord&gt; ExtractWorkerAsync(
+    [EnumeratorCancellation] CancellationToken token)
+{
+    await foreach (var row in _source.ReadAllAsync(token).ConfigureAwait(false))
+    {
+        token.ThrowIfCancellationRequested();
+
+        if (CurrentSkippedItemCount &lt; SkipItemCount)
+        {
+            IncrementCurrentSkippedItemCount();
+            continue;
+        }
+
+        if (CurrentItemCount &gt;= MaximumItemCount)
+            yield break;
+
+        IncrementCurrentItemCount();
+        yield return MapToRecord(row);
+    }
+}
+</code></pre>
+<hr>
+<h2 id="synchronousprogresst">SynchronousProgress&lt;T&gt;</h2>
+<p>The package also ships <code>SynchronousProgress&lt;T&gt;</code>, a drop-in replacement for
+<code>Progress&lt;T&gt;</code> that invokes its callback on the calling thread rather than posting to a
+synchronisation context. This makes progress assertions in tests deterministic without
+requiring delays or manual synchronisation.</p>
+<pre><code class="lang-csharp">TProgress? lastReport = null;
+var progress = new SynchronousProgress&lt;TProgress&gt;(r =&gt; lastReport = r);
+
+await sut.ExtractAsync(progress).ToListAsync();
+
+Assert.NotNull(lastReport);
+Assert.Equal(expectedCount, lastReport.CurrentItemCount);
+</code></pre>
+<hr>
+<h2 id="interface-only-example">Interface-only example</h2>
+<p>If your extractor implements <code>IExtractAsync&lt;T&gt;</code> directly rather than inheriting from
+<code>ExtractorBase</code>, use the thin interface contract class instead:</p>
+<pre><code class="lang-csharp">public class MyLightweightExtractorContractTests
+    : ExtractAsyncContractTests&lt;MyLightweightExtractor, MyRecord&gt;
+{
+    protected override MyLightweightExtractor CreateSut(int itemCount) =&gt;
+        new MyLightweightExtractor(itemCount);
+
+    protected override IReadOnlyList&lt;MyRecord&gt; CreateExpectedItems() =&gt;
+        new List&lt;MyRecord&gt; { new(&quot;a&quot;), new(&quot;b&quot;), new(&quot;c&quot;), new(&quot;d&quot;), new(&quot;e&quot;) };
+}
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.6.0/docfx_project/docs/contract-tests.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
