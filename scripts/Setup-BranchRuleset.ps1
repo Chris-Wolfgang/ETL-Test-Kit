@@ -54,7 +54,7 @@
 [CmdletBinding()]
 param(
     [Parameter()]
-    [string]$Repository = "Chris Wolfgang",
+    [string]$Repository = "Chris-Wolfgang/ETL-Test-Kit",
     
     [Parameter()]
     [string]$BranchName = "main"
