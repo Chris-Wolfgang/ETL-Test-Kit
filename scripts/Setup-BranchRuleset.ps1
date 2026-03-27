@@ -54,7 +54,7 @@
 [CmdletBinding()]
 param(
     [Parameter()]
-    [string]$Repository = "{{GITHUB_USERNAME}}/{{REPO_NAME}}",
+    [string]$Repository = "Chris Wolfgang",
     
     [Parameter()]
     [string]$BranchName = "main"
