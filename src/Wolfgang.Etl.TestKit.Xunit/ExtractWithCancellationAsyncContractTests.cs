@@ -77,12 +77,12 @@ public abstract class ExtractWithCancellationAsyncContractTests<TSut, TItem>
     /// when passed <see cref="CancellationToken.None"/>.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_cancellation_token_yields_expected_items()
+    public async Task ExtractAsync_with_cancellation_token_yields_expected_items_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
 
-        var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync();
+        var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -93,7 +93,7 @@ public abstract class ExtractWithCancellationAsyncContractTests<TSut, TItem>
     /// token is cancelled mid-sequence.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_cancellation_token_stops_when_token_is_cancelled()
+    public async Task ExtractAsync_with_cancellation_token_stops_when_token_is_cancelled_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
@@ -110,13 +110,13 @@ public abstract class ExtractWithCancellationAsyncContractTests<TSut, TItem>
                 if (received.Count == 1)
                 {
                     #if NET8_0_OR_GREATER
-                    await cts.CancelAsync();
+                    await cts.CancelAsync().ConfigureAwait(false);
                     #else
                     cts.Cancel();
                     #endif
                 }
             }
-        });
+        }).ConfigureAwait(false);
 
         // Must have received at least the item that triggered cancellation,
         // but fewer than the full sequence.
@@ -129,12 +129,12 @@ public abstract class ExtractWithCancellationAsyncContractTests<TSut, TItem>
     /// already-cancelled token.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_already_cancelled_token_throws_OperationCanceledException()
+    public async Task ExtractAsync_with_already_cancelled_token_throws_OperationCanceledException_Async()
     {
         var sut = CreateSut();
         using var cts = new CancellationTokenSource();
 #if NET8_0_OR_GREATER
-        await cts.CancelAsync();
+        await cts.CancelAsync().ConfigureAwait(false);
 #else
         cts.Cancel();
 #endif
@@ -146,7 +146,7 @@ public abstract class ExtractWithCancellationAsyncContractTests<TSut, TItem>
             {
                 received.Add(item);
             }
-        });
+        }).ConfigureAwait(false);
 
         Assert.Empty(received);
     }

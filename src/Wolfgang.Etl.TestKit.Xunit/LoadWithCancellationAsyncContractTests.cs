@@ -72,11 +72,16 @@ public abstract class LoadWithCancellationAsyncContractTests<TSut, TItem>
     /// completes without throwing when passed <see cref="CancellationToken.None"/>.
     /// </summary>
     [Fact]
-    public Task LoadAsync_with_cancellation_token_completes_without_throwing()
+    public async Task LoadAsync_with_cancellation_token_completes_without_throwing_Async()
     {
         var sut = CreateSut();
 
-        return sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), CancellationToken.None);
+        var exception = await Record.ExceptionAsync
+        (
+            () => sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), CancellationToken.None)
+        ).ConfigureAwait(false);
+
+        Assert.Null(exception);
     }
 
 
@@ -87,7 +92,7 @@ public abstract class LoadWithCancellationAsyncContractTests<TSut, TItem>
     /// mid-sequence.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_cancellation_token_stops_when_token_is_cancelled()
+    public async Task LoadAsync_with_cancellation_token_stops_when_token_is_cancelled_Async()
     {
         var sut = CreateSut();
         var source = CreateSourceItems();
@@ -98,7 +103,7 @@ public abstract class LoadWithCancellationAsyncContractTests<TSut, TItem>
 
         await Assert.ThrowsAsync<OperationCanceledException>(async () =>
         {
-            await sut.LoadAsync(CancellingSequenceAsync(), cts.Token);
+            await sut.LoadAsync(CancellingSequenceAsync(), cts.Token).ConfigureAwait(false);
 
             async IAsyncEnumerable<TItem> CancellingSequenceAsync()
             {
@@ -108,7 +113,7 @@ public abstract class LoadWithCancellationAsyncContractTests<TSut, TItem>
                     if (itemsLoaded == 1)
                     {
 #if NET8_0_OR_GREATER
-                        await cts.CancelAsync();
+                        await cts.CancelAsync().ConfigureAwait(false);
 #else
                         cts.Cancel();
 #endif
@@ -116,7 +121,7 @@ public abstract class LoadWithCancellationAsyncContractTests<TSut, TItem>
                     yield return item;
                 }
             }
-        });
+        }).ConfigureAwait(false);
 
         Assert.Equal(1, itemsLoaded);
     }
@@ -129,16 +134,19 @@ public abstract class LoadWithCancellationAsyncContractTests<TSut, TItem>
     /// already-cancelled token.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_already_cancelled_token_throws_OperationCanceledException()
+    public async Task LoadAsync_with_already_cancelled_token_throws_OperationCanceledException_Async()
     {
         var sut = CreateSut();
         using var cts = new CancellationTokenSource();
 #if NET8_0_OR_GREATER
-        await cts.CancelAsync();
+        await cts.CancelAsync().ConfigureAwait(false);
 #else
         cts.Cancel();
 #endif
 
-        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), cts.Token));
+        await Assert.ThrowsAnyAsync<OperationCanceledException>
+        (
+            () => sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), cts.Token)
+        ).ConfigureAwait(false);
     }
 }

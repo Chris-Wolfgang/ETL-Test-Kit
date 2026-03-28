@@ -100,13 +100,13 @@ public abstract class ExtractWithProgressAsyncContractTests<TSut, TItem, TProgre
     /// items when a valid progress instance is supplied.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_progress_yields_expected_items()
+    public async Task ExtractAsync_with_progress_yields_expected_items_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
         var progress = new Progress<TProgress>();
 
-        var actual = await sut.ExtractAsync(progress).ToListAsync();
+        var actual = await sut.ExtractAsync(progress).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -116,13 +116,13 @@ public abstract class ExtractWithProgressAsyncContractTests<TSut, TItem, TProgre
     /// callback at least once during extraction.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_progress_invokes_callback_at_least_once()
+    public async Task ExtractAsync_with_progress_invokes_callback_at_least_once_Async()
     {
         var sut = CreateSut();
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.ExtractAsync(progress).ToListAsync();
+        await sut.ExtractAsync(progress).ToListAsync().ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
@@ -134,13 +134,13 @@ public abstract class ExtractWithProgressAsyncContractTests<TSut, TItem, TProgre
     /// callback at least once even when the source is empty.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_progress_and_empty_source_invokes_callback_at_least_once()
+    public async Task ExtractAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async()
     {
         var sut = CreateSutWithNoItems();
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.ExtractAsync(progress).ToListAsync();
+        await sut.ExtractAsync(progress).ToListAsync().ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }

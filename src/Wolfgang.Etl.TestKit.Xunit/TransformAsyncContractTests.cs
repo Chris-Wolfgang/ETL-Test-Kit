@@ -85,12 +85,12 @@ public abstract class TransformAsyncContractTests<TSut, TItem>
     /// expected items in order.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_yields_expected_items_in_order()
+    public async Task TransformAsync_yields_expected_items_in_order_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
 
-        var actual = await sut.TransformAsync(expected.ToAsyncEnumerable()).ToListAsync();
+        var actual = await sut.TransformAsync(expected.ToAsyncEnumerable()).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
