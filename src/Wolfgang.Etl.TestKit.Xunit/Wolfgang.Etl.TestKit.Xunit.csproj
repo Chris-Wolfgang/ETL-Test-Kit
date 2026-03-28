@@ -69,8 +69,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="Meziantou.Analyzer" Version="3.0.27" />
-    <PackageReference Update="SonarAnalyzer.CSharp" Version="10.21.0.135717" />
+    <PackageReference Update="Meziantou.Analyzer" Version="3.0.29" />
+    <PackageReference Update="SonarAnalyzer.CSharp" Version="10.22.0.136894" />
   </ItemGroup>
 
 </Project>
