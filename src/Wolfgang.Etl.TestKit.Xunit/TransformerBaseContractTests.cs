@@ -100,7 +100,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     protected abstract IReadOnlyList<TItem> CreateExpectedItems();
 
     /// <summary>Returns the expected items as an async enumerable for feeding into the transformer.</summary>
-    private IAsyncEnumerable<TItem> CreateInputItems() =>
+    private IAsyncEnumerable<TItem> CreateInputItemsAsync() =>
         CreateExpectedItems().ToAsyncEnumerable();
 
 
@@ -131,7 +131,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         var sut = CreateSut();
         var expected = CreateExpectedItems();
 
-        var actual = await sut.TransformAsync(CreateInputItems()).ToListAsync().ConfigureAwait(false);
+        var actual = await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -179,7 +179,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         var sut = CreateSut();
         var expected = CreateExpectedItems();
 
-        await sut.TransformAsync(CreateInputItems()).ToListAsync().ConfigureAwait(false);
+        await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected.Count, sut.CurrentItemCount);
     }
@@ -215,7 +215,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         var sut = CreateSut();
         var expected = CreateExpectedItems();
 
-        var actual = await sut.TransformAsync(CreateInputItems(), CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        var actual = await sut.TransformAsync(CreateInputItemsAsync(), CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -254,7 +254,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.TransformAsync(CreateInputItems(), cts.Token))
+            await foreach (var item in sut.TransformAsync(CreateInputItemsAsync(), cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
                 if (received.Count == 1)
@@ -291,7 +291,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         var received = new List<TItem>();
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.TransformAsync(CreateInputItems(), cts.Token))
+            await foreach (var item in sut.TransformAsync(CreateInputItemsAsync(), cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
             }
@@ -333,7 +333,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         Assert.Throws<ArgumentNullException>(() =>
         {
-            _ = sut.TransformAsync(CreateInputItems(), (IProgress<TProgress>)null!);
+            _ = sut.TransformAsync(CreateInputItemsAsync(), (IProgress<TProgress>)null!);
         });
     }
 
@@ -348,7 +348,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         var expected = CreateExpectedItems();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        var actual = await sut.TransformAsync(CreateInputItems(), progress).ToListAsync().ConfigureAwait(false);
+        var actual = await sut.TransformAsync(CreateInputItemsAsync(), progress).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -384,7 +384,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         TProgress? captured = default;
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
 
-        await using var enumerator = sut.TransformAsync(CreateInputItems(), progress).GetAsyncEnumerator();
+        await using var enumerator = sut.TransformAsync(CreateInputItemsAsync(), progress).GetAsyncEnumerator();
         await enumerator.MoveNextAsync().ConfigureAwait(false);
         timer.Fire();
 
@@ -405,7 +405,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.TransformAsync(CreateInputItems(), progress).ToListAsync().ConfigureAwait(false);
+        await sut.TransformAsync(CreateInputItemsAsync(), progress).ToListAsync().ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
@@ -461,7 +461,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         Assert.Throws<ArgumentNullException>(() =>
         {
-            _ = sut.TransformAsync(CreateInputItems(), (IProgress<TProgress>)null!, CancellationToken.None);
+            _ = sut.TransformAsync(CreateInputItemsAsync(), (IProgress<TProgress>)null!, CancellationToken.None);
         });
     }
 
@@ -476,7 +476,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         var expected = CreateExpectedItems();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        var actual = await sut.TransformAsync(CreateInputItems(), progress, CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        var actual = await sut.TransformAsync(CreateInputItemsAsync(), progress, CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -517,7 +517,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.TransformAsync(CreateInputItems(), progress, cts.Token))
+            await foreach (var item in sut.TransformAsync(CreateInputItemsAsync(), progress, cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
                 if (received.Count == 1)
@@ -546,7 +546,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         TProgress? captured = default;
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
 
-        await using var enumerator = sut.TransformAsync(CreateInputItems(), progress, CancellationToken.None).GetAsyncEnumerator();
+        await using var enumerator = sut.TransformAsync(CreateInputItemsAsync(), progress, CancellationToken.None).GetAsyncEnumerator();
         await enumerator.MoveNextAsync().ConfigureAwait(false);
         timer.Fire();
 
@@ -567,7 +567,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.TransformAsync(CreateInputItems(), progress, CancellationToken.None).ToListAsync().ConfigureAwait(false);
+        await sut.TransformAsync(CreateInputItemsAsync(), progress, CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
@@ -701,7 +701,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         sut.MaximumItemCount = 1;
 
-        var actual = await sut.TransformAsync(CreateInputItems()).ToListAsync().ConfigureAwait(false);
+        var actual = await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(1, actual.Count);
         Assert.Equal(expected[0], actual[0]);
@@ -718,7 +718,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         var expected = CreateExpectedItems();
         sut.MaximumItemCount = expected.Count + 100;
 
-        var actual = await sut.TransformAsync(CreateInputItems()).ToListAsync().ConfigureAwait(false);
+        var actual = await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -774,7 +774,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         sut.SkipItemCount = 1;
 
-        var actual = await sut.TransformAsync(CreateInputItems()).ToListAsync().ConfigureAwait(false);
+        var actual = await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected.Count - 1, actual.Count);
         Assert.Equal(expected.Skip(1).ToList(), actual);

@@ -101,7 +101,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     private TSut CreateSutWithNoItems() => CreateSut(0);
 
     /// <summary>Returns the default input sequence as an async enumerable.</summary>
-    private IAsyncEnumerable<TItem> CreateInputItems() =>
+    private IAsyncEnumerable<TItem> CreateInputItemsAsync() =>
         CreateSourceItems().ToAsyncEnumerable();
 
     /// <summary>
@@ -109,11 +109,13 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// <paramref name="gate"/> is released, keeping the load pipeline alive
     /// so the test can call <see cref="ManualProgressTimer.Fire"/> mid-flight.
     /// </summary>
-    private async IAsyncEnumerable<TItem> CreateGatedInputItems(TaskCompletionSource<bool> gate)
+    private async IAsyncEnumerable<TItem> CreateGatedInputItemsAsync(TaskCompletionSource<bool> gate)
     {
         var items = CreateSourceItems();
         yield return items[0];
+#pragma warning disable VSTHRD003 // Avoid awaiting foreign Tasks — gate is a test-controlled TaskCompletionSource
         await gate.Task.ConfigureAwait(false);
+#pragma warning restore VSTHRD003
         for (var i = 1; i < items.Count; i++)
         {
             yield return items[i];
@@ -152,7 +154,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
 
         var exception = await Record.ExceptionAsync
         (
-            () => sut.LoadAsync(CreateInputItems())
+            () => sut.LoadAsync(CreateInputItemsAsync())
         ).ConfigureAwait(false);
 
         Assert.Null(exception);
@@ -189,7 +191,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var sut = CreateSut();
         var expected = CreateSourceItems();
 
-        await sut.LoadAsync(CreateInputItems()).ConfigureAwait(false);
+        await sut.LoadAsync(CreateInputItemsAsync()).ConfigureAwait(false);
 
         Assert.Equal(expected.Count, sut.CurrentItemCount);
     }
@@ -226,7 +228,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
 
         var exception = await Record.ExceptionAsync
         (
-            () => sut.LoadAsync(CreateInputItems(), CancellationToken.None)
+            () => sut.LoadAsync(CreateInputItemsAsync(), CancellationToken.None)
         ).ConfigureAwait(false);
 
         Assert.Null(exception);
@@ -269,7 +271,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
 #endif
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
-            sut.LoadAsync(CreateInputItems(), cts.Token)).ConfigureAwait(false);
+            sut.LoadAsync(CreateInputItemsAsync(), cts.Token)).ConfigureAwait(false);
     }
 
 
@@ -346,7 +348,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var sut = CreateSut();
 
         var ex = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-            sut.LoadAsync(CreateInputItems(), (IProgress<TProgress>)null!)).ConfigureAwait(false);
+            sut.LoadAsync(CreateInputItemsAsync(), (IProgress<TProgress>)null!)).ConfigureAwait(false);
 
         Assert.NotNull(ex);
     }
@@ -363,7 +365,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
 
         var exception = await Record.ExceptionAsync
         (
-            () => sut.LoadAsync(CreateInputItems(), progress)
+            () => sut.LoadAsync(CreateInputItemsAsync(), progress)
         ).ConfigureAwait(false);
 
         Assert.Null(exception);
@@ -404,7 +406,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
         var gate = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
-        var task = sut.LoadAsync(CreateGatedInputItems(gate), progress);
+        var task = sut.LoadAsync(CreateGatedInputItemsAsync(gate), progress);
         timer.Fire();
         gate.SetResult(true);
         await task.ConfigureAwait(false);
@@ -425,7 +427,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.LoadAsync(CreateInputItems(), progress).ConfigureAwait(false);
+        await sut.LoadAsync(CreateInputItemsAsync(), progress).ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
@@ -480,7 +482,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var sut = CreateSut();
 
         var ex = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-            sut.LoadAsync(CreateInputItems(), (IProgress<TProgress>)null!, CancellationToken.None)).ConfigureAwait(false);
+            sut.LoadAsync(CreateInputItemsAsync(), (IProgress<TProgress>)null!, CancellationToken.None)).ConfigureAwait(false);
 
         Assert.NotNull(ex);
     }
@@ -497,7 +499,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
 
         var exception = await Record.ExceptionAsync
         (
-            () => sut.LoadAsync(CreateInputItems(), progress, CancellationToken.None)
+            () => sut.LoadAsync(CreateInputItemsAsync(), progress, CancellationToken.None)
         ).ConfigureAwait(false);
 
         Assert.Null(exception);
@@ -542,7 +544,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
 #endif
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
-            sut.LoadAsync(CreateInputItems(), progress, cts.Token)).ConfigureAwait(false);
+            sut.LoadAsync(CreateInputItemsAsync(), progress, cts.Token)).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -558,7 +560,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
         var gate = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
-        var task = sut.LoadAsync(CreateGatedInputItems(gate), progress, CancellationToken.None);
+        var task = sut.LoadAsync(CreateGatedInputItemsAsync(gate), progress, CancellationToken.None);
         timer.Fire();
         gate.SetResult(true);
         await task.ConfigureAwait(false);
@@ -580,7 +582,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.LoadAsync(CreateInputItems(), progress, CancellationToken.None).ConfigureAwait(false);
+        await sut.LoadAsync(CreateInputItemsAsync(), progress, CancellationToken.None).ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
@@ -714,7 +716,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
 
         sut.MaximumItemCount = 1;
 
-        await sut.LoadAsync(CreateInputItems()).ConfigureAwait(false);
+        await sut.LoadAsync(CreateInputItemsAsync()).ConfigureAwait(false);
 
         Assert.Equal(1, sut.CurrentItemCount);
     }
@@ -730,7 +732,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var expected = CreateSourceItems();
         sut.MaximumItemCount = expected.Count + 100;
 
-        await sut.LoadAsync(CreateInputItems()).ConfigureAwait(false);
+        await sut.LoadAsync(CreateInputItemsAsync()).ConfigureAwait(false);
 
         Assert.Equal(expected.Count, sut.CurrentItemCount);
     }
@@ -785,7 +787,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
 
         sut.SkipItemCount = 1;
 
-        await sut.LoadAsync(CreateInputItems()).ConfigureAwait(false);
+        await sut.LoadAsync(CreateInputItemsAsync()).ConfigureAwait(false);
 
         Assert.Equal(expected.Count - 1, sut.CurrentItemCount);
         Assert.Equal(1, sut.CurrentSkippedItemCount);

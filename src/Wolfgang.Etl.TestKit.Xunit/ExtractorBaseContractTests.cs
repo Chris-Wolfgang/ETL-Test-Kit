@@ -230,7 +230,7 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.ExtractAsync(cts.Token))
+            await foreach (var item in sut.ExtractAsync(cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
                 if (received.Count == 1)
@@ -267,7 +267,7 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
         var received = new List<TItem>();
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.ExtractAsync(cts.Token))
+            await foreach (var item in sut.ExtractAsync(cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
             }
@@ -462,7 +462,7 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.ExtractAsync(progress, cts.Token))
+            await foreach (var item in sut.ExtractAsync(progress, cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
                 if (received.Count == 1)
