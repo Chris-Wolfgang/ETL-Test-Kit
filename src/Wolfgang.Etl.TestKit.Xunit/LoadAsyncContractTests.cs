@@ -70,11 +70,16 @@ public abstract class LoadAsyncContractTests<TSut, TItem>
     /// throwing when supplied a valid sequence.
     /// </summary>
     [Fact]
-    public Task LoadAsync_completes_without_throwing()
+    public async Task LoadAsync_completes_without_throwing_Async()
     {
         var sut = CreateSut();
 
-        return sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable());
+        var exception = await Record.ExceptionAsync
+        (
+            () => sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable())
+        ).ConfigureAwait(false);
+
+        Assert.Null(exception);
     }
 
 
@@ -84,10 +89,15 @@ public abstract class LoadAsyncContractTests<TSut, TItem>
     /// throwing when supplied an empty sequence.
     /// </summary>
     [Fact]
-    public Task LoadAsync_with_empty_sequence_completes_without_throwing()
+    public async Task LoadAsync_with_empty_sequence_completes_without_throwing_Async()
     {
         var sut = CreateSut();
 
-        return sut.LoadAsync(AsyncEnumerable.Empty<TItem>());
+        var exception = await Record.ExceptionAsync
+        (
+            () => sut.LoadAsync(AsyncEnumerable.Empty<TItem>())
+        ).ConfigureAwait(false);
+
+        Assert.Null(exception);
     }
 }

@@ -73,12 +73,12 @@ public abstract class TransformWithCancellationAsyncContractTests<TSut, TItem>
     /// yields the expected items when passed <see cref="CancellationToken.None"/>.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_cancellation_token_yields_expected_items()
+    public async Task TransformAsync_with_cancellation_token_yields_expected_items_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
 
-        var actual = await sut.TransformAsync(expected.ToAsyncEnumerable(), CancellationToken.None).ToListAsync();
+        var actual = await sut.TransformAsync(expected.ToAsyncEnumerable(), CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -91,7 +91,7 @@ public abstract class TransformWithCancellationAsyncContractTests<TSut, TItem>
     /// token is cancelled mid-sequence.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_cancellation_token_stops_when_token_is_cancelled()
+    public async Task TransformAsync_with_cancellation_token_stops_when_token_is_cancelled_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
@@ -102,19 +102,19 @@ public abstract class TransformWithCancellationAsyncContractTests<TSut, TItem>
 
         await Assert.ThrowsAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.TransformAsync(expected.ToAsyncEnumerable(), cts.Token))
+            await foreach (var item in sut.TransformAsync(expected.ToAsyncEnumerable(), cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
                 if (received.Count == 1)
                 {
                     #if NET8_0_OR_GREATER
-                    await cts.CancelAsync();
+                    await cts.CancelAsync().ConfigureAwait(false);
                     #else
                     cts.Cancel();
                     #endif
                 }
             }
-        });
+        }).ConfigureAwait(false);
 
         Assert.Equal(1, received.Count);
     }
@@ -127,13 +127,13 @@ public abstract class TransformWithCancellationAsyncContractTests<TSut, TItem>
     /// already-cancelled token.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_already_cancelled_token_throws_OperationCanceledException()
+    public async Task TransformAsync_with_already_cancelled_token_throws_OperationCanceledException_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
         using var cts = new CancellationTokenSource();
 #if NET8_0_OR_GREATER
-        await cts.CancelAsync();
+        await cts.CancelAsync().ConfigureAwait(false);
 #else
         cts.Cancel();
 #endif
@@ -141,11 +141,11 @@ public abstract class TransformWithCancellationAsyncContractTests<TSut, TItem>
         var received = new List<TItem>();
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.TransformAsync(expected.ToAsyncEnumerable(), cts.Token))
+            await foreach (var item in sut.TransformAsync(expected.ToAsyncEnumerable(), cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
             }
-        });
+        }).ConfigureAwait(false);
 
         Assert.Empty(received);
     }

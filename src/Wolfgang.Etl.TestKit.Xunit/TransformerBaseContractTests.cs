@@ -100,7 +100,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     protected abstract IReadOnlyList<TItem> CreateExpectedItems();
 
     /// <summary>Returns the expected items as an async enumerable for feeding into the transformer.</summary>
-    private IAsyncEnumerable<TItem> CreateInputItems() =>
+    private IAsyncEnumerable<TItem> CreateInputItemsAsync() =>
         CreateExpectedItems().ToAsyncEnumerable();
 
 
@@ -126,12 +126,12 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// Verifies that <c>TransformAsync(items)</c> yields all expected items in order.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_yields_all_expected_items_in_order()
+    public async Task TransformAsync_yields_all_expected_items_in_order_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
 
-        var actual = await sut.TransformAsync(CreateInputItems()).ToListAsync();
+        var actual = await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -143,11 +143,11 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// error when the source contains no items.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_empty_source_yields_no_items()
+    public async Task TransformAsync_with_empty_source_yields_no_items_Async()
     {
         var sut = CreateSutWithNoItems();
 
-        var actual = await sut.TransformAsync(AsyncEnumerable.Empty<TItem>()).ToListAsync();
+        var actual = await sut.TransformAsync(AsyncEnumerable.Empty<TItem>()).ToListAsync().ConfigureAwait(false);
 
         Assert.Empty(actual);
     }
@@ -174,12 +174,12 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// after a full run via <c>TransformAsync(items)</c>.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_increments_CurrentItemCount_for_each_item()
+    public async Task TransformAsync_increments_CurrentItemCount_for_each_item_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
 
-        await sut.TransformAsync(CreateInputItems()).ToListAsync();
+        await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected.Count, sut.CurrentItemCount);
     }
@@ -210,12 +210,12 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// items when passed <see cref="CancellationToken.None"/>.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_token_yields_all_expected_items()
+    public async Task TransformAsync_with_token_yields_all_expected_items_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
 
-        var actual = await sut.TransformAsync(CreateInputItems(), CancellationToken.None).ToListAsync();
+        var actual = await sut.TransformAsync(CreateInputItemsAsync(), CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -227,11 +227,11 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// sequence without error when the source contains no items.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_token_and_empty_source_yields_no_items()
+    public async Task TransformAsync_with_token_and_empty_source_yields_no_items_Async()
     {
         var sut = CreateSutWithNoItems();
 
-        var actual = await sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), CancellationToken.None).ToListAsync();
+        var actual = await sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.Empty(actual);
     }
@@ -243,7 +243,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="OperationCanceledException"/> and stops yielding when the token is cancelled.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_token_stops_when_token_is_cancelled()
+    public async Task TransformAsync_with_token_stops_when_token_is_cancelled_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
@@ -254,19 +254,19 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.TransformAsync(CreateInputItems(), cts.Token))
+            await foreach (var item in sut.TransformAsync(CreateInputItemsAsync(), cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
                 if (received.Count == 1)
                 {
                     #if NET8_0_OR_GREATER
-                    await cts.CancelAsync();
+                    await cts.CancelAsync().ConfigureAwait(false);
                     #else
                     cts.Cancel();
                     #endif
                 }
             }
-        });
+        }).ConfigureAwait(false);
 
         Assert.Equal(1, received.Count);
     }
@@ -278,12 +278,12 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="OperationCanceledException"/> immediately when passed an already-cancelled token.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_already_cancelled_token_throws_OperationCanceledException()
+    public async Task TransformAsync_with_already_cancelled_token_throws_OperationCanceledException_Async()
     {
         var sut = CreateSut();
         using var cts = new CancellationTokenSource();
 #if NET8_0_OR_GREATER
-        await cts.CancelAsync();
+        await cts.CancelAsync().ConfigureAwait(false);
 #else
         cts.Cancel();
 #endif
@@ -291,11 +291,11 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         var received = new List<TItem>();
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.TransformAsync(CreateInputItems(), cts.Token))
+            await foreach (var item in sut.TransformAsync(CreateInputItemsAsync(), cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
             }
-        });
+        }).ConfigureAwait(false);
 
         Assert.Empty(received);
     }
@@ -333,7 +333,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         Assert.Throws<ArgumentNullException>(() =>
         {
-            _ = sut.TransformAsync(CreateInputItems(), (IProgress<TProgress>)null!);
+            _ = sut.TransformAsync(CreateInputItemsAsync(), (IProgress<TProgress>)null!);
         });
     }
 
@@ -342,13 +342,13 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// when valid arguments are supplied.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_progress_yields_all_expected_items()
+    public async Task TransformAsync_with_progress_yields_all_expected_items_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        var actual = await sut.TransformAsync(CreateInputItems(), progress).ToListAsync();
+        var actual = await sut.TransformAsync(CreateInputItemsAsync(), progress).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -360,12 +360,12 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// without error when the source contains no items.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_progress_and_empty_source_yields_no_items()
+    public async Task TransformAsync_with_progress_and_empty_source_yields_no_items_Async()
     {
         var sut = CreateSutWithNoItems();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        var actual = await sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), progress).ToListAsync();
+        var actual = await sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), progress).ToListAsync().ConfigureAwait(false);
 
         Assert.Empty(actual);
     }
@@ -377,15 +377,15 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// callback when the <see cref="IProgressTimer"/> fires.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_progress_invokes_callback_when_timer_fires()
+    public async Task TransformAsync_with_progress_invokes_callback_when_timer_fires_Async()
     {
         using var timer = new ManualProgressTimer();
         var sut = CreateSutWithTimer(timer);
         TProgress? captured = default;
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
 
-        await using var enumerator = sut.TransformAsync(CreateInputItems(), progress).GetAsyncEnumerator();
-        await enumerator.MoveNextAsync();
+        await using var enumerator = sut.TransformAsync(CreateInputItemsAsync(), progress).GetAsyncEnumerator();
+        await enumerator.MoveNextAsync().ConfigureAwait(false);
         timer.Fire();
 
         Assert.NotNull(captured);
@@ -399,13 +399,13 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="Progress{T}"/>.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_progress_invokes_callback_at_least_once()
+    public async Task TransformAsync_with_progress_invokes_callback_at_least_once_Async()
     {
         var sut = CreateSut();
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.TransformAsync(CreateInputItems(), progress).ToListAsync();
+        await sut.TransformAsync(CreateInputItemsAsync(), progress).ToListAsync().ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
@@ -417,13 +417,13 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// progress callback at least once even when the source is empty.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_progress_and_empty_source_invokes_callback_at_least_once()
+    public async Task TransformAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async()
     {
         var sut = CreateSut();
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), progress).ToListAsync();
+        await sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), progress).ToListAsync().ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
@@ -461,7 +461,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         Assert.Throws<ArgumentNullException>(() =>
         {
-            _ = sut.TransformAsync(CreateInputItems(), (IProgress<TProgress>)null!, CancellationToken.None);
+            _ = sut.TransformAsync(CreateInputItemsAsync(), (IProgress<TProgress>)null!, CancellationToken.None);
         });
     }
 
@@ -470,13 +470,13 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// expected items when valid arguments are supplied.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_progress_and_token_yields_all_expected_items()
+    public async Task TransformAsync_with_progress_and_token_yields_all_expected_items_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        var actual = await sut.TransformAsync(CreateInputItems(), progress, CancellationToken.None).ToListAsync();
+        var actual = await sut.TransformAsync(CreateInputItemsAsync(), progress, CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -488,12 +488,12 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// empty sequence without error when the source contains no items.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_progress_and_token_and_empty_source_yields_no_items()
+    public async Task TransformAsync_with_progress_and_token_and_empty_source_yields_no_items_Async()
     {
         var sut = CreateSutWithNoItems();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        var actual = await sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), progress, CancellationToken.None).ToListAsync();
+        var actual = await sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), progress, CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.Empty(actual);
     }
@@ -505,7 +505,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="OperationCanceledException"/> and stops yielding when the token is cancelled.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_progress_and_cancelled_token_stops_enumeration()
+    public async Task TransformAsync_with_progress_and_cancelled_token_stops_enumeration_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
@@ -517,19 +517,19 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.TransformAsync(CreateInputItems(), progress, cts.Token))
+            await foreach (var item in sut.TransformAsync(CreateInputItemsAsync(), progress, cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
                 if (received.Count == 1)
                 {
                     #if NET8_0_OR_GREATER
-                    await cts.CancelAsync();
+                    await cts.CancelAsync().ConfigureAwait(false);
                     #else
                     cts.Cancel();
                     #endif
                 }
             }
-        });
+        }).ConfigureAwait(false);
 
         Assert.Equal(1, received.Count);
     }
@@ -539,15 +539,15 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// progress callback when the <see cref="IProgressTimer"/> fires.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_progress_and_token_invokes_callback_when_timer_fires()
+    public async Task TransformAsync_with_progress_and_token_invokes_callback_when_timer_fires_Async()
     {
         using var timer = new ManualProgressTimer();
         var sut = CreateSutWithTimer(timer);
         TProgress? captured = default;
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
 
-        await using var enumerator = sut.TransformAsync(CreateInputItems(), progress, CancellationToken.None).GetAsyncEnumerator();
-        await enumerator.MoveNextAsync();
+        await using var enumerator = sut.TransformAsync(CreateInputItemsAsync(), progress, CancellationToken.None).GetAsyncEnumerator();
+        await enumerator.MoveNextAsync().ConfigureAwait(false);
         timer.Fire();
 
         Assert.NotNull(captured);
@@ -561,13 +561,13 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="Progress{T}"/>.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_progress_and_token_invokes_callback_at_least_once()
+    public async Task TransformAsync_with_progress_and_token_invokes_callback_at_least_once_Async()
     {
         var sut = CreateSut();
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.TransformAsync(CreateInputItems(), progress, CancellationToken.None).ToListAsync();
+        await sut.TransformAsync(CreateInputItemsAsync(), progress, CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
@@ -579,13 +579,13 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// invokes the progress callback at least once even when the source is empty.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once()
+    public async Task TransformAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async()
     {
         var sut = CreateSut();
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), progress, CancellationToken.None).ToListAsync();
+        await sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), progress, CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
@@ -693,7 +693,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// is reached.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_stops_at_MaximumItemCount()
+    public async Task TransformAsync_stops_at_MaximumItemCount_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
@@ -701,7 +701,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         sut.MaximumItemCount = 1;
 
-        var actual = await sut.TransformAsync(CreateInputItems()).ToListAsync();
+        var actual = await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(1, actual.Count);
         Assert.Equal(expected[0], actual[0]);
@@ -712,13 +712,13 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// are still yielded.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_yields_all_items_when_MaximumItemCount_exceeds_sequence_length()
+    public async Task TransformAsync_yields_all_items_when_MaximumItemCount_exceeds_sequence_length_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
         sut.MaximumItemCount = expected.Count + 100;
 
-        var actual = await sut.TransformAsync(CreateInputItems()).ToListAsync();
+        var actual = await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -766,7 +766,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     /// yielding.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_skips_items_up_to_SkipItemCount()
+    public async Task TransformAsync_skips_items_up_to_SkipItemCount_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
@@ -774,7 +774,7 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         sut.SkipItemCount = 1;
 
-        var actual = await sut.TransformAsync(CreateInputItems()).ToListAsync();
+        var actual = await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected.Count - 1, actual.Count);
         Assert.Equal(expected.Skip(1).ToList(), actual);

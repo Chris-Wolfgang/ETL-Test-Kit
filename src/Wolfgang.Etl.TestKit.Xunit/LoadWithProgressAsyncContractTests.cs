@@ -70,11 +70,16 @@ public abstract class LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>
     /// throws <see cref="ArgumentNullException"/> when <c>progress</c> is <see langword="null"/>.
     /// </summary>
     [Fact]
-    public Task LoadAsync_with_null_progress_throws_ArgumentNullException()
+    public async Task LoadAsync_with_null_progress_throws_ArgumentNullException_Async()
     {
         var sut = CreateSut();
 
-        return Assert.ThrowsAsync<ArgumentNullException>(() => sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), (IProgress<TProgress>)null!));
+        var ex = await Assert.ThrowsAsync<ArgumentNullException>
+        (
+            () => sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), (IProgress<TProgress>)null!)
+        ).ConfigureAwait(false);
+
+        Assert.NotNull(ex);
     }
 
 
@@ -84,12 +89,17 @@ public abstract class LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>
     /// completes without throwing when supplied valid arguments.
     /// </summary>
     [Fact]
-    public Task LoadAsync_with_progress_completes_without_throwing()
+    public async Task LoadAsync_with_progress_completes_without_throwing_Async()
     {
         var sut = CreateSut();
         var progress = new Progress<TProgress>();
 
-        return sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), progress);
+        var exception = await Record.ExceptionAsync
+        (
+            () => sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), progress)
+        ).ConfigureAwait(false);
+
+        Assert.Null(exception);
     }
 
 
@@ -99,13 +109,13 @@ public abstract class LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>
     /// invokes the progress callback at least once during loading.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_progress_invokes_callback_at_least_once()
+    public async Task LoadAsync_with_progress_invokes_callback_at_least_once_Async()
     {
         var sut = CreateSut();
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), progress);
+        await sut.LoadAsync(CreateSourceItems().ToAsyncEnumerable(), progress).ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
@@ -117,13 +127,13 @@ public abstract class LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>
     /// progress callback at least once even when the source is empty.
     /// </summary>
     [Fact]
-    public async Task LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once()
+    public async Task LoadAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async()
     {
         var sut = CreateSut();
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), progress);
+        await sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), progress).ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
