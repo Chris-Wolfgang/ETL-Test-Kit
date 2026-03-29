@@ -140,7 +140,7 @@ public abstract class TransformWithProgressAndCancellationAsyncContractTests<TSu
 
         await Assert.ThrowsAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.TransformAsync(expected.ToAsyncEnumerable(), cts.Token))
+            await foreach (var item in sut.TransformAsync(expected.ToAsyncEnumerable(), cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
                 if (received.Count == 1)
@@ -179,7 +179,7 @@ public abstract class TransformWithProgressAndCancellationAsyncContractTests<TSu
         var received = new List<TItem>();
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.TransformAsync(expected.ToAsyncEnumerable(), cts.Token))
+            await foreach (var item in sut.TransformAsync(expected.ToAsyncEnumerable(), cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
             }
@@ -358,7 +358,7 @@ public abstract class TransformWithProgressAndCancellationAsyncContractTests<TSu
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.TransformAsync(expected.ToAsyncEnumerable(), progress, cts.Token))
+            await foreach (var item in sut.TransformAsync(expected.ToAsyncEnumerable(), progress, cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
                 if (received.Count == 1)
