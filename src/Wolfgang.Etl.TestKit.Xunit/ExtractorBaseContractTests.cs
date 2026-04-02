@@ -111,7 +111,6 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
 
 
 
-
     // ------------------------------------------------------------------
     // ExtractAsync() — basic extraction
     // ------------------------------------------------------------------
@@ -133,12 +132,12 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// Verifies that <c>ExtractAsync()</c> yields all expected items in order.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_yields_all_expected_items_in_order()
+    public async Task ExtractAsync_yields_all_expected_items_in_order_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
 
-        var actual = await sut.ExtractAsync().ToListAsync();
+        var actual = await sut.ExtractAsync().ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -150,11 +149,11 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// when the source contains no items.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_empty_source_yields_no_items()
+    public async Task ExtractAsync_with_empty_source_yields_no_items_Async()
     {
         var sut = CreateSutWithNoItems();
 
-        var actual = await sut.ExtractAsync().ToListAsync();
+        var actual = await sut.ExtractAsync().ToListAsync().ConfigureAwait(false);
 
         Assert.Empty(actual);
     }
@@ -166,12 +165,12 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// after a full extraction via <c>ExtractAsync()</c>.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_increments_CurrentItemCount_for_each_item()
+    public async Task ExtractAsync_increments_CurrentItemCount_for_each_item_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
 
-        await sut.ExtractAsync().ToListAsync();
+        await sut.ExtractAsync().ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected.Count, sut.CurrentItemCount);
     }
@@ -187,12 +186,12 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// when passed <see cref="CancellationToken.None"/>.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_token_yields_all_expected_items()
+    public async Task ExtractAsync_with_token_yields_all_expected_items_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
 
-        var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync();
+        var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -204,11 +203,11 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// without error when the source contains no items.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_token_and_empty_source_yields_no_items()
+    public async Task ExtractAsync_with_token_and_empty_source_yields_no_items_Async()
     {
         var sut = CreateSutWithNoItems();
 
-        var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync();
+        var actual = await sut.ExtractAsync(CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.Empty(actual);
     }
@@ -220,7 +219,7 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="OperationCanceledException"/> and stops yielding when the token is cancelled.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_token_stops_when_token_is_cancelled()
+    public async Task ExtractAsync_with_token_stops_when_token_is_cancelled_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
@@ -231,19 +230,19 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.ExtractAsync(cts.Token))
+            await foreach (var item in sut.ExtractAsync(cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
                 if (received.Count == 1)
                 {
                     #if NET8_0_OR_GREATER
-                    await cts.CancelAsync();
+                    await cts.CancelAsync().ConfigureAwait(false);
                     #else
                     cts.Cancel();
                     #endif
                 }
             }
-        });
+        }).ConfigureAwait(false);
 
         Assert.Equal(1, received.Count);
     }
@@ -255,12 +254,12 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="OperationCanceledException"/> immediately when passed an already-cancelled token.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_already_cancelled_token_throws_OperationCanceledException()
+    public async Task ExtractAsync_with_already_cancelled_token_throws_OperationCanceledException_Async()
     {
         var sut = CreateSut();
         using var cts = new CancellationTokenSource();
 #if NET8_0_OR_GREATER
-        await cts.CancelAsync();
+        await cts.CancelAsync().ConfigureAwait(false);
 #else
         cts.Cancel();
 #endif
@@ -268,11 +267,11 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
         var received = new List<TItem>();
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.ExtractAsync(cts.Token))
+            await foreach (var item in sut.ExtractAsync(cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
             }
-        });
+        }).ConfigureAwait(false);
 
         Assert.Empty(received);
     }
@@ -303,13 +302,13 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// items when a valid progress instance is supplied.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_progress_yields_all_expected_items()
+    public async Task ExtractAsync_with_progress_yields_all_expected_items_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        var actual = await sut.ExtractAsync(progress).ToListAsync();
+        var actual = await sut.ExtractAsync(progress).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -321,12 +320,12 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// sequence without error when the source contains no items.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_progress_and_empty_source_yields_no_items()
+    public async Task ExtractAsync_with_progress_and_empty_source_yields_no_items_Async()
     {
         var sut = CreateSutWithNoItems();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        var actual = await sut.ExtractAsync(progress).ToListAsync();
+        var actual = await sut.ExtractAsync(progress).ToListAsync().ConfigureAwait(false);
 
         Assert.Empty(actual);
     }
@@ -338,7 +337,7 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// callback when the <see cref="IProgressTimer"/> fires.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_progress_invokes_callback_when_timer_fires()
+    public async Task ExtractAsync_with_progress_invokes_callback_when_timer_fires_Async()
     {
         using var timer = new ManualProgressTimer();
         var sut = CreateSutWithTimer(timer);
@@ -346,7 +345,7 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
 
         await using var enumerator = sut.ExtractAsync(progress).GetAsyncEnumerator();
-        await enumerator.MoveNextAsync();
+        await enumerator.MoveNextAsync().ConfigureAwait(false);
         timer.Fire();
 
         Assert.NotNull(captured);
@@ -359,13 +358,13 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// callback at least once during extraction when using a standard <see cref="Progress{T}"/>.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_progress_invokes_callback_at_least_once()
+    public async Task ExtractAsync_with_progress_invokes_callback_at_least_once_Async()
     {
         var sut = CreateSut();
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.ExtractAsync(progress).ToListAsync();
+        await sut.ExtractAsync(progress).ToListAsync().ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
@@ -377,13 +376,13 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// callback at least once even when the source is empty.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_progress_and_empty_source_invokes_callback_at_least_once()
+    public async Task ExtractAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async()
     {
         var sut = CreateSutWithNoItems();
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.ExtractAsync(progress).ToListAsync();
+        await sut.ExtractAsync(progress).ToListAsync().ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
@@ -415,13 +414,13 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// yields all expected items when supplied valid arguments.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_progress_and_token_yields_all_expected_items()
+    public async Task ExtractAsync_with_progress_and_token_yields_all_expected_items_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        var actual = await sut.ExtractAsync(progress, CancellationToken.None).ToListAsync();
+        var actual = await sut.ExtractAsync(progress, CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -433,12 +432,12 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// yields an empty sequence without error when the source contains no items.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_progress_and_token_and_empty_source_yields_no_items()
+    public async Task ExtractAsync_with_progress_and_token_and_empty_source_yields_no_items_Async()
     {
         var sut = CreateSutWithNoItems();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        var actual = await sut.ExtractAsync(progress, CancellationToken.None).ToListAsync();
+        var actual = await sut.ExtractAsync(progress, CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.Empty(actual);
     }
@@ -451,7 +450,7 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// is cancelled mid-sequence.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_progress_and_cancelled_token_stops_enumeration()
+    public async Task ExtractAsync_with_progress_and_cancelled_token_stops_enumeration_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
@@ -463,19 +462,19 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
         {
-            await foreach (var item in sut.ExtractAsync(progress, cts.Token))
+            await foreach (var item in sut.ExtractAsync(progress, cts.Token).ConfigureAwait(false))
             {
                 received.Add(item);
                 if (received.Count == 1)
                 {
                     #if NET8_0_OR_GREATER
-                    await cts.CancelAsync();
+                    await cts.CancelAsync().ConfigureAwait(false);
                     #else
                     cts.Cancel();
                     #endif
                 }
             }
-        });
+        }).ConfigureAwait(false);
 
         Assert.Equal(1, received.Count);
     }
@@ -485,7 +484,7 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// invokes the progress callback when the <see cref="IProgressTimer"/> fires.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_progress_and_token_invokes_callback_when_timer_fires()
+    public async Task ExtractAsync_with_progress_and_token_invokes_callback_when_timer_fires_Async()
     {
         using var timer = new ManualProgressTimer();
         var sut = CreateSutWithTimer(timer);
@@ -493,7 +492,7 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
 
         await using var enumerator = sut.ExtractAsync(progress, CancellationToken.None).GetAsyncEnumerator();
-        await enumerator.MoveNextAsync();
+        await enumerator.MoveNextAsync().ConfigureAwait(false);
         timer.Fire();
 
         Assert.NotNull(captured);
@@ -507,13 +506,13 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// <see cref="Progress{T}"/>.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_progress_and_token_invokes_callback_at_least_once()
+    public async Task ExtractAsync_with_progress_and_token_invokes_callback_at_least_once_Async()
     {
         var sut = CreateSut();
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.ExtractAsync(progress, CancellationToken.None).ToListAsync();
+        await sut.ExtractAsync(progress, CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
@@ -525,13 +524,13 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// invokes the progress callback at least once even when the source is empty.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once()
+    public async Task ExtractAsync_with_progress_and_token_and_empty_source_invokes_callback_at_least_once_Async()
     {
         var sut = CreateSutWithNoItems();
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.ExtractAsync(progress, CancellationToken.None).ToListAsync();
+        await sut.ExtractAsync(progress, CancellationToken.None).ToListAsync().ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
@@ -644,7 +643,7 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// yielding when the limit is reached.
     /// </remarks>
     [Fact]
-    public async Task ExtractAsync_stops_at_MaximumItemCount()
+    public async Task ExtractAsync_stops_at_MaximumItemCount_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
@@ -652,7 +651,7 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
 
         sut.MaximumItemCount = 1;
 
-        var actual = await sut.ExtractAsync().ToListAsync();
+        var actual = await sut.ExtractAsync().ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(1, actual.Count);
         Assert.Equal(expected[0], actual[0]);
@@ -663,13 +662,13 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// than the total number of items, all items are still yielded.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_yields_all_items_when_MaximumItemCount_exceeds_sequence_length()
+    public async Task ExtractAsync_yields_all_items_when_MaximumItemCount_exceeds_sequence_length_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
         sut.MaximumItemCount = expected.Count + 100;
 
-        var actual = await sut.ExtractAsync().ToListAsync();
+        var actual = await sut.ExtractAsync().ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -717,7 +716,7 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
     /// N items and only yield items after the skip budget is exhausted.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_skips_items_up_to_SkipItemCount()
+    public async Task ExtractAsync_skips_items_up_to_SkipItemCount_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
@@ -725,7 +724,7 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
 
         sut.SkipItemCount = 1;
 
-        var actual = await sut.ExtractAsync().ToListAsync();
+        var actual = await sut.ExtractAsync().ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected.Count - 1, actual.Count);
         Assert.Equal(expected[1], actual[0]);

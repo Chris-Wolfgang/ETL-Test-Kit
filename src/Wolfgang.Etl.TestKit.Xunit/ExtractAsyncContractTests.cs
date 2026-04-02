@@ -87,12 +87,12 @@ public abstract class ExtractAsyncContractTests<TSut, TItem>
     /// in the expected order.
     /// </summary>
     [Fact]
-    public async Task ExtractAsync_yields_expected_items_in_order()
+    public async Task ExtractAsync_yields_expected_items_in_order_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
 
-        var actual = await sut.ExtractAsync().ToListAsync();
+        var actual = await sut.ExtractAsync().ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }

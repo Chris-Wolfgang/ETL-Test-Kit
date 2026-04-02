@@ -87,13 +87,13 @@ public abstract class TransformWithProgressAsyncContractTests<TSut, TItem, TProg
     /// yields the expected items when a valid progress instance is supplied.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_progress_yields_expected_items()
+    public async Task TransformAsync_with_progress_yields_expected_items_Async()
     {
         var sut = CreateSut();
         var expected = CreateExpectedItems();
         var progress = new Progress<TProgress>();
 
-        var actual = await sut.TransformAsync(expected.ToAsyncEnumerable(), progress).ToListAsync();
+        var actual = await sut.TransformAsync(expected.ToAsyncEnumerable(), progress).ToListAsync().ConfigureAwait(false);
 
         Assert.Equal(expected, actual);
     }
@@ -105,13 +105,13 @@ public abstract class TransformWithProgressAsyncContractTests<TSut, TItem, TProg
     /// invokes the progress callback at least once during transformation.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_progress_invokes_callback_at_least_once()
+    public async Task TransformAsync_with_progress_invokes_callback_at_least_once_Async()
     {
         var sut = CreateSut();
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.TransformAsync(CreateExpectedItems().ToAsyncEnumerable(), progress).ToListAsync();
+        await sut.TransformAsync(CreateExpectedItems().ToAsyncEnumerable(), progress).ToListAsync().ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
@@ -123,13 +123,13 @@ public abstract class TransformWithProgressAsyncContractTests<TSut, TItem, TProg
     /// progress callback at least once even when the source is empty.
     /// </summary>
     [Fact]
-    public async Task TransformAsync_with_progress_and_empty_source_invokes_callback_at_least_once()
+    public async Task TransformAsync_with_progress_and_empty_source_invokes_callback_at_least_once_Async()
     {
         var sut = CreateSut();
         var callbackCount = 0;
         var progress = new SynchronousProgress<TProgress>(_ => callbackCount++);
 
-        await sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), progress).ToListAsync();
+        await sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), progress).ToListAsync().ConfigureAwait(false);
 
         Assert.True(callbackCount >= 1);
     }
