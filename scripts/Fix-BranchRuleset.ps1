@@ -12,7 +12,7 @@
 .PARAMETER Repository
     The repository in owner/repo format. If not provided, uses the current repository.
 
-.PARAMETER Confirm
+.PARAMETER Force
     Skip the confirmation prompt and proceed automatically. Alias: -y
 
 .EXAMPLE
@@ -20,7 +20,7 @@
     Inspects and fixes rulesets for the current repository with interactive confirmation
 
 .EXAMPLE
-    .\Fix-BranchRuleset.ps1 -y
+    .\Fix-BranchRuleset.ps1 -Force
     Inspects and fixes rulesets without prompting for confirmation
 
 .EXAMPLE
@@ -39,7 +39,7 @@ param(
 
     [Parameter()]
     [Alias("y")]
-    [switch]$Confirm
+    [switch]$Force
 )
 
 # Check if gh CLI is installed
@@ -169,8 +169,8 @@ foreach ($item in $plan) {
 Write-Host ""
 
 # Prompt for confirmation
-if ($Confirm) {
-    Write-Host "Auto-confirmed via -Confirm flag." -ForegroundColor Green
+if ($Force) {
+    Write-Host "Auto-confirmed via -Force flag." -ForegroundColor Green
 } else {
     $response = Read-Host "Proceed with these changes? (y/N)"
     if ($response -ne 'y' -and $response -ne 'Y') {
@@ -246,7 +246,11 @@ if ($errors -gt 0) {
 
     # Invoke Setup-BranchRuleset.ps1 to create a fresh ruleset
     $setupScript = Join-Path $PSScriptRoot "Setup-BranchRuleset.ps1"
-    if (Test-Path $setupScript) {
+    if ($Force) {
+        Write-Host "Skipping Setup-BranchRuleset.ps1 in non-interactive mode." -ForegroundColor Yellow
+        Write-Host "Run it manually to create a fresh ruleset:" -ForegroundColor Cyan
+        Write-Host "  pwsh -File `"$setupScript`" -Repository $Repository" -ForegroundColor Cyan
+    } elseif (Test-Path $setupScript) {
         Write-Host "Running Setup-BranchRuleset.ps1 to create a fresh ruleset..." -ForegroundColor Cyan
         Write-Host ""
         & $setupScript -Repository $Repository
