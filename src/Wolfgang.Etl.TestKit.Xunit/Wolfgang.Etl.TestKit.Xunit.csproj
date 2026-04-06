@@ -61,7 +61,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Bcl.Memory" Version="10.0.5" />
-    <PackageReference Include="Wolfgang.Etl.Abstractions" Version="0.11.0" />
+    <PackageReference Include="Wolfgang.Etl.Abstractions" Version="0.12.0" />
     <PackageReference Include="System.Linq.Async" Version="7.0.0" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.assert" Version="2.9.3" />
@@ -69,7 +69,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="Meziantou.Analyzer" Version="3.0.29" />
+    <PackageReference Update="Meziantou.Analyzer" Version="3.0.44" />
     <PackageReference Update="SonarAnalyzer.CSharp" Version="10.22.0.136894" />
   </ItemGroup>
 
