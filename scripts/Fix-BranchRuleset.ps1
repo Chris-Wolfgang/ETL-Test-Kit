@@ -27,7 +27,7 @@
     Inspects and fixes rulesets without prompting for confirmation
 
 .EXAMPLE
-    .Fix-BranchRuleset.ps1 -Force -SkipSetup
+    .\Fix-BranchRuleset.ps1 -Force -SkipSetup
     Fixes rulesets non-interactively without recreating a fresh ruleset
 
 .EXAMPLE
@@ -179,7 +179,7 @@ foreach ($item in $plan) {
 Write-Host ""
 
 # Prompt for confirmation
-if ($SkipSetup) {
+if ($Force) {
     Write-Host "Auto-confirmed via -Force flag." -ForegroundColor Green
 } else {
     $response = Read-Host "Proceed with these changes? (y/N)"
