@@ -52,17 +52,17 @@
     prevent NuGet from resolving an older transitive version — no runtime assembly is copied.
   -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'net481' OR '$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'net5.0' OR '$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net7.0'">
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.6" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net9.0' OR '$(TargetFramework)' == 'net10.0'">
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.5" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.6" ExcludeAssets="runtime" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Bcl.Memory" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Bcl.Memory" Version="10.0.6" />
     <PackageReference Include="Wolfgang.Etl.Abstractions" Version="0.12.0" />
-    <PackageReference Include="System.Linq.Async" Version="7.0.0" />
+    <PackageReference Include="System.Linq.Async" Version="7.0.1" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.assert" Version="2.9.3" />
     <PackageReference Include="xunit.core" Version="2.9.3" />
@@ -81,7 +81,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Meziantou.Analyzer" Version="3.0.46">
+    <PackageReference Include="Meziantou.Analyzer" Version="3.0.49">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
