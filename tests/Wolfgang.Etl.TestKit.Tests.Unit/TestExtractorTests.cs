@@ -507,7 +507,7 @@ public class TestExtractorTests
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => this;
 
         public T Current => _inner.Current;
-        object System.Collections.IEnumerator.Current => ((System.Collections.IEnumerator)_inner).Current;
+        object? System.Collections.IEnumerator.Current => ((System.Collections.IEnumerator)_inner).Current;
         public bool MoveNext() => _inner.MoveNext();
         public void Reset() => _inner.Reset();
 
