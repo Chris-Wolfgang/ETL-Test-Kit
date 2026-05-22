@@ -1,6 +1,6 @@
-# Contributing to ETL-Test-Kit
+# Contributing to Wolfgang.Etl.TestKit
 
-Thank you for your interest in contributing to **ETL-Test-Kit**! We welcome contributions to help improve this project.
+Thank you for your interest in contributing to **Wolfgang.Etl.TestKit**! We welcome contributions to help improve this project.
 
 ## How Can You Contribute?
 
