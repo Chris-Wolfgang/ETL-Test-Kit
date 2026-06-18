@@ -1,0 +1,44 @@
+Summary
+  Generated on: 6/18/2026 - 10:39:15 PM
+  Coverage date: 6/18/2026 - 10:39:12 PM
+  Parser: MultiReport (2x Cobertura)
+  Assemblies: 2
+  Classes: 20
+  Files: 20
+  Line coverage: 99.3%
+  Covered lines: 1445
+  Uncovered lines: 10
+  Coverable lines: 1455
+  Total lines: 5364
+  Branch coverage: 82.6% (258 of 312)
+  Covered branches: 258
+  Total branches: 312
+  Method coverage: 100% (252 of 252)
+  Full method coverage: 90.4% (228 of 252)
+  Covered methods: 252
+  Fully covered methods: 228
+  Total methods: 252
+
+Wolfgang.Etl.TestKit                                                                               100%
+  Wolfgang.Etl.TestKit.TestExtractor<T>                                                            100%
+  Wolfgang.Etl.TestKit.TestLoader<T>                                                               100%
+  Wolfgang.Etl.TestKit.TestTransformer<T>                                                          100%
+
+Wolfgang.Etl.TestKit.Xunit                                                                        99.2%
+  Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests<T1, T2>                                     100%
+  Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<T1, T2, T3>                               99.5%
+  Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests<T1, T2>                    97.5%
+  Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<T1, T2, T3>     99.1%
+  Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests<T1, T2, T3>                     100%
+  Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests<T1, T2>                                        100%
+  Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<T1, T2, T3>                                  99.6%
+  Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests<T1, T2>                       97.7%
+  Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<T1, T2, T3>        98.5%
+  Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests<T1, T2, T3>                        100%
+  Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer                                                   100%
+  Wolfgang.Etl.TestKit.Xunit.SynchronousProgress<T>                                                100%
+  Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests<T1, T2>                                   100%
+  Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<T1, T2, T3>                             99.5%
+  Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests<T1, T2>                  97.6%
+  Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<T1, T2, T3>   99.1%
+  Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests<T1, T2, T3>                   100%
