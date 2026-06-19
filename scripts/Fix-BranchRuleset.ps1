@@ -265,17 +265,16 @@ if ($errors -gt 0) {
     Write-Host "$errors action(s) failed. Review the errors above." -ForegroundColor Red
     exit 1
 } else {
-    Write-Host "All changes applied successfully." -ForegroundColor Green
+    Write-Host "All disable/rename actions applied successfully." -ForegroundColor Green
     Write-Host ""
-
-    # Invoke Setup-BranchRuleset.ps1 to create a fresh ruleset
-    $setupScript = Join-Path $PSScriptRoot "Setup-BranchRuleset.ps1"
-    if (Test-Path $setupScript) {
-        Write-Host "Running Setup-BranchRuleset.ps1 to create a fresh ruleset..." -ForegroundColor Cyan
-        Write-Host ""
-        & $setupScript -Repository $Repository
-    } else {
-        Write-Host "Setup-BranchRuleset.ps1 not found. Run it manually to create a fresh ruleset." -ForegroundColor Yellow
-        Write-Host "View rulesets at: https://github.com/$Repository/settings/rules" -ForegroundColor Cyan
-    }
+    Write-Host "NEXT STEP — recreate the canonical ruleset manually." -ForegroundColor Yellow
+    Write-Host "This script no longer auto-invokes Setup-BranchRuleset.ps1 because that" -ForegroundColor Yellow
+    Write-Host "script was retired in v0.8.1 (post-setup bootstrap files dropped from" -ForegroundColor Yellow
+    Write-Host "long-lived repos). Recreate via:" -ForegroundColor Yellow
+    Write-Host "  - GitHub UI: Settings → Rules → New ruleset, OR" -ForegroundColor Yellow
+    Write-Host "  - gh api  : POST /repos/$Repository/rulesets with the canonical body" -ForegroundColor Yellow
+    Write-Host "              (see repo-template/scripts/Setup-BranchRuleset.ps1 for the" -ForegroundColor Yellow
+    Write-Host "              authoritative ruleset definition)" -ForegroundColor Yellow
+    Write-Host ""
+    Write-Host "View rulesets at: https://github.com/$Repository/settings/rules" -ForegroundColor Cyan
 }

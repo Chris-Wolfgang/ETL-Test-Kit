@@ -46,3 +46,9 @@ dotnet_diagnostic.S1144.severity = none
 
 # xUnit2013: Use Assert.Single instead of Assert.Equal for collection size
 dotnet_diagnostic.xUnit2013.severity = none
+
+# CA1707: Identifiers should not contain underscores — test methods use
+# the canonical `MethodUnderTest_when_condition_expected_result` underscore
+# naming convention. The root .editorconfig elevates CA1707 to error, so
+# the override must live here for tests to build under Release.
+dotnet_diagnostic.CA1707.severity = none

@@ -128,7 +128,7 @@ If you plan to publish NuGet packages using the automated release workflow, you 
    - Set expiration date (recommended: 1 year)
 5. Click **"Add secret"**
 
-**Note:** The release workflow automatically publishes packages to NuGet.org when you push a version tag (e.g., `v1.0.0`).
+**Note:** The release workflow automatically publishes packages to NuGet.org when you **publish a GitHub Release** (the workflow triggers on `release: published`, not on tag pushes). Pushing a tag alone does not start the workflow — you must draft and publish the Release in the GitHub UI (or via `gh release create`).
 
 
 ## Update Template Files
@@ -162,7 +162,7 @@ If you want to publish your DocFX documentation to GitHub Pages automatically wh
 1. Set up GitHub Pages manually:
    - Go to your repository's **Settings → Pages**
    - Under "Build and deployment," select **Deploy from a branch**
-   - Select the `gh-pages` branch (create it if it doesn't exist: `git checkout --orphan gh-pages && git push origin gh-pages`)
+   - Select the `gh-pages` branch (create it if it doesn't exist: `git checkout --orphan gh-pages && git rm -rf . && git commit --allow-empty -m "Initial gh-pages branch" && git push -u origin gh-pages` — an orphan branch starts with no commits, so a placeholder commit is required before the push will succeed)
    - Save the settings
    - Update the DocFX configuration files in `docfx_project/` to replace placeholders (e.g., `Wolfgang.D20-Dice`, `https://Chris-Wolfgang.github.io/D20-Dice/`) with your project's values
 
@@ -192,9 +192,8 @@ This repository is configured for versioned documentation using DocFX. The setup
 #### Key Files
 | File | Purpose |
 |------|---------|
-| `docfx.json` | Optional root-level DocFX configuration for local/single-version documentation builds or previews. **Not used by CI workflows** for version discovery or multi-version wiring (handled via git tags). |
-| `docfx_project/docfx.json` | Per-build DocFX configuration used by CI workflows to build docs. Uses `default` + `modern` templates with dark mode enabled (`colorMode: dark`). |
-| `logo.svg` | Repository logo at the root; also present in `docfx_project/`. |
+| `docfx_project/docfx.json` | DocFX configuration used by CI workflows to build docs. Uses `default` + `modern` templates with dark mode enabled (`colorMode: dark`). |
+| `docfx_project/logo.svg` | Repository logo used by DocFX. |
 
 #### How Versioning Works
 - CI workflows discover documentation versions **dynamically at runtime** by querying git tags that match the SemVer pattern `v*.*.*` (e.g. `v1.0.0`, `v0.3.0`). No manual version list is maintained in any config file.
