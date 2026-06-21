@@ -10,12 +10,35 @@ An Extractor, Transformer and Loader designed to be used in testing libraries bu
 
 ## 📦 Installation
 
+This repo ships two NuGet packages.
+
+**Core** — test doubles for building ETL test fixtures:
+
 ```bash
 dotnet add package Wolfgang.Etl.TestKit
 ```
 
-**NuGet Package:** [Wolfgang.Etl.TestKit](https://www.nuget.org/packages/Wolfgang.Etl.TestKit)
+**xUnit add-on** — abstract xUnit contract-test base classes for verifying custom extractors, transformers, and loaders built on `Wolfgang.Etl.Abstractions`:
 
+```bash
+dotnet add package Wolfgang.Etl.TestKit.Xunit
+```
+
+**NuGet packages:**
+
+- [Wolfgang.Etl.TestKit](https://www.nuget.org/packages/Wolfgang.Etl.TestKit) — test doubles
+- [Wolfgang.Etl.TestKit.Xunit](https://www.nuget.org/packages/Wolfgang.Etl.TestKit.Xunit) — xUnit contract tests
+
+Install `Wolfgang.Etl.TestKit.Xunit` whenever you author a custom `ExtractorBase` / `LoaderBase` / `TransformerBase` and want your test project to inherit the canonical xUnit contract coverage with zero boilerplate:
+
+```csharp
+public sealed class MyExtractorTests : ExtractorBaseContractTests<MyExtractor, MyItem, MyProgress>
+{
+    protected override MyExtractor CreateSut(int itemCount) => new MyExtractor(itemCount);
+    protected override IReadOnlyList<MyItem> CreateExpectedItems() => ...;
+    protected override MyExtractor CreateSutWithTimer(IProgressTimer timer) => ...;
+}
+```
 ---
 
 ## 📄 License
