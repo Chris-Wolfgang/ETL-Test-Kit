@@ -66,12 +66,12 @@
 <div class="card">
 <div class="card-header">Branch coverage</div>
 <div class="card-body">
-<div class="large cardpercentagebar cardpercentagebar0">100%</div>
+<div class="large cardpercentagebar cardpercentagebar25">75%</div>
 <div class="table">
 <table>
 <tr>
 <th>Covered branches:</th>
-<td class="limit-width right" title="4">4</td>
+<td class="limit-width right" title="3">3</td>
 </tr>
 <tr>
 <th>Total branches:</th>
@@ -79,7 +79,7 @@
 </tr>
 <tr>
 <th>Branch coverage:</th>
-<td class="limit-width right" title="4 of 4">100%</td>
+<td class="limit-width right" title="3 of 4">75%</td>
 </tr>
 </table>
 </div>
@@ -108,7 +108,7 @@
 <thead><tr><th>Method</th><th>Branch coverage <a href="https://en.wikipedia.org/wiki/Code_coverage" target="_blank"><i class="icon-info-circled"></i></a></th><th>Crap Score <a href="https://googletesting.blogspot.de/2011/02/this-code-is-crap.html" target="_blank"><i class="icon-info-circled"></i></a></th><th>Cyclomatic complexity <a href="https://en.wikipedia.org/wiki/Cyclomatic_complexity" target="_blank"><i class="icon-info-circled"></i></a></th><th>Line coverage <a href="https://en.wikipedia.org/wiki/Code_coverage" target="_blank"><i class="icon-info-circled"></i></a></th></tr></thead>
 <tbody>
 <tr><td title="CreateSut()"><a href="#file0_line54" class="navigatetohash">CreateSut()</a></td><td>100%</td><td>1</td><td>1</td><td>100%</td></tr>
-<tr><td title="TransformAsync_returns_non_null_sequence()"><a href="#file0_line76" class="navigatetohash">TransformAsync_returns_non_null_sequence()</a></td><td>100%</td><td>2</td><td>2</td><td>100%</td></tr>
+<tr><td title="TransformAsync_returns_non_null_sequence()"><a href="#file0_line76" class="navigatetohash">TransformAsync_returns_non_null_sequence()</a></td><td>50%</td><td>2</td><td>2</td><td>100%</td></tr>
 <tr><td title="TransformAsync_yields_expected_items_in_order_Async()"><a href="#file0_line90" class="navigatetohash">TransformAsync_yields_expected_items_in_order_Async()</a></td><td>100%</td><td>2</td><td>2</td><td>100%</td></tr>
 </tbody>
 </table>
@@ -195,7 +195,7 @@
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line74"></a><code>74</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;TransformAsync_returns_non_null_sequence()</code></td></tr>
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line75"></a><code>75</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
 <tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line76"></a><code>76</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;sut&nbsp;=&nbsp;CreateSut();</code></td></tr>
-<tr class="coverableline" title="Covered (1 visits, 2 of 2 branches are covered)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line77"></a><code>77</code></td><td class="percentagebar percentagebar100"><i class="icon-fork"></i></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;result&nbsp;=&nbsp;sut.TransformAsync(AsyncEnumerable.Empty&lt;TItem&gt;());</code></td></tr>
+<tr class="coverableline" title="Partially covered (1 visits, 1 of 2 branches are covered)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'orange'}}"><td class="orange">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line77"></a><code>77</code></td><td class="percentagebar percentagebar50"><i class="icon-fork"></i></td><td class="lightorange"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;result&nbsp;=&nbsp;sut.TransformAsync(AsyncEnumerable.Empty&lt;TItem&gt;());</code></td></tr>
 <tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line78"></a><code>78</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assert.NotNull(result);</code></td></tr>
 <tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line79"></a><code>79</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line80"></a><code>80</code></td><td></td><td class="lightgray"><code></code></td></tr>
@@ -219,7 +219,7 @@
 </tbody>
 </table>
 </div>
-<div class="footer">Generated by: ReportGenerator 5.5.10.0<br />6/18/2026 - 11:11:50 PM<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="https://reportgenerator.io">reportgenerator.io</a></div></div>
+<div class="footer">Generated by: ReportGenerator 5.5.10.0<br />6/22/2026 - 4:36:39 PM<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="https://reportgenerator.io">reportgenerator.io</a></div></div>
 <div class="containerright">
 <div class="containerrightfixed">
 <h1>Methods/Properties</h1>
