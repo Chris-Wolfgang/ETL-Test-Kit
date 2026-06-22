@@ -722,6 +722,49 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     }
 
     /// <summary>
+    /// Verifies that the loader stops pulling items from its source once
+    /// <c>MaximumItemCount</c> is reached, rather than draining the whole source
+    /// and discarding the surplus. A loader that over-reads holds upstream
+    /// resources (connections, cursors) far longer than necessary.
+    /// </summary>
+    /// <remarks>
+    /// The source is wrapped in a counter. Once the load completes with a limit
+    /// of <c>M</c>, the wrapper must have observed at most <c>M + 1</c> pulls —
+    /// the <c>+1</c> allows for the single read that discovers the limit has
+    /// been reached.
+    /// </remarks>
+    [Fact]
+    public async Task LoadAsync_stops_reading_source_at_MaximumItemCount_Async()
+    {
+        var sut = CreateSut();
+        var source = CreateSourceItems();
+        Assert.True(source.Count >= 3, "CreateSourceItems() must return at least 3 items.");
+
+        var pulled = 0;
+
+        async IAsyncEnumerable<TItem> CountingSourceAsync()
+        {
+            await Task.CompletedTask.ConfigureAwait(false);
+            foreach (var item in source)
+            {
+                pulled++;
+                yield return item;
+            }
+        }
+
+        sut.MaximumItemCount = source.Count - 2;
+
+        await sut.LoadAsync(CountingSourceAsync()).ConfigureAwait(false);
+
+        Assert.Equal(sut.MaximumItemCount, sut.CurrentItemCount);
+        Assert.True
+        (
+            pulled <= sut.MaximumItemCount + 1,
+            $"Expected at most {sut.MaximumItemCount + 1} source pulls but the source was read {pulled} times."
+        );
+    }
+
+    /// <summary>
     /// Verifies that when <c>MaximumItemCount</c> exceeds the sequence length, all items
     /// are still loaded.
     /// </summary>
