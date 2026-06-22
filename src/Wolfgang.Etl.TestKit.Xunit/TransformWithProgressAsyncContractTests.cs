@@ -74,10 +74,12 @@ public abstract class TransformWithProgressAsyncContractTests<TSut, TItem, TProg
     {
         var sut = CreateSut();
 
-        Assert.Throws<ArgumentNullException>(() =>
+        var ex = Assert.Throws<ArgumentNullException>(() =>
         {
             _ = sut.TransformAsync(AsyncEnumerable.Empty<TItem>(), (IProgress<TProgress>)null!);
         });
+
+        Assert.Equal("progress", ex.ParamName);
     }
 
 

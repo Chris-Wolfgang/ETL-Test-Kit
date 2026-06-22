@@ -79,7 +79,7 @@ public abstract class LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>
             () => sut.LoadAsync(AsyncEnumerable.Empty<TItem>(), (IProgress<TProgress>)null!)
         ).ConfigureAwait(false);
 
-        Assert.NotNull(ex);
+        Assert.Equal("progress", ex.ParamName);
     }
 
 

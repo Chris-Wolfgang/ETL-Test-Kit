@@ -163,10 +163,12 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     {
         var sut = CreateSut();
 
-        Assert.Throws<ArgumentNullException>(() =>
+        var ex = Assert.Throws<ArgumentNullException>(() =>
         {
             _ = sut.TransformAsync((IAsyncEnumerable<TItem>)null!);
         });
+
+        Assert.Equal("items", ex.ParamName);
     }
 
     /// <summary>
@@ -199,10 +201,12 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     {
         var sut = CreateSut();
 
-        Assert.Throws<ArgumentNullException>(() =>
+        var ex = Assert.Throws<ArgumentNullException>(() =>
         {
             _ = sut.TransformAsync((IAsyncEnumerable<TItem>)null!, CancellationToken.None);
         });
+
+        Assert.Equal("items", ex.ParamName);
     }
 
     /// <summary>
@@ -316,10 +320,12 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         var sut = CreateSut();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        Assert.Throws<ArgumentNullException>(() =>
+        var ex = Assert.Throws<ArgumentNullException>(() =>
         {
             _ = sut.TransformAsync((IAsyncEnumerable<TItem>)null!, progress);
         });
+
+        Assert.Equal("items", ex.ParamName);
     }
 
     /// <summary>
@@ -331,10 +337,12 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     {
         var sut = CreateSut();
 
-        Assert.Throws<ArgumentNullException>(() =>
+        var ex = Assert.Throws<ArgumentNullException>(() =>
         {
             _ = sut.TransformAsync(CreateInputItemsAsync(), (IProgress<TProgress>)null!);
         });
+
+        Assert.Equal("progress", ex.ParamName);
     }
 
     /// <summary>
@@ -444,10 +452,12 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         var sut = CreateSut();
         var progress = new SynchronousProgress<TProgress>(_ => { });
 
-        Assert.Throws<ArgumentNullException>(() =>
+        var ex = Assert.Throws<ArgumentNullException>(() =>
         {
             _ = sut.TransformAsync((IAsyncEnumerable<TItem>)null!, progress, CancellationToken.None);
         });
+
+        Assert.Equal("items", ex.ParamName);
     }
 
     /// <summary>
@@ -459,10 +469,12 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
     {
         var sut = CreateSut();
 
-        Assert.Throws<ArgumentNullException>(() =>
+        var ex = Assert.Throws<ArgumentNullException>(() =>
         {
             _ = sut.TransformAsync(CreateInputItemsAsync(), (IProgress<TProgress>)null!, CancellationToken.None);
         });
+
+        Assert.Equal("progress", ex.ParamName);
     }
 
     /// <summary>
