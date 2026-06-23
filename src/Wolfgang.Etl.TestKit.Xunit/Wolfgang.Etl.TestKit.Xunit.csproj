@@ -27,6 +27,13 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <ApplicationIcon>..\..\assets\testkit_xunit_icon.ico</ApplicationIcon>
     <PackageIcon>testkit_xunit_icon_128.png</PackageIcon>
+    <!-- PublicApiAnalyzers (#96): promote the public-API tracking diagnostics to
+         errors so the PublicAPI.Shipped.txt baseline actually guards the public
+         surface against unintended additions (RS0016), removals / mismatches
+         (RS0017), and duplicate entries (RS0025). Scoped to this opted-in src
+         project; test / benchmark / example projects do not carry the .txt
+         files and so are unaffected. -->
+    <WarningsAsErrors>$(WarningsAsErrors);RS0016;RS0017;RS0025</WarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
