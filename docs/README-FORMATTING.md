@@ -15,13 +15,13 @@ The `dotnet format` command is **built into the .NET SDK** starting with .NET 6 
 Run the formatting script with PowerShell Core (`pwsh`) on any supported platform:
 
 ```powershell
-.\scripts\format.ps1
+.\format.ps1
 ```
 
 Or check without making changes:
 
 ```powershell
-.\scripts\format.ps1 -Check
+.\format.ps1 -Check
 ```
 
 ### Manual Formatting
@@ -44,7 +44,7 @@ Code style rules are defined in `.editorconfig` at the repository root. `.editor
 
 ## Local Enforcement
 
-Code formatting is enforced locally via `.editorconfig` and `dotnet format`. Run the formatting script before submitting a PR. If the repo has opted into a CI formatting check, the PR workflow will fail on unformatted code; resolve by running `.\scripts\format.ps1` locally and pushing the resulting changes.
+Code formatting is enforced locally via `.editorconfig` and `dotnet format`. Run the formatting script before submitting a PR. If the repo has opted into a CI formatting check, the PR workflow will fail on unformatted code; resolve by running `.\format.ps1` locally and pushing the resulting changes.
 
 ## IDE Integration
 
