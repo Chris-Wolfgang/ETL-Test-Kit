@@ -186,6 +186,14 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     {
         token.ThrowIfCancellationRequested();
 
+        // The wrapped source is synchronous, so this iterator would otherwise
+        // contain no await. Yield once up front to honour the async-iterator
+        // contract on every exit path (including the MaximumItemCount
+        // yield-break) and to give callers an asynchronous hop. Placing it here
+        // rather than after the loop keeps it reachable regardless of how the
+        // loop terminates.
+        await Task.Yield();
+
         var enumerator     = (_enumerator ?? _enumerable!.GetEnumerator())!;
         var ownsEnumerator = _enumerator == null;
 
@@ -218,7 +226,5 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
                 enumerator.Dispose();
             }
         }
-
-        await Task.Yield(); // satisfies async method contract without causing extra allocations
     }
 }
