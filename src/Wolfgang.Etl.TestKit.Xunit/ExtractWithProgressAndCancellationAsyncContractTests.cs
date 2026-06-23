@@ -202,10 +202,12 @@ public abstract class ExtractWithProgressAndCancellationAsyncContractTests<TSut,
     {
         var sut = CreateSut();
 
-        Assert.Throws<ArgumentNullException>(() =>
+        var ex = Assert.Throws<ArgumentNullException>(() =>
         {
             _ = sut.ExtractAsync((IProgress<TProgress>)null!);
         });
+
+        Assert.Equal("progress", ex.ParamName);
     }
 
 
@@ -278,10 +280,12 @@ public abstract class ExtractWithProgressAndCancellationAsyncContractTests<TSut,
     {
         var sut = CreateSut();
 
-        Assert.Throws<ArgumentNullException>(() =>
+        var ex = Assert.Throws<ArgumentNullException>(() =>
         {
             _ = sut.ExtractAsync((IProgress<TProgress>)null!, CancellationToken.None);
         });
+
+        Assert.Equal("progress", ex.ParamName);
     }
 
     /// <summary>

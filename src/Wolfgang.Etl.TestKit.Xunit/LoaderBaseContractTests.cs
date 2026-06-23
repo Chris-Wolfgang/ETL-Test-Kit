@@ -140,7 +140,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var ex = await Assert.ThrowsAsync<ArgumentNullException>(() =>
             sut.LoadAsync((IAsyncEnumerable<TItem>)null!)).ConfigureAwait(false);
 
-        Assert.NotNull(ex);
+        Assert.Equal("items", ex.ParamName);
     }
 
     /// <summary>
@@ -214,7 +214,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var ex = await Assert.ThrowsAsync<ArgumentNullException>(() =>
             sut.LoadAsync((IAsyncEnumerable<TItem>)null!, CancellationToken.None)).ConfigureAwait(false);
 
-        Assert.NotNull(ex);
+        Assert.Equal("items", ex.ParamName);
     }
 
     /// <summary>
@@ -335,7 +335,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var ex = await Assert.ThrowsAsync<ArgumentNullException>(() =>
             sut.LoadAsync((IAsyncEnumerable<TItem>)null!, progress)).ConfigureAwait(false);
 
-        Assert.NotNull(ex);
+        Assert.Equal("items", ex.ParamName);
     }
 
     /// <summary>
@@ -350,7 +350,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var ex = await Assert.ThrowsAsync<ArgumentNullException>(() =>
             sut.LoadAsync(CreateInputItemsAsync(), (IProgress<TProgress>)null!)).ConfigureAwait(false);
 
-        Assert.NotNull(ex);
+        Assert.Equal("progress", ex.ParamName);
     }
 
     /// <summary>
@@ -469,7 +469,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var ex = await Assert.ThrowsAsync<ArgumentNullException>(() =>
             sut.LoadAsync((IAsyncEnumerable<TItem>)null!, progress, CancellationToken.None)).ConfigureAwait(false);
 
-        Assert.NotNull(ex);
+        Assert.Equal("items", ex.ParamName);
     }
 
     /// <summary>
@@ -484,7 +484,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         var ex = await Assert.ThrowsAsync<ArgumentNullException>(() =>
             sut.LoadAsync(CreateInputItemsAsync(), (IProgress<TProgress>)null!, CancellationToken.None)).ConfigureAwait(false);
 
-        Assert.NotNull(ex);
+        Assert.Equal("progress", ex.ParamName);
     }
 
     /// <summary>
