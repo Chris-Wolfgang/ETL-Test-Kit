@@ -186,6 +186,42 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
 
 
+    /// <summary>
+    /// Verifies that <c>CurrentItemCount</c> reflects the exact number of items
+    /// yielded so far at every step of enumeration: it is <c>0</c> before the
+    /// first item is pulled and equals <c>k</c> immediately after the k-th item
+    /// is yielded.
+    /// </summary>
+    /// <remarks>
+    /// This is a stronger guarantee than
+    /// <see cref="TransformAsync_increments_CurrentItemCount_for_each_item_Async"/>,
+    /// which only checks the final total. Enumerating one item at a time catches
+    /// implementations that increment the counter at the wrong point relative to
+    /// <c>yield return</c>.
+    /// </remarks>
+    [Fact]
+    public async Task TransformAsync_CurrentItemCount_tracks_each_yielded_item_Async()
+    {
+        var sut = CreateSut();
+        var expected = CreateExpectedItems();
+        Assert.True(expected.Count >= 1, "CreateExpectedItems() must return at least 1 item.");
+
+        await using var enumerator = sut.TransformAsync(CreateInputItemsAsync()).GetAsyncEnumerator();
+
+        Assert.Equal(0, sut.CurrentItemCount);
+
+        var count = 0;
+        while (await enumerator.MoveNextAsync().ConfigureAwait(false))
+        {
+            count++;
+            Assert.Equal(count, sut.CurrentItemCount);
+        }
+
+        Assert.Equal(expected.Count, sut.CurrentItemCount);
+    }
+
+
+
     // ------------------------------------------------------------------
     // TransformAsync(IAsyncEnumerable, CancellationToken) — cancellation
     // ------------------------------------------------------------------
@@ -705,6 +741,49 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
 
         Assert.Equal(1, actual.Count);
         Assert.Equal(expected[0], actual[0]);
+    }
+
+    /// <summary>
+    /// Verifies that the transformer stops pulling items from its source once
+    /// <c>MaximumItemCount</c> is reached, rather than draining the whole source
+    /// and discarding the surplus. A pull-based stage that over-reads holds
+    /// upstream resources (connections, cursors) far longer than necessary.
+    /// </summary>
+    /// <remarks>
+    /// The source is wrapped in a counter. Once enumeration completes with a
+    /// limit of <c>M</c>, the wrapper must have observed at most <c>M + 1</c>
+    /// pulls — the <c>+1</c> allows for the single read that discovers the limit
+    /// has been reached.
+    /// </remarks>
+    [Fact]
+    public async Task TransformAsync_stops_reading_source_at_MaximumItemCount_Async()
+    {
+        var sut = CreateSut();
+        var expected = CreateExpectedItems();
+        Assert.True(expected.Count >= 3, "CreateExpectedItems() must return at least 3 items.");
+
+        var pulled = 0;
+
+        async IAsyncEnumerable<TItem> CountingSourceAsync()
+        {
+            await Task.CompletedTask.ConfigureAwait(false);
+            foreach (var item in expected)
+            {
+                pulled++;
+                yield return item;
+            }
+        }
+
+        sut.MaximumItemCount = expected.Count - 2;
+
+        var actual = await sut.TransformAsync(CountingSourceAsync()).ToListAsync().ConfigureAwait(false);
+
+        Assert.Equal(sut.MaximumItemCount, actual.Count);
+        Assert.True
+        (
+            pulled <= sut.MaximumItemCount + 1,
+            $"Expected at most {sut.MaximumItemCount + 1} source pulls but the source was read {pulled} times."
+        );
     }
 
     /// <summary>
