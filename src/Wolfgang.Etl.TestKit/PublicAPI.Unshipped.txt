@@ -1,1 +1,9 @@
 #nullable enable
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T> factory) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T> factory, int count) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T> factory, int count, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T> factory, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T> factory) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T> factory, int count) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T> factory, int count, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T> factory, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
