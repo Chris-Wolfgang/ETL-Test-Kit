@@ -1,0 +1,22 @@
+#nullable enable
+Wolfgang.Etl.TestKit.TestExtractor<T>
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Collections.Generic.IEnumerable<T> items) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Collections.Generic.IEnumerable<T> items, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Collections.Generic.IEnumerator<T> enumerator) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Collections.Generic.IEnumerator<T> enumerator, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestLoader<T>
+Wolfgang.Etl.TestKit.TestLoader<T>.GetCollectedItems() -> System.Collections.Generic.IReadOnlyList<T>?
+Wolfgang.Etl.TestKit.TestLoader<T>.TestLoader(bool collectItems) -> void
+Wolfgang.Etl.TestKit.TestLoader<T>.TestLoader(bool collectItems, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestTransformer<T>
+Wolfgang.Etl.TestKit.TestTransformer<T>.TestTransformer() -> void
+Wolfgang.Etl.TestKit.TestTransformer<T>.TestTransformer(Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+override Wolfgang.Etl.TestKit.TestExtractor<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report
+override Wolfgang.Etl.TestKit.TestExtractor<T>.CreateProgressTimer(System.IProgress<Wolfgang.Etl.Abstractions.Report> progress) -> Wolfgang.Etl.Abstractions.IProgressTimer
+override Wolfgang.Etl.TestKit.TestExtractor<T>.ExtractWorkerAsync(System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>
+override Wolfgang.Etl.TestKit.TestLoader<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report
+override Wolfgang.Etl.TestKit.TestLoader<T>.CreateProgressTimer(System.IProgress<Wolfgang.Etl.Abstractions.Report> progress) -> Wolfgang.Etl.Abstractions.IProgressTimer
+override Wolfgang.Etl.TestKit.TestLoader<T>.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable<T> items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task
+override Wolfgang.Etl.TestKit.TestTransformer<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report
+override Wolfgang.Etl.TestKit.TestTransformer<T>.CreateProgressTimer(System.IProgress<Wolfgang.Etl.Abstractions.Report> progress) -> Wolfgang.Etl.Abstractions.IProgressTimer
+override Wolfgang.Etl.TestKit.TestTransformer<T>.TransformWorkerAsync(System.Collections.Generic.IAsyncEnumerable<T> items, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>
