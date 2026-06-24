@@ -9,8 +9,9 @@ namespace Wolfgang.Etl.TestKit;
 
 /// <summary>
 /// An in-memory extractor for use in tests, examples, and benchmarks.
-/// Yields items from either an <see cref="IEnumerable{T}"/> or an
-/// <see cref="IEnumerator{T}"/>, depending on which constructor is used.
+/// Yields items from an <see cref="IEnumerable{T}"/>, an
+/// <see cref="IEnumerator{T}"/>, or a factory delegate, depending on which
+/// constructor is used.
 /// </summary>
 /// <typeparam name="T">The type of item to extract.</typeparam>
 /// <remarks>
@@ -150,6 +151,322 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
 
 
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> that yields items produced
+    /// by repeatedly invoking the specified factory delegate.
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item to produce the next value to yield.
+    /// </param>
+    /// <remarks>
+    /// This constructor produces an <b>unbounded</b> sequence — the factory is invoked
+    /// indefinitely. The caller <b>must</b> bound the run by setting
+    /// <see cref="ExtractorBase{TSource,TProgress}.MaximumItemCount"/> or by cancelling
+    /// the extraction; otherwise extraction never completes.
+    /// </remarks>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="factory"/> is <see langword="null"/>.
+    /// </exception>
+    public TestExtractor(Func<T> factory)
+    {
+        if (factory is null)
+        {
+            throw new ArgumentNullException(nameof(factory));
+        }
+
+        _enumerable = Generate(factory);
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> that yields
+    /// <paramref name="count"/> items, each produced by invoking the specified
+    /// factory delegate.
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item to produce the next value to yield.
+    /// </param>
+    /// <param name="count">The number of items to produce. Must be non-negative.</param>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="factory"/> is <see langword="null"/>.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <paramref name="count"/> is less than zero.
+    /// </exception>
+    public TestExtractor(Func<T> factory, int count)
+    {
+        if (factory is null)
+        {
+            throw new ArgumentNullException(nameof(factory));
+        }
+
+        if (count < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(count));
+        }
+
+        _enumerable = Generate(factory, count);
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> that yields items produced
+    /// by repeatedly invoking the specified index-aware factory delegate. The
+    /// factory receives the zero-based index of the item being produced.
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item, receiving the zero-based item index, to
+    /// produce the next value to yield.
+    /// </param>
+    /// <remarks>
+    /// This constructor produces an <b>unbounded</b> sequence — the factory is invoked
+    /// indefinitely. The caller <b>must</b> bound the run by setting
+    /// <see cref="ExtractorBase{TSource,TProgress}.MaximumItemCount"/> or by cancelling
+    /// the extraction; otherwise extraction never completes.
+    /// </remarks>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="factory"/> is <see langword="null"/>.
+    /// </exception>
+    public TestExtractor(Func<int, T> factory)
+    {
+        if (factory is null)
+        {
+            throw new ArgumentNullException(nameof(factory));
+        }
+
+        _enumerable = GenerateIndexed(factory);
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> that yields
+    /// <paramref name="count"/> items, each produced by invoking the specified
+    /// index-aware factory delegate. The factory receives the zero-based index of
+    /// the item being produced.
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item, receiving the zero-based item index, to
+    /// produce the next value to yield.
+    /// </param>
+    /// <param name="count">The number of items to produce. Must be non-negative.</param>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="factory"/> is <see langword="null"/>.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <paramref name="count"/> is less than zero.
+    /// </exception>
+    public TestExtractor(Func<int, T> factory, int count)
+    {
+        if (factory is null)
+        {
+            throw new ArgumentNullException(nameof(factory));
+        }
+
+        if (count < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(count));
+        }
+
+        _enumerable = GenerateIndexed(factory, count);
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> that yields items produced
+    /// by repeatedly invoking the specified factory delegate and uses the supplied
+    /// <see cref="IProgressTimer"/> to drive progress callbacks.
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item to produce the next value to yield.
+    /// </param>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <remarks>
+    /// This constructor produces an <b>unbounded</b> sequence — the factory is invoked
+    /// indefinitely. The caller <b>must</b> bound the run by setting
+    /// <see cref="ExtractorBase{TSource,TProgress}.MaximumItemCount"/> or by cancelling
+    /// the extraction; otherwise extraction never completes.
+    /// </remarks>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="factory"/> or <paramref name="timer"/> is <see langword="null"/>.
+    /// </exception>
+    protected TestExtractor(Func<T> factory, IProgressTimer timer)
+    {
+        if (factory is null)
+        {
+            throw new ArgumentNullException(nameof(factory));
+        }
+
+        _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
+        _enumerable    = Generate(factory);
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> that yields
+    /// <paramref name="count"/> items, each produced by invoking the specified
+    /// factory delegate, and uses the supplied <see cref="IProgressTimer"/> to
+    /// drive progress callbacks.
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item to produce the next value to yield.
+    /// </param>
+    /// <param name="count">The number of items to produce. Must be non-negative.</param>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="factory"/> or <paramref name="timer"/> is <see langword="null"/>.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <paramref name="count"/> is less than zero.
+    /// </exception>
+    protected TestExtractor(Func<T> factory, int count, IProgressTimer timer)
+    {
+        if (factory is null)
+        {
+            throw new ArgumentNullException(nameof(factory));
+        }
+
+        if (count < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(count));
+        }
+
+        _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
+        _enumerable    = Generate(factory, count);
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> that yields items produced
+    /// by repeatedly invoking the specified index-aware factory delegate and uses
+    /// the supplied <see cref="IProgressTimer"/> to drive progress callbacks. The
+    /// factory receives the zero-based index of the item being produced.
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item, receiving the zero-based item index, to
+    /// produce the next value to yield.
+    /// </param>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <remarks>
+    /// This constructor produces an <b>unbounded</b> sequence — the factory is invoked
+    /// indefinitely. The caller <b>must</b> bound the run by setting
+    /// <see cref="ExtractorBase{TSource,TProgress}.MaximumItemCount"/> or by cancelling
+    /// the extraction; otherwise extraction never completes.
+    /// </remarks>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="factory"/> or <paramref name="timer"/> is <see langword="null"/>.
+    /// </exception>
+    protected TestExtractor(Func<int, T> factory, IProgressTimer timer)
+    {
+        if (factory is null)
+        {
+            throw new ArgumentNullException(nameof(factory));
+        }
+
+        _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
+        _enumerable    = GenerateIndexed(factory);
+    }
+
+
+
+    /// <summary>
+    /// Initializes a new <see cref="TestExtractor{T}"/> that yields
+    /// <paramref name="count"/> items, each produced by invoking the specified
+    /// index-aware factory delegate, and uses the supplied
+    /// <see cref="IProgressTimer"/> to drive progress callbacks. The factory
+    /// receives the zero-based index of the item being produced.
+    /// </summary>
+    /// <param name="factory">
+    /// A delegate invoked once per item, receiving the zero-based item index, to
+    /// produce the next value to yield.
+    /// </param>
+    /// <param name="count">The number of items to produce. Must be non-negative.</param>
+    /// <param name="timer">
+    /// The timer used to drive progress callbacks. Inject a
+    /// <c>ManualProgressTimer</c> in tests to fire callbacks on demand.
+    /// </param>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="factory"/> or <paramref name="timer"/> is <see langword="null"/>.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <paramref name="count"/> is less than zero.
+    /// </exception>
+    protected TestExtractor(Func<int, T> factory, int count, IProgressTimer timer)
+    {
+        if (factory is null)
+        {
+            throw new ArgumentNullException(nameof(factory));
+        }
+
+        if (count < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(count));
+        }
+
+        _progressTimer = timer ?? throw new ArgumentNullException(nameof(timer));
+        _enumerable    = GenerateIndexed(factory, count);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // Factory generators
+    // ------------------------------------------------------------------
+
+    private static IEnumerable<T> Generate(Func<T> factory)
+    {
+        while (true)
+        {
+            yield return factory();
+        }
+    }
+
+
+
+    private static IEnumerable<T> Generate(Func<T> factory, int count)
+    {
+        for (var i = 0; i < count; i++)
+        {
+            yield return factory();
+        }
+    }
+
+
+
+    private static IEnumerable<T> GenerateIndexed(Func<int, T> factory)
+    {
+        for (var i = 0; ; i++)
+        {
+            yield return factory(i);
+        }
+    }
+
+
+
+    private static IEnumerable<T> GenerateIndexed(Func<int, T> factory, int count)
+    {
+        for (var i = 0; i < count; i++)
+        {
+            yield return factory(i);
+        }
+    }
+
+
+
     // ------------------------------------------------------------------
     // ExtractorBase overrides
     // ------------------------------------------------------------------
@@ -186,6 +503,14 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
     {
         token.ThrowIfCancellationRequested();
 
+        // The wrapped source is synchronous, so this iterator would otherwise
+        // contain no await. Yield once up front to honour the async-iterator
+        // contract on every exit path (including the MaximumItemCount
+        // yield-break) and to give callers an asynchronous hop. Placing it here
+        // rather than after the loop keeps it reachable regardless of how the
+        // loop terminates.
+        await Task.Yield();
+
         var enumerator     = (_enumerator ?? _enumerable!.GetEnumerator())!;
         var ownsEnumerator = _enumerator == null;
 
@@ -218,7 +543,5 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
                 enumerator.Dispose();
             }
         }
-
-        await Task.Yield(); // satisfies async method contract without causing extra allocations
     }
 }

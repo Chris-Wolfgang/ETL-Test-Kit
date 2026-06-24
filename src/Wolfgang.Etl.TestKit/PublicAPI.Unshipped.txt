@@ -18,6 +18,14 @@ Wolfgang.Etl.TestKit.FaultyTransformer<T>.FaultyTransformer() -> void
 Wolfgang.Etl.TestKit.FaultyTransformer<T>.FaultyTransformer(Wolfgang.Etl.Abstractions.IProgressTimer! timer) -> void
 Wolfgang.Etl.TestKit.FaultyTransformer<T>.ThrowAfterCompletion(System.Exception! exception) -> Wolfgang.Etl.TestKit.FaultyTransformer<T>!
 Wolfgang.Etl.TestKit.FaultyTransformer<T>.ThrowAt(int index, System.Exception! exception) -> Wolfgang.Etl.TestKit.FaultyTransformer<T>!
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T> factory) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T> factory, int count) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T> factory, int count, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T> factory, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T> factory) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T> factory, int count) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T> factory, int count, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
+Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<T> factory, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
 override Wolfgang.Etl.TestKit.FaultyExtractor<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
 override Wolfgang.Etl.TestKit.FaultyExtractor<T>.CreateProgressTimer(System.IProgress<Wolfgang.Etl.Abstractions.Report!>! progress) -> Wolfgang.Etl.Abstractions.IProgressTimer!
 override Wolfgang.Etl.TestKit.FaultyExtractor<T>.ExtractWorkerAsync(System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>!

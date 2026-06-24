@@ -1,1 +1,12 @@
 #nullable enable
+Wolfgang.Etl.TestKit.Xunit.ProgressAssert
+Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>
+Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>.Count.get -> int
+Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>.FinalReport.get -> T?
+Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>.ProgressCapture() -> void
+Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>.Reports.get -> System.Collections.Generic.IReadOnlyList<T>!
+static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.AllReportsSatisfy<T>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture, System.Func<T, bool>! predicate) -> void
+static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.FinalReportSatisfies<T>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture, System.Func<T, bool>! predicate) -> void
+static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.HasExactly<T>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture, int count) -> void
+static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.HasReports<T>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture) -> void
+static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.IsMonotonicallyIncreasing<T, TKey>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture, System.Func<T, TKey>! selector) -> void
