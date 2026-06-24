@@ -10,3 +10,22 @@ static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.FinalReportSatisfies<T>(Wolfgan
 static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.HasExactly<T>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture, int count) -> void
 static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.HasReports<T>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture) -> void
 static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.IsMonotonicallyIncreasing<T, TKey>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture, System.Func<T, TKey>! selector) -> void
+Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>.IdempotentExtractorContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>.ExtractAsync_when_called_twice_yields_identical_items_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>.ExtractAsync_when_called_twice_with_progress_both_runs_report_Async() -> System.Threading.Tasks.Task!
+abstract Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>!
+Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>
+Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>.IdempotentLoaderContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>.LoadAsync_when_called_twice_processes_all_items_both_times_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>.LoadAsync_when_called_twice_no_state_leaks_Async() -> System.Threading.Tasks.Task!
+abstract Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>.CreateSourceItems() -> System.Collections.Generic.IReadOnlyList<TItem>!
+abstract Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>.TryGetLoadedItems(TSut sut) -> System.Collections.Generic.IReadOnlyList<TItem>?
+Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>
+Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>.IdempotentTransformerContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>.TransformAsync_when_called_twice_yields_identical_items_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>.TransformAsync_when_called_twice_no_accumulated_side_effects_Async() -> System.Threading.Tasks.Task!
+abstract Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>!
