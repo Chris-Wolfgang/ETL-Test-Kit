@@ -42,6 +42,7 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
 
     private readonly IProgressTimer? _progressTimer;
     private bool _progressTimerWired;
+    private Action? _elapsedHandler;
 
 
 
@@ -90,10 +91,32 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
         if (!_progressTimerWired)
         {
             _progressTimerWired = true;
-            _progressTimer.Elapsed += () => progress.Report(CreateProgressReport());
+            _elapsedHandler = () => progress.Report(CreateProgressReport());
+            _progressTimer.Elapsed += _elapsedHandler;
         }
 
         return _progressTimer;
+    }
+
+
+
+    /// <summary>
+    /// Unsubscribes the <see cref="IProgressTimer.Elapsed"/> handler from an injected
+    /// timer. The injected timer is owned by the caller and is therefore not disposed here.
+    /// </summary>
+    /// <param name="disposing">
+    /// <see langword="true"/> when called from <see cref="IDisposable.Dispose"/>;
+    /// <see langword="false"/> when called from the finalizer.
+    /// </param>
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && _progressTimer is not null && _elapsedHandler is not null)
+        {
+            _progressTimer.Elapsed -= _elapsedHandler;
+            _elapsedHandler = null;
+        }
+
+        base.Dispose(disposing);
     }
 
 
