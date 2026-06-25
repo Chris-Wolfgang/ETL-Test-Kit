@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1782409944880,
+  "lastUpdate": 1782420000421,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Test-Kit",
   "entries": {
     "BenchmarkDotNet": [
@@ -78,6 +78,84 @@ window.BENCHMARK_DATA = {
             "value": 4240075.78515625,
             "unit": "ns",
             "range": "± 5524.870633742684"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "969bca1fd49fbea3c8d01e9595c2a93c717d2dfa",
+          "message": "Merge pull request #187 from Chris-Wolfgang/vNext\n\nRelease 0.9.0",
+          "timestamp": "2026-06-25T16:37:55-04:00",
+          "tree_id": "eb0e9ac0f5fbc03190974c7dd4f0e253d53ccb6c",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Test-Kit/commit/969bca1fd49fbea3c8d01e9595c2a93c717d2dfa"
+        },
+        "date": 1782419998130,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Wolfgang.Etl.TestKit.Benchmarks.ExtractorBenchmarks.Extract(ItemCount: 1000)",
+            "value": 60162.58600870768,
+            "unit": "ns",
+            "range": "± 4521.013144155842"
+          },
+          {
+            "name": "Wolfgang.Etl.TestKit.Benchmarks.ExtractorBenchmarks.Extract(ItemCount: 10000)",
+            "value": 382204.22347005206,
+            "unit": "ns",
+            "range": "± 7952.588181872598"
+          },
+          {
+            "name": "Wolfgang.Etl.TestKit.Benchmarks.ExtractorBenchmarks.Extract(ItemCount: 100000)",
+            "value": 3533113.7317708335,
+            "unit": "ns",
+            "range": "± 24732.64467531271"
+          },
+          {
+            "name": "Wolfgang.Etl.TestKit.Benchmarks.LoaderBenchmarks.Load(ItemCount: 1000)",
+            "value": 16067.614888509115,
+            "unit": "ns",
+            "range": "± 47.89371715521378"
+          },
+          {
+            "name": "Wolfgang.Etl.TestKit.Benchmarks.LoaderBenchmarks.Load(ItemCount: 10000)",
+            "value": 156155.81392415366,
+            "unit": "ns",
+            "range": "± 71.25990794974734"
+          },
+          {
+            "name": "Wolfgang.Etl.TestKit.Benchmarks.LoaderBenchmarks.Load(ItemCount: 100000)",
+            "value": 1576029.4772135417,
+            "unit": "ns",
+            "range": "± 7745.448634190598"
+          },
+          {
+            "name": "Wolfgang.Etl.TestKit.Benchmarks.TransformerBenchmarks.Transform(ItemCount: 1000)",
+            "value": 50092.98585001627,
+            "unit": "ns",
+            "range": "± 91.04833471051582"
+          },
+          {
+            "name": "Wolfgang.Etl.TestKit.Benchmarks.TransformerBenchmarks.Transform(ItemCount: 10000)",
+            "value": 497633.126953125,
+            "unit": "ns",
+            "range": "± 1280.1743025838593"
+          },
+          {
+            "name": "Wolfgang.Etl.TestKit.Benchmarks.TransformerBenchmarks.Transform(ItemCount: 100000)",
+            "value": 4963530.372395833,
+            "unit": "ns",
+            "range": "± 19841.55397209163"
           }
         ]
       }
