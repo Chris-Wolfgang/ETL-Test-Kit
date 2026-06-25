@@ -45,15 +45,13 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// </code>
 /// </example>
 public abstract class IdempotentExtractorContractTests<TSut, TItem, TProgress>
-    where TSut : IExtractAsync<TItem>, IExtractWithProgressAsync<TItem, TProgress>
+    where TSut : ExtractorBase<TItem, TProgress>, IExtractAsync<TItem>, IExtractWithProgressAsync<TItem, TProgress>
     where TItem : notnull
     where TProgress : notnull
 {
-    // NOTE: A companion test asserting that CurrentItemCount resets to zero between runs is
-    // intentionally deferred. Today CurrentItemCount is cumulative across runs on the same
-    // instance; whether it should reset is under decision in ETL-Abstractions#246. For the
-    // same reason these tests rely on the default MaximumItemCount — setting it would cause a
-    // second run to immediately hit the cumulative limit and yield nothing.
+    // CurrentItemCount resets at the start of each run as of Wolfgang.Etl.Abstractions 0.14.0
+    // (ETL-Abstractions#246). ExtractAsync_when_called_twice_CurrentItemCount_resets_Async below
+    // verifies that per-run reset. These tests rely on the default MaximumItemCount.
 
     // ------------------------------------------------------------------
     // Factory methods
@@ -127,5 +125,30 @@ public abstract class IdempotentExtractorContractTests<TSut, TItem, TProgress>
 
         ProgressAssert.HasReports(firstCapture);
         ProgressAssert.HasReports(secondCapture);
+    }
+
+
+
+    /// <summary>
+    /// Verifies that <c>CurrentItemCount</c> reflects only the most recent run: after extracting
+    /// twice from the same instance, the count equals the number of items yielded by the second
+    /// run alone, not the cumulative total across both runs.
+    /// </summary>
+    /// <remarks>
+    /// This verifies the per-run reset contract introduced in
+    /// <c>Wolfgang.Etl.Abstractions</c> 0.14.0 (ETL-Abstractions#246), where
+    /// <c>CurrentItemCount</c> and <c>CurrentSkippedItemCount</c> reset at the start of each run.
+    /// </remarks>
+    [Fact]
+    public async Task ExtractAsync_when_called_twice_CurrentItemCount_resets_Async()
+    {
+        var sut = CreateSut();
+        var expected = CreateExpectedItems();
+
+        await sut.ExtractAsync().ToListAsync().ConfigureAwait(false);
+
+        await sut.ExtractAsync().ToListAsync().ConfigureAwait(false);
+
+        Assert.Equal(expected.Count, sut.CurrentItemCount);
     }
 }
