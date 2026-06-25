@@ -234,6 +234,12 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
     {
         token.ThrowIfCancellationRequested();
 
+        // The wrapped source is synchronous, so this iterator would otherwise
+        // contain no await. Yield once up front to honour the async-iterator
+        // contract on every exit path (including the MaximumItemCount yield-break
+        // and ThrowAfterCompletion throw), reachable however the loop terminates.
+        await Task.Yield();
+
         var enumerator = _items.GetEnumerator();
 
         try
@@ -285,7 +291,5 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
         {
             throw _throwAfterCompletion;
         }
-
-        await Task.Yield(); // satisfies async method contract without causing extra allocations
     }
 }

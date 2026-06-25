@@ -61,8 +61,8 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
     // ------------------------------------------------------------------
 
     /// <summary>
-    /// Initializes a new <see cref="FaultyTransformer{T}"/> using the default production
-    /// timer.
+    /// Initializes a new <see cref="FaultyTransformer{T}"/> using the default
+    /// base-class progress timer.
     /// </summary>
     public FaultyTransformer() { }
 
@@ -205,15 +205,16 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
 
 
     /// <inheritdoc/>
-    protected override Report CreateProgressReport() =>
-        new Report(CurrentItemCount);
+    protected override Report CreateProgressReport() => new(CurrentItemCount);
 
 
 
     /// <inheritdoc/>
-    protected override async IAsyncEnumerable<T> TransformWorkerAsync(
+    protected override async IAsyncEnumerable<T> TransformWorkerAsync
+    (
         IAsyncEnumerable<T> items,
-        [EnumeratorCancellation] CancellationToken token)
+        [EnumeratorCancellation] CancellationToken token
+    )
     {
         token.ThrowIfCancellationRequested();
 
