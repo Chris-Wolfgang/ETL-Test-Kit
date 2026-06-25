@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Test-Kit/new/v0.8.1/apiSpec/new?filename=Wolfgang_Etl_TestKit_TestLoader_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.TestLoader%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Test-Kit/new/v0.9.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_TestLoader_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.TestLoader%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,7 +75,7 @@
 
 
   <h1 id="Wolfgang_Etl_TestKit_TestLoader_1" data-uid="Wolfgang.Etl.TestKit.TestLoader`1" class="text-break">
-Class TestLoader&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.8.1/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L52"><i class="bi bi-code-slash"></i></a>
+Class TestLoader&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.9.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L52"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -91,7 +91,7 @@ after the load completes.</p>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class TestLoader&lt;T&gt; : LoaderBase&lt;T, Report&gt;, ILoadWithProgressAndCancellationAsync&lt;T, Report&gt;, ILoadWithProgressAsync&lt;T, Report&gt;, ILoadWithCancellationAsync&lt;T&gt;, ILoadAsync&lt;T&gt; where T : notnull</code></pre>
+    <pre><code class="lang-csharp hljs">public class TestLoader&lt;T&gt; : LoaderBase&lt;T, Report&gt;, ILoadWithProgressAndCancellationAsync&lt;T, Report&gt;, ILoadWithProgressAsync&lt;T, Report&gt;, ILoadWithCancellationAsync&lt;T&gt;, ILoadAsync&lt;T&gt;, IAsyncDisposable, IDisposable where T : notnull</code></pre>
   </div>
 
 
@@ -119,6 +119,8 @@ after the load completes.</p>
       <div><span class="xref">ILoadWithProgressAsync</span>&lt;T, <span class="xref">Report</span>&gt;</div>
       <div><span class="xref">ILoadWithCancellationAsync</span>&lt;T&gt;</div>
       <div><span class="xref">ILoadAsync</span>&lt;T&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable">IAsyncDisposable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
     </dd>
   </dl>
 
@@ -152,6 +154,21 @@ after the load completes.</p>
     </div>
     <div>
       <span class="xref">LoaderBase&lt;T, Report&gt;.IncrementCurrentSkippedItemCount()</span>
+    </div>
+    <div>
+      <span class="xref">LoaderBase&lt;T, Report&gt;.DisposeAsync()</span>
+    </div>
+    <div>
+      <span class="xref">LoaderBase&lt;T, Report&gt;.Dispose()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">LoaderBase&lt;T, Report&gt;.Dispose(bool)</a>
+    </div>
+    <div>
+      <span class="xref">LoaderBase&lt;T, Report&gt;.StartedAt</span>
+    </div>
+    <div>
+      <span class="xref">LoaderBase&lt;T, Report&gt;.Elapsed</span>
     </div>
     <div>
       <span class="xref">LoaderBase&lt;T, Report&gt;.ReportingInterval</span>
@@ -237,7 +254,7 @@ loading that many items.
 
   <h3 id="Wolfgang_Etl_TestKit_TestLoader_1__ctor_System_Boolean_" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.#ctor(System.Boolean)">
   TestLoader(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.8.1/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.9.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L80"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.TestLoader-1.html">TestLoader&lt;T&gt;</a>.</p>
@@ -273,7 +290,7 @@ When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/built
 
   <h3 id="Wolfgang_Etl_TestKit_TestLoader_1__ctor_System_Boolean_Wolfgang_Etl_Abstractions_IProgressTimer_" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.#ctor(System.Boolean,Wolfgang.Etl.Abstractions.IProgressTimer)">
   TestLoader(bool, IProgressTimer)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.8.1/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.9.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L102"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.TestLoader-1.html">TestLoader&lt;T&gt;</a> with the supplied
@@ -322,7 +339,7 @@ via <a class="xref" href="Wolfgang.Etl.TestKit.TestLoader-1.html#Wolfgang_Etl_Te
 
   <h3 id="Wolfgang_Etl_TestKit_TestLoader_1_CreateProgressReport" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.CreateProgressReport">
   CreateProgressReport()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.8.1/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L158"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.9.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L181"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a progress report of type TProgress. This gives the derived class the opportunity to
@@ -356,7 +373,7 @@ implement a custom progress report that is specific to the loading process.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_TestLoader_1_CreateProgressTimer_System_IProgress_Wolfgang_Etl_Abstractions_Report__" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.CreateProgressTimer(System.IProgress{Wolfgang.Etl.Abstractions.Report})">
   CreateProgressTimer(IProgress&lt;Report&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.8.1/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L139"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.9.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L140"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates the <span class="xref">Wolfgang.Etl.Abstractions.IProgressTimer</span> used to drive progress callbacks.
@@ -393,11 +410,46 @@ Override this method in a derived class to inject a custom timer
 
 
 
+  <a id="Wolfgang_Etl_TestKit_TestLoader_1_Dispose_" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.Dispose*"></a>
+
+  <h3 id="Wolfgang_Etl_TestKit_TestLoader_1_Dispose_System_Boolean_" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.Dispose(System.Boolean)">
+  Dispose(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.9.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L167"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Unsubscribes the <span class="xref">Wolfgang.Etl.Abstractions.IProgressTimer.Elapsed</span> handler from an injected
+timer. The injected timer is owned by the caller and is therefore not disposed here.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Dispose(bool disposing)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>disposing</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> when called from <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">Dispose()</a>;
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a> when called from the finalizer.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Wolfgang_Etl_TestKit_TestLoader_1_GetCollectedItems_" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.GetCollectedItems*"></a>
 
   <h3 id="Wolfgang_Etl_TestKit_TestLoader_1_GetCollectedItems" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.GetCollectedItems">
   GetCollectedItems()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.8.1/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L127"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.9.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L128"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns a snapshot of the items collected so far, or <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>
@@ -438,7 +490,7 @@ begins, so a post-load call always reflects the most recent run only.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_TestLoader_1_LoadWorkerAsync_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.TestKit.TestLoader`1.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken)">
   LoadWorkerAsync(IAsyncEnumerable&lt;T&gt;, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.8.1/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L164"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.9.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L186"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>This method is the core implementation of the loading logic and should be
@@ -490,7 +542,7 @@ overridden by derived classes.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.8.1/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L52" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.9.0/src/Wolfgang.Etl.TestKit/TestLoader.cs/#L52" class="edit-link">Edit this page</a>
         </div>
 
 

@@ -81,10 +81,38 @@
 Classes
 </h3>
     <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.FaultyExtractor-1.html">FaultyExtractor&lt;T&gt;</a></dt>
+      <dd><p>An in-memory extractor for testing error-handling paths. It yields items from an
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;T&gt;</a> like a normal extractor, but can be configured to inject
+deterministic faults — throwing at a given item, throwing after completion, or
+duplicating an item — so consumers can exercise mid-stream failure, finalization
+failure, and de-duplication logic without hand-rolling broken fakes.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.FaultyLoader-1.html">FaultyLoader&lt;T&gt;</a></dt>
+      <dd><p>An in-memory loader for testing error-handling paths. It consumes the source stream
+like a normal loader, but can be configured to inject deterministic faults — throwing
+at a given item, throwing after completion, or duplicating an item — so consumers can
+exercise mid-stream failure, finalization failure, and idempotency logic without
+hand-rolling broken fakes.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.FaultyTransformer-1.html">FaultyTransformer&lt;T&gt;</a></dt>
+      <dd><p>A pass-through transformer for testing error-handling paths. It returns each item
+unchanged like a normal transformer, but can be configured to inject deterministic
+faults — throwing at a given item, throwing after completion, or duplicating an item —
+so consumers can exercise mid-stream failure, finalization failure, and de-duplication
+logic without hand-rolling broken fakes.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.TestKit.TestExtractor-1.html">TestExtractor&lt;T&gt;</a></dt>
       <dd><p>An in-memory extractor for use in tests, examples, and benchmarks.
-Yields items from either an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;T&gt;</a> or an
-<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1">IEnumerator&lt;T&gt;</a>, depending on which constructor is used.</p>
+Yields items from an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;T&gt;</a>, an
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1">IEnumerator&lt;T&gt;</a>, or a factory delegate, depending on which
+constructor is used.</p>
 </dd>
     </dl>
     <dl class="jumplist">

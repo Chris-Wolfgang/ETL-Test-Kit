@@ -111,6 +111,24 @@ from <span class="xref">Wolfgang.Etl.Abstractions.ExtractorBase&lt;TSource, TPro
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests-3.html">IdempotentExtractorContractTests&lt;TSut, TItem, TProgress&gt;</a></dt>
+      <dd><p>Abstract base class providing opt-in xUnit idempotency contract tests for any type that
+implements <span class="xref">Wolfgang.Etl.Abstractions.IExtractWithProgressAsync&lt;TSource, TProgress&gt;</span>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests-2.html">IdempotentLoaderContractTests&lt;TSut, TItem&gt;</a></dt>
+      <dd><p>Abstract base class providing opt-in xUnit idempotency contract tests for any type that
+implements <span class="xref">Wolfgang.Etl.Abstractions.ILoadAsync&lt;TDestination&gt;</span>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests-2.html">IdempotentTransformerContractTests&lt;TSut, TItem&gt;</a></dt>
+      <dd><p>Abstract base class providing opt-in xUnit idempotency contract tests for any type that
+implements <span class="xref">Wolfgang.Etl.Abstractions.ITransformAsync&lt;TSource, TDestination&gt;</span>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests-2.html">LoadAsyncContractTests&lt;TSut, TItem&gt;</a></dt>
       <dd><p>Abstract base class providing xUnit contract tests for any type that implements
 <span class="xref">Wolfgang.Etl.Abstractions.ILoadAsync&lt;TDestination&gt;</span>.</p>
@@ -145,6 +163,18 @@ from <span class="xref">Wolfgang.Etl.Abstractions.LoaderBase&lt;TDestination, TP
       <dd><p>A controllable implementation of <span class="xref">Wolfgang.Etl.Abstractions.IProgressTimer</span> for use in unit tests.
 Fires <span class="xref">Wolfgang.Etl.Abstractions.IProgressTimer.Elapsed</span> synchronously on demand via <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.html#Wolfgang_Etl_TestKit_Xunit_ManualProgressTimer_Fire">Fire()</a>,
 rather than on a background thread-pool thread after a real time interval.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ProgressAssert.html">ProgressAssert</a></dt>
+      <dd><p>Provides xUnit-style assertions for validating sequences of progress reports captured by
+a <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ProgressCapture-1.html">ProgressCapture&lt;T&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ProgressCapture-1.html">ProgressCapture&lt;T&gt;</a></dt>
+      <dd><p>An <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress&lt;T&gt;</a> implementation that captures every reported value,
+synchronously, on the calling thread.</p>
 </dd>
     </dl>
     <dl class="jumplist">

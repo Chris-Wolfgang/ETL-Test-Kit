@@ -290,30 +290,38 @@ var assemblies = [
   {
     "name": "Wolfgang.Etl.TestKit",
     "classes": [
-      { "name": "Wolfgang.Etl.TestKit.TestExtractor\u003CT\u003E", "rp": "Wolfgang.Etl.TestKit_TestExtractor_1.html", "cl": 39, "ucl": 0, "cal": 39, "tl": 224, "cb": 29, "tb": 30, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Wolfgang.Etl.TestKit.TestLoader\u003CT\u003E", "rp": "Wolfgang.Etl.TestKit_TestLoader_1.html", "cl": 32, "ucl": 0, "cal": 32, "tl": 202, "cb": 17, "tb": 18, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Wolfgang.Etl.TestKit.TestTransformer\u003CT\u003E", "rp": "Wolfgang.Etl.TestKit_TestTransformer_1.html", "cl": 24, "ucl": 0, "cal": 24, "tl": 140, "cb": 13, "tb": 14, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.FaultyExtractor\u003CT\u003E", "rp": "Wolfgang.Etl.TestKit_FaultyExtractor_1.html", "cl": 59, "ucl": 0, "cal": 59, "tl": 318, "cb": 37, "tb": 42, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.FaultyLoader\u003CT\u003E", "rp": "Wolfgang.Etl.TestKit_FaultyLoader_1.html", "cl": 60, "ucl": 0, "cal": 60, "tl": 337, "cb": 37, "tb": 42, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.FaultyTransformer\u003CT\u003E", "rp": "Wolfgang.Etl.TestKit_FaultyTransformer_1.html", "cl": 52, "ucl": 0, "cal": 52, "tl": 291, "cb": 32, "tb": 36, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.TestExtractor\u003CT\u003E", "rp": "Wolfgang.Etl.TestKit_TestExtractor_1.html", "cl": 107, "ucl": 0, "cal": 107, "tl": 570, "cb": 68, "tb": 72, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.TestLoader\u003CT\u003E", "rp": "Wolfgang.Etl.TestKit_TestLoader_1.html", "cl": 38, "ucl": 0, "cal": 38, "tl": 226, "cb": 20, "tb": 24, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.TestTransformer\u003CT\u003E", "rp": "Wolfgang.Etl.TestKit_TestTransformer_1.html", "cl": 30, "ucl": 0, "cal": 30, "tl": 164, "cb": 16, "tb": 20, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
     "name": "Wolfgang.Etl.TestKit.Xunit",
     "classes": [
       { "name": "Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests\u003CT1, T2\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_ExtractAsyncContractTests_2.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 99, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_ExtractorBaseContractTests_3.html", "cl": 221, "ucl": 1, "cal": 222, "tl": 733, "cb": 9, "tb": 16, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_ExtractorBaseContractTests_3.html", "cl": 234, "ucl": 1, "cal": 235, "tl": 774, "cb": 11, "tb": 18, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests\u003CT1, T2\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_ExtractWithCancellationAsyncContractTests_2.html", "cl": 40, "ucl": 1, "cal": 41, "tl": 153, "cb": 11, "tb": 16, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_ExtractWithProgressAndCancellationAsyncContractTests_3.html", "cl": 121, "ucl": 1, "cal": 122, "tl": 373, "cb": 24, "tb": 32, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_ExtractWithProgressAsyncContractTests_3.html", "cl": 27, "ucl": 0, "cal": 27, "tl": 147, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_ExtractWithProgressAndCancellationAsyncContractTests_3.html", "cl": 123, "ucl": 1, "cal": 124, "tl": 377, "cb": 24, "tb": 32, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_ExtractWithProgressAsyncContractTests_3.html", "cl": 28, "ucl": 0, "cal": 28, "tl": 149, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_IdempotentExtractorContractTests_3.html", "cl": 29, "ucl": 0, "cal": 29, "tl": 154, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests\u003CT1, T2\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_IdempotentLoaderContractTests_2.html", "cl": 37, "ucl": 1, "cal": 38, "tl": 196, "cb": 15, "tb": 18, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests\u003CT1, T2\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_IdempotentTransformerContractTests_2.html", "cl": 42, "ucl": 0, "cal": 42, "tl": 174, "cb": 12, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests\u003CT1, T2\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_LoadAsyncContractTests_2.html", "cl": 15, "ucl": 0, "cal": 15, "tl": 103, "cb": 2, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_LoaderBaseContractTests_3.html", "cl": 249, "ucl": 1, "cal": 250, "tl": 795, "cb": 8, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_LoaderBaseContractTests_3.html", "cl": 267, "ucl": 1, "cal": 268, "tl": 838, "cb": 13, "tb": 20, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests\u003CT1, T2\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_LoadWithCancellationAsyncContractTests_2.html", "cl": 43, "ucl": 1, "cal": 44, "tl": 152, "cb": 10, "tb": 16, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_LoadWithProgressAndCancellationAsyncContractTests_3.html", "cl": 139, "ucl": 2, "cal": 141, "tl": 399, "cb": 32, "tb": 48, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_LoadWithProgressAsyncContractTests_3.html", "cl": 28, "ucl": 0, "cal": 28, "tl": 140, "cb": 6, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer", "rp": "Wolfgang.Etl.TestKit.Xunit_ManualProgressTimer.html", "cl": 9, "ucl": 0, "cal": 9, "tl": 100, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer", "rp": "Wolfgang.Etl.TestKit.Xunit_ManualProgressTimer.html", "cl": 9, "ucl": 0, "cal": 9, "tl": 106, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.Xunit.ProgressAssert", "rp": "Wolfgang.Etl.TestKit.Xunit_ProgressAssert.html", "cl": 51, "ucl": 0, "cal": 51, "tl": 190, "cb": 20, "tb": 20, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.Xunit.ProgressCapture\u003CT\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_ProgressCapture_1.html", "cl": 15, "ucl": 0, "cal": 15, "tl": 105, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Wolfgang.Etl.TestKit.Xunit.SynchronousProgress\u003CT\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_SynchronousProgress_1.html", "cl": 4, "ucl": 0, "cal": 4, "tl": 60, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests\u003CT1, T2\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_TransformAsyncContractTests_2.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 97, "cb": 3, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_TransformerBaseContractTests_3.html", "cl": 247, "ucl": 1, "cal": 248, "tl": 782, "cb": 11, "tb": 20, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_TransformerBaseContractTests_3.html", "cl": 282, "ucl": 1, "cal": 283, "tl": 873, "cb": 18, "tb": 30, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests\u003CT1, T2\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_TransformWithCancellationAsyncContractTests_2.html", "cl": 41, "ucl": 1, "cal": 42, "tl": 152, "cb": 11, "tb": 16, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_TransformWithProgressAndCancellationAsyncContractTests_3.html", "cl": 121, "ucl": 1, "cal": 122, "tl": 377, "cb": 34, "tb": 44, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_TransformWithProgressAsyncContractTests_3.html", "cl": 25, "ucl": 0, "cal": 25, "tl": 136, "cb": 7, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_TransformWithProgressAndCancellationAsyncContractTests_3.html", "cl": 123, "ucl": 1, "cal": 124, "tl": 381, "cb": 34, "tb": 44, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests\u003CT1, T2, T3\u003E", "rp": "Wolfgang.Etl.TestKit.Xunit_TransformWithProgressAsyncContractTests_3.html", "cl": 26, "ucl": 0, "cal": 26, "tl": 138, "cb": 7, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
 ];
 
@@ -322,9 +330,29 @@ var metrics = [{ "name": "Crap Score", "abbreviation": "crp", "explanationUrl": 
 var historicCoverageExecutionTimes = [];
 
 var riskHotspotMetrics = [
+      { "name": "Crap Score", "explanationUrl": "https://googletesting.blogspot.de/2011/02/this-code-is-crap.html" },
+      { "name": "Cyclomatic complexity", "explanationUrl": "https://en.wikipedia.org/wiki/Cyclomatic_complexity" },
 ];
 
 var riskHotspots = [
+  {
+    "assembly": "Wolfgang.Etl.TestKit", "class": "Wolfgang.Etl.TestKit.FaultyLoader\u003CT\u003E", "reportPath": "Wolfgang.Etl.TestKit_FaultyLoader_1.html", "methodName": "LoadWorkerAsync()", "methodShortName": "LoadWorkerAsync()", "fileIndex": 0, "line": 279,
+    "metrics": [
+      { "value": 20, "exceeded": false },
+      { "value": 20, "exceeded": true },
+    ]},
+  {
+    "assembly": "Wolfgang.Etl.TestKit", "class": "Wolfgang.Etl.TestKit.FaultyExtractor\u003CT\u003E", "reportPath": "Wolfgang.Etl.TestKit_FaultyExtractor_1.html", "methodName": "ExtractWorkerAsync()", "methodShortName": "ExtractWorkerAsync()", "fileIndex": 0, "line": 258,
+    "metrics": [
+      { "value": 18, "exceeded": false },
+      { "value": 18, "exceeded": true },
+    ]},
+  {
+    "assembly": "Wolfgang.Etl.TestKit", "class": "Wolfgang.Etl.TestKit.FaultyTransformer\u003CT\u003E", "reportPath": "Wolfgang.Etl.TestKit_FaultyTransformer_1.html", "methodName": "TransformWorkerAsync()", "methodShortName": "TransformWorkerAsync()", "fileIndex": 0, "line": 242,
+    "metrics": [
+      { "value": 16, "exceeded": false },
+      { "value": 16, "exceeded": true },
+    ]},
 ];
 
 var branchCoverageAvailable = true;
