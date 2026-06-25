@@ -29,7 +29,7 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 ///   <item><description><c>CurrentItemCount</c> is incremented as items are yielded.</description></item>
 ///   <item><description><c>ReportingInterval</c> rejects values less than 1.</description></item>
 ///   <item><description><c>MaximumItemCount</c> stops extraction at the specified limit.</description></item>
-///   <item><description><c>MaximumItemCount</c> rejects values less than 0.</description></item>
+///   <item><description><c>MaximumItemCount</c> rejects values less than 1.</description></item>
 ///   <item><description><c>SkipItemCount</c> rejects values less than 0.</description></item>
 ///   <item><description>Progress callbacks fire at least once per extraction.</description></item>
 ///   <item><description><c>CreateProgressReport</c> reflects <c>CurrentItemCount</c>.</description></item>

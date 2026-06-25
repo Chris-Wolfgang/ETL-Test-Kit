@@ -30,7 +30,7 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 ///   <item><description><c>CurrentItemCount</c> is incremented as items are loaded.</description></item>
 ///   <item><description><c>ReportingInterval</c> rejects values less than 1.</description></item>
 ///   <item><description><c>MaximumItemCount</c> stops loading at the specified limit.</description></item>
-///   <item><description><c>MaximumItemCount</c> rejects values less than 0.</description></item>
+///   <item><description><c>MaximumItemCount</c> rejects values less than 1.</description></item>
 ///   <item><description><c>SkipItemCount</c> skips the specified number of items.</description></item>
 ///   <item><description><c>SkipItemCount</c> rejects values less than 0.</description></item>
 ///   <item><description>Progress callbacks fire when the timer fires.</description></item>

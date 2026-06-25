@@ -31,9 +31,15 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// TProgress? captured = null;
 /// var progress = new SynchronousProgress&lt;TProgress&gt;(r => captured = r);
 ///
-/// var task = sut.ExtractAsync(progress).ToListAsync().AsTask();
+/// // Begin enumeration and pull the first item so the pipeline is mid-flight,
+/// // then fire the timer deterministically before draining the rest. This
+/// // avoids the race where a fast synchronous source completes (and the
+/// // timer's Elapsed handler is unsubscribed in the worker's finally) before
+/// // Fire() is reached.
+/// await using var enumerator = sut.ExtractAsync(progress).GetAsyncEnumerator();
+/// await enumerator.MoveNextAsync();
 /// timer.Fire();
-/// await task;
+/// while (await enumerator.MoveNextAsync()) { }
 ///
 /// Assert.NotNull(captured);
 /// </code>

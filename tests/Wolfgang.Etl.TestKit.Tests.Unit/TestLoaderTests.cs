@@ -325,6 +325,60 @@ public class TestLoaderTests
 
 
 
+    // ------------------------------------------------------------------
+    // Progress + injected timer / Dispose
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task LoadAsync_with_progress_and_injected_timer_reports_progress_when_timer_fires()
+    {
+        using var timer = new ManualProgressTimer();
+        var loader = new TestLoaderWithTimer(collectItems: true, timer);
+        Report? captured = null;
+        var progress = new SynchronousProgress<Report>(r => captured = r);
+        var gate = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        var task = loader.LoadAsync(GatedSourceAsync(gate), progress);
+        timer.Fire();
+        gate.SetResult(true);
+        await task;
+
+        Assert.NotNull(captured);
+        Assert.True(captured!.CurrentItemCount >= 1);
+    }
+
+
+
+    [Fact]
+    public async Task Dispose_after_timer_wired_runs_unsubscribe_branch_without_error()
+    {
+        using var timer = new ManualProgressTimer();
+        var progress = new SynchronousProgress<Report>(_ => { });
+
+        var loader = new TestLoaderWithTimer(collectItems: false, timer);
+
+        // A completed load wires (and leaves wired) the Elapsed handler. Disposing the
+        // loader then exercises the unsubscribe branch of Dispose(bool). The injected
+        // timer is owned by the caller, so disposing the loader must not dispose it.
+        await loader.LoadAsync(new TestExtractor<int>(new List<int> { 1, 2, 3 }).ExtractAsync(), progress);
+
+        var exception = Record.Exception(() => loader.Dispose());
+
+        Assert.Null(exception);
+    }
+
+
+
+    private static async IAsyncEnumerable<int> GatedSourceAsync(TaskCompletionSource<bool> gate)
+    {
+        yield return 1;
+        await gate.Task.ConfigureAwait(false);
+        yield return 2;
+        yield return 3;
+    }
+
+
+
     private sealed class ExposedTestLoader<T>(bool collectItems) : TestLoader<T>(collectItems) where T : notnull
     {
         public Report GetProgressReport() => CreateProgressReport();

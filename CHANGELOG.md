@@ -19,6 +19,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.9.0] - 2026-06-23
+
+First feature release of the test doubles and contract-test surface since 0.8.x. Adds fault-injection doubles, factory-based test data, progress-assertion helpers, and opt-in idempotency contract tests. Now built against `Wolfgang.Etl.Abstractions` 0.14.0, which brings per-run counter/timing resets and disposability to the base classes.
+
+### Added
+- `FaultyExtractor<T>`, `FaultyLoader<T>`, and `FaultyTransformer<T>` fault-injection doubles with `ThrowAt`, `ThrowAfterCompletion`, and `DuplicateAt` knobs for exercising error and retry paths.
+- `TestExtractor<T>` factory constructors taking `Func<T>` or `Func<int, T>` (with an optional item count) to generate test data without materializing collections up front.
+- `ProgressCapture<T>` and `ProgressAssert` — xUnit helpers for capturing and asserting on `IProgress<T>` reports.
+- Opt-in `IdempotentExtractorContractTests`, `IdempotentLoaderContractTests`, and `IdempotentTransformerContractTests` base classes for verifying that a component produces identical results across repeated runs.
+- A BenchmarkDotNet baseline project plus a gh-pages benchmark chart workflow.
+- Additional contract tests covering argument `ParamName` validation, per-item count ordering, and no-over-read behavior (issues #46, #49, #50).
+
+### Changed
+- Now requires `Wolfgang.Etl.Abstractions` **0.14.0**, which resets per-run counters and timing at the start of each run (a behavioral change), adds timing/throughput metrics to `Report`, and makes the base classes `IDisposable`/`IAsyncDisposable`.
+- The Stryker mutation-testing workflow now runs on Windows across all target frameworks.
+
 ## [0.8.1] - 2026-06-19
 
 Canonical maintenance round. Library public API and runtime behavior are unchanged from 0.8.0 — this release ships the C4 binding-stability fix plus the canonical CI / docs / metadata work folded in from the stacked canonical PRs (canonical-protected, canonical-unprotected, protected/d8-verify-docs-build-fleet, fix/restore-assemblyversion, chore/remove-post-setup-bootstrap-files).
