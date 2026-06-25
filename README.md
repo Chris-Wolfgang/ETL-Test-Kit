@@ -93,6 +93,83 @@ var extractor = new TestExtractor<int>(Generate(1_000_000));
 
 Construct `TestLoader<T>` with `collectItems: false` to enumerate the full pipeline (for realistic benchmark throughput) without storing items — `GetCollectedItems()` returns `null` in that mode.
 
+### Core — generating data with `TestExtractor<T>` factory constructors
+
+Instead of materializing a collection, build a `TestExtractor<T>` from a factory delegate. Pass a `Func<T>` (or a `Func<int, T>` that receives the zero-based index) plus an optional item count:
+
+```csharp
+using Wolfgang.Etl.TestKit;
+
+// Func<int, T> — receives the index; here capped at 1,000 items
+var indexed = new TestExtractor<string>(i => $"row-{i}", count: 1_000);
+
+// Func<T> — same value each call; capped at 5 items
+var constant = new TestExtractor<string>(() => "ping", count: 5);
+```
+
+### Core — injecting failures with the `Faulty*` doubles
+
+`FaultyExtractor<T>`, `FaultyLoader<T>`, and `FaultyTransformer<T>` let you exercise error and retry paths. The `ThrowAt`, `ThrowAfterCompletion`, and `DuplicateAt` methods are fluent and chainable:
+
+```csharp
+using System;
+using Wolfgang.Etl.TestKit;
+
+var source = new[] { "alpha", "bravo", "charlie", "delta" };
+
+var extractor = new FaultyExtractor<string>(source)
+    .ThrowAt(2, new InvalidOperationException("boom on the third item"));
+
+// Or fail only after all items are produced:
+var afterAll = new FaultyExtractor<string>(source)
+    .ThrowAfterCompletion(new TimeoutException());
+
+// Or emit a duplicate of the item at a given index (to test de-duplication):
+var loader = new FaultyLoader<string>(collectItems: true)
+    .DuplicateAt(1);
+```
+
+### xUnit — capturing and asserting on progress
+
+`ProgressCapture<T>` is an `IProgress<T>` that records every report; pass it straight to any progress-aware overload, then assert with `ProgressAssert`:
+
+```csharp
+using System.Threading;
+using Wolfgang.Etl.Abstractions;
+using Wolfgang.Etl.TestKit;
+using Wolfgang.Etl.TestKit.Xunit;
+
+var capture = new ProgressCapture<Report>();
+var extractor = new TestExtractor<string>(new[] { "a", "b", "c" });
+
+await foreach (var _ in extractor.ExtractAsync(capture, CancellationToken.None)) { }
+
+ProgressAssert.HasReports(capture);
+ProgressAssert.IsMonotonicallyIncreasing(capture, r => r.CurrentItemCount);
+
+Report? last = capture.FinalReport;   // the final report, or null if none captured
+```
+
+### xUnit — verifying idempotency
+
+When a component must produce identical results across repeated runs, derive from the matching opt-in idempotency base and implement its factory methods:
+
+```csharp
+using System.Collections.Generic;
+using Wolfgang.Etl.TestKit.Xunit;
+
+public sealed class MyExtractorIdempotencyTests
+    : IdempotentExtractorContractTests<MyExtractor, MyRecord, MyProgress>
+{
+    protected override MyExtractor CreateSut(int itemCount) => new MyExtractor(itemCount);
+
+    protected override IReadOnlyList<MyRecord> CreateExpectedItems() =>
+        new List<MyRecord> { new("a"), new("b"), new("c"), new("d"), new("e") };
+}
+```
+
+`IdempotentLoaderContractTests<TSut, TItem>` adds a `TryGetLoadedItems(TSut sut)` factory (return `null` if the loader does not expose its loaded items), and `IdempotentTransformerContractTests<TSut, TItem>` follows the extractor shape with `CreateExpectedItems()`.
+
 ### xUnit add-on — contract-testing your own ETL types
 
 Derive your test class from the matching contract base and implement the abstract factory methods. You inherit the complete suite of `ExtractAsync` / `TransformAsync` / `LoadAsync` contract tests — all overloads, cancellation, progress, `SkipItemCount`, and `MaximumItemCount` — with zero boilerplate.
@@ -150,6 +227,10 @@ public sealed class MyLoaderContractTests
 | **Contract test bases** | `ExtractorBaseContractTests<,,>`, `LoaderBaseContractTests<,,>`, and `TransformerBaseContractTests<,,>` — comprehensive xUnit suites covering every `Wolfgang.Etl.Abstractions` base-class behaviour |
 | **`ManualProgressTimer`** | An `IProgressTimer` whose `Fire()` method triggers progress callbacks synchronously, so progress tests are deterministic |
 | **`SynchronousProgress<T>`** | An `IProgress<T>` that invokes its callback synchronously for predictable progress assertions |
+| **`TestExtractor<T>` factory ctors** | Build a `TestExtractor<T>` from a `Func<T>` or `Func<int, T>` factory (with an optional item count) instead of materializing a collection up front |
+| **`FaultyExtractor<T>` / `FaultyLoader<T>` / `FaultyTransformer<T>`** | Fault-injection doubles with fluent `ThrowAt`, `ThrowAfterCompletion`, and `DuplicateAt` knobs for exercising error and retry paths |
+| **`ProgressCapture<T>` + `ProgressAssert`** | `ProgressCapture<T>` is an `IProgress<T>` that records every report; `ProgressAssert` provides xUnit assertions (`HasReports`, `HasExactly`, `FinalReportSatisfies`, `IsMonotonicallyIncreasing`, …) over a capture |
+| **`Idempotent*ContractTests`** | Opt-in `IdempotentExtractorContractTests<,,>`, `IdempotentLoaderContractTests<,>`, and `IdempotentTransformerContractTests<,>` bases that verify a component produces identical results across repeated runs |
 | **Multi-TFM support** | net462, net481, netstandard2.0, net8.0, net10.0 |
 
 ---
@@ -199,7 +280,7 @@ This library uses **`BannedSymbols.txt`** to prohibit synchronous APIs and enfor
 ## 🛠️ Building from Source
 
 ### Prerequisites
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download) or later
+- [.NET 10.0 SDK](https://dotnet.microsoft.com/download) or later
 - Optional: [PowerShell Core](https://github.com/PowerShell/PowerShell) for formatting scripts
 
 ### Build Steps
