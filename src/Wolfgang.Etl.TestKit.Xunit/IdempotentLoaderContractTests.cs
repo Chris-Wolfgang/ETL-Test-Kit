@@ -48,11 +48,9 @@ public abstract class IdempotentLoaderContractTests<TSut, TItem>
     where TSut : ILoadAsync<TItem>
     where TItem : notnull
 {
-    // NOTE: A companion test asserting that CurrentItemCount resets to zero between runs is
-    // intentionally deferred. Today CurrentItemCount is cumulative across runs on the same
-    // instance; whether it should reset is under decision in ETL-Abstractions#246. For the
-    // same reason these tests rely on the default MaximumItemCount — setting it would cause a
-    // second run to immediately hit the cumulative limit and load nothing.
+    // CurrentItemCount resets at the start of each run as of Wolfgang.Etl.Abstractions 0.14.0
+    // (ETL-Abstractions#246). LoadAsync_when_called_twice_CurrentItemCount_resets_Async below
+    // verifies that per-run reset. These tests rely on the default MaximumItemCount.
 
     // ------------------------------------------------------------------
     // Factory methods
@@ -85,6 +83,19 @@ public abstract class IdempotentLoaderContractTests<TSut, TItem>
     /// </remarks>
     /// <param name="sut">The system under test, after a load has completed.</param>
     protected abstract IReadOnlyList<TItem>? TryGetLoadedItems(TSut sut);
+
+    /// <summary>
+    /// Returns the value of <paramref name="sut"/>'s <c>CurrentItemCount</c> after a load.
+    /// </summary>
+    /// <remarks>
+    /// The default implementation reads <see cref="LoaderBase{TDestination, TProgress}.CurrentItemCount"/>
+    /// assuming the loader derives from <see cref="LoaderBase{TDestination, TProgress}"/> with a
+    /// <see cref="Report"/> progress type, which is the convention for ETL loaders. Override this
+    /// when the loader exposes its progress count through a different progress type or member.
+    /// </remarks>
+    /// <param name="sut">The system under test, after a load has completed.</param>
+    protected virtual int GetCurrentItemCount(TSut sut) =>
+        ((LoaderBase<TItem, Report>)(object)sut!).CurrentItemCount;
 
 
 
@@ -156,5 +167,30 @@ public abstract class IdempotentLoaderContractTests<TSut, TItem>
 
         Assert.NotNull(afterSecondRun);
         Assert.Equal(source, afterSecondRun);
+    }
+
+
+
+    /// <summary>
+    /// Verifies that <c>CurrentItemCount</c> reflects only the most recent run: after loading the
+    /// same source twice into the same instance, the count equals the number of items in a single
+    /// run, not the cumulative total across both runs.
+    /// </summary>
+    /// <remarks>
+    /// This verifies the per-run reset contract introduced in
+    /// <c>Wolfgang.Etl.Abstractions</c> 0.14.0 (ETL-Abstractions#246), where
+    /// <c>CurrentItemCount</c> and <c>CurrentSkippedItemCount</c> reset at the start of each run.
+    /// </remarks>
+    [Fact]
+    public async Task LoadAsync_when_called_twice_CurrentItemCount_resets_Async()
+    {
+        var sut = CreateSut();
+        var source = CreateSourceItems();
+
+        await sut.LoadAsync(source.ToAsyncEnumerable()).ConfigureAwait(false);
+
+        await sut.LoadAsync(source.ToAsyncEnumerable()).ConfigureAwait(false);
+
+        Assert.Equal(source.Count, GetCurrentItemCount(sut));
     }
 }
