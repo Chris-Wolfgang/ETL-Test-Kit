@@ -65,7 +65,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Bcl.Memory" Version="10.0.9" />
-    <PackageReference Include="Wolfgang.Etl.Abstractions" Version="0.13.1" />
+    <PackageReference Include="Wolfgang.Etl.Abstractions" Version="0.14.0" />
     <PackageReference Include="System.Linq.Async" Version="7.0.1" />
   </ItemGroup>
 
