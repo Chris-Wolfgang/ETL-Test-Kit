@@ -313,6 +313,101 @@ public class FaultyExtractorTests
 
 
 
+    // ------------------------------------------------------------------
+    // Progress + injected timer
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task ExtractAsync_with_progress_and_injected_timer_reports_progress_when_timer_fires()
+    {
+        using var timer = new ManualProgressTimer();
+        var sut = new FaultyExtractorWithTimer(new List<int> { 1, 2, 3 }, timer);
+        Report? captured = null;
+        var progress = new SynchronousProgress<Report>(r => captured = r);
+
+        await using var enumerator = sut.ExtractAsync(progress).GetAsyncEnumerator();
+        await enumerator.MoveNextAsync();
+        timer.Fire();
+        while (await enumerator.MoveNextAsync()) { }
+
+        Assert.NotNull(captured);
+        Assert.True(captured!.CurrentItemCount >= 1);
+    }
+
+
+
+    [Fact]
+    public async Task ExtractAsync_with_progress_and_no_injected_timer_yields_all_items()
+    {
+        var sut = new FaultyExtractor<int>(new List<int> { 1, 2, 3 });
+        var progress = new SynchronousProgress<Report>(_ => { });
+
+        var results = await sut.ExtractAsync(progress).ToListAsync();
+
+        Assert.Equal(new[] { 1, 2, 3 }, results);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // Dispose
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task Dispose_after_timer_wired_unsubscribes_so_firing_timer_does_not_report()
+    {
+        using var timer = new ManualProgressTimer();
+        var reportCount = 0;
+        var progress = new SynchronousProgress<Report>(_ => reportCount++);
+
+        var sut = new FaultyExtractorWithTimer(new List<int> { 1, 2, 3 }, timer);
+
+        // Pull one item so the timer is created and the Elapsed handler is wired,
+        // but leave the enumerator undrained so the base class does not dispose the
+        // injected timer in its finally. Disposing the SUT now runs the unsubscribe
+        // branch of Dispose(bool); firing afterwards must produce no report.
+        var enumerator = sut.ExtractAsync(progress).GetAsyncEnumerator();
+        await enumerator.MoveNextAsync();
+
+        sut.Dispose();
+        timer.Fire();
+
+        Assert.Equal(0, reportCount);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // SkipItemCount / MaximumItemCount
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task ExtractAsync_skips_items_up_to_SkipItemCount()
+    {
+        var sut = new FaultyExtractor<int>(new[] { 1, 2, 3, 4, 5 });
+        sut.SkipItemCount = 2;
+
+        var results = await sut.ExtractAsync().ToListAsync();
+
+        Assert.Equal(new[] { 3, 4, 5 }, results);
+        Assert.Equal(2, sut.CurrentSkippedItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task ExtractAsync_stops_at_MaximumItemCount()
+    {
+        var sut = new FaultyExtractor<int>(new[] { 1, 2, 3, 4, 5 });
+        sut.MaximumItemCount = 2;
+
+        var results = await sut.ExtractAsync().ToListAsync();
+
+        Assert.Equal(new[] { 1, 2 }, results);
+    }
+
+
+
     private sealed class FaultyExtractorWithTimer : FaultyExtractor<int>
     {
         public FaultyExtractorWithTimer(IEnumerable<int> items, IProgressTimer timer)

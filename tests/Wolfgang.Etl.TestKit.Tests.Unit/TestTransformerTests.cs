@@ -179,6 +179,56 @@ public class TestTransformerTests
 
 
 
+    // ------------------------------------------------------------------
+    // Progress + injected timer / Dispose
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task TransformAsync_with_progress_and_injected_timer_reports_progress_when_timer_fires()
+    {
+        using var timer = new ManualProgressTimer();
+        var transformer = new TestTransformerWithTimer(timer);
+        var extractor   = new TestExtractor<int>(new List<int> { 1, 2, 3 });
+        Report? captured = null;
+        var progress = new SynchronousProgress<Report>(r => captured = r);
+
+        await using var enumerator =
+            transformer.TransformAsync(extractor.ExtractAsync(), progress).GetAsyncEnumerator();
+        await enumerator.MoveNextAsync();
+        timer.Fire();
+        while (await enumerator.MoveNextAsync()) { }
+
+        Assert.NotNull(captured);
+        Assert.True(captured!.CurrentItemCount >= 1);
+    }
+
+
+
+    [Fact]
+    public async Task Dispose_after_timer_wired_unsubscribes_so_firing_timer_does_not_report()
+    {
+        using var timer = new ManualProgressTimer();
+        var reportCount = 0;
+        var progress = new SynchronousProgress<Report>(_ => reportCount++);
+
+        var transformer = new TestTransformerWithTimer(timer);
+        var extractor   = new TestExtractor<int>(new List<int> { 1, 2, 3 });
+
+        // Pull one item so the timer is wired, but leave the enumerator undrained so
+        // the base class does not dispose the injected timer in its finally. Disposing
+        // the SUT runs the unsubscribe branch; firing afterwards must produce no report.
+        var enumerator =
+            transformer.TransformAsync(extractor.ExtractAsync(), progress).GetAsyncEnumerator();
+        await enumerator.MoveNextAsync();
+
+        transformer.Dispose();
+        timer.Fire();
+
+        Assert.Equal(0, reportCount);
+    }
+
+
+
     private sealed class ExposedTestTransformer<T> : TestTransformer<T> where T : notnull
     {
         public Report GetProgressReport() => CreateProgressReport();

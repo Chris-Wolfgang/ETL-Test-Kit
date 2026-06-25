@@ -277,6 +277,112 @@ public class FaultyLoaderTests
 
 
 
+    // ------------------------------------------------------------------
+    // Progress + injected timer
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task LoadAsync_with_progress_and_injected_timer_reports_progress_when_timer_fires()
+    {
+        using var timer = new ManualProgressTimer();
+        var loader = new FaultyLoaderWithTimer(collectItems: true, timer);
+        Report? captured = null;
+        var progress = new SynchronousProgress<Report>(r => captured = r);
+        var gate = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        var task = loader.LoadAsync(GatedSourceAsync(gate), progress);
+        timer.Fire();
+        gate.SetResult(true);
+        await task;
+
+        Assert.NotNull(captured);
+        Assert.True(captured!.CurrentItemCount >= 1);
+    }
+
+
+
+    [Fact]
+    public async Task LoadAsync_with_progress_and_no_injected_timer_loads_all_items()
+    {
+        var loader = new FaultyLoader<int>(collectItems: true);
+        var progress = new SynchronousProgress<Report>(_ => { });
+
+        await loader.LoadAsync(new FaultyExtractor<int>(new[] { 1, 2, 3 }).ExtractAsync(), progress);
+
+        Assert.Equal(new[] { 1, 2, 3 }, loader.GetCollectedItems());
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // Dispose
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task Dispose_after_timer_wired_runs_unsubscribe_branch_without_error()
+    {
+        using var timer = new ManualProgressTimer();
+        var progress = new SynchronousProgress<Report>(_ => { });
+
+        var loader = new FaultyLoaderWithTimer(collectItems: false, timer);
+
+        // A completed load wires (and leaves wired) the Elapsed handler. Disposing the
+        // loader then exercises the unsubscribe branch of Dispose(bool). The injected
+        // timer is owned by the caller, so disposing the loader must not dispose it.
+        await loader.LoadAsync(new FaultyExtractor<int>(new[] { 1, 2, 3 }).ExtractAsync(), progress);
+
+        var exception = Record.Exception(() => loader.Dispose());
+
+        Assert.Null(exception);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // SkipItemCount / MaximumItemCount
+    // ------------------------------------------------------------------
+
+    [Fact]
+    public async Task LoadAsync_skips_items_up_to_SkipItemCount()
+    {
+        var loader = new FaultyLoader<int>(collectItems: true);
+        loader.SkipItemCount = 2;
+
+        await loader.LoadAsync(new FaultyExtractor<int>(new[] { 1, 2, 3, 4, 5 }).ExtractAsync());
+
+        Assert.Equal(new[] { 3, 4, 5 }, loader.GetCollectedItems());
+        Assert.Equal(2, loader.CurrentSkippedItemCount);
+    }
+
+
+
+    [Fact]
+    public async Task LoadAsync_stops_at_MaximumItemCount()
+    {
+        var loader = new FaultyLoader<int>(collectItems: true);
+        loader.MaximumItemCount = 2;
+
+        await loader.LoadAsync(new FaultyExtractor<int>(new[] { 1, 2, 3, 4, 5 }).ExtractAsync());
+
+        Assert.Equal(new[] { 1, 2 }, loader.GetCollectedItems());
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // Helpers
+    // ------------------------------------------------------------------
+
+    private static async IAsyncEnumerable<int> GatedSourceAsync(TaskCompletionSource<bool> gate)
+    {
+        yield return 1;
+        await gate.Task.ConfigureAwait(false);
+        yield return 2;
+        yield return 3;
+    }
+
+
+
     private sealed class FaultyLoaderWithTimer : FaultyLoader<int>
     {
         public FaultyLoaderWithTimer(bool collectItems, IProgressTimer timer)
