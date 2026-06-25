@@ -242,15 +242,16 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
 
 
     /// <inheritdoc/>
-    protected override Report CreateProgressReport() =>
-        new Report(CurrentItemCount);
+    protected override Report CreateProgressReport() => new(CurrentItemCount);
 
 
 
     /// <inheritdoc/>
-    protected override async Task LoadWorkerAsync(
+    protected override async Task LoadWorkerAsync
+    (
         IAsyncEnumerable<T> items,
-        CancellationToken token)
+        CancellationToken token
+    )
     {
         token.ThrowIfCancellationRequested();
 

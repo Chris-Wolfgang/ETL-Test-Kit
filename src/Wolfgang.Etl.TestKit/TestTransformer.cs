@@ -51,7 +51,7 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
 
     /// <summary>
     /// Initializes a new <see cref="TestTransformer{T}"/> using the default
-    /// production timer.
+    /// base-class progress timer.
     /// </summary>
     public TestTransformer() { }
 
@@ -99,15 +99,16 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
 
 
     /// <inheritdoc/>
-    protected override Report CreateProgressReport() =>
-        new Report(CurrentItemCount);
+    protected override Report CreateProgressReport() => new(CurrentItemCount);
 
 
 
     /// <inheritdoc/>
-    protected override async IAsyncEnumerable<T> TransformWorkerAsync(
+    protected override async IAsyncEnumerable<T> TransformWorkerAsync
+    (
         IAsyncEnumerable<T> items,
-        [EnumeratorCancellation] CancellationToken token)
+        [EnumeratorCancellation] CancellationToken token
+    )
     {
         token.ThrowIfCancellationRequested();
 
