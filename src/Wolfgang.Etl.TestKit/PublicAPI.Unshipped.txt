@@ -28,10 +28,16 @@ Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T> factory,
 Wolfgang.Etl.TestKit.TestExtractor<T>.TestExtractor(System.Func<int, T> factory, int count, Wolfgang.Etl.Abstractions.IProgressTimer timer) -> void
 override Wolfgang.Etl.TestKit.FaultyExtractor<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
 override Wolfgang.Etl.TestKit.FaultyExtractor<T>.CreateProgressTimer(System.IProgress<Wolfgang.Etl.Abstractions.Report!>! progress) -> Wolfgang.Etl.Abstractions.IProgressTimer!
+override Wolfgang.Etl.TestKit.FaultyExtractor<T>.Dispose(bool disposing) -> void
 override Wolfgang.Etl.TestKit.FaultyExtractor<T>.ExtractWorkerAsync(System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>!
 override Wolfgang.Etl.TestKit.FaultyLoader<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
 override Wolfgang.Etl.TestKit.FaultyLoader<T>.CreateProgressTimer(System.IProgress<Wolfgang.Etl.Abstractions.Report!>! progress) -> Wolfgang.Etl.Abstractions.IProgressTimer!
+override Wolfgang.Etl.TestKit.FaultyLoader<T>.Dispose(bool disposing) -> void
 override Wolfgang.Etl.TestKit.FaultyLoader<T>.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable<T>! items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
 override Wolfgang.Etl.TestKit.FaultyTransformer<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
 override Wolfgang.Etl.TestKit.FaultyTransformer<T>.CreateProgressTimer(System.IProgress<Wolfgang.Etl.Abstractions.Report!>! progress) -> Wolfgang.Etl.Abstractions.IProgressTimer!
+override Wolfgang.Etl.TestKit.FaultyTransformer<T>.Dispose(bool disposing) -> void
 override Wolfgang.Etl.TestKit.FaultyTransformer<T>.TransformWorkerAsync(System.Collections.Generic.IAsyncEnumerable<T>! items, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>!
+override Wolfgang.Etl.TestKit.TestExtractor<T>.Dispose(bool disposing) -> void
+override Wolfgang.Etl.TestKit.TestLoader<T>.Dispose(bool disposing) -> void
+override Wolfgang.Etl.TestKit.TestTransformer<T>.Dispose(bool disposing) -> void
