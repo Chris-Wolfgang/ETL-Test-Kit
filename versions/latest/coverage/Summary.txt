@@ -1,23 +1,23 @@
 Summary
-  Generated on: 6/25/2026 - 8:51:53 PM
-  Coverage date: 6/25/2026 - 8:51:49 PM - 6/25/2026 - 8:51:50 PM
+  Generated on: 6/29/2026 - 4:55:18 PM
+  Coverage date: 6/29/2026 - 4:55:11 PM
   Parser: MultiReport (2x Cobertura)
   Assemblies: 2
-  Classes: 28
-  Files: 28
+  Classes: 29
+  Files: 29
   Line coverage: 99.4%
-  Covered lines: 1942
+  Covered lines: 1967
   Uncovered lines: 11
-  Coverable lines: 1953
-  Total lines: 7716
-  Branch coverage: 80.1% (447 of 558)
-  Covered branches: 447
-  Total branches: 558
-  Method coverage: 100% (325 of 325)
-  Full method coverage: 92.3% (300 of 325)
-  Covered methods: 325
-  Fully covered methods: 300
-  Total methods: 325
+  Coverable lines: 1978
+  Total lines: 7880
+  Branch coverage: 80.1% (449 of 560)
+  Covered branches: 449
+  Total branches: 560
+  Method coverage: 100% (331 of 331)
+  Full method coverage: 92.4% (306 of 331)
+  Covered methods: 331
+  Fully covered methods: 306
+  Total methods: 331
 
 Wolfgang.Etl.TestKit                                                                               100%
   Wolfgang.Etl.TestKit.FaultyExtractor<T>                                                          100%
@@ -44,6 +44,7 @@ Wolfgang.Etl.TestKit.Xunit                                                      
   Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer                                                   100%
   Wolfgang.Etl.TestKit.Xunit.ProgressAssert                                                        100%
   Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>                                                    100%
+  Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<T>                                        100%
   Wolfgang.Etl.TestKit.Xunit.SynchronousProgress<T>                                                100%
   Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests<T1, T2>                                   100%
   Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<T1, T2, T3>                             99.6%

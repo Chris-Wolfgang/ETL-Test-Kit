@@ -810,6 +810,23 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.TestLoader(Of T).GetCollectedItems
   nameWithType: TestLoader<T>.GetCollectedItems
   nameWithType.vb: TestLoader(Of T).GetCollectedItems
+- uid: Wolfgang.Etl.TestKit.TestLoader`1.IsDryRun
+  name: IsDryRun
+  href: api/Wolfgang.Etl.TestKit.TestLoader-1.html#Wolfgang_Etl_TestKit_TestLoader_1_IsDryRun
+  commentId: P:Wolfgang.Etl.TestKit.TestLoader`1.IsDryRun
+  fullName: Wolfgang.Etl.TestKit.TestLoader<T>.IsDryRun
+  fullName.vb: Wolfgang.Etl.TestKit.TestLoader(Of T).IsDryRun
+  nameWithType: TestLoader<T>.IsDryRun
+  nameWithType.vb: TestLoader(Of T).IsDryRun
+- uid: Wolfgang.Etl.TestKit.TestLoader`1.IsDryRun*
+  name: IsDryRun
+  href: api/Wolfgang.Etl.TestKit.TestLoader-1.html#Wolfgang_Etl_TestKit_TestLoader_1_IsDryRun_
+  commentId: Overload:Wolfgang.Etl.TestKit.TestLoader`1.IsDryRun
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.TestLoader<T>.IsDryRun
+  fullName.vb: Wolfgang.Etl.TestKit.TestLoader(Of T).IsDryRun
+  nameWithType: TestLoader<T>.IsDryRun
+  nameWithType.vb: TestLoader(Of T).IsDryRun
 - uid: Wolfgang.Etl.TestKit.TestLoader`1.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken)
   name: LoadWorkerAsync(IAsyncEnumerable<T>, CancellationToken)
   href: api/Wolfgang.Etl.TestKit.TestLoader-1.html#Wolfgang_Etl_TestKit_TestLoader_1_LoadWorkerAsync_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_
@@ -4022,6 +4039,135 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.ProgressCapture(Of T).Reports
   nameWithType: ProgressCapture<T>.Reports
   nameWithType.vb: ProgressCapture(Of T).Reports
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1
+  name: SupportsDryRunContractTests<TSut>
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html
+  commentId: T:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1
+  name.vb: SupportsDryRunContractTests(Of TSut)
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut)
+  nameWithType: SupportsDryRunContractTests<TSut>
+  nameWithType.vb: SupportsDryRunContractTests(Of TSut)
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.CreateSut
+  name: CreateSut()
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_CreateSut
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.CreateSut
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.CreateSut()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).CreateSut()
+  nameWithType: SupportsDryRunContractTests<TSut>.CreateSut()
+  nameWithType.vb: SupportsDryRunContractTests(Of TSut).CreateSut()
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.CreateSut*
+  name: CreateSut
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_CreateSut_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.CreateSut
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.CreateSut
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).CreateSut
+  nameWithType: SupportsDryRunContractTests<TSut>.CreateSut
+  nameWithType.vb: SupportsDryRunContractTests(Of TSut).CreateSut
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_back_to_false
+  name: IsDryRun_can_be_set_back_to_false()
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_IsDryRun_can_be_set_back_to_false
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_back_to_false
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_back_to_false()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_back_to_false()
+  nameWithType: SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_back_to_false()
+  nameWithType.vb: SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_back_to_false()
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_back_to_false*
+  name: IsDryRun_can_be_set_back_to_false
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_IsDryRun_can_be_set_back_to_false_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_back_to_false
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_back_to_false
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_back_to_false
+  nameWithType: SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_back_to_false
+  nameWithType.vb: SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_back_to_false
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_to_true
+  name: IsDryRun_can_be_set_to_true()
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_IsDryRun_can_be_set_to_true
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_to_true
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_to_true()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_to_true()
+  nameWithType: SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_to_true()
+  nameWithType.vb: SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_to_true()
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_to_true*
+  name: IsDryRun_can_be_set_to_true
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_IsDryRun_can_be_set_to_true_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_can_be_set_to_true
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_to_true
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_to_true
+  nameWithType: SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_to_true
+  nameWithType.vb: SupportsDryRunContractTests(Of TSut).IsDryRun_can_be_set_to_true
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_defaults_to_false
+  name: IsDryRun_defaults_to_false()
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_IsDryRun_defaults_to_false
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_defaults_to_false
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_defaults_to_false()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).IsDryRun_defaults_to_false()
+  nameWithType: SupportsDryRunContractTests<TSut>.IsDryRun_defaults_to_false()
+  nameWithType.vb: SupportsDryRunContractTests(Of TSut).IsDryRun_defaults_to_false()
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_defaults_to_false*
+  name: IsDryRun_defaults_to_false
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_IsDryRun_defaults_to_false_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.IsDryRun_defaults_to_false
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_defaults_to_false
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).IsDryRun_defaults_to_false
+  nameWithType: SupportsDryRunContractTests<TSut>.IsDryRun_defaults_to_false
+  nameWithType.vb: SupportsDryRunContractTests(Of TSut).IsDryRun_defaults_to_false
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.RunAndReportSideEffectAsync(System.Boolean)
+  name: RunAndReportSideEffectAsync(bool)
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_RunAndReportSideEffectAsync_System_Boolean_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.RunAndReportSideEffectAsync(System.Boolean)
+  name.vb: RunAndReportSideEffectAsync(Boolean)
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.RunAndReportSideEffectAsync(bool)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).RunAndReportSideEffectAsync(Boolean)
+  nameWithType: SupportsDryRunContractTests<TSut>.RunAndReportSideEffectAsync(bool)
+  nameWithType.vb: SupportsDryRunContractTests(Of TSut).RunAndReportSideEffectAsync(Boolean)
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.RunAndReportSideEffectAsync*
+  name: RunAndReportSideEffectAsync
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_RunAndReportSideEffectAsync_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.RunAndReportSideEffectAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.RunAndReportSideEffectAsync
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).RunAndReportSideEffectAsync
+  nameWithType: SupportsDryRunContractTests<TSut>.RunAndReportSideEffectAsync
+  nameWithType.vb: SupportsDryRunContractTests(Of TSut).RunAndReportSideEffectAsync
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_false_side_effect_occurs_Async
+  name: When_IsDryRun_is_false_side_effect_occurs_Async()
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_When_IsDryRun_is_false_side_effect_occurs_Async
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_false_side_effect_occurs_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.When_IsDryRun_is_false_side_effect_occurs_Async()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_false_side_effect_occurs_Async()
+  nameWithType: SupportsDryRunContractTests<TSut>.When_IsDryRun_is_false_side_effect_occurs_Async()
+  nameWithType.vb: SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_false_side_effect_occurs_Async()
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_false_side_effect_occurs_Async*
+  name: When_IsDryRun_is_false_side_effect_occurs_Async
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_When_IsDryRun_is_false_side_effect_occurs_Async_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_false_side_effect_occurs_Async
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.When_IsDryRun_is_false_side_effect_occurs_Async
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_false_side_effect_occurs_Async
+  nameWithType: SupportsDryRunContractTests<TSut>.When_IsDryRun_is_false_side_effect_occurs_Async
+  nameWithType.vb: SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_false_side_effect_occurs_Async
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_true_side_effect_is_skipped_Async
+  name: When_IsDryRun_is_true_side_effect_is_skipped_Async()
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_When_IsDryRun_is_true_side_effect_is_skipped_Async
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_true_side_effect_is_skipped_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.When_IsDryRun_is_true_side_effect_is_skipped_Async()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_true_side_effect_is_skipped_Async()
+  nameWithType: SupportsDryRunContractTests<TSut>.When_IsDryRun_is_true_side_effect_is_skipped_Async()
+  nameWithType.vb: SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_true_side_effect_is_skipped_Async()
+- uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_true_side_effect_is_skipped_Async*
+  name: When_IsDryRun_is_true_side_effect_is_skipped_Async
+  href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_SupportsDryRunContractTests_1_When_IsDryRun_is_true_side_effect_is_skipped_Async_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1.When_IsDryRun_is_true_side_effect_is_skipped_Async
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.When_IsDryRun_is_true_side_effect_is_skipped_Async
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_true_side_effect_is_skipped_Async
+  nameWithType: SupportsDryRunContractTests<TSut>.When_IsDryRun_is_true_side_effect_is_skipped_Async
+  nameWithType.vb: SupportsDryRunContractTests(Of TSut).When_IsDryRun_is_true_side_effect_is_skipped_Async
 - uid: Wolfgang.Etl.TestKit.Xunit.SynchronousProgress`1
   name: SynchronousProgress<T>
   href: api/Wolfgang.Etl.TestKit.Xunit.SynchronousProgress-1.html
