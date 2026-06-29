@@ -9,7 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `SupportsDryRunContractTests<TSut>` — an opt-in xUnit contract-test base that verifies
+  a stage implementing `ISupportDryRun` actually *skips its external side effect* when
+  `IsDryRun` is `true` (not merely exposes the property). Stage-agnostic: the derived test
+  supplies `RunAsync` and `SideEffectOccurredAsync`. Requires `Wolfgang.Etl.Abstractions`
+  0.15.0. (ETL-Abstractions#259, ETL-Test-Kit#195)
+- `TestLoader<T>` now implements `ISupportDryRun`: in dry-run mode it still enumerates the
+  source and advances progress counters but skips collecting items, serving as the
+  reference implementation exercised by the new contract base.
+
 ### Changed
+
+- Built against `Wolfgang.Etl.Abstractions` 0.15.0 (was 0.14.1).
 
 ### Deprecated
 
