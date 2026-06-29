@@ -19,6 +19,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.10.0] - 2026-06-29
+
+Adds an opt-in contract-test base for the `ISupportDryRun` interface introduced in
+`Wolfgang.Etl.Abstractions` 0.15.0. No breaking change.
+
+### Added
+
+- `SupportsDryRunContractTests<TSut>` — an opt-in xUnit contract-test base that verifies
+  a stage implementing `ISupportDryRun` actually *skips its external side effect* when
+  `IsDryRun` is `true` (not merely exposes the property). Stage-agnostic: the derived test
+  supplies `CreateSut()` and a single `RunAndReportSideEffectAsync(bool)`. Requires
+  `Wolfgang.Etl.Abstractions` 0.15.0. (ETL-Abstractions#259, ETL-Test-Kit#195)
+- `TestLoader<T>` now implements `ISupportDryRun`: in dry-run mode it still enumerates the
+  source and advances progress counters but skips collecting items, serving as the
+  reference implementation exercised by the new contract base.
+
+### Changed
+
+- Built against `Wolfgang.Etl.Abstractions` 0.15.0 (was 0.14.1).
+
 ## [0.9.0] - 2026-06-23
 
 First feature release of the test doubles and contract-test surface since 0.8.x. Adds fault-injection doubles, factory-based test data, progress-assertion helpers, and opt-in idempotency contract tests. Now built against `Wolfgang.Etl.Abstractions` 0.14.0, which brings per-run counter/timing resets and disposability to the base classes.

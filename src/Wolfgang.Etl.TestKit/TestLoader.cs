@@ -49,7 +49,7 @@ namespace Wolfgang.Etl.TestKit;
 /// // loader.GetCollectedItems() returns null in this mode
 /// </code>
 /// </example>
-public class TestLoader<T> : LoaderBase<T, Report>
+public class TestLoader<T> : LoaderBase<T, Report>, ISupportDryRun
     where T : notnull
 {
     // ------------------------------------------------------------------
@@ -132,6 +132,19 @@ public class TestLoader<T> : LoaderBase<T, Report>
 
 
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the loader runs in dry-run mode.
+    /// </summary>
+    /// <value>
+    /// When <see langword="true"/>, the loader still enumerates the full source and
+    /// advances its progress counters, but skips its side effect — items are not added
+    /// to the collection buffer, so <see cref="GetCollectedItems"/> reports nothing was
+    /// loaded. Defaults to <see langword="false"/>.
+    /// </value>
+    public bool IsDryRun { get; set; }
+
+
+
     // ------------------------------------------------------------------
     // LoaderBase overrides
     // ------------------------------------------------------------------
@@ -210,7 +223,7 @@ public class TestLoader<T> : LoaderBase<T, Report>
                     break;
                 }
 
-                if (_collectItems)
+                if (_collectItems && !IsDryRun)
                 {
                     _buffer.Add(item);
                 }

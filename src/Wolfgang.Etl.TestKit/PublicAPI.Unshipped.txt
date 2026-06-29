@@ -1,1 +1,3 @@
 #nullable enable
+Wolfgang.Etl.TestKit.TestLoader<T>.IsDryRun.get -> bool
+Wolfgang.Etl.TestKit.TestLoader<T>.IsDryRun.set -> void
