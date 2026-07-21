@@ -1,0 +1,9 @@
+<!--
+  Isolation stub. MSBuild imports only the NEAREST Directory.Build.props when
+  walking up, so this empty project stops the repo-root Directory.Build.props
+  (analyzers, BannedSymbols, TreatWarningsAsErrors, multi-TFM, PublicAPI, …)
+  from applying to the throwaway SourceLink step-into consumer. The consumer is
+  a debugging fixture, not shipped code, and must not inherit library policy.
+-->
+<Project>
+</Project>
