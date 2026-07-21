@@ -1,0 +1,53 @@
+name: AOT Smoke
+
+# Native-AOT publish-and-run smoke consumer (#132).
+#
+# Publishes a tiny console consumer with PublishAot and runs the native binary,
+# so the build fails if the library stops compiling or running under native AOT
+# (e.g. the async-enumerable pipeline path stops being trimmer-safe). This is the
+# *runtime* half of AOT verification: it exercises TestExtractor / TestTransformer
+# / TestLoader end-to-end in a trimmed, natively-compiled binary.
+#
+# windows-latest ships the MSVC "Desktop development with C++" workload that the
+# native linker requires, so no extra toolchain install is needed.
+#
+# Runs on every PR so AOT regressions block before merge.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aot-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  aot-smoke:
+    name: "AOT publish + run"
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Publish (native AOT, win-x64)
+        run: dotnet publish aot-smoke/Wolfgang.Etl.TestKit.AotSmoke/Wolfgang.Etl.TestKit.AotSmoke.csproj -c Release -r win-x64
+
+      - name: Run native binary
+        shell: bash
+        run: |
+          EXE="aot-smoke/Wolfgang.Etl.TestKit.AotSmoke/bin/Release/net10.0/win-x64/publish/Wolfgang.Etl.TestKit.AotSmoke.exe"
+          echo "Running: $EXE"
+          "$EXE"
