@@ -1,0 +1,14 @@
+# zizmor configuration (#143 follow-up).
+#
+# NOTE: zizmor does NOT auto-discover this file — it must be passed explicitly
+# with `--config .zizmor.yml` on every invocation (see actions-audit.yaml).
+#
+# Every action in .github/workflows/** is pinned to a full commit SHA with a
+# `# vX` version comment (fleet SHA-pin convention). Enforce that: require a
+# hash pin for all actions, so a future tag-pin (`@v7`) or unpinned ref is
+# flagged by the `unpinned-uses` rule.
+rules:
+  unpinned-uses:
+    config:
+      policies:
+        "*": hash-pin
