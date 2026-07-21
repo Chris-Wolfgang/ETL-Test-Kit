@@ -1,0 +1,87 @@
+name: Build Reproducibility
+
+# Deterministic-build verification (#135).
+#
+# The libraries build with Deterministic + ContinuousIntegrationBuild +
+# SourceLink, which should make the compiled assemblies byte-for-byte
+# reproducible regardless of the checkout path. This job proves it: check the
+# same commit out to two different directories, build each with
+# ContinuousIntegrationBuild=true (which normalises source paths to /_/), and
+# fail if the produced assemblies don't hash identically.
+#
+# This verifies path-independent reproducibility on a single runner (the
+# fleet-proven check). Cross-OS byte-identity (ubuntu vs windows) is a stronger
+# claim that is not reliably guaranteed for .pdb across SDK/OS and is tracked as
+# a follow-up in REPRODUCIBLE-BUILD.md.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reproducible-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  reproducible:
+    name: Reproducible build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout (copy A)
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          path: a
+          persist-credentials: false
+
+      - name: Checkout (copy B)
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          path: b
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build copy A
+        run: |
+          for proj in \
+            src/Wolfgang.Etl.TestKit/Wolfgang.Etl.TestKit.csproj \
+            src/Wolfgang.Etl.TestKit.Xunit/Wolfgang.Etl.TestKit.Xunit.csproj; do
+            dotnet build "a/${proj}" -c Release -f net10.0 -p:ContinuousIntegrationBuild=true
+          done
+
+      - name: Build copy B
+        run: |
+          for proj in \
+            src/Wolfgang.Etl.TestKit/Wolfgang.Etl.TestKit.csproj \
+            src/Wolfgang.Etl.TestKit.Xunit/Wolfgang.Etl.TestKit.Xunit.csproj; do
+            dotnet build "b/${proj}" -c Release -f net10.0 -p:ContinuousIntegrationBuild=true
+          done
+
+      - name: Compare assembly hashes
+        run: |
+          status=0
+          for asm in \
+            src/Wolfgang.Etl.TestKit/bin/Release/net10.0/Wolfgang.Etl.TestKit.dll \
+            src/Wolfgang.Etl.TestKit.Xunit/bin/Release/net10.0/Wolfgang.Etl.TestKit.Xunit.dll; do
+            ha=$(sha256sum "a/${asm}" | cut -d' ' -f1)
+            hb=$(sha256sum "b/${asm}" | cut -d' ' -f1)
+            echo "${asm}"
+            echo "  A: $ha"
+            echo "  B: $hb"
+            if [ "$ha" != "$hb" ]; then
+              echo "::error::Build is not reproducible — ${asm} hashes differ."
+              status=1
+            else
+              echo "  ✅ reproducible"
+            fi
+          done
+          exit $status
