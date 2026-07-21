@@ -1,0 +1,99 @@
+name: SourceLink Step-Into
+
+# End-to-end "F11 into library source" verification, one step beyond sourcelink.yaml.
+#
+# sourcelink.yaml (PR #208) proves every document in the PDB resolves to real
+# GitHub content via `dotnet sourcelink test`. This workflow proves the *debugger*
+# half: it builds a scratch consumer against the library (compiled with the same
+# ContinuousIntegrationBuild + SourceLink a release ships), then drives netcoredbg
+# to set a breakpoint in the consumer and STEP INTO (the F11 a consumer would
+# press) a library constructor — asserting the debugger lands in the library's
+# real source (symbols loaded, SourceLink-mapped source file) rather than a
+# decompiled placeholder. If the SourceLink map or sequence points were broken the
+# step would land with no source and this fails.
+#
+# Why a project reference, not the packed NuGet: netcoredbg (the only
+# CI-scriptable .NET debugger) does not reliably pair a *package*-sourced
+# assembly with its symbol-package PDB, so it cannot step into it. The PDB under
+# test is byte-identical either way; the packed-package symbol/URL resolution is
+# covered by sourcelink.yaml (PR #208). See .github/sourcelink/README.md.
+#
+# Together these two workflows satisfy #133 (SourceLink debug-step-into
+# verification). Scheduled + manual only (not a PR gate): debugger automation is
+# heavier and slightly less deterministic than a unit test, and SourceLink's raw
+# URLs resolve only against a pushed commit.
+
+on:
+  schedule:
+    - cron: '30 7 * * 1'   # Mondays 07:30 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sourcelink-stepinto-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NETCOREDBG_VERSION: 3.1.2-1054
+  # Reduce tiered-JIT reordering so the step-into target stays stable.
+  DOTNET_TieredCompilation: '0'
+
+jobs:
+  step-into:
+    name: Debugger step-into (F11) resolves library source
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Detect src project
+        id: detect
+        run: |
+          if git ls-files 'src/**/*.csproj' 'src/*.csproj' | grep -q .; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No src/**/*.csproj found — skipping."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup .NET
+        if: steps.detect.outputs.found == 'true'
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
+        with:
+          dotnet-version: '10.0.x'
+
+      # Build the fixture consumer. Its ProjectReference pulls in the library,
+      # compiled with ContinuousIntegrationBuild=true so the PDB carries the same
+      # SourceLink map a released package ships (Debug = non-optimized so the
+      # step-into target isn't reordered away).
+      - name: Build step-into consumer (SourceLink)
+        if: steps.detect.outputs.found == 'true'
+        run: |
+          dotnet build .github/sourcelink/consumer/StepIntoConsumer.csproj \
+            -c Debug \
+            -p:ContinuousIntegrationBuild=true
+
+      - name: Install netcoredbg
+        if: steps.detect.outputs.found == 'true'
+        run: |
+          url="https://github.com/Samsung/netcoredbg/releases/download/${NETCOREDBG_VERSION}/netcoredbg-linux-amd64.tar.gz"
+          curl -sSfL "$url" -o netcoredbg.tar.gz
+          tar -xzf netcoredbg.tar.gz
+          echo "NETCOREDBG=$PWD/netcoredbg/netcoredbg" >> "$GITHUB_ENV"
+
+      - name: Step into the library (F11) and assert real source resolves
+        if: steps.detect.outputs.found == 'true'
+        run: |
+          prog=".github/sourcelink/consumer/Program.cs"
+          line="$(grep -n 'STEP_INTO_TARGET' "$prog" | head -n1 | cut -d: -f1)"
+          echo "Breaking at Program.cs:$line"
+          python3 .github/sourcelink/verify_stepinto.py \
+            "$NETCOREDBG" \
+            ".github/sourcelink/consumer/bin/Debug/net10.0/StepIntoConsumer.dll" \
+            "Program.cs:$line" \
+            "TestExtractor.cs"
