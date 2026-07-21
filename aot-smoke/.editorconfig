@@ -1,0 +1,14 @@
+# Isolation stub — companion to Directory.Build.props/.targets in this folder.
+#
+# .editorconfig is discovered by walking UP the directory tree, independently of
+# MSBuild's Directory.Build.props isolation, so without this the repo-root
+# .editorconfig's analyzer policy (CA2007 etc.) would still apply to the
+# throwaway AOT-smoke consumer. `root = true` stops that walk-up so the fixture
+# is fully exempt from repo lint — it is a publish-and-run smoke fixture, not
+# shipped code.
+root = true
+
+[*.cs]
+# The consumer is a console app with no synchronization context, so ConfigureAwait
+# is irrelevant; silence CA2007 explicitly in case SDK defaults ever enable it.
+dotnet_diagnostic.CA2007.severity = none
