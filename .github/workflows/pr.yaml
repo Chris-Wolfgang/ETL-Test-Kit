@@ -339,26 +339,26 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: '10.0.x'
+          # Match the test stages' SDK list so the solution's older-TFM projects
+          # (test projects target netcoreapp3.1 / net5.0-net7.0) restore and build
+          # here too — a 10.0-only SDK would fail or trip out-of-support-TFM
+          # warnings-as-errors on those projects.
+          dotnet-version: |
+            3.1.x
+            5.0.x
+            6.0.x
+            7.0.x
+            8.0.x
+            9.0.x
+            10.0.x
 
-      # Restore + build everything the solution knows about. On
-      # windows-latest .NET Framework 4.x reference assemblies are bundled,
-      # so net462 / net472 / net48 projects (e.g. examples/CSharp.DotNet462.Example)
-      # build natively alongside net5+ / netstandard / netcoreapp projects
-      # — no filter loop needed. InspectCode then reads the built outputs
-      # (with `--no-build`) for the whole solution.
-      - name: Restore and build
+      # Select the solution FIRST so restore, build, and InspectCode all target
+      # the SAME one — and so a missing/absent solution fails with the intended
+      # message rather than a generic dotnet error from an implicit build.
+      # Prefer .slnx (new format) then .sln.
+      - name: Select solution
+        id: select-solution
         run: |
-          dotnet restore
-          dotnet build -c Release --no-restore
-
-      - name: Install JetBrains.ReSharper.GlobalTools
-        run: dotnet tool install -g JetBrains.ReSharper.GlobalTools
-
-      - name: Run InspectCode
-        run: |
-          # Find a solution to inspect. Prefer .slnx (new format) then .sln.
-          # InspectCode requires SOMETHING solution-shaped — fail loudly if neither exists.
           SLN=$(ls *.slnx 2>/dev/null | head -n1)
           if [ -z "$SLN" ]; then
             SLN=$(ls *.sln 2>/dev/null | head -n1)
@@ -367,6 +367,25 @@ jobs:
             echo "::error::No .slnx or .sln found at repo root — InspectCode needs one to run."
             exit 1
           fi
+          echo "Selected solution: $SLN"
+          echo "sln=$SLN" >> "$GITHUB_OUTPUT"
+
+      # Restore + build the selected solution. On windows-latest .NET Framework
+      # 4.x reference assemblies are bundled, so net462 / net472 / net48 projects
+      # (e.g. examples/CSharp.DotNet462.Example) build natively alongside
+      # net5+ / netstandard / netcoreapp projects — no filter loop needed.
+      # InspectCode then reads the built outputs (with `--no-build`).
+      - name: Restore and build
+        run: |
+          dotnet restore "${{ steps.select-solution.outputs.sln }}"
+          dotnet build "${{ steps.select-solution.outputs.sln }}" -c Release --no-restore
+
+      - name: Install JetBrains.ReSharper.GlobalTools
+        run: dotnet tool install -g JetBrains.ReSharper.GlobalTools
+
+      - name: Run InspectCode
+        run: |
+          SLN="${{ steps.select-solution.outputs.sln }}"
           echo "Inspecting: $SLN"
           jb inspectcode "$SLN" \
             --output=inspect.sarif \
