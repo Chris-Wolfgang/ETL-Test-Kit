@@ -354,6 +354,16 @@ docfx build --serve
 
 ---
 
+## 🔐 Verify the build
+
+Every release is built deterministically, and each GitHub Release attaches a
+`reproducible-build-manifest.json` with the SHA-256 of every shipped assembly.
+You can independently rebuild from the tag and confirm the hashes match — see
+[docs/REPRODUCIBLE-BUILD.md](docs/REPRODUCIBLE-BUILD.md) for the step-by-step
+procedure and how to publish a third-party attestation.
+
+---
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
