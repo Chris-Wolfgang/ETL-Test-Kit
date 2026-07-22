@@ -1,0 +1,62 @@
+name: Concurrency (Coyote)
+
+# Systematic concurrency testing (#126) with Microsoft Coyote.
+#
+# The Tests.Concurrency project hands racy public scenarios (cancellation
+# mid-enumeration, Dispose racing an in-flight enumeration) to Coyote, which
+# explores hundreds of controlled thread interleavings of each and fails if any
+# schedule violates the invariant. Coyote must first REWRITE the assemblies so it
+# can control the Task schedule — the tests self-skip (COYOTE_REWRITTEN gate)
+# in the normal PR sweep, which runs them un-rewritten and can't control the
+# schedule. Scheduled + manual only: schedule exploration is heavier than a unit
+# test.
+#
+# NOTE: the issue's optional 24h soak with dotnet-counters requires a self-hosted
+# runner (GitHub-hosted runners cap job time well under 24h); it is intentionally
+# not implemented here.
+
+on:
+  schedule:
+    - cron: '0 4 * * 1'   # weekly, Monday 04:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: concurrency-coyote-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  coyote:
+    name: Coyote systematic exploration
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PROJECT: tests/Wolfgang.Etl.TestKit.Tests.Concurrency
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build concurrency project
+        run: dotnet build "$PROJECT/Wolfgang.Etl.TestKit.Tests.Concurrency.csproj" -c Release
+
+      - name: Install Coyote CLI
+        run: dotnet tool install --global Microsoft.Coyote.CLI --version 1.7.11
+
+      - name: Rewrite assemblies for schedule control
+        working-directory: ${{ env.PROJECT }}
+        run: coyote rewrite rewrite.coyote.json
+
+      - name: Run Coyote tests (rewritten)
+        working-directory: ${{ env.PROJECT }}
+        env:
+          COYOTE_REWRITTEN: '1'
+        run: dotnet test --no-build -c Release
