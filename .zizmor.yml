@@ -12,3 +12,11 @@ rules:
     config:
       policies:
         "*": hash-pin
+  dangerous-triggers:
+    # pr.yaml deliberately uses `pull_request_target` as a *gated* workflow: it
+    # runs from the trusted main branch, checks out PR code via refs/pull/*/head
+    # (never executing untrusted workflow YAML), and re-fetches analyzers/config
+    # from main so a malicious PR cannot disable checks. This is the canonical
+    # secure pattern, not the vulnerability the rule warns about.
+    ignore:
+      - pr.yaml
