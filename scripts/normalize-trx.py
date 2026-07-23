@@ -11,7 +11,12 @@ when behaviour is identical.
 import glob
 import os
 import sys
-import xml.etree.ElementTree as ET
+
+# The only XML parsed here is our own VSTest .trx output, produced by `dotnet
+# test` in the same CI job — a trusted, non-attacker-controlled source — so the
+# XXE / XML-bomb risk `defusedxml` guards against does not apply. Suppress the
+# advisory rather than add a dependency to the four-platform differential job.
+import xml.etree.ElementTree as ET  # nosemgrep: python.lang.security.use-defused-xml.use-defused-xml
 
 NS = "{http://microsoft.com/schemas/VisualStudio/TeamTest/2010}"
 
