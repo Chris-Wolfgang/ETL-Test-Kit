@@ -36,6 +36,9 @@
     <Project Path="benchmarks/Wolfgang.Etl.TestKit.Benchmarks/Wolfgang.Etl.TestKit.Benchmarks.csproj" />
   </Folder>
   <Folder Name="/examples/" />
+  <Folder Name="/samples/">
+    <Project Path="samples/Wolfgang.Etl.TestKit.Sample/Wolfgang.Etl.TestKit.Sample.csproj" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/Wolfgang.Etl.TestKit/Wolfgang.Etl.TestKit.csproj" />
     <Project Path="src/Wolfgang.Etl.TestKit.Xunit/Wolfgang.Etl.TestKit.Xunit.csproj" />
