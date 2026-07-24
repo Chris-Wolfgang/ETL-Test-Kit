@@ -41,6 +41,7 @@
     <Project Path="src/Wolfgang.Etl.TestKit.Xunit/Wolfgang.Etl.TestKit.Xunit.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/Wolfgang.Etl.TestKit.Tests.DocExamples/Wolfgang.Etl.TestKit.Tests.DocExamples.csproj" />
     <Project Path="tests/Wolfgang.Etl.TestKit.Tests.Fuzz/Wolfgang.Etl.TestKit.Tests.Fuzz.csproj" />
     <Project Path="tests/Wolfgang.Etl.TestKit.Tests.Unit/Wolfgang.Etl.TestKit.Tests.Unit.csproj" />
     <Project Path="tests/Wolfgang.Etl.TestKit.Xunit.Tests.Unit/Wolfgang.Etl.TestKit.Xunit.Tests.Unit.csproj" />
