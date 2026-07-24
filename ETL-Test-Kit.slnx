@@ -42,6 +42,7 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Wolfgang.Etl.TestKit.Tests.Concurrency/Wolfgang.Etl.TestKit.Tests.Concurrency.csproj" />
+    <Project Path="tests/Wolfgang.Etl.TestKit.Tests.DocExamples/Wolfgang.Etl.TestKit.Tests.DocExamples.csproj" />
     <Project Path="tests/Wolfgang.Etl.TestKit.Tests.Unit/Wolfgang.Etl.TestKit.Tests.Unit.csproj" />
     <Project Path="tests/Wolfgang.Etl.TestKit.Xunit.Tests.Unit/Wolfgang.Etl.TestKit.Xunit.Tests.Unit.csproj" />
   </Folder>
