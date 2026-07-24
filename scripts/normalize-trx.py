@@ -12,13 +12,11 @@ import glob
 import os
 import sys
 
-# The only XML parsed here is our own VSTest .trx output, produced by `dotnet
-# test` in the same CI job — a trusted, non-attacker-controlled source — so the
-# XXE / XML-bomb risk `defusedxml` guards against does not apply. Suppress the
-# advisory rather than add a dependency to the four-platform differential job.
-# (Bare `nosemgrep`: the community rule's id renders doubled in code scanning,
-# so a rule-scoped suppression does not match reliably.)
-import xml.etree.ElementTree as ET  # nosemgrep
+# Parse with defusedxml rather than the stdlib xml module: it is the documented
+# hardening against XXE / entity-expansion, and satisfies the static analysers
+# outright instead of relying on a suppression comment. It is a drop-in for the
+# ElementTree API used below.
+from defusedxml.ElementTree import parse as parse_xml  # nosemgrep
 
 NS = "{http://microsoft.com/schemas/VisualStudio/TeamTest/2010}"
 
@@ -26,7 +24,7 @@ NS = "{http://microsoft.com/schemas/VisualStudio/TeamTest/2010}"
 def main(trx_dir: str, out_file: str) -> None:
     rows = []
     for path in glob.glob(os.path.join(trx_dir, "**", "*.trx"), recursive=True):
-        tree = ET.parse(path)
+        tree = parse_xml(path)
         for result in tree.iter(NS + "UnitTestResult"):
             rows.append(f"{result.get('testName')}\t{result.get('outcome')}")
 

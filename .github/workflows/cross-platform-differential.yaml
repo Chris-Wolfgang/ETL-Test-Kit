@@ -62,6 +62,11 @@ jobs:
         with:
           python-version: '3.x'
 
+      # normalize-trx.py parses the .trx with defusedxml (hardened against XXE /
+      # entity expansion) rather than the stdlib xml module.
+      - name: Install defusedxml
+        run: python -m pip install --disable-pip-version-check defusedxml
+
       - name: Run tests (net10.0)
         shell: bash
         # Do not fail here — a failing/diverging test must reach the diff job,
