@@ -16,7 +16,9 @@ import sys
 # test` in the same CI job — a trusted, non-attacker-controlled source — so the
 # XXE / XML-bomb risk `defusedxml` guards against does not apply. Suppress the
 # advisory rather than add a dependency to the four-platform differential job.
-import xml.etree.ElementTree as ET  # nosemgrep: python.lang.security.use-defused-xml.use-defused-xml
+# (Bare `nosemgrep`: the community rule's id renders doubled in code scanning,
+# so a rule-scoped suppression does not match reliably.)
+import xml.etree.ElementTree as ET  # nosemgrep
 
 NS = "{http://microsoft.com/schemas/VisualStudio/TeamTest/2010}"
 
