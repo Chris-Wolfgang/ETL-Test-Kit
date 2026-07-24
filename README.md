@@ -235,17 +235,13 @@ public sealed class MyLoaderContractTests
 
 ---
 
-## 🎯 Target Frameworks
+## 🎯 Supported Frameworks
 
-Both packages multi-target the following frameworks:
+This library targets:
 
-| Framework | Versions |
-|-----------|----------|
-| .NET Framework | .NET 4.6.2, .NET 4.8.1 |
-| .NET Standard | .NET Standard 2.0 |
-| .NET | .NET 8.0, .NET 10.0 |
+- **.NET Framework:** 4.6.2
 
----
+See the [NuGet package page](https://www.nuget.org/packages/Wolfgang.Etl.TestKit/) for the authoritative per-TFM compatibility matrix.
 
 ## 🔍 Code Quality & Static Analysis
 
