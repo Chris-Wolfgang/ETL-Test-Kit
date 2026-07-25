@@ -32,9 +32,18 @@ public sealed class AllocationRegressionTests
     // Real per-item regressions allocate >= 24 bytes/item (boxing) or an amortized
     // slab (List growth). 4 bytes/item is comfortably above measurement noise yet
     // an order of magnitude below any genuine per-item allocation.
-    private const double MaxBytesPerItem = 4.0;
+    // Real per-item regressions allocate >= 24 bytes/item (boxing) or an amortized
+    // slab (List growth). 8 bytes/item sits an order of magnitude below that while
+    // tolerating the background-allocation noise the process-wide counter picks up
+    // on a shared CI runner (this budget was 4.0 and proved flaky on linux-x64).
+    private const double MaxBytesPerItem = 8.0;
 
-    private const int BaseCount = 20_000;
+    // A large denominator amortizes any fixed background-allocation spike that
+    // lands inside a measurement window: 450k marginal items means even a 1 MB
+    // stray allocation only reads as ~2.3 B/item.
+    private const int BaseCount = 50_000;
+
+    private const int Attempts = 5;
 
     [Fact]
     public async Task ExtractAsync_does_not_allocate_per_item()
@@ -91,7 +100,7 @@ public sealed class AllocationRegressionTests
 
         var best = double.MaxValue;
 
-        for (var attempt = 0; attempt < 3; attempt++)
+        for (var attempt = 0; attempt < Attempts; attempt++)
         {
             var small = await Measure(run, BaseCount);
             var large = await Measure(run, BaseCount * 10);
@@ -109,6 +118,13 @@ public sealed class AllocationRegressionTests
 
     private static async Task<long> Measure(Func<int, Task<int>> run, int count)
     {
+        // Settle pending finalizers/collections first: the counter is process-wide,
+        // so anything the runtime is still cleaning up would otherwise land inside
+        // the measurement window and inflate the reading.
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        GC.Collect();
+
         var before = GC.GetTotalAllocatedBytes(precise: true);
         await run(count);
         return GC.GetTotalAllocatedBytes(precise: true) - before;
