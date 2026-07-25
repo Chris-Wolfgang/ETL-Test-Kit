@@ -19,6 +19,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.10.1] - 2026-07-24
+
+Maintenance release: the deferred "thorough-review" hardening tier plus the
+`Wolfgang.Etl.Abstractions` 0.16.0 bump. **No public API or behaviour change** to
+either shipped package — the test doubles and contract-test base classes are
+unchanged.
+
+### Changed
+
+- Built against `Wolfgang.Etl.Abstractions` 0.16.0 (was 0.15.0).
+
+### Security
+
+- Release now publishes via **OIDC / NuGet Trusted Publishing** (`NuGet/login`), removing
+  the long-lived `NUGET_API_KEY` from the release path.
+- Added supply-chain / security CI: transitive-dependency **license audit**, **CycloneDX SBOM**,
+  **OSSF Scorecard**, **Semgrep** SAST, GitHub **Actions audit** (actionlint + zizmor, all
+  actions SHA-pinned), and **build-reproducibility** verification with a per-release
+  reproducible-build manifest attached to each GitHub Release.
+- Documented the release path and compromise scope in `SECURITY.md`, and added a
+  consumer-side reproducible-build verification guide (`docs/REPRODUCIBLE-BUILD.md`).
+
 ## [0.10.0] - 2026-06-29
 
 Adds an opt-in contract-test base for the `ISupportDryRun` interface introduced in
