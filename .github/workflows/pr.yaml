@@ -376,16 +376,20 @@ jobs:
       # net5+ / netstandard / netcoreapp projects — no filter loop needed.
       # InspectCode then reads the built outputs (with `--no-build`).
       - name: Restore and build
+        env:
+          SLN: ${{ steps.select-solution.outputs.sln }}
         run: |
-          dotnet restore "${{ steps.select-solution.outputs.sln }}"
-          dotnet build "${{ steps.select-solution.outputs.sln }}" -c Release --no-restore
+          dotnet restore "$SLN"
+          dotnet build "$SLN" -c Release --no-restore
 
       - name: Install JetBrains.ReSharper.GlobalTools
         run: dotnet tool install -g JetBrains.ReSharper.GlobalTools
 
       - name: Run InspectCode
+        env:
+          SLN_INPUT: ${{ steps.select-solution.outputs.sln }}
         run: |
-          SLN="${{ steps.select-solution.outputs.sln }}"
+          SLN="$SLN_INPUT"
           echo "Inspecting: $SLN"
           jb inspectcode "$SLN" \
             --output=inspect.sarif \
