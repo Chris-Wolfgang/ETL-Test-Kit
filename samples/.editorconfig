@@ -1,0 +1,30 @@
+# The sample is test-style code (an xUnit project demonstrating consumer usage),
+# so it gets the same analyzer relaxations the repo applies to tests/ — the root
+# .editorconfig's [tests/**] section and tests/.editorconfig do not match this
+# folder, so the relevant rules are re-declared here.
+
+[*.cs]
+
+# Underscore test-method naming (MethodUnderTest_when_condition_expected_result).
+dotnet_diagnostic.SA1300.severity = none
+dotnet_diagnostic.IDE1006.severity = none
+dotnet_diagnostic.CA1707.severity = none
+
+# ConfigureAwait not needed in test/sample code.
+dotnet_diagnostic.CA2007.severity = none
+dotnet_diagnostic.MA0004.severity = none
+dotnet_diagnostic.S3216.severity = none
+
+# Synchronous cancellation / blocking is fine in test/sample code.
+dotnet_diagnostic.CA1849.severity = none
+dotnet_diagnostic.AsyncFixer01.severity = none
+dotnet_diagnostic.AsyncFixer02.severity = none
+dotnet_diagnostic.VSTHRD103.severity = none
+dotnet_diagnostic.VSTHRD200.severity = none
+
+# Misc test-style relaxations.
+dotnet_diagnostic.IDE0058.severity = none
+dotnet_diagnostic.MA0011.severity = none
+dotnet_diagnostic.MA0048.severity = none
+dotnet_diagnostic.S2699.severity = none
+dotnet_diagnostic.S6562.severity = none
