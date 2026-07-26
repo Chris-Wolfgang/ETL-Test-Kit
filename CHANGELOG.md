@@ -22,13 +22,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.10.1] - 2026-07-24
 
 Maintenance release: the deferred "thorough-review" hardening tier plus the
-`Wolfgang.Etl.Abstractions` 0.16.0 bump. **No public API or behaviour change** to
+`Wolfgang.Etl.Abstractions` 0.17.0 bump. **No public API or behaviour change** to
 either shipped package — the test doubles and contract-test base classes are
 unchanged.
 
 ### Changed
 
-- Built against `Wolfgang.Etl.Abstractions` 0.16.0 (was 0.15.0).
+- Built against `Wolfgang.Etl.Abstractions` 0.17.0 (was 0.15.0).
 
 ### Security
 
