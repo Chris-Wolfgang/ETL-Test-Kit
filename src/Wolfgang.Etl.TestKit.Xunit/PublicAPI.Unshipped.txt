@@ -32,3 +32,12 @@ Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.Public_operation_a
 Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.Public_operation_before_dispose_does_not_throw_ObjectDisposedException_Async() -> System.Threading.Tasks.Task!
 abstract Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.CreateSut() -> TSut!
 abstract Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.InvokeReportsObjectDisposedAsync(bool disposeFirst, bool useAsyncDispose) -> System.Threading.Tasks.Task<bool>!
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CurrentItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CurrentSkippedItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CurrentItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CurrentSkippedItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CurrentItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CurrentSkippedItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async() -> System.Threading.Tasks.Task!

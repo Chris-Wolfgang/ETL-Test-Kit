@@ -870,4 +870,46 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         Assert.Equal(expected.Count - 1, actual.Count);
         Assert.Equal(expected.Skip(1).ToList(), actual);
     }
+
+    /// <summary>
+    /// Verifies that <c>CurrentItemCount</c> is zero on a freshly created transformer, before any
+    /// transformation has run.
+    /// </summary>
+    [Fact]
+    public void CurrentItemCount_defaults_to_zero()
+    {
+        var sut = CreateSut();
+
+        Assert.Equal(0, sut.CurrentItemCount);
+    }
+
+    /// <summary>
+    /// Verifies that <c>CurrentSkippedItemCount</c> is zero on a freshly created transformer,
+    /// before any transformation has run.
+    /// </summary>
+    [Fact]
+    public void CurrentSkippedItemCount_defaults_to_zero()
+    {
+        var sut = CreateSut();
+
+        Assert.Equal(0, sut.CurrentSkippedItemCount);
+    }
+
+    /// <summary>
+    /// Verifies that <c>CurrentSkippedItemCount</c> reflects the exact number of items skipped by
+    /// <c>SkipItemCount</c> after a run.
+    /// </summary>
+    [Fact]
+    public async Task TransformAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async()
+    {
+        var sut = CreateSut();
+        var expected = CreateExpectedItems();
+        Assert.True(expected.Count >= 3, "CreateExpectedItems() must return at least 3 items.");
+
+        sut.SkipItemCount = 2;
+
+        await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
+
+        Assert.Equal(2, sut.CurrentSkippedItemCount);
+    }
 }
