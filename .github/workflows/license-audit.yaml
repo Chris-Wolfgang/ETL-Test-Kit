@@ -1,0 +1,82 @@
+name: License Audit
+
+# License audit of transitive dependencies (#137).
+#
+# Validates each shipped library's full (direct + transitive) dependency closure
+# against an allow-list of OSI-permissive licenses using the `nuget-license` tool,
+# and FAILS the build if any dependency's license is not allowed (e.g. a copyleft
+# or non-OSI license slipping in via a bump). Config lives in .github/license-audit/.
+# Also uploads the full inventory as a JSON artifact.
+#
+# Both packable projects are audited: Wolfgang.Etl.TestKit and
+# Wolfgang.Etl.TestKit.Xunit (the latter adds the xunit closure).
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: license-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  license-audit:
+    name: License audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        proj:
+          - src/Wolfgang.Etl.TestKit/Wolfgang.Etl.TestKit.csproj
+          - src/Wolfgang.Etl.TestKit.Xunit/Wolfgang.Etl.TestKit.Xunit.csproj
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install nuget-license
+        run: dotnet tool install --global nuget-license
+
+      - name: Restore (so transitive deps resolve)
+        run: dotnet restore "${{ matrix.proj }}"
+
+      # Gate: fail if any dependency's license is not in the allow-list.
+      #  - allowed-licenses.json     — OSI-permissive licenses we accept.
+      #  - url-license-mappings.json — maps a couple of Microsoft packages that expose a
+      #    license URL (not an SPDX expression) to their actual license (MIT).
+      #  - ignored-packages.json     — SonarAnalyzer.CSharp only: a build-time analyzer
+      #    (PrivateAssets=all, not shipped) under the non-OSI SONAR Source-Available
+      #    License, so it imposes no obligation on consumers of the package.
+      - name: Audit licenses (gate on allow-list)
+        run: |
+          nuget-license -i "${{ matrix.proj }}" -t \
+            -a .github/license-audit/allowed-licenses.json \
+            -ignore .github/license-audit/ignored-packages.json \
+            -mapping .github/license-audit/url-license-mappings.json \
+            -o Table
+
+      - name: License report (JSON artifact)
+        run: |
+          nuget-license -i "${{ matrix.proj }}" -t \
+            -a .github/license-audit/allowed-licenses.json \
+            -ignore .github/license-audit/ignored-packages.json \
+            -mapping .github/license-audit/url-license-mappings.json \
+            -o JsonPretty -fo licenses.json
+
+      - name: Upload license report
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: license-report-${{ strategy.job-index }}
+          path: licenses.json

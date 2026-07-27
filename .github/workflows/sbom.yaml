@@ -1,0 +1,66 @@
+name: SBOM
+
+# Supply-chain hardening — Software Bill of Materials (#127).
+#
+# Generates a CycloneDX SBOM of each shipped library's full dependency graph on
+# every PR and push, and uploads it as an artifact — so every build has a
+# machine-readable inventory of what it is composed of, and dependency changes
+# are visible at review time (release.yaml already emits SBOMs for the packed
+# artifacts; this is the per-PR complement).
+#
+# Scoped to the SBOM here; the other parts of #127 are deliberately out of this
+# workflow:
+#   - SLSA provenance attestation belongs on the release artifact (attest the
+#     packed .nupkg in release.yaml via actions/attest-build-provenance).
+#   - Package signing needs a signing certificate/key and is a separate,
+#     credential-bearing change.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sbom-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sbom:
+    name: Generate SBOM
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        proj:
+          - src/Wolfgang.Etl.TestKit/Wolfgang.Etl.TestKit.csproj
+          - src/Wolfgang.Etl.TestKit.Xunit/Wolfgang.Etl.TestKit.Xunit.csproj
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install CycloneDX
+        run: dotnet tool install --global CycloneDX
+
+      - name: Restore
+        run: dotnet restore "${{ matrix.proj }}"
+
+      - name: Generate CycloneDX SBOM (JSON)
+        run: dotnet CycloneDX "${{ matrix.proj }}" --output sbom --json
+
+      - name: Upload SBOM
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: sbom-${{ strategy.job-index }}
+          path: sbom/

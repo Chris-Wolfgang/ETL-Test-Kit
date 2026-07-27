@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Native-AOT smoke consumer for #132. A tiny console app that references the
+    library and exercises its public surface (TestExtractor / TestTransformer /
+    TestLoader), published with PublishAot and executed in CI (see
+    .github/workflows/aot-smoke.yaml). This gives a *runtime* AOT guarantee: it
+    fails if AOT publish or execution ever breaks — e.g. the async-enumerable
+    pipeline path stops being trimmer-safe. Not part of the solution / not packed.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <PublishAot>true</PublishAot>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>false</IsTestProject>
+    <!-- Invariant globalization keeps the AOT binary small and avoids ICU; the app only
+         emits ASCII diagnostics. -->
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Wolfgang.Etl.TestKit\Wolfgang.Etl.TestKit.csproj" />
+  </ItemGroup>
+
+</Project>
