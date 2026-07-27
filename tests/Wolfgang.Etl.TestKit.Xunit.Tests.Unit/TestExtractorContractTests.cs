@@ -27,6 +27,10 @@ public class TestExtractorContractTests
     protected override TestExtractor<int> CreateSutWithTimer(IProgressTimer timer) =>
         new TestExtractorWithTimer(Enumerable.Range(1, 5).ToList(), timer);
 
+    /// <inheritdoc/>
+    protected override TestExtractor<int> CreateSutOverSource(IEnumerable<int> source) =>
+        new TestExtractor<int>(source);
+
 
 
     // Exposes the protected timer constructor of TestExtractor<T> for contract testing.

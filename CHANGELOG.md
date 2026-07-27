@@ -41,6 +41,15 @@ public API only — no breaking change.
 - `DisposableStageContractTests<TSut>` — an opt-in xUnit contract-test base verifying a stage
   throws `ObjectDisposedException` after `Dispose()`/`DisposeAsync()` (the 0.17 use-after-dispose
   guard) and that disposing twice is a harmless no-op.
+- Counter contract tests on `ExtractorBaseContractTests`, `LoaderBaseContractTests`, and
+  `TransformerBaseContractTests`: `CurrentItemCount` / `CurrentSkippedItemCount` /
+  `CurrentErrorItemCount` default-to-zero and skip-count-tracking assertions, inherited free by
+  every downstream contract-test class (#248).
+- "No over-read" contract tests (#49) on all three base classes: a stage must stop pulling from
+  its source once `MaximumItemCount` is reached (≤ M+1 reads) or the run is cancelled, and a
+  pre-cancelled token must read nothing. Extractors opt in by overriding the new
+  `CreateSutOverSource` factory (a no-op by default for extractors whose source is not an
+  injectable sequence).
 
 ### Changed
 
