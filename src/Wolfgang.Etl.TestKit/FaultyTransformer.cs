@@ -327,7 +327,8 @@ public class FaultyTransformer<T> : TransformerBase<T, T, Report>
 
 
     /// <inheritdoc/>
-    protected override Report CreateProgressReport() => new(CurrentItemCount);
+    protected override Report CreateProgressReport() =>
+        new(CurrentItemCount) { StartedAt = StartedAt, Elapsed = Elapsed };
 
 
 
