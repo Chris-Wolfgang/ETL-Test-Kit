@@ -1,0 +1,622 @@
+{
+  "source_base_path": "D:/a/ETL-Test-Kit/ETL-Test-Kit/docfx_project",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.FaultyExtractor-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.FaultyExtractor-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.FaultyExtractor<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.FaultyExtractor-1.yml\" sourcestartlinenumber=\"1\">An in-memory extractor for testing error-handling paths. It yields items from an\n<xref href=\"System.Collections.Generic.IEnumerable%601\" data-throw-if-not-resolved=\"false\"></xref> like a normal extractor, but can be configured to inject\ndeterministic faults — throwing at a given item, throwing after completion, or\nduplicating an item — so consumers can exercise mid-stream failure, finalization\nfailure, and de-duplication logic without hand-rolling broken fakes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.FaultyLoader-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.FaultyLoader-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.FaultyLoader<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.FaultyLoader-1.yml\" sourcestartlinenumber=\"1\">An in-memory loader for testing error-handling paths. It consumes the source stream\nlike a normal loader, but can be configured to inject deterministic faults — throwing\nat a given item, throwing after completion, or duplicating an item — so consumers can\nexercise mid-stream failure, finalization failure, and idempotency logic without\nhand-rolling broken fakes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.FaultyTransformer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.FaultyTransformer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.FaultyTransformer<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.FaultyTransformer-1.yml\" sourcestartlinenumber=\"1\">A pass-through transformer for testing error-handling paths. It returns each item\nunchanged like a normal transformer, but can be configured to inject deterministic\nfaults — throwing at a given item, throwing after completion, or duplicating an item —\nso consumers can exercise mid-stream failure, finalization failure, and de-duplication\nlogic without hand-rolling broken fakes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.TestExtractor-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.TestExtractor-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.TestExtractor<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.TestExtractor-1.yml\" sourcestartlinenumber=\"1\">An in-memory extractor for use in tests, examples, and benchmarks.\nYields items from an <xref href=\"System.Collections.Generic.IEnumerable%601\" data-throw-if-not-resolved=\"false\"></xref>, an\n<xref href=\"System.Collections.Generic.IEnumerator%601\" data-throw-if-not-resolved=\"false\"></xref>, or a factory delegate, depending on which\nconstructor is used.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.TestLoader-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.TestLoader-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.TestLoader<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.TestLoader-1.yml\" sourcestartlinenumber=\"1\">A simple in-memory loader for use in tests, examples, and benchmarks.\nIterates all items from the source stream and, when constructed with\n<code>collectItems: true</code>, makes them available via <xref href=\"Wolfgang.Etl.TestKit.TestLoader%601.GetCollectedItems\" data-throw-if-not-resolved=\"false\"></xref>\nafter the load completes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.TestTransformer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.TestTransformer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.TestTransformer<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.TestTransformer-1.yml\" sourcestartlinenumber=\"1\">A pass-through transformer for use in tests, examples, and benchmarks.\nReturns each item unchanged, with no transformation applied.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.IExtractAsync%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.IExtractWithCancellationAsync%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAndCancellationAsyncContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.IExtractWithProgressAndCancellationAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.IExtractWithProgressAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that inherits\nfrom <xref href=\"Wolfgang.Etl.Abstractions.ExtractorBase%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing opt-in xUnit idempotency contract tests for any type that\nimplements <xref href=\"Wolfgang.Etl.Abstractions.IExtractWithProgressAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing opt-in xUnit idempotency contract tests for any type that\nimplements <xref href=\"Wolfgang.Etl.Abstractions.ILoadAsync%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.IdempotentTransformerContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing opt-in xUnit idempotency contract tests for any type that\nimplements <xref href=\"Wolfgang.Etl.Abstractions.ITransformAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.LoadAsyncContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ILoadAsync%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.LoadWithCancellationAsyncContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ILoadWithCancellationAsync%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAndCancellationAsyncContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ILoadWithProgressAndCancellationAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ILoadWithProgressAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that inherits\nfrom <xref href=\"Wolfgang.Etl.Abstractions.LoaderBase%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.yml\" sourcestartlinenumber=\"1\">A controllable implementation of <xref href=\"Wolfgang.Etl.Abstractions.IProgressTimer\" data-throw-if-not-resolved=\"false\"></xref> for use in unit tests.\nFires <xref href=\"Wolfgang.Etl.Abstractions.IProgressTimer.Elapsed\" data-throw-if-not-resolved=\"false\"></xref> synchronously on demand via <xref href=\"Wolfgang.Etl.TestKit.Xunit.ManualProgressTimer.Fire\" data-throw-if-not-resolved=\"false\"></xref>,\nrather than on a background thread-pool thread after a real time interval.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ProgressAssert.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ProgressAssert.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ProgressAssert",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ProgressAssert.yml\" sourcestartlinenumber=\"1\">Provides xUnit-style assertions for validating sequences of progress reports captured by\na <xref href=\"Wolfgang.Etl.TestKit.Xunit.ProgressCapture%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ProgressCapture-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ProgressCapture-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ProgressCapture-1.yml\" sourcestartlinenumber=\"1\">An <xref href=\"System.IProgress%601\" data-throw-if-not-resolved=\"false\"></xref> implementation that captures every reported value,\nsynchronously, on the calling thread.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ISupportDryRun\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.SynchronousProgress-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.SynchronousProgress-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.SynchronousProgress<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.SynchronousProgress-1.yml\" sourcestartlinenumber=\"1\">An <xref href=\"System.IProgress%601\" data-throw-if-not-resolved=\"false\"></xref> implementation that invokes its callback synchronously\non the calling thread, rather than posting to a synchronisation context.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ITransformAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests<TSut, TItem>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ITransformWithCancellationAsync%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAndCancellationAsyncContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ITransformWithProgressAndCancellationAsync%603\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that implements\n<xref href=\"Wolfgang.Etl.Abstractions.ITransformWithProgressAsync%603\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests-3.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for any type that inherits\nfrom <xref href=\"Wolfgang.Etl.Abstractions.TransformerBase%603\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit",
+      "Summary": null
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "apple-touch-icon.png",
+      "output": {
+        "resource": {
+          "relative_path": "apple-touch-icon.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/contract-tests.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/contract-tests.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/getting-started.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/introduction.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/introduction.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "favicon.ico",
+      "output": {
+        "resource": {
+          "relative_path": "favicon.ico"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "favicon.svg",
+      "output": {
+        "resource": {
+          "relative_path": "favicon.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "logo.svg",
+      "output": {
+        "resource": {
+          "relative_path": "logo.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "public/version-picker.js",
+      "output": {
+        "resource": {
+          "relative_path": "public/version-picker.js"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "versions.json",
+      "output": {
+        "resource": {
+          "relative_path": "versions.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
