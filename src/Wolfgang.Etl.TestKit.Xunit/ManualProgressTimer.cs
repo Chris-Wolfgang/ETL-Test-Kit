@@ -21,9 +21,8 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 /// </remarks>
 /// <example>
 /// <code>
-/// // In your concrete contract test class:
-/// protected override MyExtractor CreateSutWithTimer(IProgressTimer timer) =>
-///     new MyExtractor(sourceData, timer);
+/// // In your concrete contract test class, override CreateSutWithTimer to return
+/// // your SUT wired to the supplied timer (see ExtractorBaseContractTests).
 ///
 /// // The base class uses it like this in the progress callback test:
 /// var timer = new ManualProgressTimer();

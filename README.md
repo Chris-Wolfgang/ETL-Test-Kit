@@ -9,6 +9,7 @@ An Extractor, Transformer and Loader designed to be used in testing libraries bu
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![.NET](https://img.shields.io/badge/.NET-Multi--Targeted-purple.svg)](https://dotnet.microsoft.com/)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com/Chris-Wolfgang/ETL-Test-Kit)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/Chris-Wolfgang/ETL-Test-Kit/badge)](https://scorecard.dev/viewer/?uri=github.com/Chris-Wolfgang/ETL-Test-Kit)
 
 ---
 
@@ -239,17 +240,15 @@ public sealed class MyLoaderContractTests
 
 ---
 
-## 🎯 Target Frameworks
+## 🎯 Supported Frameworks
 
-Both packages multi-target the following frameworks:
+This library targets:
 
-| Framework | Versions |
-|-----------|----------|
-| .NET Framework | .NET 4.6.2, .NET 4.8.1 |
-| .NET Standard | .NET Standard 2.0 |
-| .NET | .NET 8.0, .NET 10.0 |
+- **.NET Framework:** 4.6.2, 4.8.1
+- **.NET Standard:** 2.0
+- **.NET:** 8.0, 10.0
 
----
+See the [NuGet package page](https://www.nuget.org/packages/Wolfgang.Etl.TestKit/) for the authoritative per-TFM compatibility matrix.
 
 ## 🔍 Code Quality & Static Analysis
 
@@ -354,6 +353,16 @@ docfx build --serve
 - `docfx_project/index.md` - Main landing page content
 - `docfx_project/docs/` - Additional documentation articles
 - `docfx_project/api/` - Auto-generated API reference YAML files
+
+---
+
+## 🔐 Verify the build
+
+Every release is built deterministically, and each GitHub Release attaches a
+`reproducible-build-manifest.json` with the SHA-256 of every shipped assembly.
+You can independently rebuild from the tag and confirm the hashes match — see
+[docs/REPRODUCIBLE-BUILD.md](docs/REPRODUCIBLE-BUILD.md) for the step-by-step
+procedure and how to publish a third-party attestation.
 
 ---
 
