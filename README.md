@@ -134,6 +134,33 @@ var loader = new FaultyLoader<string>(collectItems: true)
     .DuplicateAt(1);
 ```
 
+### Core — skipping bad items with the error hook
+
+Built on the `Wolfgang.Etl.Abstractions` 0.18 per-item error hook, the `Faulty*` doubles can route an injected fault through the base `HandleItemError` policy instead of only failing fast. Call `SkipErrors()` (or `HandleErrorsWith(policy)` for a per-item decision) so the bad item is discarded and counted as an error (`CurrentErrorItemCount`) while the run continues; `CapturedErrors` records each `ItemErrorContext`:
+
+```csharp
+using System;
+using Wolfgang.Etl.Abstractions;
+using Wolfgang.Etl.TestKit;
+
+var source = new[] { "alpha", "bravo", "charlie", "delta" };
+
+// Skip every failed item and keep going:
+var extractor = new FaultyExtractor<string>(source)
+    .ThrowAt(1, new FormatException("bad row"))
+    .SkipErrors();
+
+// Or decide per item — skip parse errors, abort on anything else:
+var picky = new FaultyExtractor<string>(source)
+    .ThrowAt(1, new FormatException("bad row"))
+    .HandleErrorsWith(ctx => ctx.Exception is FormatException
+        ? ItemErrorAction.Skip
+        : ItemErrorAction.Abort);
+
+// After the run: extractor.CurrentErrorItemCount == 1, and extractor.CapturedErrors
+// holds the ItemErrorContext for the discarded item.
+```
+
 ### xUnit — capturing and asserting on progress
 
 `ProgressCapture<T>` is an `IProgress<T>` that records every report; pass it straight to any progress-aware overload, then assert with `ProgressAssert`:
@@ -174,6 +201,55 @@ public sealed class MyExtractorIdempotencyTests
 ```
 
 `IdempotentLoaderContractTests<TSut, TItem>` adds a `TryGetLoadedItems(TSut sut)` factory (return `null` if the loader does not expose its loaded items), and `IdempotentTransformerContractTests<TSut, TItem>` follows the extractor shape with `CreateExpectedItems()`.
+
+### xUnit — verifying error handling
+
+If your stage opts into the 0.18 error hook, derive from `ErrorHandlingContractTests<TSut>` and implement one harness method that runs a scenario with a single failing item under a given policy. The base verifies that `Skip` completes the run and counts the failure as an error kept *distinct* from the intentional-skip count, while `Abort` re-throws and counts no error:
+
+```csharp
+using System.Threading.Tasks;
+using Wolfgang.Etl.Abstractions;
+using Wolfgang.Etl.TestKit.Xunit;
+
+public sealed class MyExtractorErrorHandlingTests
+    : ErrorHandlingContractTests<MyExtractor>
+{
+    protected override async Task<ErrorHandlingOutcome> RunSingleFaultScenarioAsync(ItemErrorAction policy)
+    {
+        var sut = new MyExtractor(SourceWithOneBadRow()) { ErrorPolicy = policy };
+        var aborted = false;
+        try { await foreach (var _ in sut.ExtractAsync()) { } }
+        catch { aborted = true; }
+        return new ErrorHandlingOutcome(aborted, sut.CurrentItemCount, sut.CurrentErrorItemCount, sut.CurrentSkippedItemCount);
+    }
+}
+```
+
+### xUnit — verifying disposal
+
+Derive from `DisposableStageContractTests<TSut>` to verify the 0.14/0.17 dispose guarantees — that a public operation throws `ObjectDisposedException` after `Dispose()`/`DisposeAsync()`, and that disposing twice is a harmless no-op:
+
+```csharp
+using System.Threading.Tasks;
+using Wolfgang.Etl.TestKit.Xunit;
+
+public sealed class MyExtractorDisposableTests
+    : DisposableStageContractTests<MyExtractor>
+{
+    protected override MyExtractor CreateSut() => new MyExtractor(source);
+
+    protected override async Task<bool> InvokeReportsObjectDisposedAsync(bool disposeFirst, bool useAsyncDispose)
+    {
+        var sut = CreateSut();
+        if (disposeFirst)
+        {
+            if (useAsyncDispose) await sut.DisposeAsync(); else sut.Dispose();
+        }
+        try { await foreach (var _ in sut.ExtractAsync()) { } return false; }
+        catch (System.ObjectDisposedException) { return true; }
+    }
+}
+```
 
 ### xUnit add-on — contract-testing your own ETL types
 
@@ -233,9 +309,11 @@ public sealed class MyLoaderContractTests
 | **`ManualProgressTimer`** | An `IProgressTimer` whose `Fire()` method triggers progress callbacks synchronously, so progress tests are deterministic |
 | **`SynchronousProgress<T>`** | An `IProgress<T>` that invokes its callback synchronously for predictable progress assertions |
 | **`TestExtractor<T>` factory ctors** | Build a `TestExtractor<T>` from a `Func<T>` or `Func<int, T>` factory (with an optional item count) instead of materializing a collection up front |
-| **`FaultyExtractor<T>` / `FaultyLoader<T>` / `FaultyTransformer<T>`** | Fault-injection doubles with fluent `ThrowAt`, `ThrowAfterCompletion`, and `DuplicateAt` knobs for exercising error and retry paths |
+| **`FaultyExtractor<T>` / `FaultyLoader<T>` / `FaultyTransformer<T>`** | Fault-injection doubles with fluent `ThrowAt`, `ThrowAfterCompletion`, and `DuplicateAt` knobs, plus `SkipErrors()` / `HandleErrorsWith(policy)` / `CapturedErrors` to drive the Abstractions 0.18 per-item error hook |
 | **`ProgressCapture<T>` + `ProgressAssert`** | `ProgressCapture<T>` is an `IProgress<T>` that records every report; `ProgressAssert` provides xUnit assertions (`HasReports`, `HasExactly`, `FinalReportSatisfies`, `IsMonotonicallyIncreasing`, …) over a capture |
 | **`Idempotent*ContractTests`** | Opt-in `IdempotentExtractorContractTests<,,>`, `IdempotentLoaderContractTests<,>`, and `IdempotentTransformerContractTests<,>` bases that verify a component produces identical results across repeated runs |
+| **`ErrorHandlingContractTests<TSut>`** | Opt-in base verifying a stage's 0.18 error hook — `Skip` continues and counts the failure as an error (distinct from the intentional-skip count); `Abort` re-throws |
+| **`DisposableStageContractTests<TSut>`** | Opt-in base verifying the 0.14/0.17 dispose guarantees — use-after-dispose throws `ObjectDisposedException`, and double-dispose is a no-op |
 | **Multi-TFM support** | net462, net481, netstandard2.0, net8.0, net10.0 |
 
 ---
