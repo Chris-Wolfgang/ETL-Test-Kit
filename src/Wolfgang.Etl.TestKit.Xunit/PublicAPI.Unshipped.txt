@@ -23,3 +23,12 @@ Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.Aborted.get -> bool
 Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.ItemCount.get -> int
 Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.ErrorItemCount.get -> int
 Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.SkippedItemCount.get -> int
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.DisposableStageContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.DisposeAsync_is_idempotent_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.Dispose_is_idempotent() -> void
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.Public_operation_after_DisposeAsync_throws_ObjectDisposedException_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.Public_operation_after_Dispose_throws_ObjectDisposedException_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.Public_operation_before_dispose_does_not_throw_ObjectDisposedException_Async() -> System.Threading.Tasks.Task!
+abstract Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.CreateSut() -> TSut!
+abstract Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.InvokeReportsObjectDisposedAsync(bool disposeFirst, bool useAsyncDispose) -> System.Threading.Tasks.Task<bool>!
