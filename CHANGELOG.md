@@ -53,11 +53,23 @@ public API only — no breaking change.
 
 ### Changed
 
-- Built against `Wolfgang.Etl.Abstractions` 0.17.0 → **0.18.0**.
+- Built against `Wolfgang.Etl.Abstractions` 0.17.0 → **0.18.1**.
+- The doubles build their progress `Report` via the new
+  `Report(int, DateTimeOffset?, TimeSpan, int?)` constructor (Abstractions 0.18.1) instead of
+  the object-initializer form, so setting the timing/total values is safe cross-assembly on
+  every target framework (see Fixed).
 - The doubles' `CreateProgressReport()` now surfaces the base's `StartedAt`/`Elapsed` timing
   (Abstractions 0.14.0) in the `Report`, so `ItemsPerSecond` is computed for reported progress;
   the extractor doubles also set `TotalItemCount` from a materialized collection source so
   `PercentComplete`/`EstimatedRemaining` compute.
+
+### Fixed
+
+- Surfacing `Report` timing from the doubles no longer throws `MissingMethodException` on
+  **.NET 6 / .NET 7**. The doubles' `netstandard2.0` assembly (which those runtimes load) set the
+  `Report` timing via the object-initializer (`init`) form, whose `IsExternalInit` modreq did not
+  match the modern Abstractions assembly resolved at runtime. The doubles now use the plain
+  `Report` timing constructor added in Abstractions 0.18.1, which is safe across every framework.
 
 ## [0.10.1] - 2026-07-24
 

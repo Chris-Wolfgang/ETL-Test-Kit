@@ -515,16 +515,12 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
     /// <inheritdoc/>
     protected override Report CreateProgressReport() =>
-        new(CurrentItemCount)
-        {
-            StartedAt = StartedAt,
-            Elapsed = Elapsed,
-
-            // When the source is a materialized collection its size is a cheap, known
-            // total, so PercentComplete / EstimatedRemaining can be computed. An
-            // enumerator- or factory-backed source has no known total (stays null).
-            TotalItemCount = (_enumerable as ICollection<T>)?.Count,
-        };
+        // When the source is a materialized collection its size is a cheap, known total, so
+        // PercentComplete / EstimatedRemaining can be computed. An enumerator- or factory-backed
+        // source has no known total (stays null). The timing constructor (Abstractions 0.18.1)
+        // sets these via plain parameters, avoiding the init-setter cross-assembly modreq
+        // mismatch that broke netstandard2.0 consumers running on .NET 6/7.
+        new(CurrentItemCount, StartedAt, Elapsed, (_enumerable as ICollection<T>)?.Count);
 
 
 

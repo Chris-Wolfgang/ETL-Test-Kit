@@ -364,7 +364,7 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
 
     /// <inheritdoc/>
     protected override Report CreateProgressReport() =>
-        new(CurrentItemCount) { StartedAt = StartedAt, Elapsed = Elapsed };
+        new(CurrentItemCount, StartedAt, Elapsed);
 
 
 

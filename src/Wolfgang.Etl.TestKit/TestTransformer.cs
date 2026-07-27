@@ -123,7 +123,7 @@ public class TestTransformer<T> : TransformerBase<T, T, Report>
 
     /// <inheritdoc/>
     protected override Report CreateProgressReport() =>
-        new(CurrentItemCount) { StartedAt = StartedAt, Elapsed = Elapsed };
+        new(CurrentItemCount, StartedAt, Elapsed);
 
 
 
