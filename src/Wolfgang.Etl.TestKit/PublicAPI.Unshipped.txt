@@ -1,6 +1,4 @@
 #nullable enable
-Wolfgang.Etl.TestKit.TestLoader<T>.IsDryRun.get -> bool
-Wolfgang.Etl.TestKit.TestLoader<T>.IsDryRun.set -> void
 Wolfgang.Etl.TestKit.FaultyExtractor<T>.SkipErrors() -> Wolfgang.Etl.TestKit.FaultyExtractor<T>!
 Wolfgang.Etl.TestKit.FaultyExtractor<T>.HandleErrorsWith(System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>! policy) -> Wolfgang.Etl.TestKit.FaultyExtractor<T>!
 Wolfgang.Etl.TestKit.FaultyExtractor<T>.CapturedErrors.get -> System.Collections.Generic.IReadOnlyList<Wolfgang.Etl.Abstractions.ItemErrorContext!>!
