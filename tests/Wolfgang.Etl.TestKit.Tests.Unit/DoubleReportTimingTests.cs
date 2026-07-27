@@ -50,11 +50,38 @@ public class DoubleReportTimingTests
         Assert.True(report.ItemsPerSecond >= 0);
     }
 
+    [Fact]
+    public async Task CreateProgressReport_for_a_collection_source_surfaces_TotalItemCount()
+    {
+        var sut = new ExposedTestExtractor<int>(new List<int> { 1, 2, 3, 4, 5 });
+
+        await sut.ExtractAsync().ToListAsync();
+        var report = sut.GetProgressReport();
+
+        Assert.Equal(5, report.TotalItemCount);
+        Assert.Equal(100d, report.PercentComplete!.Value);
+    }
+
+    [Fact]
+    public void CreateProgressReport_for_an_enumerator_source_has_no_TotalItemCount()
+    {
+        var sut = new ExposedTestExtractor<int>(Enumerable.Range(1, 3).GetEnumerator());
+
+        var report = sut.GetProgressReport();
+
+        Assert.Null(report.TotalItemCount);
+    }
+
     private sealed class ExposedTestExtractor<T> : TestExtractor<T>
         where T : notnull
     {
         public ExposedTestExtractor(IEnumerable<T> items)
             : base(items)
+        {
+        }
+
+        public ExposedTestExtractor(IEnumerator<T> enumerator)
+            : base(enumerator)
         {
         }
 
