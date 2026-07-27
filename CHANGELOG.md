@@ -19,6 +19,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.11.0] - 2026-07-26
+
+Adopts the `Wolfgang.Etl.Abstractions` 0.18.0 per-item **error hook** in the test doubles
+and adds contract-test bases covering the error hook and the disposability guarantees, plus
+surfaces the base classes' timing instrumentation in the doubles' progress reports. New
+public API only — no breaking change.
+
+### Added
+
+- **Error hook (Abstractions 0.18.0).** `FaultyExtractor<T>`, `FaultyLoader<T>`, and
+  `FaultyTransformer<T>` gain `SkipErrors()`, `HandleErrorsWith(policy)`, and `CapturedErrors`:
+  an injected `ThrowAt` fault is routed through the base `HandleItemError` hook, so it is
+  discarded and counted as an error (`CurrentErrorItemCount`) and the run continues on
+  `ItemErrorAction.Skip`, or re-thrown on `Abort`. With no policy configured a fault still
+  propagates (fail-fast), unchanged.
+- `ErrorHandlingContractTests<TSut>` + `ErrorHandlingOutcome` — an opt-in xUnit contract-test
+  base verifying a stage's error hook: a `Skip` policy completes the run and counts the failure
+  as an error kept *distinct* from the intentional-skip count; an `Abort` policy re-throws and
+  counts no error.
+- `DisposableStageContractTests<TSut>` — an opt-in xUnit contract-test base verifying a stage
+  throws `ObjectDisposedException` after `Dispose()`/`DisposeAsync()` (the 0.17 use-after-dispose
+  guard) and that disposing twice is a harmless no-op.
+
+### Changed
+
+- Built against `Wolfgang.Etl.Abstractions` 0.17.0 → **0.18.0**.
+- The doubles' `CreateProgressReport()` now surfaces the base's `StartedAt`/`Elapsed` timing
+  (Abstractions 0.14.0) in the `Report`, so `ItemsPerSecond` is computed for reported progress.
+
 ## [0.10.1] - 2026-07-24
 
 Maintenance release: the deferred "thorough-review" hardening tier plus the
