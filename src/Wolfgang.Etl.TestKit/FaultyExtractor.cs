@@ -353,7 +353,15 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
 
     /// <inheritdoc/>
     protected override Report CreateProgressReport() =>
-        new(CurrentItemCount) { StartedAt = StartedAt, Elapsed = Elapsed };
+        new(CurrentItemCount)
+        {
+            StartedAt = StartedAt,
+            Elapsed = Elapsed,
+
+            // When the source is a materialized collection its size is a cheap, known
+            // total, so PercentComplete / EstimatedRemaining can be computed.
+            TotalItemCount = (_items as ICollection<T>)?.Count,
+        };
 
 
 

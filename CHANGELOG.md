@@ -46,7 +46,9 @@ public API only — no breaking change.
 
 - Built against `Wolfgang.Etl.Abstractions` 0.17.0 → **0.18.0**.
 - The doubles' `CreateProgressReport()` now surfaces the base's `StartedAt`/`Elapsed` timing
-  (Abstractions 0.14.0) in the `Report`, so `ItemsPerSecond` is computed for reported progress.
+  (Abstractions 0.14.0) in the `Report`, so `ItemsPerSecond` is computed for reported progress;
+  the extractor doubles also set `TotalItemCount` from a materialized collection source so
+  `PercentComplete`/`EstimatedRemaining` compute.
 
 ## [0.10.1] - 2026-07-24
 

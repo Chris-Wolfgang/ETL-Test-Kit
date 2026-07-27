@@ -515,7 +515,16 @@ public class TestExtractor<T> : ExtractorBase<T, Report>
 
     /// <inheritdoc/>
     protected override Report CreateProgressReport() =>
-        new(CurrentItemCount) { StartedAt = StartedAt, Elapsed = Elapsed };
+        new(CurrentItemCount)
+        {
+            StartedAt = StartedAt,
+            Elapsed = Elapsed,
+
+            // When the source is a materialized collection its size is a cheap, known
+            // total, so PercentComplete / EstimatedRemaining can be computed. An
+            // enumerator- or factory-backed source has no known total (stays null).
+            TotalItemCount = (_enumerable as ICollection<T>)?.Count,
+        };
 
 
 
