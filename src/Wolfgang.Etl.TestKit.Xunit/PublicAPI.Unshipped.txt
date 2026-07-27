@@ -32,3 +32,16 @@ Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadA
 Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CurrentItemCount_defaults_to_zero() -> void
 Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CurrentSkippedItemCount_defaults_to_zero() -> void
 Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CurrentErrorItemCount_defaults_to_zero() -> void
+virtual Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSutOverSource(System.Collections.Generic.IEnumerable<TItem>! source) -> TSut?
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_does_not_over_read_past_MaximumItemCount_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_stops_reading_on_cancellation_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_a_pre_cancelled_token_reads_nothing_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CurrentErrorItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_does_not_over_read_past_MaximumItemCount_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_stops_reading_on_cancellation_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_a_pre_cancelled_token_reads_nothing_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CurrentErrorItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_does_not_over_read_past_MaximumItemCount_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_stops_reading_on_cancellation_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_a_pre_cancelled_token_reads_nothing_Async() -> System.Threading.Tasks.Task!

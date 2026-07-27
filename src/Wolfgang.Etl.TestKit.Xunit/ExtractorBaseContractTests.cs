@@ -813,4 +813,115 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
 
         Assert.Equal(2, sut.CurrentSkippedItemCount);
     }
+
+    /// <summary>
+    /// Verifies that <c>CurrentErrorItemCount</c> is zero on a freshly created extractor, before
+    /// any item has failed (Abstractions 0.18.0 error hook).
+    /// </summary>
+    [Fact]
+    public void CurrentErrorItemCount_defaults_to_zero()
+    {
+        var sut = CreateSut();
+
+        Assert.Equal(0, sut.CurrentErrorItemCount);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // No over-read (issue #49)
+    // ------------------------------------------------------------------
+
+    /// <summary>
+    /// Override to enable the "no over-read" tests for an extractor that reads from an
+    /// injectable in-memory sequence. Return an extractor that draws its items from
+    /// <paramref name="source"/>, or <see langword="null"/> (the default) to skip those tests —
+    /// appropriate for an extractor whose source is a connection or handle that cannot be a
+    /// caller-supplied sequence.
+    /// </summary>
+    /// <param name="source">The sequence the returned extractor must read from.</param>
+    protected virtual TSut? CreateSutOverSource(IEnumerable<TItem> source) => default;
+
+    /// <summary>
+    /// Verifies that once <c>MaximumItemCount</c> is reached the extractor stops pulling from its
+    /// source rather than draining it — at most M+1 reads (the +1 discovers the limit). Skipped
+    /// unless <see cref="CreateSutOverSource"/> is overridden.
+    /// </summary>
+    [Fact]
+    public async Task ExtractAsync_does_not_over_read_past_MaximumItemCount_Async()
+    {
+        var counter = new PullCounter();
+        var sut = CreateSutOverSource(counter.CountSync(CreateExpectedItems()));
+        if (sut is null)
+        {
+            return;
+        }
+
+        sut.MaximumItemCount = 3;
+
+        await sut.ExtractAsync().ToListAsync().ConfigureAwait(false);
+
+        Assert.True(counter.Count <= 4, $"Expected at most 4 upstream reads, saw {counter.Count}.");
+    }
+
+    // Cancel() runs synchronously to cancel mid-enumeration; CancelAsync is net8.0+ only and
+    // this base targets net462+.
+#pragma warning disable CA1849, VSTHRD103
+    /// <summary>
+    /// Verifies that cancelling mid-enumeration stops the extractor pulling from its source at
+    /// the next check. Skipped unless <see cref="CreateSutOverSource"/> is overridden.
+    /// </summary>
+    [Fact]
+    public async Task ExtractAsync_stops_reading_on_cancellation_Async()
+    {
+        using var cts = new CancellationTokenSource();
+        var counter = new PullCounter();
+        var sut = CreateSutOverSource(counter.CountSync(CreateExpectedItems()));
+        if (sut is null)
+        {
+            return;
+        }
+
+        var seen = 0;
+
+        try
+        {
+            await foreach (var _ in sut.ExtractAsync(cts.Token).ConfigureAwait(false))
+            {
+                if (++seen == 3)
+                {
+                    cts.Cancel();
+                }
+            }
+        }
+        catch (OperationCanceledException)
+        {
+        }
+
+        Assert.True(counter.Count <= 4, $"Expected at most 4 upstream reads, saw {counter.Count}.");
+    }
+#pragma warning restore CA1849, VSTHRD103
+
+    /// <summary>
+    /// Verifies that a pre-cancelled token short-circuits the extractor before it pulls any item
+    /// from its source. Skipped unless <see cref="CreateSutOverSource"/> is overridden.
+    /// </summary>
+    [Fact]
+    public async Task ExtractAsync_with_a_pre_cancelled_token_reads_nothing_Async()
+    {
+        var token = new CancellationToken(canceled: true);
+        var counter = new PullCounter();
+        var sut = CreateSutOverSource(counter.CountSync(CreateExpectedItems()));
+        if (sut is null)
+        {
+            return;
+        }
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>
+        (
+            () => sut.ExtractAsync(token).ToListAsync(token).AsTask()
+        ).ConfigureAwait(false);
+
+        Assert.Equal(0, counter.Count);
+    }
 }
