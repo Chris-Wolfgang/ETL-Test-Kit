@@ -835,4 +835,46 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         Assert.Equal(expected.Count - 1, sut.CurrentItemCount);
         Assert.Equal(1, sut.CurrentSkippedItemCount);
     }
+
+    /// <summary>
+    /// Verifies that <c>CurrentItemCount</c> is zero on a freshly created loader, before any load
+    /// has run.
+    /// </summary>
+    [Fact]
+    public void CurrentItemCount_defaults_to_zero()
+    {
+        var sut = CreateSut();
+
+        Assert.Equal(0, sut.CurrentItemCount);
+    }
+
+    /// <summary>
+    /// Verifies that <c>CurrentSkippedItemCount</c> is zero on a freshly created loader, before any
+    /// load has run.
+    /// </summary>
+    [Fact]
+    public void CurrentSkippedItemCount_defaults_to_zero()
+    {
+        var sut = CreateSut();
+
+        Assert.Equal(0, sut.CurrentSkippedItemCount);
+    }
+
+    /// <summary>
+    /// Verifies that <c>CurrentSkippedItemCount</c> reflects the exact number of items skipped by
+    /// <c>SkipItemCount</c> after a run.
+    /// </summary>
+    [Fact]
+    public async Task LoadAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async()
+    {
+        var sut = CreateSut();
+        var expected = CreateSourceItems();
+        Assert.True(expected.Count >= 3, "CreateSourceItems() must return at least 3 items.");
+
+        sut.SkipItemCount = 2;
+
+        await sut.LoadAsync(CreateInputItemsAsync()).ConfigureAwait(false);
+
+        Assert.Equal(2, sut.CurrentSkippedItemCount);
+    }
 }

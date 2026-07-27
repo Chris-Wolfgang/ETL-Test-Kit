@@ -771,4 +771,46 @@ public abstract class ExtractorBaseContractTests<TSut, TItem, TProgress>
         Assert.Equal(expected[1], actual[0]);
         Assert.Equal(1, sut.CurrentSkippedItemCount);
     }
+
+    /// <summary>
+    /// Verifies that <c>CurrentItemCount</c> is zero on a freshly created extractor, before any
+    /// extraction has run.
+    /// </summary>
+    [Fact]
+    public void CurrentItemCount_defaults_to_zero()
+    {
+        var sut = CreateSut();
+
+        Assert.Equal(0, sut.CurrentItemCount);
+    }
+
+    /// <summary>
+    /// Verifies that <c>CurrentSkippedItemCount</c> is zero on a freshly created extractor, before
+    /// any extraction has run.
+    /// </summary>
+    [Fact]
+    public void CurrentSkippedItemCount_defaults_to_zero()
+    {
+        var sut = CreateSut();
+
+        Assert.Equal(0, sut.CurrentSkippedItemCount);
+    }
+
+    /// <summary>
+    /// Verifies that <c>CurrentSkippedItemCount</c> reflects the exact number of items skipped by
+    /// <c>SkipItemCount</c> after a run.
+    /// </summary>
+    [Fact]
+    public async Task ExtractAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async()
+    {
+        var sut = CreateSut();
+        var expected = CreateExpectedItems();
+        Assert.True(expected.Count >= 3, "CreateExpectedItems() must return at least 3 items.");
+
+        sut.SkipItemCount = 2;
+
+        await sut.ExtractAsync().ToListAsync().ConfigureAwait(false);
+
+        Assert.Equal(2, sut.CurrentSkippedItemCount);
+    }
 }
