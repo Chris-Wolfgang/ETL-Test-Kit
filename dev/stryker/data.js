@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1785112086836,
+  "lastUpdate": 1785201596775,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Test-Kit",
   "entries": {
     "Mutation score": [
@@ -28,6 +28,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Mutation score",
             "value": 72.94,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d4b58df2fded9933b8125fb3851b70c5abd1a2d0",
+          "message": "Merge pull request #254 from Chris-Wolfgang/vNext\n\nRelease 0.11.0 — Abstractions 0.18.1 adoption",
+          "timestamp": "2026-07-27T21:12:16-04:00",
+          "tree_id": "a7c47fd9036e12d917a44cfcf717a83f06cfb7ea",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Test-Kit/commit/d4b58df2fded9933b8125fb3851b70c5abd1a2d0"
+        },
+        "date": 1785201593906,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "Mutation score",
+            "value": 74.93,
             "unit": "%"
           }
         ]
