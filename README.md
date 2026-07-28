@@ -302,6 +302,28 @@ public sealed class MyExtractorAllocationTests
 
 `CreateSut(itemCount)` runs outside the measurement window (its cost is excluded); exercise the harness-supplied `Sut`. The test skips on frameworks without `GC.GetTotalAllocatedBytes` (net462 / netstandard2.0).
 
+### xUnit — verifying pipeline composition
+
+Derive from `EtlPipelineContractTests<TItem, TProgress>` to verify that your loader composes into the `Wolfgang.Etl.Abstractions` 0.16 `EtlPipeline` and runs end-to-end — every source item is delivered, and the `EtlPipelineProgress` counts each record as extracted and loaded. The harness composes and runs the pipeline; you supply the source data, the sink, and a read-back:
+
+```csharp
+using System.Collections.Generic;
+using Wolfgang.Etl.Abstractions;
+using Wolfgang.Etl.TestKit.Xunit;
+
+public sealed class MyLoaderPipelineTests
+    : EtlPipelineContractTests<MyRecord, MyProgress>
+{
+    protected override IReadOnlyList<MyRecord> CreateSourceItems() =>
+        new List<MyRecord> { new("a"), new("b"), new("c") };
+
+    protected override LoaderBase<MyRecord, MyProgress> CreateSink() => new MyLoader();
+
+    // Read back what the harness-composed `Sink` received, or return null to skip the delivery check.
+    protected override IReadOnlyList<MyRecord>? GetLoadedItems() => ((MyLoader)Sink).Written;
+}
+```
+
 ### xUnit add-on — contract-testing your own ETL types
 
 Derive your test class from the matching contract base and implement the abstract factory methods. You inherit the complete suite of `ExtractAsync` / `TransformAsync` / `LoadAsync` contract tests — all overloads, cancellation, progress, `SkipItemCount`, and `MaximumItemCount` — with zero boilerplate.

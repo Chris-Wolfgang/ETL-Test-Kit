@@ -8,3 +8,11 @@ abstract Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Exercise
 virtual Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Attempts.get -> int
 virtual Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.BaseItemCount.get -> int
 virtual Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.MaxBytesPerItem.get -> double
+Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.EtlPipelineContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Pipeline_delivers_all_source_items_to_the_sink_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Pipeline_progress_counts_all_records_extracted_and_loaded_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Sink.get -> Wolfgang.Etl.Abstractions.LoaderBase<TItem, TProgress>!
+abstract Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.CreateSink() -> Wolfgang.Etl.Abstractions.LoaderBase<TItem, TProgress>!
+abstract Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.CreateSourceItems() -> System.Collections.Generic.IReadOnlyList<TItem>!
+abstract Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.GetLoadedItems() -> System.Collections.Generic.IReadOnlyList<TItem>?
