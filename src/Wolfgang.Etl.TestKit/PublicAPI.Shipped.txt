@@ -76,3 +76,15 @@ Wolfgang.Etl.TestKit.FaultyTransformer<T>.SkipErrors() -> Wolfgang.Etl.TestKit.F
 Wolfgang.Etl.TestKit.FaultyTransformer<T>.HandleErrorsWith(System.Func<Wolfgang.Etl.Abstractions.ItemErrorContext!, Wolfgang.Etl.Abstractions.ItemErrorAction>! policy) -> Wolfgang.Etl.TestKit.FaultyTransformer<T>!
 Wolfgang.Etl.TestKit.FaultyTransformer<T>.CapturedErrors.get -> System.Collections.Generic.IReadOnlyList<Wolfgang.Etl.Abstractions.ItemErrorContext!>!
 override Wolfgang.Etl.TestKit.FaultyTransformer<T>.OnItemError(Wolfgang.Etl.Abstractions.ItemErrorContext! context) -> Wolfgang.Etl.Abstractions.ItemErrorAction
+Wolfgang.Etl.TestKit.DelayingExtractor<T>
+Wolfgang.Etl.TestKit.DelayingExtractor<T>.DelayingExtractor(System.Collections.Generic.IEnumerable<T>! items, System.Func<int, System.TimeSpan>! delaySelector) -> void
+Wolfgang.Etl.TestKit.DelayingExtractor<T>.DelayingExtractor(System.Collections.Generic.IEnumerable<T>! items, System.TimeSpan delay) -> void
+override Wolfgang.Etl.TestKit.DelayingExtractor<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
+override Wolfgang.Etl.TestKit.DelayingExtractor<T>.ExtractWorkerAsync(System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>!
+Wolfgang.Etl.TestKit.SnapshotTestLoader<T>
+Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.SnapshotTestLoader() -> void
+Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.SnapshotTestLoader(System.Func<T, string!>! formatter) -> void
+Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.LoadedItems.get -> System.Collections.Generic.IReadOnlyList<T>!
+Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.Snapshot.get -> string!
+override Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
+override Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable<T>! items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!

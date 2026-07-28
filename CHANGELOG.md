@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.12.0] - 2026-07-28
+
+New opt-in contract-test bases and test doubles, and a snapshot-capture loader. New public API only
+— no breaking change. Built against `Wolfgang.Etl.Abstractions` 0.19.0.
+
+### Added
+
 - `EtlPipelineContractTests<TItem, TProgress>` — an opt-in xUnit contract-test base that composes a
   source and a loader sink into the `Wolfgang.Etl.Abstractions` 0.16 `EtlPipeline`
   (`EtlPipeline.Create().From(...).To(...).RunAsync()`) and verifies the run delivers every source
@@ -25,23 +42,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   values (timestamps, GUIDs, auto-increment IDs). `SkipItemCount` / `MaximumItemCount` bound the
   capture. README documents the fleet snapshot convention (dedicated single-TFM `*.Tests.Snapshot`
   project, `Verify.Xunit`, `.verified.txt` golden files under `Snapshots/`). (#11, closes #129)
-
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
-
-## [0.12.0] - Unreleased
-
-New opt-in contract-test bases. New public API only — no breaking change.
-
-### Added
-
 - `AllocationBudgetContractTests<TSut>` — an opt-in xUnit contract-test base that asserts a
   repeatable operation's hot path stays within a declared per-item allocation budget
   (`MaxBytesPerItem`, default 0 = allocation-free). Measures the *marginal* allocation

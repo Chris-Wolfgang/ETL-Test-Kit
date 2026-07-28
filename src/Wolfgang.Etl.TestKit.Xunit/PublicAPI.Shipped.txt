@@ -347,3 +347,34 @@ Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.
 Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_does_not_over_read_past_MaximumItemCount_Async() -> System.Threading.Tasks.Task!
 Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_stops_reading_on_cancellation_Async() -> System.Threading.Tasks.Task!
 Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_a_pre_cancelled_token_reads_nothing_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>
+Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.AllocationBudgetContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Hot_path_stays_within_the_allocation_budget_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Sut.get -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.ExerciseHotPathAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+virtual Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Attempts.get -> int
+virtual Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.BaseItemCount.get -> int
+virtual Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.MaxBytesPerItem.get -> double
+Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>
+Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.CancellationContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.Mid_stream_cancellation_stops_promptly_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.Mid_stream_cancellation_throws_OperationCanceledException_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.Pre_cancelled_token_processes_nothing_and_throws_Async() -> System.Threading.Tasks.Task!
+abstract Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.RunAndCancelMidStreamAsync(int itemCount, int cancelAfter) -> System.Threading.Tasks.Task<Wolfgang.Etl.TestKit.Xunit.CancellationOutcome!>!
+abstract Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.RunWithPreCancelledTokenAsync(int itemCount) -> System.Threading.Tasks.Task<Wolfgang.Etl.TestKit.Xunit.CancellationOutcome!>!
+virtual Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.CancelAfter.get -> int
+virtual Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.ItemCount.get -> int
+virtual Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.PromptStopSlack.get -> int
+Wolfgang.Etl.TestKit.Xunit.CancellationOutcome
+Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.CancellationOutcome(bool canceled, int processedItemCount) -> void
+Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.Canceled.get -> bool
+Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.ProcessedItemCount.get -> int
+Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>
+Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.EtlPipelineContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Pipeline_delivers_all_source_items_to_the_sink_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Pipeline_progress_counts_all_records_extracted_and_loaded_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Sink.get -> Wolfgang.Etl.Abstractions.LoaderBase<TItem, TProgress>!
+abstract Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.CreateSink() -> Wolfgang.Etl.Abstractions.LoaderBase<TItem, TProgress>!
+abstract Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.CreateSourceItems() -> System.Collections.Generic.IReadOnlyList<TItem>!
+abstract Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.GetLoadedItems() -> System.Collections.Generic.IReadOnlyList<TItem>?
