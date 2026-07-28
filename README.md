@@ -274,6 +274,34 @@ public sealed class MyExtractorDisposableTests
 }
 ```
 
+### xUnit — guarding an allocation budget
+
+Derive from `AllocationBudgetContractTests<TSut>` to lock in that your stage's hot path stays allocation-free (or within a declared per-item budget). The harness measures the *marginal* allocation per item — `(alloc(10N) − alloc(N)) / 9N` — so one-time setup cancels out. Because it reads the process-wide GC counter, put derived tests in a serialized collection:
+
+```csharp
+using System.Threading;
+using System.Threading.Tasks;
+using Wolfgang.Etl.TestKit.Xunit;
+using Xunit;
+
+[Collection("Allocation")]   // serialize — the counter is process-wide
+public sealed class MyExtractorAllocationTests
+    : AllocationBudgetContractTests<MyExtractor>
+{
+    protected override MyExtractor CreateSut(int itemCount) => new MyExtractor(itemCount);
+
+    protected override async Task ExerciseHotPathAsync(CancellationToken ct)
+    {
+        await foreach (var _ in Sut.ExtractAsync(ct)) { }
+    }
+
+    // A record-materializing extractor declares its budget instead:
+    // protected override double MaxBytesPerItem => 48;
+}
+```
+
+`CreateSut(itemCount)` runs outside the measurement window (its cost is excluded); exercise the harness-supplied `Sut`. The test skips on frameworks without `GC.GetTotalAllocatedBytes` (net462 / netstandard2.0).
+
 ### xUnit add-on — contract-testing your own ETL types
 
 Derive your test class from the matching contract base and implement the abstract factory methods. You inherit the complete suite of `ExtractAsync` / `TransformAsync` / `LoadAsync` contract tests — all overloads, cancellation, progress, `SkipItemCount`, and `MaximumItemCount` — with zero boilerplate.
