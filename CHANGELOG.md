@@ -44,6 +44,13 @@ New opt-in contract-test bases. New public API only — no breaking change.
   serialized** (documented; a `[Collection("Allocation")]` example is provided). Skips on
   frameworks without the counter (net462 / netstandard2.0). (#245)
 
+### Changed
+
+- Built against `Wolfgang.Etl.Abstractions` 0.18.1 → **0.19.0**. 0.19.0 widens the
+  `EtlPipelineProgress` counters (`ExtractedItemCount` / `LoadedItemCount` / `ErrorItemCount`) from
+  `int` to `long` (overflow-safe for long-running pipelines); the test doubles and contract-test
+  bases are source-compatible and unchanged.
+
 ## [0.11.0] - 2026-07-26
 
 Adopts the `Wolfgang.Etl.Abstractions` 0.18.0 per-item **error hook** in the test doubles
