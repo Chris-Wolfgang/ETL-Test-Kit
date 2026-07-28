@@ -302,6 +302,53 @@ public sealed class MyExtractorAllocationTests
 
 `CreateSut(itemCount)` runs outside the measurement window (its cost is excluded); exercise the harness-supplied `Sut`. The test skips on frameworks without `GC.GetTotalAllocatedBytes` (net462 / netstandard2.0).
 
+### xUnit — verifying prompt cancellation
+
+Derive from `CancellationContractTests<TSut>` to verify a stage honours cancellation **promptly** — it stops shortly after the token is cancelled (rather than draining its source), throws `OperationCanceledException`, and processes nothing when handed an already-cancelled token. Pair it with a latent source such as the core-package `DelayingExtractor<T>` so a cancel interrupts an in-flight wait:
+
+```csharp
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Wolfgang.Etl.TestKit;
+using Wolfgang.Etl.TestKit.Xunit;
+
+public sealed class MyExtractorCancellationTests
+    : CancellationContractTests<DelayingExtractor<int>>
+{
+    protected override async Task<CancellationOutcome> RunAndCancelMidStreamAsync(int itemCount, int cancelAfter)
+    {
+        var sut = new DelayingExtractor<int>(Enumerable.Range(0, itemCount).ToArray(), TimeSpan.FromMilliseconds(5));
+        using var cts = new CancellationTokenSource();
+        var processed = 0; var canceled = false;
+        try
+        {
+            await foreach (var _ in sut.ExtractAsync(cts.Token))
+            {
+                if (++processed == cancelAfter) cts.Cancel();
+            }
+        }
+        catch (OperationCanceledException) { canceled = true; }
+        return new CancellationOutcome(canceled, processed);
+    }
+
+    protected override async Task<CancellationOutcome> RunWithPreCancelledTokenAsync(int itemCount)
+    {
+        var sut = new DelayingExtractor<int>(Enumerable.Range(0, itemCount).ToArray(), TimeSpan.FromMilliseconds(5));
+        var processed = 0; var canceled = false;
+        try
+        {
+            await foreach (var _ in sut.ExtractAsync(new CancellationToken(canceled: true))) processed++;
+        }
+        catch (OperationCanceledException) { canceled = true; }
+        return new CancellationOutcome(canceled, processed);
+    }
+}
+```
+
+The derived class owns and drives its stage (the base never receives the SUT, so no null-argument boilerplate); override `ItemCount` / `CancelAfter` / `PromptStopSlack` to tune. `DelayingExtractor<T>` waits a fixed `TimeSpan` — or a per-index `Func<int, TimeSpan>` — before each item, and honours `SkipItemCount` / `MaximumItemCount`.
+
 ### xUnit add-on — contract-testing your own ETL types
 
 Derive your test class from the matching contract base and implement the abstract factory methods. You inherit the complete suite of `ExtractAsync` / `TransformAsync` / `LoadAsync` contract tests — all overloads, cancellation, progress, `SkipItemCount`, and `MaximumItemCount` — with zero boilerplate.

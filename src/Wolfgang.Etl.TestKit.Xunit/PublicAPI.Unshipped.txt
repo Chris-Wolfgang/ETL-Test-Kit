@@ -8,3 +8,17 @@ abstract Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Exercise
 virtual Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Attempts.get -> int
 virtual Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.BaseItemCount.get -> int
 virtual Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.MaxBytesPerItem.get -> double
+Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>
+Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.CancellationContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.Mid_stream_cancellation_stops_promptly_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.Mid_stream_cancellation_throws_OperationCanceledException_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.Pre_cancelled_token_processes_nothing_and_throws_Async() -> System.Threading.Tasks.Task!
+abstract Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.RunAndCancelMidStreamAsync(int itemCount, int cancelAfter) -> System.Threading.Tasks.Task<Wolfgang.Etl.TestKit.Xunit.CancellationOutcome!>!
+abstract Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.RunWithPreCancelledTokenAsync(int itemCount) -> System.Threading.Tasks.Task<Wolfgang.Etl.TestKit.Xunit.CancellationOutcome!>!
+virtual Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.CancelAfter.get -> int
+virtual Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.ItemCount.get -> int
+virtual Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.PromptStopSlack.get -> int
+Wolfgang.Etl.TestKit.Xunit.CancellationOutcome
+Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.CancellationOutcome(bool canceled, int processedItemCount) -> void
+Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.Canceled.get -> bool
+Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.ProcessedItemCount.get -> int
