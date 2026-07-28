@@ -88,3 +88,22 @@ Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.LoadedItems.get -> System.Collections
 Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.Snapshot.get -> string!
 override Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
 override Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable<T>! items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.RetryingExtractor<T>
+Wolfgang.Etl.TestKit.RetryingExtractor<T>.RetryingExtractor(System.Collections.Generic.IEnumerable<T>! items, int failFirstAttempts, int maxAttempts) -> void
+Wolfgang.Etl.TestKit.RetryingExtractor<T>.AttemptCount.get -> int
+override Wolfgang.Etl.TestKit.RetryingExtractor<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
+override Wolfgang.Etl.TestKit.RetryingExtractor<T>.ExtractWorkerAsync(System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>!
+override Wolfgang.Etl.TestKit.RetryingExtractor<T>.WrapWorkerExecution(System.Func<System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<T>!>! workerFactory, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>!
+Wolfgang.Etl.TestKit.ManualTimeSource
+Wolfgang.Etl.TestKit.ManualTimeSource.ManualTimeSource() -> void
+Wolfgang.Etl.TestKit.ManualTimeSource.ManualTimeSource(System.DateTimeOffset start) -> void
+Wolfgang.Etl.TestKit.ManualTimeSource.Advance(System.TimeSpan delta) -> void
+Wolfgang.Etl.TestKit.TimeSourceExtensions
+static Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource<TSource, TProgress>(this Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>! extractor, Wolfgang.Etl.TestKit.ManualTimeSource! timeSource) -> Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>!
+static Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource<TDestination, TProgress>(this Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>! loader, Wolfgang.Etl.TestKit.ManualTimeSource! timeSource) -> Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>!
+static Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource<TSource, TDestination, TProgress>(this Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>! transformer, Wolfgang.Etl.TestKit.ManualTimeSource! timeSource) -> Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>!
+Wolfgang.Etl.TestKit.RecordingMiddleware<T>
+Wolfgang.Etl.TestKit.RecordingMiddleware<T>.RecordingMiddleware() -> void
+Wolfgang.Etl.TestKit.RecordingMiddleware<T>.RecordingMiddleware(System.Func<T, Wolfgang.Etl.Abstractions.MiddlewareResult<T>>! policy) -> void
+Wolfgang.Etl.TestKit.RecordingMiddleware<T>.Observed.get -> System.Collections.Generic.IReadOnlyList<T>!
+Wolfgang.Etl.TestKit.RecordingMiddleware<T>.OnItemAsync(T item, System.Threading.CancellationToken token) -> System.Threading.Tasks.ValueTask<Wolfgang.Etl.Abstractions.MiddlewareResult<T>>
