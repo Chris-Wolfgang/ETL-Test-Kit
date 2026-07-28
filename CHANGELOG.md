@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Built against `Wolfgang.Etl.Abstractions` 0.19.0 → **0.20.0** (adds the `WrapWorkerExecution` retry
+  seam, composable `IItemMiddleware<T>` middleware, aggregate per-item error reporting, and the
+  `ITimeSource` clock seam that this cycle's new test surface builds on).
+
 ### Deprecated
 
 ### Removed
