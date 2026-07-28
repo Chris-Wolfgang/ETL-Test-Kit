@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `EtlPipelineContractTests<TItem, TProgress>` — an opt-in xUnit contract-test base that composes a
+  source and a loader sink into the `Wolfgang.Etl.Abstractions` 0.16 `EtlPipeline`
+  (`EtlPipeline.Create().From(...).To(...).RunAsync()`) and verifies the run delivers every source
+  item and reports each record as extracted and loaded via `EtlPipelineProgress`. The derived test
+  supplies `CreateSourceItems()`, `CreateSink()`, and `GetLoadedItems()`; the harness-managed `Sink`
+  property carries the composed loader so the read-back needs no null-argument validation (#256).
 - `SnapshotTestLoader<T>` — a capture-only loader double that records every item a pipeline loads and
   renders them as a single deterministic, diff-friendly `Snapshot` string (one formatted line per
   item, joined by `\n`) plus a `LoadedItems` list. Designed to hand off to an approval / snapshot
@@ -43,6 +49,15 @@ New opt-in contract-test bases. New public API only — no breaking change.
   count. Uses the process-wide `GC.GetTotalAllocatedBytes`, so derived tests **must be
   serialized** (documented; a `[Collection("Allocation")]` example is provided). Skips on
   frameworks without the counter (net462 / netstandard2.0). (#245)
+- `DelayingExtractor<T>` — an extractor double that waits a configurable delay (a fixed `TimeSpan` or
+  a per-index `Func<int, TimeSpan>`) before yielding each item, simulating a latent / backpressured
+  source. The delay is awaited with `Task.Delay(..., token)`, so a cancel interrupts the wait and the
+  extractor stops promptly. Honours `SkipItemCount` / `MaximumItemCount`. (#264)
+- `CancellationContractTests<TSut>` + `CancellationOutcome` — an opt-in xUnit contract-test base that
+  verifies a stage cancels *promptly*: a mid-stream cancel stops within `PromptStopSlack` items (not a
+  full drain) and throws `OperationCanceledException`, and an already-cancelled token processes nothing.
+  The derived class drives its own stage and reports a `CancellationOutcome` (no SUT is passed to the
+  override). (#264)
 
 ### Changed
 
