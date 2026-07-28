@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Kit self-tests covering the Abstractions 0.20 `IReportsItemErrors` aggregation — an `EtlPipeline`
+  sums each stage's `CurrentErrorItemCount` into `EtlPipelineProgress.ErrorItemCount`, verified with the
+  `Faulty*` doubles skipping a fault in the extractor, transformer, and loader. (Abstractions #335)
 - `RecordingMiddleware<T>` — a test `IItemMiddleware<T>` (Abstractions 0.20) that records every item it
   is handed (`Observed`) and, by default, keeps each one flowing; supply a `Func<T, MiddlewareResult<T>>`
   policy to transform or drop items. Apply it with the `WithMiddleware(...)` extension to assert exactly
