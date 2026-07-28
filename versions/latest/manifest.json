@@ -106,6 +106,48 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests-1.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for the disposability guarantees the ETL\nbase classes gained in <code>Wolfgang.Etl.Abstractions</code> 0.14.0 (<xref href=\"System.IDisposable\" data-throw-if-not-resolved=\"false\"></xref> /\n<xref href=\"System.IAsyncDisposable\" data-throw-if-not-resolved=\"false\"></xref>) and 0.17.0 (using a disposed stage throws\n<xref href=\"System.ObjectDisposedException\" data-throw-if-not-resolved=\"false\"></xref>).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests-1.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for a stage that opts into the\nper-item error hook introduced in <code>Wolfgang.Etl.Abstractions</code> 0.18.0\n(<code>OnItemError</code> / <code>HandleItemError</code> / <code>CurrentErrorItemCount</code>,\n<xref href=\"Wolfgang.Etl.Abstractions.ItemErrorAction\" data-throw-if-not-resolved=\"false\"></xref>, <xref href=\"Wolfgang.Etl.Abstractions.ItemErrorContext\" data-throw-if-not-resolved=\"false\"></xref>).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.yml\" sourcestartlinenumber=\"1\">The observable outcome of running a stage over a scenario containing exactly one failing\nitem, used by <xref href=\"Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests-2.yml",
       "output": {
         ".html": {
