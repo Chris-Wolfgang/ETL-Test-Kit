@@ -353,15 +353,11 @@ public class FaultyExtractor<T> : ExtractorBase<T, Report>
 
     /// <inheritdoc/>
     protected override Report CreateProgressReport() =>
-        new(CurrentItemCount)
-        {
-            StartedAt = StartedAt,
-            Elapsed = Elapsed,
-
-            // When the source is a materialized collection its size is a cheap, known
-            // total, so PercentComplete / EstimatedRemaining can be computed.
-            TotalItemCount = (_items as ICollection<T>)?.Count,
-        };
+        // When the source is a materialized collection its size is a cheap, known total, so
+        // PercentComplete / EstimatedRemaining can be computed. The timing constructor
+        // (Abstractions 0.18.1) sets these via plain parameters, avoiding the init-setter
+        // cross-assembly modreq mismatch that broke netstandard2.0 consumers on .NET 6/7.
+        new(CurrentItemCount, StartedAt, Elapsed, (_items as ICollection<T>)?.Count);
 
 
 

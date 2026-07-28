@@ -192,7 +192,7 @@ public class TestLoader<T> : LoaderBase<T, Report>, ISupportDryRun
 
     /// <inheritdoc/>
     protected override Report CreateProgressReport() =>
-        new(CurrentItemCount) { StartedAt = StartedAt, Elapsed = Elapsed };
+        new(CurrentItemCount, StartedAt, Elapsed);
 
 
 
