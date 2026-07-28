@@ -371,6 +371,37 @@ public sealed class MyLoaderPipelineTests
 }
 ```
 
+### xUnit — verifying retry / resilience
+
+Derive from `CancellationContractTests<TSut>`'s sibling `RetryContractTests<TSut>` to verify a stage whose `Wolfgang.Etl.Abstractions` 0.20 `WrapWorkerExecution` override adds a retry strategy: a transient fault that clears within the retry budget completes the run, and a fault that never clears fails after the maximum number of attempts (no infinite loop). The core package ships `RetryingExtractor<T>` — a ready-made component that fails its first `failFirstAttempts` worker invocations then succeeds, retrying up to `maxAttempts` — which your override can drive:
+
+```csharp
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Wolfgang.Etl.TestKit;
+using Wolfgang.Etl.TestKit.Xunit;
+
+public sealed class MyRetryTests : RetryContractTests<RetryingExtractor<int>>
+{
+    protected override Task<RetryOutcome> RunWithTransientFaultAsync(int failFirstAttempts, int maxAttempts) =>
+        Drive(new RetryingExtractor<int>(Enumerable.Range(0, 5).ToArray(), failFirstAttempts, maxAttempts));
+
+    protected override Task<RetryOutcome> RunWithPermanentFaultAsync(int maxAttempts) =>
+        Drive(new RetryingExtractor<int>(Enumerable.Range(0, 5).ToArray(), failFirstAttempts: maxAttempts, maxAttempts: maxAttempts));
+
+    static async Task<RetryOutcome> Drive(RetryingExtractor<int> sut)
+    {
+        var items = 0; var ok = false;
+        try { await foreach (var _ in sut.ExtractAsync(CancellationToken.None)) items++; ok = true; }
+        catch (System.InvalidOperationException) { ok = false; }
+        return new RetryOutcome(ok, sut.AttemptCount, items);
+    }
+}
+```
+
+`RetryingExtractor<T>` also serves as a worked example of building stream-level retry on the `WrapWorkerExecution` seam (each retry re-invokes the worker for a fresh stream).
+
 ### xUnit add-on — contract-testing your own ETL types
 
 Derive your test class from the matching contract base and implement the abstract factory methods. You inherit the complete suite of `ExtractAsync` / `TransformAsync` / `LoadAsync` contract tests — all overloads, cancellation, progress, `SkipItemCount`, and `MaximumItemCount` — with zero boilerplate.
