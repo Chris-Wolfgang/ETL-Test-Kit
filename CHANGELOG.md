@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `EtlPipelineContractTests<TItem, TProgress>` — an opt-in xUnit contract-test base that composes a
+  source and a loader sink into the `Wolfgang.Etl.Abstractions` 0.16 `EtlPipeline`
+  (`EtlPipeline.Create().From(...).To(...).RunAsync()`) and verifies the run delivers every source
+  item and reports each record as extracted and loaded via `EtlPipelineProgress`. The derived test
+  supplies `CreateSourceItems()`, `CreateSink()`, and `GetLoadedItems()`; the harness-managed `Sink`
+  property carries the composed loader so the read-back needs no null-argument validation (#256).
+
 ### Changed
 
 ### Deprecated
