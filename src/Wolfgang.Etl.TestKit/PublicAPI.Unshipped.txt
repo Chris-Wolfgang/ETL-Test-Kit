@@ -1,1 +1,8 @@
 #nullable enable
+Wolfgang.Etl.TestKit.SnapshotTestLoader<T>
+Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.SnapshotTestLoader() -> void
+Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.SnapshotTestLoader(System.Func<T, string!>! formatter) -> void
+Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.LoadedItems.get -> System.Collections.Generic.IReadOnlyList<T>!
+Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.Snapshot.get -> string!
+override Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
+override Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable<T>! items, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task!

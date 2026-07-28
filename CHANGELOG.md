@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `SnapshotTestLoader<T>` — a capture-only loader double that records every item a pipeline loads and
+  renders them as a single deterministic, diff-friendly `Snapshot` string (one formatted line per
+  item, joined by `\n`) plus a `LoadedItems` list. Designed to hand off to an approval / snapshot
+  framework such as [Verify](https://github.com/VerifyTests/Verify): it does no file I/O and takes
+  **no dependency on any snapshot framework**, so referencing `Wolfgang.Etl.TestKit` never pulls one
+  in. The default constructor formats each item with `ToString()` (diff-friendly for `record` types);
+  a `Func<T, string>` constructor lets you project the fields under test and scrub non-deterministic
+  values (timestamps, GUIDs, auto-increment IDs). `SkipItemCount` / `MaximumItemCount` bound the
+  capture. README documents the fleet snapshot convention (dedicated single-TFM `*.Tests.Snapshot`
+  project, `Verify.Xunit`, `.verified.txt` golden files under `Snapshots/`). (#11, closes #129)
+
 ### Changed
 
 ### Deprecated
@@ -18,6 +29,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Security
+
+## [0.12.0] - Unreleased
+
+New opt-in contract-test bases. New public API only — no breaking change.
+
+### Added
+
+- `AllocationBudgetContractTests<TSut>` — an opt-in xUnit contract-test base that asserts a
+  repeatable operation's hot path stays within a declared per-item allocation budget
+  (`MaxBytesPerItem`, default 0 = allocation-free). Measures the *marginal* allocation
+  (`(alloc(10N) - alloc(N)) / 9N`), GC-settled and min-of-attempts, so one-time setup does not
+  count. Uses the process-wide `GC.GetTotalAllocatedBytes`, so derived tests **must be
+  serialized** (documented; a `[Collection("Allocation")]` example is provided). Skips on
+  frameworks without the counter (net462 / netstandard2.0). (#245)
 
 ## [0.11.0] - 2026-07-26
 

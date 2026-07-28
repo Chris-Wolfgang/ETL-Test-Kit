@@ -161,6 +161,29 @@ var picky = new FaultyExtractor<string>(source)
 // holds the ItemErrorContext for the discarded item.
 ```
 
+### Core — snapshot / approval testing with `SnapshotTestLoader<T>`
+
+`SnapshotTestLoader<T>` captures every item your pipeline loads and renders them as a single, deterministic, diff-friendly `Snapshot` string — ready to hand to an approval / snapshot framework such as [Verify](https://github.com/VerifyTests/Verify). Instead of writing per-field assertions for every record, you lock in the whole output and let the framework flag any drift.
+
+It is deliberately **capture-only**: no file I/O, and **no dependency on any snapshot framework**, so referencing `Wolfgang.Etl.TestKit` never pulls one in. The framework (in your own snapshot test project) owns the golden `.verified.txt` file, the diff, and the approval workflow; the loader only produces the content to lock in.
+
+```csharp
+using Wolfgang.Etl.TestKit;
+using VerifyXunit;      // in your snapshot test project only
+
+// Project only the fields under test and scrub non-deterministic values
+// (timestamps, GUIDs, auto-increment IDs) so the snapshot stays stable:
+var loader = new SnapshotTestLoader<OrderRecord>(o => $"<id>|{o.Customer}|{o.Total:0.00}");
+
+await loader.LoadAsync(pipeline.ExtractAsync());
+
+await Verify(loader.Snapshot);   // Verify owns the .verified.txt golden file + diff
+```
+
+`Snapshot` is one formatted line per item joined by `\n` (a fixed line feed, not `Environment.NewLine`, so snapshots are stable across operating systems). The default constructor formats each item with its `ToString()` — diff-friendly for `record` types — and `LoadedItems` exposes the raw captured items. `SkipItemCount` / `MaximumItemCount` bound what is captured; each `LoadAsync` clears the buffer first.
+
+**The fleet convention** (see ETL-FixedWidth, ETL-DbClient, ETL-Json): put snapshot tests in a **dedicated `*.Tests.Snapshot` project targeting a single modern TFM** (e.g. `net10.0` — Verify needs net6+ and the output is TFM-agnostic, which keeps snapshot filenames stable), reference `Verify.Xunit`, commit the `.verified.txt` golden files under `Snapshots/`, and gitignore the `.received.txt` files written during local iteration.
+
 ### xUnit — capturing and asserting on progress
 
 `ProgressCapture<T>` is an `IProgress<T>` that records every report; pass it straight to any progress-aware overload, then assert with `ProgressAssert`:
@@ -250,6 +273,34 @@ public sealed class MyExtractorDisposableTests
     }
 }
 ```
+
+### xUnit — guarding an allocation budget
+
+Derive from `AllocationBudgetContractTests<TSut>` to lock in that your stage's hot path stays allocation-free (or within a declared per-item budget). The harness measures the *marginal* allocation per item — `(alloc(10N) − alloc(N)) / 9N` — so one-time setup cancels out. Because it reads the process-wide GC counter, put derived tests in a serialized collection:
+
+```csharp
+using System.Threading;
+using System.Threading.Tasks;
+using Wolfgang.Etl.TestKit.Xunit;
+using Xunit;
+
+[Collection("Allocation")]   // serialize — the counter is process-wide
+public sealed class MyExtractorAllocationTests
+    : AllocationBudgetContractTests<MyExtractor>
+{
+    protected override MyExtractor CreateSut(int itemCount) => new MyExtractor(itemCount);
+
+    protected override async Task ExerciseHotPathAsync(CancellationToken ct)
+    {
+        await foreach (var _ in Sut.ExtractAsync(ct)) { }
+    }
+
+    // A record-materializing extractor declares its budget instead:
+    // protected override double MaxBytesPerItem => 48;
+}
+```
+
+`CreateSut(itemCount)` runs outside the measurement window (its cost is excluded); exercise the harness-supplied `Sut`. The test skips on frameworks without `GC.GetTotalAllocatedBytes` (net462 / netstandard2.0).
 
 ### xUnit add-on — contract-testing your own ETL types
 
