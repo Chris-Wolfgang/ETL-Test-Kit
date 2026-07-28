@@ -1,4 +1,9 @@
 #nullable enable
+Wolfgang.Etl.TestKit.DelayingExtractor<T>
+Wolfgang.Etl.TestKit.DelayingExtractor<T>.DelayingExtractor(System.Collections.Generic.IEnumerable<T>! items, System.Func<int, System.TimeSpan>! delaySelector) -> void
+Wolfgang.Etl.TestKit.DelayingExtractor<T>.DelayingExtractor(System.Collections.Generic.IEnumerable<T>! items, System.TimeSpan delay) -> void
+override Wolfgang.Etl.TestKit.DelayingExtractor<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
+override Wolfgang.Etl.TestKit.DelayingExtractor<T>.ExtractWorkerAsync(System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>!
 Wolfgang.Etl.TestKit.SnapshotTestLoader<T>
 Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.SnapshotTestLoader() -> void
 Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.SnapshotTestLoader(System.Func<T, string!>! formatter) -> void
