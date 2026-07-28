@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Wolfgang.Etl.Abstractions;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Sample;
@@ -57,5 +58,50 @@ public sealed class PipelineWithDoublesExample
 
         Assert.Equal("sensor dropped out", ex.Message);
         Assert.Equal(2, seen.Count); // two readings surfaced before the failure
+    }
+
+    [Fact]
+    public async Task Compose_extract_transform_load_with_EtlPipeline()
+    {
+        var readings = SampleReadings(3).ToList();
+
+        // Compose the doubles with the Abstractions 0.16 fluent pipeline: a source
+        // (TestExtractor), a stage (TestTransformer, pass-through here), and a sink
+        // (TestLoader) that captures the result for the assertion.
+        using var extractor   = new TestExtractor<TemperatureReading>(readings);
+        using var transformer = new TestTransformer<TemperatureReading>();
+        using var loader      = new TestLoader<TemperatureReading>(collectItems: true);
+
+        await EtlPipeline
+            .Create()
+            .From(extractor)
+            .Through(transformer)
+            .To(loader)
+            .RunAsync();
+
+        Assert.Equal(readings, loader.GetCollectedItems());
+    }
+
+    [Fact]
+    public async Task Skip_bad_items_in_a_pipeline_with_the_error_hook()
+    {
+        // A Faulty* double with SkipErrors() exercises the Abstractions 0.18 error hook
+        // inside a real pipeline: the bad item is discarded and counted as an error,
+        // and the run completes, so the loader still receives the survivors.
+        using var extractor   = new TestExtractor<TemperatureReading>(SampleReadings(5));
+        using var transformer = new FaultyTransformer<TemperatureReading>()
+            .ThrowAt(2, new InvalidOperationException("bad reading"))
+            .SkipErrors();
+        using var loader      = new TestLoader<TemperatureReading>(collectItems: true);
+
+        await EtlPipeline
+            .Create()
+            .From(extractor)
+            .Through(transformer)
+            .To(loader)
+            .RunAsync();
+
+        Assert.Equal(4, loader.GetCollectedItems()!.Count); // one bad reading skipped
+        Assert.Equal(1, transformer.CurrentErrorItemCount);
     }
 }

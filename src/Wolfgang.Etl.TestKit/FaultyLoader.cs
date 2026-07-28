@@ -55,6 +55,8 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
     private readonly Dictionary<int, Exception> _throwAt = new Dictionary<int, Exception>();
     private readonly HashSet<int> _duplicateAt = new HashSet<int>();
     private Exception? _throwAfterCompletion;
+    private Func<ItemErrorContext, ItemErrorAction>? _onItemErrorPolicy;
+    private readonly List<ItemErrorContext> _capturedErrors = new List<ItemErrorContext>();
     private readonly IProgressTimer? _progressTimer;
     private bool _progressTimerWired;
     private Action? _elapsedHandler;
@@ -220,8 +222,104 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
 
 
     // ------------------------------------------------------------------
+    // Error-hook configuration (Abstractions 0.18.0)
+    // ------------------------------------------------------------------
+
+    /// <summary>
+    /// Configures the loader to route every injected <see cref="ThrowAt"/> fault through the
+    /// base <see cref="LoaderBase{TDestination,TProgress}.HandleItemError"/> hook with a policy
+    /// of <see cref="ItemErrorAction.Skip"/>, so the failing item is discarded and counted as
+    /// an error (<see cref="LoaderBase{TDestination,TProgress}.CurrentErrorItemCount"/>) rather
+    /// than propagating. Use this to exercise a resumable stage's skip-and-continue path.
+    /// </summary>
+    /// <returns>The same <see cref="FaultyLoader{T}"/> instance, to allow chaining.</returns>
+    /// <remarks>
+    /// Without an error policy an injected fault propagates (fail-fast), preserving the
+    /// default behaviour. The failing item is neither stored nor counted as loaded, and its
+    /// <see cref="ItemErrorContext"/> is recorded in <see cref="CapturedErrors"/>.
+    /// </remarks>
+    public FaultyLoader<T> SkipErrors()
+    {
+        _onItemErrorPolicy = _ => ItemErrorAction.Skip;
+
+        return this;
+    }
+
+
+
+    /// <summary>
+    /// Configures a custom per-item error policy. When an injected <see cref="ThrowAt"/> fault
+    /// fires, <paramref name="policy"/> is invoked with the failing item's
+    /// <see cref="ItemErrorContext"/> and decides whether to
+    /// <see cref="ItemErrorAction.Skip"/> the item (counting it as an error and continuing) or
+    /// <see cref="ItemErrorAction.Abort"/> the run (re-throwing).
+    /// </summary>
+    /// <param name="policy">The policy invoked for each failed item.</param>
+    /// <returns>The same <see cref="FaultyLoader{T}"/> instance, to allow chaining.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="policy"/> is <see langword="null"/>.
+    /// </exception>
+    public FaultyLoader<T> HandleErrorsWith(Func<ItemErrorContext, ItemErrorAction> policy)
+    {
+        _onItemErrorPolicy = policy ?? throw new ArgumentNullException(nameof(policy));
+
+        return this;
+    }
+
+
+
+    /// <summary>
+    /// The <see cref="ItemErrorContext"/> for every item whose injected fault was routed
+    /// through the error hook, in the order they occurred. Empty when no error policy is
+    /// configured (faults propagate) or when no fault has fired.
+    /// </summary>
+    public IReadOnlyList<ItemErrorContext> CapturedErrors => _capturedErrors.ToArray();
+
+
+
+    // ------------------------------------------------------------------
     // LoaderBase overrides
     // ------------------------------------------------------------------
+
+    /// <summary>
+    /// Records the failed item and applies the configured error policy. Invoked by the base
+    /// <see cref="LoaderBase{TDestination,TProgress}.HandleItemError"/> when a fault is routed
+    /// through the hook; falls back to the base (<see cref="ItemErrorAction.Abort"/>) when no
+    /// policy is configured.
+    /// </summary>
+    /// <param name="context">Describes the failed item.</param>
+    /// <returns>The action to take for the failed item.</returns>
+    protected override ItemErrorAction OnItemError(ItemErrorContext context)
+    {
+        _capturedErrors.Add(context);
+
+        return _onItemErrorPolicy is not null
+            ? _onItemErrorPolicy(context)
+            : base.OnItemError(context);
+    }
+
+
+
+    // Applies the configured error policy to an injected fault. Returns true when the
+    // failing item should be skipped — routed through the base HandleItemError hook,
+    // which counts it as an error (not a loaded item). Throws to abort the run, or,
+    // when no policy is configured, to preserve fail-fast behaviour (counting the
+    // failing item first, matching the ThrowAt contract).
+    private bool HandleInjectedFault(int index, Exception exception)
+    {
+        if (_onItemErrorPolicy is not null)
+        {
+            if (HandleItemError(new ItemErrorContext(index + 1, exception)) == ItemErrorAction.Skip)
+            {
+                return true;
+            }
+
+            throw exception;
+        }
+
+        IncrementCurrentItemCount();
+        throw exception;
+    }
 
     /// <inheritdoc/>
     protected override IProgressTimer CreateProgressTimer(IProgress<Report> progress)
@@ -265,7 +363,8 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
 
 
     /// <inheritdoc/>
-    protected override Report CreateProgressReport() => new(CurrentItemCount);
+    protected override Report CreateProgressReport() =>
+        new(CurrentItemCount, StartedAt, Elapsed);
 
 
 
@@ -299,12 +398,14 @@ public class FaultyLoader<T> : LoaderBase<T, Report>
                     break;
                 }
 
-                IncrementCurrentItemCount();
-
-                if (_throwAt.TryGetValue(index, out var exception))
+                if (_throwAt.TryGetValue(index, out var exception)
+                    && HandleInjectedFault(index, exception))
                 {
-                    throw exception;
+                    index++;
+                    continue;
                 }
+
+                IncrementCurrentItemCount();
 
                 if (_collectItems)
                 {

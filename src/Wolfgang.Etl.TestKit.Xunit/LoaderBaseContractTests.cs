@@ -835,4 +835,131 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
         Assert.Equal(expected.Count - 1, sut.CurrentItemCount);
         Assert.Equal(1, sut.CurrentSkippedItemCount);
     }
+
+    /// <summary>
+    /// Verifies that <c>CurrentItemCount</c> is zero on a freshly created loader, before any load
+    /// has run.
+    /// </summary>
+    [Fact]
+    public void CurrentItemCount_defaults_to_zero()
+    {
+        var sut = CreateSut();
+
+        Assert.Equal(0, sut.CurrentItemCount);
+    }
+
+    /// <summary>
+    /// Verifies that <c>CurrentSkippedItemCount</c> is zero on a freshly created loader, before any
+    /// load has run.
+    /// </summary>
+    [Fact]
+    public void CurrentSkippedItemCount_defaults_to_zero()
+    {
+        var sut = CreateSut();
+
+        Assert.Equal(0, sut.CurrentSkippedItemCount);
+    }
+
+    /// <summary>
+    /// Verifies that <c>CurrentSkippedItemCount</c> reflects the exact number of items skipped by
+    /// <c>SkipItemCount</c> after a run.
+    /// </summary>
+    [Fact]
+    public async Task LoadAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async()
+    {
+        var sut = CreateSut();
+        var expected = CreateSourceItems();
+        Assert.True(expected.Count >= 3, "CreateSourceItems() must return at least 3 items.");
+
+        sut.SkipItemCount = 2;
+
+        await sut.LoadAsync(CreateInputItemsAsync()).ConfigureAwait(false);
+
+        Assert.Equal(2, sut.CurrentSkippedItemCount);
+    }
+
+    /// <summary>
+    /// Verifies that <c>CurrentErrorItemCount</c> is zero on a freshly created loader, before any
+    /// item has failed (Abstractions 0.18.0 error hook).
+    /// </summary>
+    [Fact]
+    public void CurrentErrorItemCount_defaults_to_zero()
+    {
+        var sut = CreateSut();
+
+        Assert.Equal(0, sut.CurrentErrorItemCount);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // No over-read (issue #49)
+    // ------------------------------------------------------------------
+
+    /// <summary>
+    /// Verifies that once <c>MaximumItemCount</c> is reached the loader stops pulling from its
+    /// source rather than draining it — at most M+1 reads (the +1 discovers the limit).
+    /// </summary>
+    [Fact]
+    public async Task LoadAsync_does_not_over_read_past_MaximumItemCount_Async()
+    {
+        var sut = CreateSut();
+        sut.MaximumItemCount = 3;
+        var counter = new PullCounter();
+
+        await sut.LoadAsync(counter.CountAsync(CreateInputItemsAsync())).ConfigureAwait(false);
+
+        Assert.True(counter.Count <= 4, $"Expected at most 4 upstream reads, saw {counter.Count}.");
+    }
+
+    // Cancel() runs synchronously to cancel mid-enumeration; CancelAsync is net8.0+ only and
+    // this base targets net462+.
+#pragma warning disable CA1849, VSTHRD103
+    /// <summary>
+    /// Verifies that cancelling mid-run stops the loader pulling from its source at the next
+    /// check, rather than draining the already-available items.
+    /// </summary>
+    [Fact]
+    public async Task LoadAsync_stops_reading_on_cancellation_Async()
+    {
+        var sut = CreateSut();
+        using var cts = new CancellationTokenSource();
+        var counter = new PullCounter();
+        var source = counter.CountAsync
+        (
+            CreateInputItemsAsync(),
+            onPull: () => { if (counter.Count == 3) { cts.Cancel(); } },
+            token: cts.Token
+        );
+
+        try
+        {
+            await sut.LoadAsync(source, cts.Token).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+        }
+
+        Assert.True(counter.Count <= 4, $"Expected at most 4 upstream reads, saw {counter.Count}.");
+    }
+#pragma warning restore CA1849, VSTHRD103
+
+    /// <summary>
+    /// Verifies that a pre-cancelled token short-circuits the loader before it pulls any item
+    /// from its source.
+    /// </summary>
+    [Fact]
+    public async Task LoadAsync_with_a_pre_cancelled_token_reads_nothing_Async()
+    {
+        var sut = CreateSut();
+        var token = new CancellationToken(canceled: true);
+        var counter = new PullCounter();
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>
+        (
+            () => sut.LoadAsync(counter.CountAsync(CreateInputItemsAsync(), token: token), token)
+        ).ConfigureAwait(false);
+
+        Assert.Equal(0, counter.Count);
+    }
 }

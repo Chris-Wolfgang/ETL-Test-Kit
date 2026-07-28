@@ -870,4 +870,134 @@ public abstract class TransformerBaseContractTests<TSut, TItem, TProgress>
         Assert.Equal(expected.Count - 1, actual.Count);
         Assert.Equal(expected.Skip(1).ToList(), actual);
     }
+
+    /// <summary>
+    /// Verifies that <c>CurrentItemCount</c> is zero on a freshly created transformer, before any
+    /// transformation has run.
+    /// </summary>
+    [Fact]
+    public void CurrentItemCount_defaults_to_zero()
+    {
+        var sut = CreateSut();
+
+        Assert.Equal(0, sut.CurrentItemCount);
+    }
+
+    /// <summary>
+    /// Verifies that <c>CurrentSkippedItemCount</c> is zero on a freshly created transformer,
+    /// before any transformation has run.
+    /// </summary>
+    [Fact]
+    public void CurrentSkippedItemCount_defaults_to_zero()
+    {
+        var sut = CreateSut();
+
+        Assert.Equal(0, sut.CurrentSkippedItemCount);
+    }
+
+    /// <summary>
+    /// Verifies that <c>CurrentSkippedItemCount</c> reflects the exact number of items skipped by
+    /// <c>SkipItemCount</c> after a run.
+    /// </summary>
+    [Fact]
+    public async Task TransformAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async()
+    {
+        var sut = CreateSut();
+        var expected = CreateExpectedItems();
+        Assert.True(expected.Count >= 3, "CreateExpectedItems() must return at least 3 items.");
+
+        sut.SkipItemCount = 2;
+
+        await sut.TransformAsync(CreateInputItemsAsync()).ToListAsync().ConfigureAwait(false);
+
+        Assert.Equal(2, sut.CurrentSkippedItemCount);
+    }
+
+    /// <summary>
+    /// Verifies that <c>CurrentErrorItemCount</c> is zero on a freshly created transformer, before
+    /// any item has failed (Abstractions 0.18.0 error hook).
+    /// </summary>
+    [Fact]
+    public void CurrentErrorItemCount_defaults_to_zero()
+    {
+        var sut = CreateSut();
+
+        Assert.Equal(0, sut.CurrentErrorItemCount);
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // No over-read (issue #49)
+    // ------------------------------------------------------------------
+
+    /// <summary>
+    /// Verifies that once <c>MaximumItemCount</c> is reached the transformer stops pulling from
+    /// its source rather than draining it — at most M+1 reads (the +1 discovers the limit).
+    /// </summary>
+    [Fact]
+    public async Task TransformAsync_does_not_over_read_past_MaximumItemCount_Async()
+    {
+        var sut = CreateSut();
+        sut.MaximumItemCount = 3;
+        var counter = new PullCounter();
+
+        await sut.TransformAsync(counter.CountAsync(CreateInputItemsAsync())).ToListAsync().ConfigureAwait(false);
+
+        Assert.True(counter.Count <= 4, $"Expected at most 4 upstream reads, saw {counter.Count}.");
+    }
+
+    // Cancel() runs synchronously to cancel mid-enumeration; CancelAsync is net8.0+ only and
+    // this base targets net462+.
+#pragma warning disable CA1849, VSTHRD103
+    /// <summary>
+    /// Verifies that cancelling mid-run stops the transformer pulling from its source at the
+    /// next check, rather than draining the already-available items.
+    /// </summary>
+    [Fact]
+    public async Task TransformAsync_stops_reading_on_cancellation_Async()
+    {
+        var sut = CreateSut();
+        using var cts = new CancellationTokenSource();
+        var counter = new PullCounter();
+        var seen = 0;
+
+        try
+        {
+            var source = counter.CountAsync(CreateInputItemsAsync(), token: cts.Token);
+
+            await foreach (var _ in sut.TransformAsync(source, cts.Token).ConfigureAwait(false))
+            {
+                if (++seen == 3)
+                {
+                    cts.Cancel();
+                }
+            }
+        }
+        catch (OperationCanceledException)
+        {
+        }
+
+        Assert.True(counter.Count <= 4, $"Expected at most 4 upstream reads, saw {counter.Count}.");
+    }
+#pragma warning restore CA1849, VSTHRD103
+
+    /// <summary>
+    /// Verifies that a pre-cancelled token short-circuits the transformer before it pulls any
+    /// item from its source.
+    /// </summary>
+    [Fact]
+    public async Task TransformAsync_with_a_pre_cancelled_token_reads_nothing_Async()
+    {
+        var sut = CreateSut();
+        var token = new CancellationToken(canceled: true);
+        var counter = new PullCounter();
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>
+        (
+            () => sut.TransformAsync(counter.CountAsync(CreateInputItemsAsync(), token: token), token).ToListAsync(token).AsTask()
+        ).ConfigureAwait(false);
+
+        Assert.Equal(0, counter.Count);
+    }
 }

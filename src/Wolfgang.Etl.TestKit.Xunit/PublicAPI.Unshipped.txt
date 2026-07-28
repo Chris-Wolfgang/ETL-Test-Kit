@@ -1,10 +1,47 @@
 #nullable enable
-Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>
-Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.SupportsDryRunContractTests() -> void
-Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_back_to_false() -> void
-Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_can_be_set_to_true() -> void
-Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.IsDryRun_defaults_to_false() -> void
-Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.When_IsDryRun_is_false_side_effect_occurs_Async() -> System.Threading.Tasks.Task!
-Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.When_IsDryRun_is_true_side_effect_is_skipped_Async() -> System.Threading.Tasks.Task!
-abstract Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.CreateSut() -> TSut
-abstract Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests<TSut>.RunAndReportSideEffectAsync(bool isDryRun) -> System.Threading.Tasks.Task<bool>!
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.ErrorHandlingContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.Skip_policy_completes_the_run_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.Skip_policy_counts_the_failure_as_an_error_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.Skip_policy_does_not_count_the_failure_as_an_intentional_skip_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.Skip_policy_processes_the_surviving_items_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.Abort_policy_rethrows_and_aborts_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.Abort_policy_does_not_count_an_error_Async() -> System.Threading.Tasks.Task!
+abstract Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<TSut>.RunSingleFaultScenarioAsync(Wolfgang.Etl.Abstractions.ItemErrorAction policy) -> System.Threading.Tasks.Task<Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome!>!
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.ErrorHandlingOutcome(bool aborted, int itemCount, int errorItemCount, int skippedItemCount) -> void
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.Aborted.get -> bool
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.ItemCount.get -> int
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.ErrorItemCount.get -> int
+Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.SkippedItemCount.get -> int
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.DisposableStageContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.DisposeAsync_is_idempotent_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.Dispose_is_idempotent() -> void
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.Public_operation_after_DisposeAsync_throws_ObjectDisposedException_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.Public_operation_after_Dispose_throws_ObjectDisposedException_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.Public_operation_before_dispose_does_not_throw_ObjectDisposedException_Async() -> System.Threading.Tasks.Task!
+abstract Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.CreateSut() -> TSut!
+abstract Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<TSut>.InvokeReportsObjectDisposedAsync(bool disposeFirst, bool useAsyncDispose) -> System.Threading.Tasks.Task<bool>!
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CurrentItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CurrentSkippedItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CurrentItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CurrentSkippedItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CurrentItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CurrentSkippedItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_CurrentSkippedItemCount_reflects_the_number_of_items_skipped_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CurrentErrorItemCount_defaults_to_zero() -> void
+virtual Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSutOverSource(System.Collections.Generic.IEnumerable<TItem>! source) -> TSut?
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_does_not_over_read_past_MaximumItemCount_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_stops_reading_on_cancellation_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.ExtractAsync_with_a_pre_cancelled_token_reads_nothing_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CurrentErrorItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_does_not_over_read_past_MaximumItemCount_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_stops_reading_on_cancellation_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.LoadAsync_with_a_pre_cancelled_token_reads_nothing_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CurrentErrorItemCount_defaults_to_zero() -> void
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_does_not_over_read_past_MaximumItemCount_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_stops_reading_on_cancellation_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.TransformAsync_with_a_pre_cancelled_token_reads_nothing_Async() -> System.Threading.Tasks.Task!

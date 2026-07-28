@@ -62,3 +62,5 @@ override Wolfgang.Etl.TestKit.TestTransformer<T>.CreateProgressReport() -> Wolfg
 override Wolfgang.Etl.TestKit.TestTransformer<T>.CreateProgressTimer(System.IProgress<Wolfgang.Etl.Abstractions.Report> progress) -> Wolfgang.Etl.Abstractions.IProgressTimer
 override Wolfgang.Etl.TestKit.TestTransformer<T>.Dispose(bool disposing) -> void
 override Wolfgang.Etl.TestKit.TestTransformer<T>.TransformWorkerAsync(System.Collections.Generic.IAsyncEnumerable<T> items, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>
+Wolfgang.Etl.TestKit.TestLoader<T>.IsDryRun.get -> bool
+Wolfgang.Etl.TestKit.TestLoader<T>.IsDryRun.set -> void
