@@ -1,4 +1,13 @@
 #nullable enable
+Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>
+Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.AllocationBudgetContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Hot_path_stays_within_the_allocation_budget_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Sut.get -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.CreateSut(int itemCount) -> TSut
+abstract Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.ExerciseHotPathAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+virtual Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Attempts.get -> int
+virtual Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.BaseItemCount.get -> int
+virtual Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.MaxBytesPerItem.get -> double
 Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>
 Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.EtlPipelineContractTests() -> void
 Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Pipeline_delivers_all_source_items_to_the_sink_Async() -> System.Threading.Tasks.Task!

@@ -26,6 +26,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.12.0] - Unreleased
+
+New opt-in contract-test bases. New public API only — no breaking change.
+
+### Added
+
+- `AllocationBudgetContractTests<TSut>` — an opt-in xUnit contract-test base that asserts a
+  repeatable operation's hot path stays within a declared per-item allocation budget
+  (`MaxBytesPerItem`, default 0 = allocation-free). Measures the *marginal* allocation
+  (`(alloc(10N) - alloc(N)) / 9N`), GC-settled and min-of-attempts, so one-time setup does not
+  count. Uses the process-wide `GC.GetTotalAllocatedBytes`, so derived tests **must be
+  serialized** (documented; a `[Collection("Allocation")]` example is provided). Skips on
+  frameworks without the counter (net462 / netstandard2.0). (#245)
+
 ## [0.11.0] - 2026-07-26
 
 Adopts the `Wolfgang.Etl.Abstractions` 0.18.0 per-item **error hook** in the test doubles
