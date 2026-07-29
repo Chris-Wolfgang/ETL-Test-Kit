@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1785201596775,
+  "lastUpdate": 1785290178871,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Test-Kit",
   "entries": {
     "Mutation score": [
@@ -57,6 +57,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Mutation score",
             "value": 74.93,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f5ad3a5a3b01e6badbaf20becd1a2e53633dcdb4",
+          "message": "Merge pull request #275 from Chris-Wolfgang/vNext\n\nRelease 0.12.0",
+          "timestamp": "2026-07-28T21:49:45-04:00",
+          "tree_id": "62ec6a028c3cb0501c25f2073857cb1643957367",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Test-Kit/commit/f5ad3a5a3b01e6badbaf20becd1a2e53633dcdb4"
+        },
+        "date": 1785290176908,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "Mutation score",
+            "value": 74.68,
             "unit": "%"
           }
         ]
