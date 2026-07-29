@@ -161,6 +161,29 @@ var picky = new FaultyExtractor<string>(source)
 // holds the ItemErrorContext for the discarded item.
 ```
 
+### Core — snapshot / approval testing with `SnapshotTestLoader<T>`
+
+`SnapshotTestLoader<T>` captures every item your pipeline loads and renders them as a single, deterministic, diff-friendly `Snapshot` string — ready to hand to an approval / snapshot framework such as [Verify](https://github.com/VerifyTests/Verify). Instead of writing per-field assertions for every record, you lock in the whole output and let the framework flag any drift.
+
+It is deliberately **capture-only**: no file I/O, and **no dependency on any snapshot framework**, so referencing `Wolfgang.Etl.TestKit` never pulls one in. The framework (in your own snapshot test project) owns the golden `.verified.txt` file, the diff, and the approval workflow; the loader only produces the content to lock in.
+
+```csharp
+using Wolfgang.Etl.TestKit;
+using VerifyXunit;      // in your snapshot test project only
+
+// Project only the fields under test and scrub non-deterministic values
+// (timestamps, GUIDs, auto-increment IDs) so the snapshot stays stable:
+var loader = new SnapshotTestLoader<OrderRecord>(o => $"<id>|{o.Customer}|{o.Total:0.00}");
+
+await loader.LoadAsync(pipeline.ExtractAsync());
+
+await Verify(loader.Snapshot);   // Verify owns the .verified.txt golden file + diff
+```
+
+`Snapshot` is one formatted line per item joined by `\n` (a fixed line feed, not `Environment.NewLine`, so snapshots are stable across operating systems). The default constructor formats each item with its `ToString()` — diff-friendly for `record` types — and `LoadedItems` exposes the raw captured items. `SkipItemCount` / `MaximumItemCount` bound what is captured; each `LoadAsync` clears the buffer first.
+
+**The fleet convention** (see ETL-FixedWidth, ETL-DbClient, ETL-Json): put snapshot tests in a **dedicated `*.Tests.Snapshot` project targeting a single modern TFM** (e.g. `net10.0` — Verify needs net6+ and the output is TFM-agnostic, which keeps snapshot filenames stable), reference `Verify.Xunit`, commit the `.verified.txt` golden files under `Snapshots/`, and gitignore the `.received.txt` files written during local iteration.
+
 ### xUnit — capturing and asserting on progress
 
 `ProgressCapture<T>` is an `IProgress<T>` that records every report; pass it straight to any progress-aware overload, then assert with `ProgressAssert`:
@@ -248,6 +271,103 @@ public sealed class MyExtractorDisposableTests
         try { await foreach (var _ in sut.ExtractAsync()) { } return false; }
         catch (System.ObjectDisposedException) { return true; }
     }
+}
+```
+
+### xUnit — guarding an allocation budget
+
+Derive from `AllocationBudgetContractTests<TSut>` to lock in that your stage's hot path stays allocation-free (or within a declared per-item budget). The harness measures the *marginal* allocation per item — `(alloc(10N) − alloc(N)) / 9N` — so one-time setup cancels out. Because it reads the process-wide GC counter, put derived tests in a serialized collection:
+
+```csharp
+using System.Threading;
+using System.Threading.Tasks;
+using Wolfgang.Etl.TestKit.Xunit;
+using Xunit;
+
+[Collection("Allocation")]   // serialize — the counter is process-wide
+public sealed class MyExtractorAllocationTests
+    : AllocationBudgetContractTests<MyExtractor>
+{
+    protected override MyExtractor CreateSut(int itemCount) => new MyExtractor(itemCount);
+
+    protected override async Task ExerciseHotPathAsync(CancellationToken ct)
+    {
+        await foreach (var _ in Sut.ExtractAsync(ct)) { }
+    }
+
+    // A record-materializing extractor declares its budget instead:
+    // protected override double MaxBytesPerItem => 48;
+}
+```
+
+`CreateSut(itemCount)` runs outside the measurement window (its cost is excluded); exercise the harness-supplied `Sut`. The test skips on frameworks without `GC.GetTotalAllocatedBytes` (net462 / netstandard2.0).
+
+### xUnit — verifying prompt cancellation
+
+Derive from `CancellationContractTests<TSut>` to verify a stage honours cancellation **promptly** — it stops shortly after the token is cancelled (rather than draining its source), throws `OperationCanceledException`, and processes nothing when handed an already-cancelled token. Pair it with a latent source such as the core-package `DelayingExtractor<T>` so a cancel interrupts an in-flight wait:
+
+```csharp
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Wolfgang.Etl.TestKit;
+using Wolfgang.Etl.TestKit.Xunit;
+
+public sealed class MyExtractorCancellationTests
+    : CancellationContractTests<DelayingExtractor<int>>
+{
+    protected override async Task<CancellationOutcome> RunAndCancelMidStreamAsync(int itemCount, int cancelAfter)
+    {
+        var sut = new DelayingExtractor<int>(Enumerable.Range(0, itemCount).ToArray(), TimeSpan.FromMilliseconds(5));
+        using var cts = new CancellationTokenSource();
+        var processed = 0; var canceled = false;
+        try
+        {
+            await foreach (var _ in sut.ExtractAsync(cts.Token))
+            {
+                if (++processed == cancelAfter) cts.Cancel();
+            }
+        }
+        catch (OperationCanceledException) { canceled = true; }
+        return new CancellationOutcome(canceled, processed);
+    }
+
+    protected override async Task<CancellationOutcome> RunWithPreCancelledTokenAsync(int itemCount)
+    {
+        var sut = new DelayingExtractor<int>(Enumerable.Range(0, itemCount).ToArray(), TimeSpan.FromMilliseconds(5));
+        var processed = 0; var canceled = false;
+        try
+        {
+            await foreach (var _ in sut.ExtractAsync(new CancellationToken(canceled: true))) processed++;
+        }
+        catch (OperationCanceledException) { canceled = true; }
+        return new CancellationOutcome(canceled, processed);
+    }
+}
+```
+
+The derived class owns and drives its stage (the base never receives the SUT, so no null-argument boilerplate); override `ItemCount` / `CancelAfter` / `PromptStopSlack` to tune. `DelayingExtractor<T>` waits a fixed `TimeSpan` — or a per-index `Func<int, TimeSpan>` — before each item, and honours `SkipItemCount` / `MaximumItemCount`.
+
+### xUnit — verifying pipeline composition
+
+Derive from `EtlPipelineContractTests<TItem, TProgress>` to verify that your loader composes into the `Wolfgang.Etl.Abstractions` 0.16 `EtlPipeline` and runs end-to-end — every source item is delivered, and the `EtlPipelineProgress` counts each record as extracted and loaded. The harness composes and runs the pipeline; you supply the source data, the sink, and a read-back:
+
+```csharp
+using System.Collections.Generic;
+using Wolfgang.Etl.Abstractions;
+using Wolfgang.Etl.TestKit.Xunit;
+
+public sealed class MyLoaderPipelineTests
+    : EtlPipelineContractTests<MyRecord, MyProgress>
+{
+    protected override IReadOnlyList<MyRecord> CreateSourceItems() =>
+        new List<MyRecord> { new("a"), new("b"), new("c") };
+
+    protected override LoaderBase<MyRecord, MyProgress> CreateSink() => new MyLoader();
+
+    // Read back what the harness-composed `Sink` received, or return null to skip the delivery check.
+    protected override IReadOnlyList<MyRecord>? GetLoadedItems() => ((MyLoader)Sink).Written;
 }
 ```
 

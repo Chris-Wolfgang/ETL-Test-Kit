@@ -19,6 +19,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.12.0] - 2026-07-28
+
+New opt-in contract-test bases and test doubles, and a snapshot-capture loader. New public API only
+— no breaking change. Built against `Wolfgang.Etl.Abstractions` 0.19.0.
+
+### Added
+
+- `EtlPipelineContractTests<TItem, TProgress>` — an opt-in xUnit contract-test base that composes a
+  source and a loader sink into the `Wolfgang.Etl.Abstractions` 0.16 `EtlPipeline`
+  (`EtlPipeline.Create().From(...).To(...).RunAsync()`) and verifies the run delivers every source
+  item and reports each record as extracted and loaded via `EtlPipelineProgress`. The derived test
+  supplies `CreateSourceItems()`, `CreateSink()`, and `GetLoadedItems()`; the harness-managed `Sink`
+  property carries the composed loader so the read-back needs no null-argument validation (#256).
+- `SnapshotTestLoader<T>` — a capture-only loader double that records every item a pipeline loads and
+  renders them as a single deterministic, diff-friendly `Snapshot` string (one formatted line per
+  item, joined by `\n`) plus a `LoadedItems` list. Designed to hand off to an approval / snapshot
+  framework such as [Verify](https://github.com/VerifyTests/Verify): it does no file I/O and takes
+  **no dependency on any snapshot framework**, so referencing `Wolfgang.Etl.TestKit` never pulls one
+  in. The default constructor formats each item with `ToString()` (diff-friendly for `record` types);
+  a `Func<T, string>` constructor lets you project the fields under test and scrub non-deterministic
+  values (timestamps, GUIDs, auto-increment IDs). `SkipItemCount` / `MaximumItemCount` bound the
+  capture. README documents the fleet snapshot convention (dedicated single-TFM `*.Tests.Snapshot`
+  project, `Verify.Xunit`, `.verified.txt` golden files under `Snapshots/`). (#11, closes #129)
+- `AllocationBudgetContractTests<TSut>` — an opt-in xUnit contract-test base that asserts a
+  repeatable operation's hot path stays within a declared per-item allocation budget
+  (`MaxBytesPerItem`, default 0 = allocation-free). Measures the *marginal* allocation
+  (`(alloc(10N) - alloc(N)) / 9N`), GC-settled and min-of-attempts, so one-time setup does not
+  count. Uses the process-wide `GC.GetTotalAllocatedBytes`, so derived tests **must be
+  serialized** (documented; a `[Collection("Allocation")]` example is provided). Skips on
+  frameworks without the counter (net462 / netstandard2.0). (#245)
+- `DelayingExtractor<T>` — an extractor double that waits a configurable delay (a fixed `TimeSpan` or
+  a per-index `Func<int, TimeSpan>`) before yielding each item, simulating a latent / backpressured
+  source. The delay is awaited with `Task.Delay(..., token)`, so a cancel interrupts the wait and the
+  extractor stops promptly. Honours `SkipItemCount` / `MaximumItemCount`. (#264)
+- `CancellationContractTests<TSut>` + `CancellationOutcome` — an opt-in xUnit contract-test base that
+  verifies a stage cancels *promptly*: a mid-stream cancel stops within `PromptStopSlack` items (not a
+  full drain) and throws `OperationCanceledException`, and an already-cancelled token processes nothing.
+  The derived class drives its own stage and reports a `CancellationOutcome` (no SUT is passed to the
+  override). (#264)
+
+### Changed
+
+- Built against `Wolfgang.Etl.Abstractions` 0.18.1 → **0.19.0**. 0.19.0 widens the
+  `EtlPipelineProgress` counters (`ExtractedItemCount` / `LoadedItemCount` / `ErrorItemCount`) from
+  `int` to `long` (overflow-safe for long-running pipelines); the test doubles and contract-test
+  bases are source-compatible and unchanged.
+
 ## [0.11.0] - 2026-07-26
 
 Adopts the `Wolfgang.Etl.Abstractions` 0.18.0 per-item **error hook** in the test doubles
