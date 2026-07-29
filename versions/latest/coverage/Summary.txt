@@ -1,36 +1,42 @@
 Summary
-  Generated on: 7/28/2026 - 1:25:37 AM
-  Coverage date: 7/28/2026 - 1:25:29 AM
+  Generated on: 7/29/2026 - 2:04:57 AM
+  Coverage date: 7/29/2026 - 2:04:47 AM - 7/29/2026 - 2:04:48 AM
   Parser: MultiReport (2x Cobertura)
   Assemblies: 2
-  Classes: 33
-  Files: 33
-  Line coverage: 99.1%
-  Covered lines: 2217
-  Uncovered lines: 19
-  Coverable lines: 2236
-  Total lines: 9012
-  Branch coverage: 80.8% (503 of 622)
-  Covered branches: 503
-  Total branches: 622
-  Method coverage: 99.7% (386 of 387)
-  Full method coverage: 91.7% (355 of 387)
-  Covered methods: 386
-  Fully covered methods: 355
-  Total methods: 387
+  Classes: 39
+  Files: 39
+  Line coverage: 99%
+  Covered lines: 2349
+  Uncovered lines: 23
+  Coverable lines: 2372
+  Total lines: 9818
+  Branch coverage: 81% (532 of 656)
+  Covered branches: 532
+  Total branches: 656
+  Method coverage: 99% (414 of 418)
+  Full method coverage: 91.3% (382 of 418)
+  Covered methods: 414
+  Fully covered methods: 382
+  Total methods: 418
 
-Wolfgang.Etl.TestKit                                                                               100%
+Wolfgang.Etl.TestKit                                                                              99.5%
+  Wolfgang.Etl.TestKit.DelayingExtractor<T>                                                       96.1%
   Wolfgang.Etl.TestKit.FaultyExtractor<T>                                                          100%
   Wolfgang.Etl.TestKit.FaultyLoader<T>                                                             100%
   Wolfgang.Etl.TestKit.FaultyTransformer<T>                                                        100%
+  Wolfgang.Etl.TestKit.SnapshotTestLoader<T>                                                        95%
   Wolfgang.Etl.TestKit.TestExtractor<T>                                                            100%
   Wolfgang.Etl.TestKit.TestLoader<T>                                                               100%
   Wolfgang.Etl.TestKit.TestTransformer<T>                                                          100%
 
 Wolfgang.Etl.TestKit.Xunit                                                                        98.9%
+  Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<T>                                     93.7%
+  Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<T>                                          100%
+  Wolfgang.Etl.TestKit.Xunit.CancellationOutcome                                                   100%
   Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests<T>                                       100%
   Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests<T>                                         100%
   Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome                                                  100%
+  Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<T1, T2>                                      100%
   Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests<T1, T2>                                     100%
   Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<T1, T2, T3>                               97.8%
   Wolfgang.Etl.TestKit.Xunit.ExtractWithCancellationAsyncContractTests<T1, T2>                    97.5%

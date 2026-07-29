@@ -22,6 +22,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.DelayingExtractor-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.DelayingExtractor-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.DelayingExtractor<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.DelayingExtractor-1.yml\" sourcestartlinenumber=\"1\">An extractor double that waits a configurable delay before yielding each item, simulating a\nlatent / backpressured source. Useful for exercising timeout, cancellation-promptness, and\nprogress-cadence behaviour that an instantaneous in-memory source cannot.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.TestKit.FaultyExtractor-1.yml",
       "output": {
         ".html": {
@@ -61,6 +75,20 @@
       "IsMRef": true,
       "Title": "Wolfgang.Etl.TestKit.FaultyTransformer<T>",
       "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.FaultyTransformer-1.yml\" sourcestartlinenumber=\"1\">A pass-through transformer for testing error-handling paths. It returns each item\nunchanged like a normal transformer, but can be configured to inject deterministic\nfaults — throwing at a given item, throwing after completion, or duplicating an item —\nso consumers can exercise mid-stream failure, finalization failure, and de-duplication\nlogic without hand-rolling broken fakes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.SnapshotTestLoader<T>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.yml\" sourcestartlinenumber=\"1\">An in-memory loader that captures every item it receives and renders them as a single,\ndeterministic, diff-friendly <xref href=\"Wolfgang.Etl.TestKit.SnapshotTestLoader%601.Snapshot\" data-throw-if-not-resolved=\"false\"></xref> string — ready to hand to an approval /\nsnapshot-testing framework such as <a href=\"https://github.com/VerifyTests/Verify\">Verify</a>.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -106,6 +134,48 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.yml\" sourcestartlinenumber=\"1\">Opt-in xUnit contract-test base asserting that a repeatable operation's hot path stays\nwithin a declared per-item allocation budget — so a downstream author can lock in that\n<em>their own</em> extractor / loader / transformer keeps an allocation-free (or\nbelow-a-declared-N) hot path.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests that verify a stage honours cancellation\n<em>promptly</em> — it stops shortly after the token is cancelled rather than draining its source,\nthrows <xref href=\"System.OperationCanceledException\" data-throw-if-not-resolved=\"false\"></xref>, and processes nothing when handed an\nalready-cancelled token.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.CancellationOutcome",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.yml\" sourcestartlinenumber=\"1\">The result a derived <xref href=\"Wolfgang.Etl.TestKit.Xunit.CancellationContractTests%601\" data-throw-if-not-resolved=\"false\"></xref> reports back to the base after\ndriving its stage under cancellation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests-1.yml",
       "output": {
         ".html": {
@@ -145,6 +215,20 @@
       "IsMRef": true,
       "Title": "Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome",
       "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.yml\" sourcestartlinenumber=\"1\">The observable outcome of running a stage over a scenario containing exactly one failing\nitem, used by <xref href=\"Wolfgang.Etl.TestKit.Xunit.ErrorHandlingContractTests%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.yml\" sourcestartlinenumber=\"1\">Abstract base class providing xUnit contract tests for composing a source and a sink into the\n<code>Wolfgang.Etl.Abstractions</code> 0.16 <xref href=\"Wolfgang.Etl.Abstractions.EtlPipeline\" data-throw-if-not-resolved=\"false\"></xref>\n(<code>EtlPipeline.Create().From(...).To(...).RunAsync()</code>) and for the\n<xref href=\"Wolfgang.Etl.Abstractions.EtlPipelineProgress\" data-throw-if-not-resolved=\"false\"></xref> it reports.</p>\n"
     },
     {
       "type": "ManagedReference",

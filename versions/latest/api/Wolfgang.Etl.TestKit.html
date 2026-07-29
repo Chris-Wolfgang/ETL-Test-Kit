@@ -81,6 +81,13 @@
 Classes
 </h3>
     <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.DelayingExtractor-1.html">DelayingExtractor&lt;T&gt;</a></dt>
+      <dd><p>An extractor double that waits a configurable delay before yielding each item, simulating a
+latent / backpressured source. Useful for exercising timeout, cancellation-promptness, and
+progress-cadence behaviour that an instantaneous in-memory source cannot.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.TestKit.FaultyExtractor-1.html">FaultyExtractor&lt;T&gt;</a></dt>
       <dd><p>An in-memory extractor for testing error-handling paths. It yields items from an
 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;T&gt;</a> like a normal extractor, but can be configured to inject
@@ -105,6 +112,13 @@ unchanged like a normal transformer, but can be configured to inject determinist
 faults — throwing at a given item, throwing after completion, or duplicating an item —
 so consumers can exercise mid-stream failure, finalization failure, and de-duplication
 logic without hand-rolling broken fakes.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html">SnapshotTestLoader&lt;T&gt;</a></dt>
+      <dd><p>An in-memory loader that captures every item it receives and renders them as a single,
+deterministic, diff-friendly <a class="xref" href="Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1_Snapshot">Snapshot</a> string — ready to hand to an approval /
+snapshot-testing framework such as <a href="https://github.com/VerifyTests/Verify">Verify</a>.</p>
 </dd>
     </dl>
     <dl class="jumplist">

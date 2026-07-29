@@ -7,6 +7,77 @@ references:
   commentId: N:Wolfgang.Etl.TestKit
   fullName: Wolfgang.Etl.TestKit
   nameWithType: Wolfgang.Etl.TestKit
+- uid: Wolfgang.Etl.TestKit.DelayingExtractor`1
+  name: DelayingExtractor<T>
+  href: api/Wolfgang.Etl.TestKit.DelayingExtractor-1.html
+  commentId: T:Wolfgang.Etl.TestKit.DelayingExtractor`1
+  name.vb: DelayingExtractor(Of T)
+  fullName: Wolfgang.Etl.TestKit.DelayingExtractor<T>
+  fullName.vb: Wolfgang.Etl.TestKit.DelayingExtractor(Of T)
+  nameWithType: DelayingExtractor<T>
+  nameWithType.vb: DelayingExtractor(Of T)
+- uid: Wolfgang.Etl.TestKit.DelayingExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Func{System.Int32,System.TimeSpan})
+  name: DelayingExtractor(IEnumerable<T>, Func<int, TimeSpan>)
+  href: api/Wolfgang.Etl.TestKit.DelayingExtractor-1.html#Wolfgang_Etl_TestKit_DelayingExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__System_Func_System_Int32_System_TimeSpan__
+  commentId: M:Wolfgang.Etl.TestKit.DelayingExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Func{System.Int32,System.TimeSpan})
+  name.vb: New(IEnumerable(Of T), Func(Of Integer, TimeSpan))
+  fullName: Wolfgang.Etl.TestKit.DelayingExtractor<T>.DelayingExtractor(System.Collections.Generic.IEnumerable<T>, System.Func<int, System.TimeSpan>)
+  fullName.vb: Wolfgang.Etl.TestKit.DelayingExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T), System.Func(Of Integer, System.TimeSpan))
+  nameWithType: DelayingExtractor<T>.DelayingExtractor(IEnumerable<T>, Func<int, TimeSpan>)
+  nameWithType.vb: DelayingExtractor(Of T).New(IEnumerable(Of T), Func(Of Integer, TimeSpan))
+- uid: Wolfgang.Etl.TestKit.DelayingExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.TimeSpan)
+  name: DelayingExtractor(IEnumerable<T>, TimeSpan)
+  href: api/Wolfgang.Etl.TestKit.DelayingExtractor-1.html#Wolfgang_Etl_TestKit_DelayingExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__System_TimeSpan_
+  commentId: M:Wolfgang.Etl.TestKit.DelayingExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.TimeSpan)
+  name.vb: New(IEnumerable(Of T), TimeSpan)
+  fullName: Wolfgang.Etl.TestKit.DelayingExtractor<T>.DelayingExtractor(System.Collections.Generic.IEnumerable<T>, System.TimeSpan)
+  fullName.vb: Wolfgang.Etl.TestKit.DelayingExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T), System.TimeSpan)
+  nameWithType: DelayingExtractor<T>.DelayingExtractor(IEnumerable<T>, TimeSpan)
+  nameWithType.vb: DelayingExtractor(Of T).New(IEnumerable(Of T), TimeSpan)
+- uid: Wolfgang.Etl.TestKit.DelayingExtractor`1.#ctor*
+  name: DelayingExtractor
+  href: api/Wolfgang.Etl.TestKit.DelayingExtractor-1.html#Wolfgang_Etl_TestKit_DelayingExtractor_1__ctor_
+  commentId: Overload:Wolfgang.Etl.TestKit.DelayingExtractor`1.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.Etl.TestKit.DelayingExtractor<T>.DelayingExtractor
+  fullName.vb: Wolfgang.Etl.TestKit.DelayingExtractor(Of T).New
+  nameWithType: DelayingExtractor<T>.DelayingExtractor
+  nameWithType.vb: DelayingExtractor(Of T).New
+- uid: Wolfgang.Etl.TestKit.DelayingExtractor`1.CreateProgressReport
+  name: CreateProgressReport()
+  href: api/Wolfgang.Etl.TestKit.DelayingExtractor-1.html#Wolfgang_Etl_TestKit_DelayingExtractor_1_CreateProgressReport
+  commentId: M:Wolfgang.Etl.TestKit.DelayingExtractor`1.CreateProgressReport
+  fullName: Wolfgang.Etl.TestKit.DelayingExtractor<T>.CreateProgressReport()
+  fullName.vb: Wolfgang.Etl.TestKit.DelayingExtractor(Of T).CreateProgressReport()
+  nameWithType: DelayingExtractor<T>.CreateProgressReport()
+  nameWithType.vb: DelayingExtractor(Of T).CreateProgressReport()
+- uid: Wolfgang.Etl.TestKit.DelayingExtractor`1.CreateProgressReport*
+  name: CreateProgressReport
+  href: api/Wolfgang.Etl.TestKit.DelayingExtractor-1.html#Wolfgang_Etl_TestKit_DelayingExtractor_1_CreateProgressReport_
+  commentId: Overload:Wolfgang.Etl.TestKit.DelayingExtractor`1.CreateProgressReport
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.DelayingExtractor<T>.CreateProgressReport
+  fullName.vb: Wolfgang.Etl.TestKit.DelayingExtractor(Of T).CreateProgressReport
+  nameWithType: DelayingExtractor<T>.CreateProgressReport
+  nameWithType.vb: DelayingExtractor(Of T).CreateProgressReport
+- uid: Wolfgang.Etl.TestKit.DelayingExtractor`1.ExtractWorkerAsync(System.Threading.CancellationToken)
+  name: ExtractWorkerAsync(CancellationToken)
+  href: api/Wolfgang.Etl.TestKit.DelayingExtractor-1.html#Wolfgang_Etl_TestKit_DelayingExtractor_1_ExtractWorkerAsync_System_Threading_CancellationToken_
+  commentId: M:Wolfgang.Etl.TestKit.DelayingExtractor`1.ExtractWorkerAsync(System.Threading.CancellationToken)
+  fullName: Wolfgang.Etl.TestKit.DelayingExtractor<T>.ExtractWorkerAsync(System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.Etl.TestKit.DelayingExtractor(Of T).ExtractWorkerAsync(System.Threading.CancellationToken)
+  nameWithType: DelayingExtractor<T>.ExtractWorkerAsync(CancellationToken)
+  nameWithType.vb: DelayingExtractor(Of T).ExtractWorkerAsync(CancellationToken)
+- uid: Wolfgang.Etl.TestKit.DelayingExtractor`1.ExtractWorkerAsync*
+  name: ExtractWorkerAsync
+  href: api/Wolfgang.Etl.TestKit.DelayingExtractor-1.html#Wolfgang_Etl_TestKit_DelayingExtractor_1_ExtractWorkerAsync_
+  commentId: Overload:Wolfgang.Etl.TestKit.DelayingExtractor`1.ExtractWorkerAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.DelayingExtractor<T>.ExtractWorkerAsync
+  fullName.vb: Wolfgang.Etl.TestKit.DelayingExtractor(Of T).ExtractWorkerAsync
+  nameWithType: DelayingExtractor<T>.ExtractWorkerAsync
+  nameWithType.vb: DelayingExtractor(Of T).ExtractWorkerAsync
 - uid: Wolfgang.Etl.TestKit.FaultyExtractor`1
   name: FaultyExtractor<T>
   href: api/Wolfgang.Etl.TestKit.FaultyExtractor-1.html
@@ -713,6 +784,112 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.FaultyTransformer(Of T).TransformWorkerAsync
   nameWithType: FaultyTransformer<T>.TransformWorkerAsync
   nameWithType.vb: FaultyTransformer(Of T).TransformWorkerAsync
+- uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1
+  name: SnapshotTestLoader<T>
+  href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html
+  commentId: T:Wolfgang.Etl.TestKit.SnapshotTestLoader`1
+  name.vb: SnapshotTestLoader(Of T)
+  fullName: Wolfgang.Etl.TestKit.SnapshotTestLoader<T>
+  fullName.vb: Wolfgang.Etl.TestKit.SnapshotTestLoader(Of T)
+  nameWithType: SnapshotTestLoader<T>
+  nameWithType.vb: SnapshotTestLoader(Of T)
+- uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1.#ctor
+  name: SnapshotTestLoader()
+  href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1__ctor
+  commentId: M:Wolfgang.Etl.TestKit.SnapshotTestLoader`1.#ctor
+  name.vb: New()
+  fullName: Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.SnapshotTestLoader()
+  fullName.vb: Wolfgang.Etl.TestKit.SnapshotTestLoader(Of T).New()
+  nameWithType: SnapshotTestLoader<T>.SnapshotTestLoader()
+  nameWithType.vb: SnapshotTestLoader(Of T).New()
+- uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1.#ctor(System.Func{`0,System.String})
+  name: SnapshotTestLoader(Func<T, string>)
+  href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1__ctor_System_Func__0_System_String__
+  commentId: M:Wolfgang.Etl.TestKit.SnapshotTestLoader`1.#ctor(System.Func{`0,System.String})
+  name.vb: New(Func(Of T, String))
+  fullName: Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.SnapshotTestLoader(System.Func<T, string>)
+  fullName.vb: Wolfgang.Etl.TestKit.SnapshotTestLoader(Of T).New(System.Func(Of T, String))
+  nameWithType: SnapshotTestLoader<T>.SnapshotTestLoader(Func<T, string>)
+  nameWithType.vb: SnapshotTestLoader(Of T).New(Func(Of T, String))
+- uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1.#ctor*
+  name: SnapshotTestLoader
+  href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1__ctor_
+  commentId: Overload:Wolfgang.Etl.TestKit.SnapshotTestLoader`1.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.SnapshotTestLoader
+  fullName.vb: Wolfgang.Etl.TestKit.SnapshotTestLoader(Of T).New
+  nameWithType: SnapshotTestLoader<T>.SnapshotTestLoader
+  nameWithType.vb: SnapshotTestLoader(Of T).New
+- uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1.CreateProgressReport
+  name: CreateProgressReport()
+  href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1_CreateProgressReport
+  commentId: M:Wolfgang.Etl.TestKit.SnapshotTestLoader`1.CreateProgressReport
+  fullName: Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.CreateProgressReport()
+  fullName.vb: Wolfgang.Etl.TestKit.SnapshotTestLoader(Of T).CreateProgressReport()
+  nameWithType: SnapshotTestLoader<T>.CreateProgressReport()
+  nameWithType.vb: SnapshotTestLoader(Of T).CreateProgressReport()
+- uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1.CreateProgressReport*
+  name: CreateProgressReport
+  href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1_CreateProgressReport_
+  commentId: Overload:Wolfgang.Etl.TestKit.SnapshotTestLoader`1.CreateProgressReport
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.CreateProgressReport
+  fullName.vb: Wolfgang.Etl.TestKit.SnapshotTestLoader(Of T).CreateProgressReport
+  nameWithType: SnapshotTestLoader<T>.CreateProgressReport
+  nameWithType.vb: SnapshotTestLoader(Of T).CreateProgressReport
+- uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken)
+  name: LoadWorkerAsync(IAsyncEnumerable<T>, CancellationToken)
+  href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1_LoadWorkerAsync_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_
+  commentId: M:Wolfgang.Etl.TestKit.SnapshotTestLoader`1.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken)
+  name.vb: LoadWorkerAsync(IAsyncEnumerable(Of T), CancellationToken)
+  fullName: Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable<T>, System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.Etl.TestKit.SnapshotTestLoader(Of T).LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable(Of T), System.Threading.CancellationToken)
+  nameWithType: SnapshotTestLoader<T>.LoadWorkerAsync(IAsyncEnumerable<T>, CancellationToken)
+  nameWithType.vb: SnapshotTestLoader(Of T).LoadWorkerAsync(IAsyncEnumerable(Of T), CancellationToken)
+- uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1.LoadWorkerAsync*
+  name: LoadWorkerAsync
+  href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1_LoadWorkerAsync_
+  commentId: Overload:Wolfgang.Etl.TestKit.SnapshotTestLoader`1.LoadWorkerAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.LoadWorkerAsync
+  fullName.vb: Wolfgang.Etl.TestKit.SnapshotTestLoader(Of T).LoadWorkerAsync
+  nameWithType: SnapshotTestLoader<T>.LoadWorkerAsync
+  nameWithType.vb: SnapshotTestLoader(Of T).LoadWorkerAsync
+- uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1.LoadedItems
+  name: LoadedItems
+  href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1_LoadedItems
+  commentId: P:Wolfgang.Etl.TestKit.SnapshotTestLoader`1.LoadedItems
+  fullName: Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.LoadedItems
+  fullName.vb: Wolfgang.Etl.TestKit.SnapshotTestLoader(Of T).LoadedItems
+  nameWithType: SnapshotTestLoader<T>.LoadedItems
+  nameWithType.vb: SnapshotTestLoader(Of T).LoadedItems
+- uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1.LoadedItems*
+  name: LoadedItems
+  href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1_LoadedItems_
+  commentId: Overload:Wolfgang.Etl.TestKit.SnapshotTestLoader`1.LoadedItems
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.LoadedItems
+  fullName.vb: Wolfgang.Etl.TestKit.SnapshotTestLoader(Of T).LoadedItems
+  nameWithType: SnapshotTestLoader<T>.LoadedItems
+  nameWithType.vb: SnapshotTestLoader(Of T).LoadedItems
+- uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1.Snapshot
+  name: Snapshot
+  href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1_Snapshot
+  commentId: P:Wolfgang.Etl.TestKit.SnapshotTestLoader`1.Snapshot
+  fullName: Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.Snapshot
+  fullName.vb: Wolfgang.Etl.TestKit.SnapshotTestLoader(Of T).Snapshot
+  nameWithType: SnapshotTestLoader<T>.Snapshot
+  nameWithType.vb: SnapshotTestLoader(Of T).Snapshot
+- uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1.Snapshot*
+  name: Snapshot
+  href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1_Snapshot_
+  commentId: Overload:Wolfgang.Etl.TestKit.SnapshotTestLoader`1.Snapshot
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.SnapshotTestLoader<T>.Snapshot
+  fullName.vb: Wolfgang.Etl.TestKit.SnapshotTestLoader(Of T).Snapshot
+  nameWithType: SnapshotTestLoader<T>.Snapshot
+  nameWithType.vb: SnapshotTestLoader(Of T).Snapshot
 - uid: Wolfgang.Etl.TestKit.TestExtractor`1
   name: TestExtractor<T>
   href: api/Wolfgang.Etl.TestKit.TestExtractor-1.html
@@ -1166,6 +1343,333 @@ references:
   commentId: N:Wolfgang.Etl.TestKit.Xunit
   fullName: Wolfgang.Etl.TestKit.Xunit
   nameWithType: Wolfgang.Etl.TestKit.Xunit
+- uid: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1
+  name: AllocationBudgetContractTests<TSut>
+  href: api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html
+  commentId: T:Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1
+  name.vb: AllocationBudgetContractTests(Of TSut)
+  fullName: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests(Of TSut)
+  nameWithType: AllocationBudgetContractTests<TSut>
+  nameWithType.vb: AllocationBudgetContractTests(Of TSut)
+- uid: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Attempts
+  name: Attempts
+  href: api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_Attempts
+  commentId: P:Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Attempts
+  fullName: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Attempts
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests(Of TSut).Attempts
+  nameWithType: AllocationBudgetContractTests<TSut>.Attempts
+  nameWithType.vb: AllocationBudgetContractTests(Of TSut).Attempts
+- uid: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Attempts*
+  name: Attempts
+  href: api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_Attempts_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Attempts
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Attempts
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests(Of TSut).Attempts
+  nameWithType: AllocationBudgetContractTests<TSut>.Attempts
+  nameWithType.vb: AllocationBudgetContractTests(Of TSut).Attempts
+- uid: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.BaseItemCount
+  name: BaseItemCount
+  href: api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_BaseItemCount
+  commentId: P:Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.BaseItemCount
+  fullName: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.BaseItemCount
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests(Of TSut).BaseItemCount
+  nameWithType: AllocationBudgetContractTests<TSut>.BaseItemCount
+  nameWithType.vb: AllocationBudgetContractTests(Of TSut).BaseItemCount
+- uid: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.BaseItemCount*
+  name: BaseItemCount
+  href: api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_BaseItemCount_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.BaseItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.BaseItemCount
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests(Of TSut).BaseItemCount
+  nameWithType: AllocationBudgetContractTests<TSut>.BaseItemCount
+  nameWithType.vb: AllocationBudgetContractTests(Of TSut).BaseItemCount
+- uid: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.CreateSut(System.Int32)
+  name: CreateSut(int)
+  href: api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_CreateSut_System_Int32_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.CreateSut(System.Int32)
+  name.vb: CreateSut(Integer)
+  fullName: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.CreateSut(int)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests(Of TSut).CreateSut(Integer)
+  nameWithType: AllocationBudgetContractTests<TSut>.CreateSut(int)
+  nameWithType.vb: AllocationBudgetContractTests(Of TSut).CreateSut(Integer)
+- uid: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.CreateSut*
+  name: CreateSut
+  href: api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_CreateSut_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.CreateSut
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.CreateSut
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests(Of TSut).CreateSut
+  nameWithType: AllocationBudgetContractTests<TSut>.CreateSut
+  nameWithType.vb: AllocationBudgetContractTests(Of TSut).CreateSut
+- uid: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.ExerciseHotPathAsync(System.Threading.CancellationToken)
+  name: ExerciseHotPathAsync(CancellationToken)
+  href: api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_ExerciseHotPathAsync_System_Threading_CancellationToken_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.ExerciseHotPathAsync(System.Threading.CancellationToken)
+  fullName: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.ExerciseHotPathAsync(System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests(Of TSut).ExerciseHotPathAsync(System.Threading.CancellationToken)
+  nameWithType: AllocationBudgetContractTests<TSut>.ExerciseHotPathAsync(CancellationToken)
+  nameWithType.vb: AllocationBudgetContractTests(Of TSut).ExerciseHotPathAsync(CancellationToken)
+- uid: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.ExerciseHotPathAsync*
+  name: ExerciseHotPathAsync
+  href: api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_ExerciseHotPathAsync_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.ExerciseHotPathAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.ExerciseHotPathAsync
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests(Of TSut).ExerciseHotPathAsync
+  nameWithType: AllocationBudgetContractTests<TSut>.ExerciseHotPathAsync
+  nameWithType.vb: AllocationBudgetContractTests(Of TSut).ExerciseHotPathAsync
+- uid: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Hot_path_stays_within_the_allocation_budget_Async
+  name: Hot_path_stays_within_the_allocation_budget_Async()
+  href: api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_Hot_path_stays_within_the_allocation_budget_Async
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Hot_path_stays_within_the_allocation_budget_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Hot_path_stays_within_the_allocation_budget_Async()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests(Of TSut).Hot_path_stays_within_the_allocation_budget_Async()
+  nameWithType: AllocationBudgetContractTests<TSut>.Hot_path_stays_within_the_allocation_budget_Async()
+  nameWithType.vb: AllocationBudgetContractTests(Of TSut).Hot_path_stays_within_the_allocation_budget_Async()
+- uid: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Hot_path_stays_within_the_allocation_budget_Async*
+  name: Hot_path_stays_within_the_allocation_budget_Async
+  href: api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_Hot_path_stays_within_the_allocation_budget_Async_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Hot_path_stays_within_the_allocation_budget_Async
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Hot_path_stays_within_the_allocation_budget_Async
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests(Of TSut).Hot_path_stays_within_the_allocation_budget_Async
+  nameWithType: AllocationBudgetContractTests<TSut>.Hot_path_stays_within_the_allocation_budget_Async
+  nameWithType.vb: AllocationBudgetContractTests(Of TSut).Hot_path_stays_within_the_allocation_budget_Async
+- uid: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.MaxBytesPerItem
+  name: MaxBytesPerItem
+  href: api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_MaxBytesPerItem
+  commentId: P:Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.MaxBytesPerItem
+  fullName: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.MaxBytesPerItem
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests(Of TSut).MaxBytesPerItem
+  nameWithType: AllocationBudgetContractTests<TSut>.MaxBytesPerItem
+  nameWithType.vb: AllocationBudgetContractTests(Of TSut).MaxBytesPerItem
+- uid: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.MaxBytesPerItem*
+  name: MaxBytesPerItem
+  href: api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_MaxBytesPerItem_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.MaxBytesPerItem
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.MaxBytesPerItem
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests(Of TSut).MaxBytesPerItem
+  nameWithType: AllocationBudgetContractTests<TSut>.MaxBytesPerItem
+  nameWithType.vb: AllocationBudgetContractTests(Of TSut).MaxBytesPerItem
+- uid: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Sut
+  name: Sut
+  href: api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_Sut
+  commentId: P:Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Sut
+  fullName: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Sut
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests(Of TSut).Sut
+  nameWithType: AllocationBudgetContractTests<TSut>.Sut
+  nameWithType.vb: AllocationBudgetContractTests(Of TSut).Sut
+- uid: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Sut*
+  name: Sut
+  href: api/Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_AllocationBudgetContractTests_1_Sut_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests`1.Sut
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests<TSut>.Sut
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.AllocationBudgetContractTests(Of TSut).Sut
+  nameWithType: AllocationBudgetContractTests<TSut>.Sut
+  nameWithType.vb: AllocationBudgetContractTests(Of TSut).Sut
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1
+  name: CancellationContractTests<TSut>
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html
+  commentId: T:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1
+  name.vb: CancellationContractTests(Of TSut)
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut)
+  nameWithType: CancellationContractTests<TSut>
+  nameWithType.vb: CancellationContractTests(Of TSut)
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.CancelAfter
+  name: CancelAfter
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_CancelAfter
+  commentId: P:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.CancelAfter
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.CancelAfter
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).CancelAfter
+  nameWithType: CancellationContractTests<TSut>.CancelAfter
+  nameWithType.vb: CancellationContractTests(Of TSut).CancelAfter
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.CancelAfter*
+  name: CancelAfter
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_CancelAfter_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.CancelAfter
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.CancelAfter
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).CancelAfter
+  nameWithType: CancellationContractTests<TSut>.CancelAfter
+  nameWithType.vb: CancellationContractTests(Of TSut).CancelAfter
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.ItemCount
+  name: ItemCount
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_ItemCount
+  commentId: P:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.ItemCount
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.ItemCount
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).ItemCount
+  nameWithType: CancellationContractTests<TSut>.ItemCount
+  nameWithType.vb: CancellationContractTests(Of TSut).ItemCount
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.ItemCount*
+  name: ItemCount
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_ItemCount_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.ItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.ItemCount
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).ItemCount
+  nameWithType: CancellationContractTests<TSut>.ItemCount
+  nameWithType.vb: CancellationContractTests(Of TSut).ItemCount
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Mid_stream_cancellation_stops_promptly_Async
+  name: Mid_stream_cancellation_stops_promptly_Async()
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_Mid_stream_cancellation_stops_promptly_Async
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Mid_stream_cancellation_stops_promptly_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.Mid_stream_cancellation_stops_promptly_Async()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).Mid_stream_cancellation_stops_promptly_Async()
+  nameWithType: CancellationContractTests<TSut>.Mid_stream_cancellation_stops_promptly_Async()
+  nameWithType.vb: CancellationContractTests(Of TSut).Mid_stream_cancellation_stops_promptly_Async()
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Mid_stream_cancellation_stops_promptly_Async*
+  name: Mid_stream_cancellation_stops_promptly_Async
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_Mid_stream_cancellation_stops_promptly_Async_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Mid_stream_cancellation_stops_promptly_Async
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.Mid_stream_cancellation_stops_promptly_Async
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).Mid_stream_cancellation_stops_promptly_Async
+  nameWithType: CancellationContractTests<TSut>.Mid_stream_cancellation_stops_promptly_Async
+  nameWithType.vb: CancellationContractTests(Of TSut).Mid_stream_cancellation_stops_promptly_Async
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Mid_stream_cancellation_throws_OperationCanceledException_Async
+  name: Mid_stream_cancellation_throws_OperationCanceledException_Async()
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_Mid_stream_cancellation_throws_OperationCanceledException_Async
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Mid_stream_cancellation_throws_OperationCanceledException_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.Mid_stream_cancellation_throws_OperationCanceledException_Async()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).Mid_stream_cancellation_throws_OperationCanceledException_Async()
+  nameWithType: CancellationContractTests<TSut>.Mid_stream_cancellation_throws_OperationCanceledException_Async()
+  nameWithType.vb: CancellationContractTests(Of TSut).Mid_stream_cancellation_throws_OperationCanceledException_Async()
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Mid_stream_cancellation_throws_OperationCanceledException_Async*
+  name: Mid_stream_cancellation_throws_OperationCanceledException_Async
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_Mid_stream_cancellation_throws_OperationCanceledException_Async_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Mid_stream_cancellation_throws_OperationCanceledException_Async
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.Mid_stream_cancellation_throws_OperationCanceledException_Async
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).Mid_stream_cancellation_throws_OperationCanceledException_Async
+  nameWithType: CancellationContractTests<TSut>.Mid_stream_cancellation_throws_OperationCanceledException_Async
+  nameWithType.vb: CancellationContractTests(Of TSut).Mid_stream_cancellation_throws_OperationCanceledException_Async
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Pre_cancelled_token_processes_nothing_and_throws_Async
+  name: Pre_cancelled_token_processes_nothing_and_throws_Async()
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_Pre_cancelled_token_processes_nothing_and_throws_Async
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Pre_cancelled_token_processes_nothing_and_throws_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.Pre_cancelled_token_processes_nothing_and_throws_Async()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).Pre_cancelled_token_processes_nothing_and_throws_Async()
+  nameWithType: CancellationContractTests<TSut>.Pre_cancelled_token_processes_nothing_and_throws_Async()
+  nameWithType.vb: CancellationContractTests(Of TSut).Pre_cancelled_token_processes_nothing_and_throws_Async()
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Pre_cancelled_token_processes_nothing_and_throws_Async*
+  name: Pre_cancelled_token_processes_nothing_and_throws_Async
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_Pre_cancelled_token_processes_nothing_and_throws_Async_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.Pre_cancelled_token_processes_nothing_and_throws_Async
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.Pre_cancelled_token_processes_nothing_and_throws_Async
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).Pre_cancelled_token_processes_nothing_and_throws_Async
+  nameWithType: CancellationContractTests<TSut>.Pre_cancelled_token_processes_nothing_and_throws_Async
+  nameWithType.vb: CancellationContractTests(Of TSut).Pre_cancelled_token_processes_nothing_and_throws_Async
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.PromptStopSlack
+  name: PromptStopSlack
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_PromptStopSlack
+  commentId: P:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.PromptStopSlack
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.PromptStopSlack
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).PromptStopSlack
+  nameWithType: CancellationContractTests<TSut>.PromptStopSlack
+  nameWithType.vb: CancellationContractTests(Of TSut).PromptStopSlack
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.PromptStopSlack*
+  name: PromptStopSlack
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_PromptStopSlack_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.PromptStopSlack
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.PromptStopSlack
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).PromptStopSlack
+  nameWithType: CancellationContractTests<TSut>.PromptStopSlack
+  nameWithType.vb: CancellationContractTests(Of TSut).PromptStopSlack
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.RunAndCancelMidStreamAsync(System.Int32,System.Int32)
+  name: RunAndCancelMidStreamAsync(int, int)
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_RunAndCancelMidStreamAsync_System_Int32_System_Int32_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.RunAndCancelMidStreamAsync(System.Int32,System.Int32)
+  name.vb: RunAndCancelMidStreamAsync(Integer, Integer)
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.RunAndCancelMidStreamAsync(int, int)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).RunAndCancelMidStreamAsync(Integer, Integer)
+  nameWithType: CancellationContractTests<TSut>.RunAndCancelMidStreamAsync(int, int)
+  nameWithType.vb: CancellationContractTests(Of TSut).RunAndCancelMidStreamAsync(Integer, Integer)
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.RunAndCancelMidStreamAsync*
+  name: RunAndCancelMidStreamAsync
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_RunAndCancelMidStreamAsync_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.RunAndCancelMidStreamAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.RunAndCancelMidStreamAsync
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).RunAndCancelMidStreamAsync
+  nameWithType: CancellationContractTests<TSut>.RunAndCancelMidStreamAsync
+  nameWithType.vb: CancellationContractTests(Of TSut).RunAndCancelMidStreamAsync
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.RunWithPreCancelledTokenAsync(System.Int32)
+  name: RunWithPreCancelledTokenAsync(int)
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_RunWithPreCancelledTokenAsync_System_Int32_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.RunWithPreCancelledTokenAsync(System.Int32)
+  name.vb: RunWithPreCancelledTokenAsync(Integer)
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.RunWithPreCancelledTokenAsync(int)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).RunWithPreCancelledTokenAsync(Integer)
+  nameWithType: CancellationContractTests<TSut>.RunWithPreCancelledTokenAsync(int)
+  nameWithType.vb: CancellationContractTests(Of TSut).RunWithPreCancelledTokenAsync(Integer)
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.RunWithPreCancelledTokenAsync*
+  name: RunWithPreCancelledTokenAsync
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_CancellationContractTests_1_RunWithPreCancelledTokenAsync_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.CancellationContractTests`1.RunWithPreCancelledTokenAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests<TSut>.RunWithPreCancelledTokenAsync
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationContractTests(Of TSut).RunWithPreCancelledTokenAsync
+  nameWithType: CancellationContractTests<TSut>.RunWithPreCancelledTokenAsync
+  nameWithType.vb: CancellationContractTests(Of TSut).RunWithPreCancelledTokenAsync
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome
+  name: CancellationOutcome
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.html
+  commentId: T:Wolfgang.Etl.TestKit.Xunit.CancellationOutcome
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome
+  nameWithType: CancellationOutcome
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.#ctor(System.Boolean,System.Int32)
+  name: CancellationOutcome(bool, int)
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.html#Wolfgang_Etl_TestKit_Xunit_CancellationOutcome__ctor_System_Boolean_System_Int32_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.#ctor(System.Boolean,System.Int32)
+  name.vb: New(Boolean, Integer)
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.CancellationOutcome(bool, int)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.New(Boolean, Integer)
+  nameWithType: CancellationOutcome.CancellationOutcome(bool, int)
+  nameWithType.vb: CancellationOutcome.New(Boolean, Integer)
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.#ctor*
+  name: CancellationOutcome
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.html#Wolfgang_Etl_TestKit_Xunit_CancellationOutcome__ctor_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.CancellationOutcome
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.New
+  nameWithType: CancellationOutcome.CancellationOutcome
+  nameWithType.vb: CancellationOutcome.New
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.Canceled
+  name: Canceled
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.html#Wolfgang_Etl_TestKit_Xunit_CancellationOutcome_Canceled
+  commentId: P:Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.Canceled
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.Canceled
+  nameWithType: CancellationOutcome.Canceled
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.Canceled*
+  name: Canceled
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.html#Wolfgang_Etl_TestKit_Xunit_CancellationOutcome_Canceled_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.Canceled
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.Canceled
+  nameWithType: CancellationOutcome.Canceled
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.ProcessedItemCount
+  name: ProcessedItemCount
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.html#Wolfgang_Etl_TestKit_Xunit_CancellationOutcome_ProcessedItemCount
+  commentId: P:Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.ProcessedItemCount
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.ProcessedItemCount
+  nameWithType: CancellationOutcome.ProcessedItemCount
+- uid: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.ProcessedItemCount*
+  name: ProcessedItemCount
+  href: api/Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.html#Wolfgang_Etl_TestKit_Xunit_CancellationOutcome_ProcessedItemCount_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.ProcessedItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.CancellationOutcome.ProcessedItemCount
+  nameWithType: CancellationOutcome.ProcessedItemCount
 - uid: Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests`1
   name: DisposableStageContractTests<TSut>
   href: api/Wolfgang.Etl.TestKit.Xunit.DisposableStageContractTests-1.html
@@ -1500,6 +2004,117 @@ references:
   isSpec: "True"
   fullName: Wolfgang.Etl.TestKit.Xunit.ErrorHandlingOutcome.SkippedItemCount
   nameWithType: ErrorHandlingOutcome.SkippedItemCount
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2
+  name: EtlPipelineContractTests<TItem, TProgress>
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html
+  commentId: T:Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2
+  name.vb: EtlPipelineContractTests(Of TItem, TProgress)
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests(Of TItem, TProgress)
+  nameWithType: EtlPipelineContractTests<TItem, TProgress>
+  nameWithType.vb: EtlPipelineContractTests(Of TItem, TProgress)
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.CreateSink
+  name: CreateSink()
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html#Wolfgang_Etl_TestKit_Xunit_EtlPipelineContractTests_2_CreateSink
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.CreateSink
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.CreateSink()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests(Of TItem, TProgress).CreateSink()
+  nameWithType: EtlPipelineContractTests<TItem, TProgress>.CreateSink()
+  nameWithType.vb: EtlPipelineContractTests(Of TItem, TProgress).CreateSink()
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.CreateSink*
+  name: CreateSink
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html#Wolfgang_Etl_TestKit_Xunit_EtlPipelineContractTests_2_CreateSink_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.CreateSink
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.CreateSink
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests(Of TItem, TProgress).CreateSink
+  nameWithType: EtlPipelineContractTests<TItem, TProgress>.CreateSink
+  nameWithType.vb: EtlPipelineContractTests(Of TItem, TProgress).CreateSink
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.CreateSourceItems
+  name: CreateSourceItems()
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html#Wolfgang_Etl_TestKit_Xunit_EtlPipelineContractTests_2_CreateSourceItems
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.CreateSourceItems
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.CreateSourceItems()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests(Of TItem, TProgress).CreateSourceItems()
+  nameWithType: EtlPipelineContractTests<TItem, TProgress>.CreateSourceItems()
+  nameWithType.vb: EtlPipelineContractTests(Of TItem, TProgress).CreateSourceItems()
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.CreateSourceItems*
+  name: CreateSourceItems
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html#Wolfgang_Etl_TestKit_Xunit_EtlPipelineContractTests_2_CreateSourceItems_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.CreateSourceItems
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.CreateSourceItems
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests(Of TItem, TProgress).CreateSourceItems
+  nameWithType: EtlPipelineContractTests<TItem, TProgress>.CreateSourceItems
+  nameWithType.vb: EtlPipelineContractTests(Of TItem, TProgress).CreateSourceItems
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.GetLoadedItems
+  name: GetLoadedItems()
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html#Wolfgang_Etl_TestKit_Xunit_EtlPipelineContractTests_2_GetLoadedItems
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.GetLoadedItems
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.GetLoadedItems()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests(Of TItem, TProgress).GetLoadedItems()
+  nameWithType: EtlPipelineContractTests<TItem, TProgress>.GetLoadedItems()
+  nameWithType.vb: EtlPipelineContractTests(Of TItem, TProgress).GetLoadedItems()
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.GetLoadedItems*
+  name: GetLoadedItems
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html#Wolfgang_Etl_TestKit_Xunit_EtlPipelineContractTests_2_GetLoadedItems_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.GetLoadedItems
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.GetLoadedItems
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests(Of TItem, TProgress).GetLoadedItems
+  nameWithType: EtlPipelineContractTests<TItem, TProgress>.GetLoadedItems
+  nameWithType.vb: EtlPipelineContractTests(Of TItem, TProgress).GetLoadedItems
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.Pipeline_delivers_all_source_items_to_the_sink_Async
+  name: Pipeline_delivers_all_source_items_to_the_sink_Async()
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html#Wolfgang_Etl_TestKit_Xunit_EtlPipelineContractTests_2_Pipeline_delivers_all_source_items_to_the_sink_Async
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.Pipeline_delivers_all_source_items_to_the_sink_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Pipeline_delivers_all_source_items_to_the_sink_Async()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests(Of TItem, TProgress).Pipeline_delivers_all_source_items_to_the_sink_Async()
+  nameWithType: EtlPipelineContractTests<TItem, TProgress>.Pipeline_delivers_all_source_items_to_the_sink_Async()
+  nameWithType.vb: EtlPipelineContractTests(Of TItem, TProgress).Pipeline_delivers_all_source_items_to_the_sink_Async()
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.Pipeline_delivers_all_source_items_to_the_sink_Async*
+  name: Pipeline_delivers_all_source_items_to_the_sink_Async
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html#Wolfgang_Etl_TestKit_Xunit_EtlPipelineContractTests_2_Pipeline_delivers_all_source_items_to_the_sink_Async_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.Pipeline_delivers_all_source_items_to_the_sink_Async
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Pipeline_delivers_all_source_items_to_the_sink_Async
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests(Of TItem, TProgress).Pipeline_delivers_all_source_items_to_the_sink_Async
+  nameWithType: EtlPipelineContractTests<TItem, TProgress>.Pipeline_delivers_all_source_items_to_the_sink_Async
+  nameWithType.vb: EtlPipelineContractTests(Of TItem, TProgress).Pipeline_delivers_all_source_items_to_the_sink_Async
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.Pipeline_progress_counts_all_records_extracted_and_loaded_Async
+  name: Pipeline_progress_counts_all_records_extracted_and_loaded_Async()
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html#Wolfgang_Etl_TestKit_Xunit_EtlPipelineContractTests_2_Pipeline_progress_counts_all_records_extracted_and_loaded_Async
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.Pipeline_progress_counts_all_records_extracted_and_loaded_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Pipeline_progress_counts_all_records_extracted_and_loaded_Async()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests(Of TItem, TProgress).Pipeline_progress_counts_all_records_extracted_and_loaded_Async()
+  nameWithType: EtlPipelineContractTests<TItem, TProgress>.Pipeline_progress_counts_all_records_extracted_and_loaded_Async()
+  nameWithType.vb: EtlPipelineContractTests(Of TItem, TProgress).Pipeline_progress_counts_all_records_extracted_and_loaded_Async()
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.Pipeline_progress_counts_all_records_extracted_and_loaded_Async*
+  name: Pipeline_progress_counts_all_records_extracted_and_loaded_Async
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html#Wolfgang_Etl_TestKit_Xunit_EtlPipelineContractTests_2_Pipeline_progress_counts_all_records_extracted_and_loaded_Async_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.Pipeline_progress_counts_all_records_extracted_and_loaded_Async
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Pipeline_progress_counts_all_records_extracted_and_loaded_Async
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests(Of TItem, TProgress).Pipeline_progress_counts_all_records_extracted_and_loaded_Async
+  nameWithType: EtlPipelineContractTests<TItem, TProgress>.Pipeline_progress_counts_all_records_extracted_and_loaded_Async
+  nameWithType.vb: EtlPipelineContractTests(Of TItem, TProgress).Pipeline_progress_counts_all_records_extracted_and_loaded_Async
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.Sink
+  name: Sink
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html#Wolfgang_Etl_TestKit_Xunit_EtlPipelineContractTests_2_Sink
+  commentId: P:Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.Sink
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Sink
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests(Of TItem, TProgress).Sink
+  nameWithType: EtlPipelineContractTests<TItem, TProgress>.Sink
+  nameWithType.vb: EtlPipelineContractTests(Of TItem, TProgress).Sink
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.Sink*
+  name: Sink
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests-2.html#Wolfgang_Etl_TestKit_Xunit_EtlPipelineContractTests_2_Sink_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests`2.Sink
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests<TItem, TProgress>.Sink
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests(Of TItem, TProgress).Sink
+  nameWithType: EtlPipelineContractTests<TItem, TProgress>.Sink
+  nameWithType.vb: EtlPipelineContractTests(Of TItem, TProgress).Sink
 - uid: Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests`2
   name: ExtractAsyncContractTests<TSut, TItem>
   href: api/Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests-2.html
