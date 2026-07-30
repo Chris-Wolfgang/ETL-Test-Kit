@@ -442,6 +442,34 @@ public sealed class MyRetryTests : RetryContractTests<RetryingExtractor<int>>
 
 `RetryingExtractor<T>` also serves as a worked example of building stream-level retry on the `WrapWorkerExecution` seam (each retry re-invokes the worker for a fresh stream).
 
+### xUnit — one-liner scenarios with `EtlScenario`
+
+`EtlScenario` composes an extract → (transform) → load pipeline from the doubles — optionally injecting a fault into the extractor or loader — runs it, and asserts the final state (loaded items, aggregate error count, or a terminal exception) in a single fluent expression:
+
+```csharp
+using System;
+using System.Threading.Tasks;
+using Wolfgang.Etl.TestKit;
+using Wolfgang.Etl.TestKit.Xunit;
+
+// A skipped extractor fault drops the item and counts one aggregate error:
+await EtlScenario
+    .From(1, 2, 3, 4)
+    .WithExtractorFault(index: 2, new FormatException("bad row"))
+    .RunAndAssertAsync(expectedLoaded: new[] { 1, 2, 4 }, expectedErrors: 1);
+
+// Insert a transform stage:
+await EtlScenario.From(1, 2, 3).Through(new TestTransformer<int>()).RunAndAssertAsync(new[] { 1, 2, 3 });
+
+// A non-skipped fault propagates:
+await EtlScenario
+    .From(1, 2, 3)
+    .WithExtractorFault(index: 1, new InvalidOperationException("boom"), skip: false)
+    .RunAndAssertThrowsAsync<InvalidOperationException>();
+```
+
+Faults default to being *skipped* (routed through the base error hook and counted in `EtlPipelineProgress.ErrorItemCount`); pass `skip: false` to let one propagate and assert it with `RunAndAssertThrowsAsync<TException>()`.
+
 ### xUnit add-on — contract-testing your own ETL types
 
 Derive your test class from the matching contract base and implement the abstract factory methods. You inherit the complete suite of `ExtractAsync` / `TransformAsync` / `LoadAsync` contract tests — all overloads, cancellation, progress, `SkipItemCount`, and `MaximumItemCount` — with zero boilerplate.

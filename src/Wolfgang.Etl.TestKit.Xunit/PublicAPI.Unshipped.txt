@@ -13,3 +13,11 @@ Wolfgang.Etl.TestKit.Xunit.RetryOutcome.RetryOutcome(bool succeeded, int attempt
 Wolfgang.Etl.TestKit.Xunit.RetryOutcome.AttemptCount.get -> int
 Wolfgang.Etl.TestKit.Xunit.RetryOutcome.ItemCount.get -> int
 Wolfgang.Etl.TestKit.Xunit.RetryOutcome.Succeeded.get -> bool
+Wolfgang.Etl.TestKit.Xunit.EtlScenario
+Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>
+Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.RunAndAssertAsync(System.Collections.Generic.IReadOnlyList<T>! expectedLoaded, int expectedErrors = 0) -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.RunAndAssertThrowsAsync<TException>() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.Through(Wolfgang.Etl.Abstractions.TransformerBase<T, T, Wolfgang.Etl.Abstractions.Report!>! transformer) -> Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>!
+Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.WithExtractorFault(int index, System.Exception! exception, bool skip = true) -> Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>!
+Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.WithLoaderFault(int index, System.Exception! exception, bool skip = true) -> Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>!
+static Wolfgang.Etl.TestKit.Xunit.EtlScenario.From<T>(params T[]! items) -> Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>!

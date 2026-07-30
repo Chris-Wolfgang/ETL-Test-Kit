@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `EtlScenario` — a fluent end-to-end scenario harness that composes an extract → (transform) → load
+  pipeline from the doubles, optionally injects a fault into the extractor or loader, runs it through
+  `EtlPipeline`, and asserts the final state — loaded items and aggregate `ErrorItemCount`
+  (`RunAndAssertAsync`), or a terminal exception (`RunAndAssertThrowsAsync<TException>`) — in a single
+  expression. Faults default to being skipped (counted as errors); pass `skip: false` to let one
+  propagate. (#265)
 - Kit self-tests covering the Abstractions 0.20 `IReportsItemErrors` aggregation — an `EtlPipeline`
   sums each stage's `CurrentErrorItemCount` into `EtlPipelineProgress.ErrorItemCount`, verified with the
   `Faulty*` doubles skipping a fault in the extractor, transformer, and loader. (Abstractions #335)
