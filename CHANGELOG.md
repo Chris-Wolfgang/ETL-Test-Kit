@@ -19,6 +19,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.13.0] - 2026-07-29
+
+### Added
+
+- `EtlScenario` — a fluent end-to-end scenario harness that composes an extract → (transform) → load
+  pipeline from the doubles, optionally injects a fault into the extractor or loader, runs it through
+  `EtlPipeline`, and asserts the final state — loaded items and aggregate `ErrorItemCount`
+  (`RunAndAssertAsync`), or a terminal exception (`RunAndAssertThrowsAsync<TException>`) — in a single
+  expression. Faults default to being skipped (counted as errors); pass `skip: false` to let one
+  propagate. (#265)
+- Kit self-tests covering the Abstractions 0.20 `IReportsItemErrors` aggregation — an `EtlPipeline`
+  sums each stage's `CurrentErrorItemCount` into `EtlPipelineProgress.ErrorItemCount`, verified with the
+  `Faulty*` doubles skipping a fault in the extractor, transformer, and loader. (Abstractions #335)
+- `RecordingMiddleware<T>` — a test `IItemMiddleware<T>` (Abstractions 0.20) that records every item it
+  is handed (`Observed`) and, by default, keeps each one flowing; supply a `Func<T, MiddlewareResult<T>>`
+  policy to transform or drop items. Apply it with the `WithMiddleware(...)` extension to assert exactly
+  what a pipeline's middleware chain saw and produced. (Abstractions #93)
+- `ManualTimeSource` + `WithTimeSource(...)` extensions — a controllable clock that freezes time until
+  `Advance` is called, making a stage's `Report` timing metrics (`Elapsed`, `ItemsPerSecond`,
+  `PercentComplete`, `EstimatedRemaining`) deterministic instead of wall-clock-dependent. Attach it to
+  an extractor / loader / transformer before the run, then advance by a known amount. Uses the internal
+  `ITimeSource` clock seam (Abstractions 0.20) via the `Wolfgang.Etl.TestKit` friend relationship, so
+  production code is unchanged. (#262)
+- `RetryingExtractor<T>` — an extractor double that throws a transient fault on its first
+  `failFirstAttempts` worker invocations and then succeeds, driven through a retry override of the
+  Abstractions 0.20 `WrapWorkerExecution` resilience seam (each retry re-invokes the worker for a fresh
+  stream). Exposes `AttemptCount`. Serves as both a reference retry implementation and the component
+  the retry contract tests drive. (#261)
+- `RetryContractTests<TSut>` + `RetryOutcome` — an opt-in xUnit contract-test base that verifies a
+  stage's `WrapWorkerExecution` retry strategy: a transient fault clearing within the retry budget
+  completes the run (with the expected attempt count and items), and a fault that never clears fails
+  after the maximum number of attempts (no infinite loop). The derived class drives its own stage and
+  reports a `RetryOutcome` (no SUT is passed to the override). (#261)
+
+### Changed
+
+- Built against `Wolfgang.Etl.Abstractions` 0.19.0 → **0.20.0** (adds the `WrapWorkerExecution` retry
+  seam, composable `IItemMiddleware<T>` middleware, aggregate per-item error reporting, and the
+  `ITimeSource` clock seam that this cycle's new test surface builds on).
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
 ## [0.12.0] - 2026-07-28
 
 New opt-in contract-test bases and test doubles, and a snapshot-capture loader. New public API only

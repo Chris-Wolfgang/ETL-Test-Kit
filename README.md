@@ -184,6 +184,46 @@ await Verify(loader.Snapshot);   // Verify owns the .verified.txt golden file + 
 
 **The fleet convention** (see ETL-FixedWidth, ETL-DbClient, ETL-Json): put snapshot tests in a **dedicated `*.Tests.Snapshot` project targeting a single modern TFM** (e.g. `net10.0` — Verify needs net6+ and the output is TFM-agnostic, which keeps snapshot filenames stable), reference `Verify.Xunit`, commit the `.verified.txt` golden files under `Snapshots/`, and gitignore the `.received.txt` files written during local iteration.
 
+### Core — deterministic `Report` timing with `ManualTimeSource`
+
+A stage's `Report` timing metrics — `Elapsed`, `ItemsPerSecond`, `PercentComplete`, `EstimatedRemaining` (Abstractions 0.14) — are normally driven by wall-clock time, so they can't be asserted on exactly. `ManualTimeSource` freezes time until you `Advance` it, making them deterministic. Attach it with `WithTimeSource(...)` **before** the run (the stage captures its start timestamp when the run begins), then advance by a known amount:
+
+```csharp
+using System;
+using System.Linq;
+using Wolfgang.Etl.TestKit;
+
+var clock = new ManualTimeSource();
+var extractor = new TestExtractor<int>(Enumerable.Range(0, 50).ToArray()).WithTimeSource(clock);
+
+await extractor.ExtractAsync().ToListAsync();   // start timestamp captured from the frozen clock
+clock.Advance(TimeSpan.FromSeconds(10));
+
+// A report built now has Elapsed == 10s exactly and ItemsPerSecond == 5.
+```
+
+`WithTimeSource` has extractor, loader, and transformer overloads. It works because `Wolfgang.Etl.TestKit` is an internals-visible friend of `Wolfgang.Etl.Abstractions`, so it can supply the internal clock seam the base classes read — no change to your production code.
+
+### Core — asserting on middleware with `RecordingMiddleware<T>`
+
+`RecordingMiddleware<T>` is a test `IItemMiddleware<T>` (Abstractions 0.20) that records every item it is handed and, by default, keeps each one flowing — so you can assert exactly what reached a stage of the pipeline. Supply a policy to transform or drop items:
+
+```csharp
+using Wolfgang.Etl.Abstractions;
+using Wolfgang.Etl.TestKit;
+
+// Record and pass through:
+var recorder = new RecordingMiddleware<int>();
+var kept = await source.WithMiddleware(recorder).ToListAsync();
+// recorder.Observed lists every item seen; kept == the ones it let through.
+
+// Drop odds, double evens:
+var shaping = new RecordingMiddleware<int>(i =>
+    i % 2 == 0 ? MiddlewareResult.Continue(i * 2) : MiddlewareResult.Drop<int>());
+```
+
+`Observed` reflects every item the middleware received, *including* ones a policy later drops, and composes across a middleware chain (each middleware sees the previous one's output).
+
 ### xUnit — capturing and asserting on progress
 
 `ProgressCapture<T>` is an `IProgress<T>` that records every report; pass it straight to any progress-aware overload, then assert with `ProgressAssert`:
@@ -370,6 +410,65 @@ public sealed class MyLoaderPipelineTests
     protected override IReadOnlyList<MyRecord>? GetLoadedItems() => ((MyLoader)Sink).Written;
 }
 ```
+
+### xUnit — verifying retry / resilience
+
+Derive from `CancellationContractTests<TSut>`'s sibling `RetryContractTests<TSut>` to verify a stage whose `Wolfgang.Etl.Abstractions` 0.20 `WrapWorkerExecution` override adds a retry strategy: a transient fault that clears within the retry budget completes the run, and a fault that never clears fails after the maximum number of attempts (no infinite loop). The core package ships `RetryingExtractor<T>` — a ready-made component that fails its first `failFirstAttempts` worker invocations then succeeds, retrying up to `maxAttempts` — which your override can drive:
+
+```csharp
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Wolfgang.Etl.TestKit;
+using Wolfgang.Etl.TestKit.Xunit;
+
+public sealed class MyRetryTests : RetryContractTests<RetryingExtractor<int>>
+{
+    protected override Task<RetryOutcome> RunWithTransientFaultAsync(int failFirstAttempts, int maxAttempts) =>
+        Drive(new RetryingExtractor<int>(Enumerable.Range(0, 5).ToArray(), failFirstAttempts, maxAttempts));
+
+    protected override Task<RetryOutcome> RunWithPermanentFaultAsync(int maxAttempts) =>
+        Drive(new RetryingExtractor<int>(Enumerable.Range(0, 5).ToArray(), failFirstAttempts: maxAttempts, maxAttempts: maxAttempts));
+
+    static async Task<RetryOutcome> Drive(RetryingExtractor<int> sut)
+    {
+        var items = 0; var ok = false;
+        try { await foreach (var _ in sut.ExtractAsync(CancellationToken.None)) items++; ok = true; }
+        catch (System.InvalidOperationException) { ok = false; }
+        return new RetryOutcome(ok, sut.AttemptCount, items);
+    }
+}
+```
+
+`RetryingExtractor<T>` also serves as a worked example of building stream-level retry on the `WrapWorkerExecution` seam (each retry re-invokes the worker for a fresh stream).
+
+### xUnit — one-liner scenarios with `EtlScenario`
+
+`EtlScenario` composes an extract → (transform) → load pipeline from the doubles — optionally injecting a fault into the extractor or loader — runs it, and asserts the final state (loaded items, aggregate error count, or a terminal exception) in a single fluent expression:
+
+```csharp
+using System;
+using System.Threading.Tasks;
+using Wolfgang.Etl.TestKit;
+using Wolfgang.Etl.TestKit.Xunit;
+
+// A skipped extractor fault drops the item and counts one aggregate error:
+await EtlScenario
+    .From(1, 2, 3, 4)
+    .WithExtractorFault(index: 2, new FormatException("bad row"))
+    .RunAndAssertAsync(expectedLoaded: new[] { 1, 2, 4 }, expectedErrors: 1);
+
+// Insert a transform stage:
+await EtlScenario.From(1, 2, 3).Through(new TestTransformer<int>()).RunAndAssertAsync(new[] { 1, 2, 3 });
+
+// A non-skipped fault propagates:
+await EtlScenario
+    .From(1, 2, 3)
+    .WithExtractorFault(index: 1, new InvalidOperationException("boom"), skip: false)
+    .RunAndAssertThrowsAsync<InvalidOperationException>();
+```
+
+Faults default to being *skipped* (routed through the base error hook and counted in `EtlPipelineProgress.ErrorItemCount`); pass `skip: false` to let one propagate and assert it with `RunAndAssertThrowsAsync<TException>()`.
 
 ### xUnit add-on — contract-testing your own ETL types
 
