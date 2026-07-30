@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.13.0] - Unreleased
+
+### Added
+
 - `EtlScenario` — a fluent end-to-end scenario harness that composes an extract → (transform) → load
   pipeline from the doubles, optionally injects a fault into the extractor or loader, runs it through
   `EtlPipeline`, and asserts the final state — loaded items and aggregate `ErrorItemCount`
