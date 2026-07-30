@@ -28,7 +28,7 @@ namespace Wolfgang.Etl.TestKit;
 /// <code>
 /// var clock = new ManualTimeSource();
 /// var extractor = new TestExtractor&lt;int&gt;(Enumerable.Range(0, 50).ToArray()).WithTimeSource(clock);
-/// await extractor.ExtractAsync().ToListAsync();   // start timestamp captured from the frozen clock
+/// await foreach (var _ in extractor.ExtractAsync()) { }   // start timestamp captured from the frozen clock
 /// clock.Advance(TimeSpan.FromSeconds(10));
 /// // A report built now has Elapsed == 10s and ItemsPerSecond == 5.
 /// </code>

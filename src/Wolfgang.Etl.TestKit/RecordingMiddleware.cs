@@ -23,8 +23,8 @@ namespace Wolfgang.Etl.TestKit;
 /// <code>
 /// // Record and pass through:
 /// var recorder = new RecordingMiddleware&lt;int&gt;();
-/// var kept = await source.WithMiddleware(recorder).ToListAsync();
-/// // recorder.Observed lists every item; kept == the ones it let through.
+/// await foreach (var item in source.WithMiddleware(recorder)) { /* item = one the middleware let through */ }
+/// // recorder.Observed lists every item the middleware saw.
 ///
 /// // Drop odds, double evens:
 /// var shaping = new RecordingMiddleware&lt;int&gt;(i =&gt;

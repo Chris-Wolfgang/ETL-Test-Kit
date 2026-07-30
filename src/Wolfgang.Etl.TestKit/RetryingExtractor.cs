@@ -30,7 +30,7 @@ namespace Wolfgang.Etl.TestKit;
 /// <code>
 /// // Fails twice, then succeeds on the third attempt (budget of 5):
 /// var extractor = new RetryingExtractor&lt;int&gt;(Enumerable.Range(0, 10), failFirstAttempts: 2, maxAttempts: 5);
-/// var items = await extractor.ExtractAsync().ToListAsync();   // succeeds; extractor.AttemptCount == 3
+/// await foreach (var _ in extractor.ExtractAsync()) { }   // succeeds; extractor.AttemptCount == 3
 /// </code>
 /// </example>
 public class RetryingExtractor<T> : ExtractorBase<T, Report>
