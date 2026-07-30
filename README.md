@@ -184,6 +184,26 @@ await Verify(loader.Snapshot);   // Verify owns the .verified.txt golden file + 
 
 **The fleet convention** (see ETL-FixedWidth, ETL-DbClient, ETL-Json): put snapshot tests in a **dedicated `*.Tests.Snapshot` project targeting a single modern TFM** (e.g. `net10.0` — Verify needs net6+ and the output is TFM-agnostic, which keeps snapshot filenames stable), reference `Verify.Xunit`, commit the `.verified.txt` golden files under `Snapshots/`, and gitignore the `.received.txt` files written during local iteration.
 
+### Core — deterministic `Report` timing with `ManualTimeSource`
+
+A stage's `Report` timing metrics — `Elapsed`, `ItemsPerSecond`, `PercentComplete`, `EstimatedRemaining` (Abstractions 0.14) — are normally driven by wall-clock time, so they can't be asserted on exactly. `ManualTimeSource` freezes time until you `Advance` it, making them deterministic. Attach it with `WithTimeSource(...)` **before** the run (the stage captures its start timestamp when the run begins), then advance by a known amount:
+
+```csharp
+using System;
+using System.Linq;
+using Wolfgang.Etl.TestKit;
+
+var clock = new ManualTimeSource();
+var extractor = new TestExtractor<int>(Enumerable.Range(0, 50).ToArray()).WithTimeSource(clock);
+
+await extractor.ExtractAsync().ToListAsync();   // start timestamp captured from the frozen clock
+clock.Advance(TimeSpan.FromSeconds(10));
+
+// A report built now has Elapsed == 10s exactly and ItemsPerSecond == 5.
+```
+
+`WithTimeSource` has extractor, loader, and transformer overloads. It works because `Wolfgang.Etl.TestKit` is an internals-visible friend of `Wolfgang.Etl.Abstractions`, so it can supply the internal clock seam the base classes read — no change to your production code.
+
 ### xUnit — capturing and asserting on progress
 
 `ProgressCapture<T>` is an `IProgress<T>` that records every report; pass it straight to any progress-aware overload, then assert with `ProgressAssert`:

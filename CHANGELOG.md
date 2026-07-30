@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `ManualTimeSource` + `WithTimeSource(...)` extensions — a controllable clock that freezes time until
+  `Advance` is called, making a stage's `Report` timing metrics (`Elapsed`, `ItemsPerSecond`,
+  `PercentComplete`, `EstimatedRemaining`) deterministic instead of wall-clock-dependent. Attach it to
+  an extractor / loader / transformer before the run, then advance by a known amount. Uses the internal
+  `ITimeSource` clock seam (Abstractions 0.20) via the `Wolfgang.Etl.TestKit` friend relationship, so
+  production code is unchanged. (#262)
 - `RetryingExtractor<T>` — an extractor double that throws a transient fault on its first
   `failFirstAttempts` worker invocations and then succeeds, driven through a retry override of the
   Abstractions 0.20 `WrapWorkerExecution` resilience seam (each retry re-invokes the worker for a fresh
