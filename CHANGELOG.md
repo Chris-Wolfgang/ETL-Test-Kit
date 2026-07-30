@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `RecordingMiddleware<T>` — a test `IItemMiddleware<T>` (Abstractions 0.20) that records every item it
+  is handed (`Observed`) and, by default, keeps each one flowing; supply a `Func<T, MiddlewareResult<T>>`
+  policy to transform or drop items. Apply it with the `WithMiddleware(...)` extension to assert exactly
+  what a pipeline's middleware chain saw and produced. (Abstractions #93)
 - `ManualTimeSource` + `WithTimeSource(...)` extensions — a controllable clock that freezes time until
   `Advance` is called, making a stage's `Report` timing metrics (`Elapsed`, `ItemsPerSecond`,
   `PercentComplete`, `EstimatedRemaining`) deterministic instead of wall-clock-dependent. Attach it to

@@ -204,6 +204,26 @@ clock.Advance(TimeSpan.FromSeconds(10));
 
 `WithTimeSource` has extractor, loader, and transformer overloads. It works because `Wolfgang.Etl.TestKit` is an internals-visible friend of `Wolfgang.Etl.Abstractions`, so it can supply the internal clock seam the base classes read — no change to your production code.
 
+### Core — asserting on middleware with `RecordingMiddleware<T>`
+
+`RecordingMiddleware<T>` is a test `IItemMiddleware<T>` (Abstractions 0.20) that records every item it is handed and, by default, keeps each one flowing — so you can assert exactly what reached a stage of the pipeline. Supply a policy to transform or drop items:
+
+```csharp
+using Wolfgang.Etl.Abstractions;
+using Wolfgang.Etl.TestKit;
+
+// Record and pass through:
+var recorder = new RecordingMiddleware<int>();
+var kept = await source.WithMiddleware(recorder).ToListAsync();
+// recorder.Observed lists every item seen; kept == the ones it let through.
+
+// Drop odds, double evens:
+var shaping = new RecordingMiddleware<int>(i =>
+    i % 2 == 0 ? MiddlewareResult.Continue(i * 2) : MiddlewareResult.Drop<int>());
+```
+
+`Observed` reflects every item the middleware received, *including* ones a policy later drops, and composes across a middleware chain (each middleware sees the previous one's output).
+
 ### xUnit — capturing and asserting on progress
 
 `ProgressCapture<T>` is an `IProgress<T>` that records every report; pass it straight to any progress-aware overload, then assert with `ProgressAssert`:

@@ -13,3 +13,8 @@ Wolfgang.Etl.TestKit.TimeSourceExtensions
 static Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource<TSource, TProgress>(this Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>! extractor, Wolfgang.Etl.TestKit.ManualTimeSource! timeSource) -> Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>!
 static Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource<TDestination, TProgress>(this Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>! loader, Wolfgang.Etl.TestKit.ManualTimeSource! timeSource) -> Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>!
 static Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource<TSource, TDestination, TProgress>(this Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>! transformer, Wolfgang.Etl.TestKit.ManualTimeSource! timeSource) -> Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>!
+Wolfgang.Etl.TestKit.RecordingMiddleware<T>
+Wolfgang.Etl.TestKit.RecordingMiddleware<T>.RecordingMiddleware() -> void
+Wolfgang.Etl.TestKit.RecordingMiddleware<T>.RecordingMiddleware(System.Func<T, Wolfgang.Etl.Abstractions.MiddlewareResult<T>>! policy) -> void
+Wolfgang.Etl.TestKit.RecordingMiddleware<T>.Observed.get -> System.Collections.Generic.IReadOnlyList<T>!
+Wolfgang.Etl.TestKit.RecordingMiddleware<T>.OnItemAsync(T item, System.Threading.CancellationToken token) -> System.Threading.Tasks.ValueTask<Wolfgang.Etl.Abstractions.MiddlewareResult<T>>
