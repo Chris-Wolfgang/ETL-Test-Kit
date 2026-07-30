@@ -1,1 +1,15 @@
 #nullable enable
+Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>
+Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.RetryContractTests() -> void
+Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.Permanent_fault_fails_after_max_attempts_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.Transient_fault_causes_more_than_one_attempt_Async() -> System.Threading.Tasks.Task!
+Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.Transient_fault_within_budget_eventually_succeeds_Async() -> System.Threading.Tasks.Task!
+abstract Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.RunWithPermanentFaultAsync(int maxAttempts) -> System.Threading.Tasks.Task<Wolfgang.Etl.TestKit.Xunit.RetryOutcome!>!
+abstract Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.RunWithTransientFaultAsync(int failFirstAttempts, int maxAttempts) -> System.Threading.Tasks.Task<Wolfgang.Etl.TestKit.Xunit.RetryOutcome!>!
+virtual Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.FailFirstAttempts.get -> int
+virtual Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.MaxAttempts.get -> int
+Wolfgang.Etl.TestKit.Xunit.RetryOutcome
+Wolfgang.Etl.TestKit.Xunit.RetryOutcome.RetryOutcome(bool succeeded, int attemptCount, int itemCount) -> void
+Wolfgang.Etl.TestKit.Xunit.RetryOutcome.AttemptCount.get -> int
+Wolfgang.Etl.TestKit.Xunit.RetryOutcome.ItemCount.get -> int
+Wolfgang.Etl.TestKit.Xunit.RetryOutcome.Succeeded.get -> bool

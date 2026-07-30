@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `RetryingExtractor<T>` — an extractor double that throws a transient fault on its first
+  `failFirstAttempts` worker invocations and then succeeds, driven through a retry override of the
+  Abstractions 0.20 `WrapWorkerExecution` resilience seam (each retry re-invokes the worker for a fresh
+  stream). Exposes `AttemptCount`. Serves as both a reference retry implementation and the component
+  the retry contract tests drive. (#261)
+- `RetryContractTests<TSut>` + `RetryOutcome` — an opt-in xUnit contract-test base that verifies a
+  stage's `WrapWorkerExecution` retry strategy: a transient fault clearing within the retry budget
+  completes the run (with the expected attempt count and items), and a fault that never clears fails
+  after the maximum number of attempts (no infinite loop). The derived class drives its own stage and
+  reports a `RetryOutcome` (no SUT is passed to the override). (#261)
+
 ### Changed
 
 - Built against `Wolfgang.Etl.Abstractions` 0.19.0 → **0.20.0** (adds the `WrapWorkerExecution` retry

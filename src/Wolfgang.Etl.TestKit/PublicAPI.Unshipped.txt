@@ -1,1 +1,7 @@
 #nullable enable
+Wolfgang.Etl.TestKit.RetryingExtractor<T>
+Wolfgang.Etl.TestKit.RetryingExtractor<T>.RetryingExtractor(System.Collections.Generic.IEnumerable<T>! items, int failFirstAttempts, int maxAttempts) -> void
+Wolfgang.Etl.TestKit.RetryingExtractor<T>.AttemptCount.get -> int
+override Wolfgang.Etl.TestKit.RetryingExtractor<T>.CreateProgressReport() -> Wolfgang.Etl.Abstractions.Report!
+override Wolfgang.Etl.TestKit.RetryingExtractor<T>.ExtractWorkerAsync(System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>!
+override Wolfgang.Etl.TestKit.RetryingExtractor<T>.WrapWorkerExecution(System.Func<System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<T>!>! workerFactory, System.Threading.CancellationToken token) -> System.Collections.Generic.IAsyncEnumerable<T>!
