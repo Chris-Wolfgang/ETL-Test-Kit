@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Test-Kit/new/v0.12.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_SnapshotTestLoader_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.SnapshotTestLoader%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/ETL-Test-Kit/new/v0.13.0/apiSpec/new?filename=Wolfgang_Etl_TestKit_SnapshotTestLoader_1.md&amp;value=---%0Auid%3A%20Wolfgang.Etl.TestKit.SnapshotTestLoader%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -75,7 +75,7 @@
 
 
   <h1 id="Wolfgang_Etl_TestKit_SnapshotTestLoader_1" data-uid="Wolfgang.Etl.TestKit.SnapshotTestLoader`1" class="text-break">
-Class SnapshotTestLoader&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.12.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L51"><i class="bi bi-code-slash"></i></a>
+Class SnapshotTestLoader&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.13.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L51"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -90,7 +90,7 @@ snapshot-testing framework such as <a href="https://github.com/VerifyTests/Verif
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class SnapshotTestLoader&lt;T&gt; : LoaderBase&lt;T, Report&gt;, ILoadWithProgressAndCancellationAsync&lt;T, Report&gt;, ILoadWithProgressAsync&lt;T, Report&gt;, ILoadWithCancellationAsync&lt;T&gt;, ILoadAsync&lt;T&gt;, IAsyncDisposable, IDisposable where T : notnull</code></pre>
+    <pre><code class="lang-csharp hljs">public class SnapshotTestLoader&lt;T&gt; : LoaderBase&lt;T, Report&gt;, ILoadWithProgressAndCancellationAsync&lt;T, Report&gt;, ILoadWithProgressAsync&lt;T, Report&gt;, ILoadWithCancellationAsync&lt;T&gt;, ILoadAsync&lt;T&gt;, IReportsItemErrors, IAsyncDisposable, IDisposable where T : notnull</code></pre>
   </div>
 
 
@@ -118,6 +118,7 @@ snapshot-testing framework such as <a href="https://github.com/VerifyTests/Verif
       <div><span class="xref">ILoadWithProgressAsync</span>&lt;T, <span class="xref">Report</span>&gt;</div>
       <div><span class="xref">ILoadWithCancellationAsync</span>&lt;T&gt;</div>
       <div><span class="xref">ILoadAsync</span>&lt;T&gt;</div>
+      <div><span class="xref">IReportsItemErrors</span></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable">IAsyncDisposable</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
     </dd>
@@ -144,6 +145,9 @@ snapshot-testing framework such as <a href="https://github.com/VerifyTests/Verif
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">LoaderBase&lt;T, Report&gt;.LoadWorkerAsync(IAsyncEnumerable&lt;T&gt;, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">LoaderBase&lt;T, Report&gt;.WrapWorkerExecution(Func&lt;CancellationToken, Task&gt;, CancellationToken)</a>
     </div>
     <div>
       <span class="xref">LoaderBase&lt;T, Report&gt;.CreateProgressReport()</span>
@@ -216,6 +220,13 @@ snapshot-testing framework such as <a href="https://github.com/VerifyTests/Verif
     </div>
   </dd></dl>
 
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Wolfgang.Etl.TestKit.TimeSourceExtensions.html#Wolfgang_Etl_TestKit_TimeSourceExtensions_WithTimeSource__2_Wolfgang_Etl_Abstractions_LoaderBase___0___1__Wolfgang_Etl_TestKit_ManualTimeSource_">TimeSourceExtensions.WithTimeSource&lt;TDestination, TProgress&gt;(LoaderBase&lt;TDestination, TProgress&gt;, ManualTimeSource)</a>
+  </div>
+  </dd></dl>
 
 
   <h2 id="Wolfgang_Etl_TestKit_SnapshotTestLoader_1_examples">Examples</h2>
@@ -262,7 +273,7 @@ new <code>LoadAsync</code> call clears the buffer before it begins.
 
   <h3 id="Wolfgang_Etl_TestKit_SnapshotTestLoader_1__ctor" data-uid="Wolfgang.Etl.TestKit.SnapshotTestLoader`1.#ctor">
   SnapshotTestLoader()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.12.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.13.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L71"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html">SnapshotTestLoader&lt;T&gt;</a> that formats each captured item with
@@ -290,7 +301,7 @@ its <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.t
 
   <h3 id="Wolfgang_Etl_TestKit_SnapshotTestLoader_1__ctor_System_Func__0_System_String__" data-uid="Wolfgang.Etl.TestKit.SnapshotTestLoader`1.#ctor(System.Func{`0,System.String})">
   SnapshotTestLoader(Func&lt;T, string&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.12.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L88"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.13.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L88"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html">SnapshotTestLoader&lt;T&gt;</a> that formats each captured item with the
@@ -336,7 +347,7 @@ auto-increment IDs) so the snapshot stays stable across runs.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_SnapshotTestLoader_1_LoadedItems" data-uid="Wolfgang.Etl.TestKit.SnapshotTestLoader`1.LoadedItems">
   LoadedItems
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.12.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L106"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.13.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L106"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the items captured by the most recent load, in the order they were received.</p>
@@ -370,7 +381,7 @@ of every <code>LoadAsync</code> call.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_SnapshotTestLoader_1_Snapshot" data-uid="Wolfgang.Etl.TestKit.SnapshotTestLoader`1.Snapshot">
   Snapshot
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.12.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L118"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.13.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L118"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the deterministic snapshot of the captured items: one formatted line per item, joined by a
@@ -409,7 +420,7 @@ captured.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_SnapshotTestLoader_1_CreateProgressReport" data-uid="Wolfgang.Etl.TestKit.SnapshotTestLoader`1.CreateProgressReport">
   CreateProgressReport()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.12.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L127"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.13.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L127"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a progress report of type TProgress. This gives the derived class the opportunity to
@@ -443,7 +454,7 @@ implement a custom progress report that is specific to the loading process.</p>
 
   <h3 id="Wolfgang_Etl_TestKit_SnapshotTestLoader_1_LoadWorkerAsync_System_Collections_Generic_IAsyncEnumerable__0__System_Threading_CancellationToken_" data-uid="Wolfgang.Etl.TestKit.SnapshotTestLoader`1.LoadWorkerAsync(System.Collections.Generic.IAsyncEnumerable{`0},System.Threading.CancellationToken)">
   LoadWorkerAsync(IAsyncEnumerable&lt;T&gt;, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.12.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L133"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.13.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L133"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>This method is the core implementation of the loading logic and should be
@@ -495,7 +506,7 @@ overridden by derived classes.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.12.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L51" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Chris-Wolfgang/ETL-Test-Kit/blob/v0.13.0/src/Wolfgang.Etl.TestKit/SnapshotTestLoader.cs/#L51" class="edit-link">Edit this page</a>
         </div>
 
 

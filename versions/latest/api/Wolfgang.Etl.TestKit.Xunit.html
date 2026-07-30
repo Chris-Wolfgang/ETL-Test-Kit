@@ -133,6 +133,20 @@ item, used by <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ErrorHandlingCont
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.EtlScenario.html">EtlScenario</a></dt>
+      <dd><p>Entry point for building a fluent end-to-end ETL scenario over the <code>Wolfgang.Etl.TestKit</code>
+doubles and asserting its final state in a single expression. See <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html">EtlScenario&lt;T&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html">EtlScenario&lt;T&gt;</a></dt>
+      <dd><p>A fluent builder that composes an extract → (transform) → load pipeline from the
+<code>Wolfgang.Etl.TestKit</code> doubles — optionally injecting a fault into the extractor or loader —
+runs it through the <code>Wolfgang.Etl.Abstractions</code> <span class="xref">Wolfgang.Etl.Abstractions.EtlPipeline</span>, and asserts the
+final state (loaded items, aggregate error count, or a terminal exception) in one call.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests-2.html">ExtractAsyncContractTests&lt;TSut, TItem&gt;</a></dt>
       <dd><p>Abstract base class providing xUnit contract tests for any type that implements
 <span class="xref">Wolfgang.Etl.Abstractions.IExtractAsync&lt;TSource&gt;</span>.</p>
@@ -227,6 +241,20 @@ a <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ProgressCapture-1.html">Progr
       <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.ProgressCapture-1.html">ProgressCapture&lt;T&gt;</a></dt>
       <dd><p>An <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress&lt;T&gt;</a> implementation that captures every reported value,
 synchronously, on the calling thread.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html">RetryContractTests&lt;TSut&gt;</a></dt>
+      <dd><p>Abstract base class providing xUnit contract tests for a stage whose
+<span class="xref">Wolfgang.Etl.Abstractions</span> 0.20 <code>WrapWorkerExecution</code> override adds a retry /
+resilience strategy: a transient fault that clears within the retry budget completes the run, and a
+fault that never clears fails after the maximum number of attempts (no infinite loop).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.Xunit.RetryOutcome.html">RetryOutcome</a></dt>
+      <dd><p>The result a derived <a class="xref" href="Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html">RetryContractTests&lt;TSut&gt;</a> reports back to the base after driving
+its stage under a fault with a retry policy.</p>
 </dd>
     </dl>
     <dl class="jumplist">

@@ -784,6 +784,221 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.FaultyTransformer(Of T).TransformWorkerAsync
   nameWithType: FaultyTransformer<T>.TransformWorkerAsync
   nameWithType.vb: FaultyTransformer(Of T).TransformWorkerAsync
+- uid: Wolfgang.Etl.TestKit.ManualTimeSource
+  name: ManualTimeSource
+  href: api/Wolfgang.Etl.TestKit.ManualTimeSource.html
+  commentId: T:Wolfgang.Etl.TestKit.ManualTimeSource
+  fullName: Wolfgang.Etl.TestKit.ManualTimeSource
+  nameWithType: ManualTimeSource
+- uid: Wolfgang.Etl.TestKit.ManualTimeSource.#ctor
+  name: ManualTimeSource()
+  href: api/Wolfgang.Etl.TestKit.ManualTimeSource.html#Wolfgang_Etl_TestKit_ManualTimeSource__ctor
+  commentId: M:Wolfgang.Etl.TestKit.ManualTimeSource.#ctor
+  name.vb: New()
+  fullName: Wolfgang.Etl.TestKit.ManualTimeSource.ManualTimeSource()
+  fullName.vb: Wolfgang.Etl.TestKit.ManualTimeSource.New()
+  nameWithType: ManualTimeSource.ManualTimeSource()
+  nameWithType.vb: ManualTimeSource.New()
+- uid: Wolfgang.Etl.TestKit.ManualTimeSource.#ctor(System.DateTimeOffset)
+  name: ManualTimeSource(DateTimeOffset)
+  href: api/Wolfgang.Etl.TestKit.ManualTimeSource.html#Wolfgang_Etl_TestKit_ManualTimeSource__ctor_System_DateTimeOffset_
+  commentId: M:Wolfgang.Etl.TestKit.ManualTimeSource.#ctor(System.DateTimeOffset)
+  name.vb: New(DateTimeOffset)
+  fullName: Wolfgang.Etl.TestKit.ManualTimeSource.ManualTimeSource(System.DateTimeOffset)
+  fullName.vb: Wolfgang.Etl.TestKit.ManualTimeSource.New(System.DateTimeOffset)
+  nameWithType: ManualTimeSource.ManualTimeSource(DateTimeOffset)
+  nameWithType.vb: ManualTimeSource.New(DateTimeOffset)
+- uid: Wolfgang.Etl.TestKit.ManualTimeSource.#ctor*
+  name: ManualTimeSource
+  href: api/Wolfgang.Etl.TestKit.ManualTimeSource.html#Wolfgang_Etl_TestKit_ManualTimeSource__ctor_
+  commentId: Overload:Wolfgang.Etl.TestKit.ManualTimeSource.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.Etl.TestKit.ManualTimeSource.ManualTimeSource
+  fullName.vb: Wolfgang.Etl.TestKit.ManualTimeSource.New
+  nameWithType: ManualTimeSource.ManualTimeSource
+  nameWithType.vb: ManualTimeSource.New
+- uid: Wolfgang.Etl.TestKit.ManualTimeSource.Advance(System.TimeSpan)
+  name: Advance(TimeSpan)
+  href: api/Wolfgang.Etl.TestKit.ManualTimeSource.html#Wolfgang_Etl_TestKit_ManualTimeSource_Advance_System_TimeSpan_
+  commentId: M:Wolfgang.Etl.TestKit.ManualTimeSource.Advance(System.TimeSpan)
+  fullName: Wolfgang.Etl.TestKit.ManualTimeSource.Advance(System.TimeSpan)
+  nameWithType: ManualTimeSource.Advance(TimeSpan)
+- uid: Wolfgang.Etl.TestKit.ManualTimeSource.Advance*
+  name: Advance
+  href: api/Wolfgang.Etl.TestKit.ManualTimeSource.html#Wolfgang_Etl_TestKit_ManualTimeSource_Advance_
+  commentId: Overload:Wolfgang.Etl.TestKit.ManualTimeSource.Advance
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.ManualTimeSource.Advance
+  nameWithType: ManualTimeSource.Advance
+- uid: Wolfgang.Etl.TestKit.RecordingMiddleware`1
+  name: RecordingMiddleware<T>
+  href: api/Wolfgang.Etl.TestKit.RecordingMiddleware-1.html
+  commentId: T:Wolfgang.Etl.TestKit.RecordingMiddleware`1
+  name.vb: RecordingMiddleware(Of T)
+  fullName: Wolfgang.Etl.TestKit.RecordingMiddleware<T>
+  fullName.vb: Wolfgang.Etl.TestKit.RecordingMiddleware(Of T)
+  nameWithType: RecordingMiddleware<T>
+  nameWithType.vb: RecordingMiddleware(Of T)
+- uid: Wolfgang.Etl.TestKit.RecordingMiddleware`1.#ctor
+  name: RecordingMiddleware()
+  href: api/Wolfgang.Etl.TestKit.RecordingMiddleware-1.html#Wolfgang_Etl_TestKit_RecordingMiddleware_1__ctor
+  commentId: M:Wolfgang.Etl.TestKit.RecordingMiddleware`1.#ctor
+  name.vb: New()
+  fullName: Wolfgang.Etl.TestKit.RecordingMiddleware<T>.RecordingMiddleware()
+  fullName.vb: Wolfgang.Etl.TestKit.RecordingMiddleware(Of T).New()
+  nameWithType: RecordingMiddleware<T>.RecordingMiddleware()
+  nameWithType.vb: RecordingMiddleware(Of T).New()
+- uid: Wolfgang.Etl.TestKit.RecordingMiddleware`1.#ctor(System.Func{`0,Wolfgang.Etl.Abstractions.MiddlewareResult{`0}})
+  name: RecordingMiddleware(Func<T, MiddlewareResult<T>>)
+  href: api/Wolfgang.Etl.TestKit.RecordingMiddleware-1.html#Wolfgang_Etl_TestKit_RecordingMiddleware_1__ctor_System_Func__0_Wolfgang_Etl_Abstractions_MiddlewareResult__0___
+  commentId: M:Wolfgang.Etl.TestKit.RecordingMiddleware`1.#ctor(System.Func{`0,Wolfgang.Etl.Abstractions.MiddlewareResult{`0}})
+  name.vb: New(Func(Of T, MiddlewareResult(Of T)))
+  fullName: Wolfgang.Etl.TestKit.RecordingMiddleware<T>.RecordingMiddleware(System.Func<T, Wolfgang.Etl.Abstractions.MiddlewareResult<T>>)
+  fullName.vb: Wolfgang.Etl.TestKit.RecordingMiddleware(Of T).New(System.Func(Of T, Wolfgang.Etl.Abstractions.MiddlewareResult(Of T)))
+  nameWithType: RecordingMiddleware<T>.RecordingMiddleware(Func<T, MiddlewareResult<T>>)
+  nameWithType.vb: RecordingMiddleware(Of T).New(Func(Of T, MiddlewareResult(Of T)))
+- uid: Wolfgang.Etl.TestKit.RecordingMiddleware`1.#ctor*
+  name: RecordingMiddleware
+  href: api/Wolfgang.Etl.TestKit.RecordingMiddleware-1.html#Wolfgang_Etl_TestKit_RecordingMiddleware_1__ctor_
+  commentId: Overload:Wolfgang.Etl.TestKit.RecordingMiddleware`1.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.Etl.TestKit.RecordingMiddleware<T>.RecordingMiddleware
+  fullName.vb: Wolfgang.Etl.TestKit.RecordingMiddleware(Of T).New
+  nameWithType: RecordingMiddleware<T>.RecordingMiddleware
+  nameWithType.vb: RecordingMiddleware(Of T).New
+- uid: Wolfgang.Etl.TestKit.RecordingMiddleware`1.Observed
+  name: Observed
+  href: api/Wolfgang.Etl.TestKit.RecordingMiddleware-1.html#Wolfgang_Etl_TestKit_RecordingMiddleware_1_Observed
+  commentId: P:Wolfgang.Etl.TestKit.RecordingMiddleware`1.Observed
+  fullName: Wolfgang.Etl.TestKit.RecordingMiddleware<T>.Observed
+  fullName.vb: Wolfgang.Etl.TestKit.RecordingMiddleware(Of T).Observed
+  nameWithType: RecordingMiddleware<T>.Observed
+  nameWithType.vb: RecordingMiddleware(Of T).Observed
+- uid: Wolfgang.Etl.TestKit.RecordingMiddleware`1.Observed*
+  name: Observed
+  href: api/Wolfgang.Etl.TestKit.RecordingMiddleware-1.html#Wolfgang_Etl_TestKit_RecordingMiddleware_1_Observed_
+  commentId: Overload:Wolfgang.Etl.TestKit.RecordingMiddleware`1.Observed
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.RecordingMiddleware<T>.Observed
+  fullName.vb: Wolfgang.Etl.TestKit.RecordingMiddleware(Of T).Observed
+  nameWithType: RecordingMiddleware<T>.Observed
+  nameWithType.vb: RecordingMiddleware(Of T).Observed
+- uid: Wolfgang.Etl.TestKit.RecordingMiddleware`1.OnItemAsync(`0,System.Threading.CancellationToken)
+  name: OnItemAsync(T, CancellationToken)
+  href: api/Wolfgang.Etl.TestKit.RecordingMiddleware-1.html#Wolfgang_Etl_TestKit_RecordingMiddleware_1_OnItemAsync__0_System_Threading_CancellationToken_
+  commentId: M:Wolfgang.Etl.TestKit.RecordingMiddleware`1.OnItemAsync(`0,System.Threading.CancellationToken)
+  fullName: Wolfgang.Etl.TestKit.RecordingMiddleware<T>.OnItemAsync(T, System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.Etl.TestKit.RecordingMiddleware(Of T).OnItemAsync(T, System.Threading.CancellationToken)
+  nameWithType: RecordingMiddleware<T>.OnItemAsync(T, CancellationToken)
+  nameWithType.vb: RecordingMiddleware(Of T).OnItemAsync(T, CancellationToken)
+- uid: Wolfgang.Etl.TestKit.RecordingMiddleware`1.OnItemAsync*
+  name: OnItemAsync
+  href: api/Wolfgang.Etl.TestKit.RecordingMiddleware-1.html#Wolfgang_Etl_TestKit_RecordingMiddleware_1_OnItemAsync_
+  commentId: Overload:Wolfgang.Etl.TestKit.RecordingMiddleware`1.OnItemAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.RecordingMiddleware<T>.OnItemAsync
+  fullName.vb: Wolfgang.Etl.TestKit.RecordingMiddleware(Of T).OnItemAsync
+  nameWithType: RecordingMiddleware<T>.OnItemAsync
+  nameWithType.vb: RecordingMiddleware(Of T).OnItemAsync
+- uid: Wolfgang.Etl.TestKit.RetryingExtractor`1
+  name: RetryingExtractor<T>
+  href: api/Wolfgang.Etl.TestKit.RetryingExtractor-1.html
+  commentId: T:Wolfgang.Etl.TestKit.RetryingExtractor`1
+  name.vb: RetryingExtractor(Of T)
+  fullName: Wolfgang.Etl.TestKit.RetryingExtractor<T>
+  fullName.vb: Wolfgang.Etl.TestKit.RetryingExtractor(Of T)
+  nameWithType: RetryingExtractor<T>
+  nameWithType.vb: RetryingExtractor(Of T)
+- uid: Wolfgang.Etl.TestKit.RetryingExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Int32,System.Int32)
+  name: RetryingExtractor(IEnumerable<T>, int, int)
+  href: api/Wolfgang.Etl.TestKit.RetryingExtractor-1.html#Wolfgang_Etl_TestKit_RetryingExtractor_1__ctor_System_Collections_Generic_IEnumerable__0__System_Int32_System_Int32_
+  commentId: M:Wolfgang.Etl.TestKit.RetryingExtractor`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Int32,System.Int32)
+  name.vb: New(IEnumerable(Of T), Integer, Integer)
+  fullName: Wolfgang.Etl.TestKit.RetryingExtractor<T>.RetryingExtractor(System.Collections.Generic.IEnumerable<T>, int, int)
+  fullName.vb: Wolfgang.Etl.TestKit.RetryingExtractor(Of T).New(System.Collections.Generic.IEnumerable(Of T), Integer, Integer)
+  nameWithType: RetryingExtractor<T>.RetryingExtractor(IEnumerable<T>, int, int)
+  nameWithType.vb: RetryingExtractor(Of T).New(IEnumerable(Of T), Integer, Integer)
+- uid: Wolfgang.Etl.TestKit.RetryingExtractor`1.#ctor*
+  name: RetryingExtractor
+  href: api/Wolfgang.Etl.TestKit.RetryingExtractor-1.html#Wolfgang_Etl_TestKit_RetryingExtractor_1__ctor_
+  commentId: Overload:Wolfgang.Etl.TestKit.RetryingExtractor`1.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.Etl.TestKit.RetryingExtractor<T>.RetryingExtractor
+  fullName.vb: Wolfgang.Etl.TestKit.RetryingExtractor(Of T).New
+  nameWithType: RetryingExtractor<T>.RetryingExtractor
+  nameWithType.vb: RetryingExtractor(Of T).New
+- uid: Wolfgang.Etl.TestKit.RetryingExtractor`1.AttemptCount
+  name: AttemptCount
+  href: api/Wolfgang.Etl.TestKit.RetryingExtractor-1.html#Wolfgang_Etl_TestKit_RetryingExtractor_1_AttemptCount
+  commentId: P:Wolfgang.Etl.TestKit.RetryingExtractor`1.AttemptCount
+  fullName: Wolfgang.Etl.TestKit.RetryingExtractor<T>.AttemptCount
+  fullName.vb: Wolfgang.Etl.TestKit.RetryingExtractor(Of T).AttemptCount
+  nameWithType: RetryingExtractor<T>.AttemptCount
+  nameWithType.vb: RetryingExtractor(Of T).AttemptCount
+- uid: Wolfgang.Etl.TestKit.RetryingExtractor`1.AttemptCount*
+  name: AttemptCount
+  href: api/Wolfgang.Etl.TestKit.RetryingExtractor-1.html#Wolfgang_Etl_TestKit_RetryingExtractor_1_AttemptCount_
+  commentId: Overload:Wolfgang.Etl.TestKit.RetryingExtractor`1.AttemptCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.RetryingExtractor<T>.AttemptCount
+  fullName.vb: Wolfgang.Etl.TestKit.RetryingExtractor(Of T).AttemptCount
+  nameWithType: RetryingExtractor<T>.AttemptCount
+  nameWithType.vb: RetryingExtractor(Of T).AttemptCount
+- uid: Wolfgang.Etl.TestKit.RetryingExtractor`1.CreateProgressReport
+  name: CreateProgressReport()
+  href: api/Wolfgang.Etl.TestKit.RetryingExtractor-1.html#Wolfgang_Etl_TestKit_RetryingExtractor_1_CreateProgressReport
+  commentId: M:Wolfgang.Etl.TestKit.RetryingExtractor`1.CreateProgressReport
+  fullName: Wolfgang.Etl.TestKit.RetryingExtractor<T>.CreateProgressReport()
+  fullName.vb: Wolfgang.Etl.TestKit.RetryingExtractor(Of T).CreateProgressReport()
+  nameWithType: RetryingExtractor<T>.CreateProgressReport()
+  nameWithType.vb: RetryingExtractor(Of T).CreateProgressReport()
+- uid: Wolfgang.Etl.TestKit.RetryingExtractor`1.CreateProgressReport*
+  name: CreateProgressReport
+  href: api/Wolfgang.Etl.TestKit.RetryingExtractor-1.html#Wolfgang_Etl_TestKit_RetryingExtractor_1_CreateProgressReport_
+  commentId: Overload:Wolfgang.Etl.TestKit.RetryingExtractor`1.CreateProgressReport
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.RetryingExtractor<T>.CreateProgressReport
+  fullName.vb: Wolfgang.Etl.TestKit.RetryingExtractor(Of T).CreateProgressReport
+  nameWithType: RetryingExtractor<T>.CreateProgressReport
+  nameWithType.vb: RetryingExtractor(Of T).CreateProgressReport
+- uid: Wolfgang.Etl.TestKit.RetryingExtractor`1.ExtractWorkerAsync(System.Threading.CancellationToken)
+  name: ExtractWorkerAsync(CancellationToken)
+  href: api/Wolfgang.Etl.TestKit.RetryingExtractor-1.html#Wolfgang_Etl_TestKit_RetryingExtractor_1_ExtractWorkerAsync_System_Threading_CancellationToken_
+  commentId: M:Wolfgang.Etl.TestKit.RetryingExtractor`1.ExtractWorkerAsync(System.Threading.CancellationToken)
+  fullName: Wolfgang.Etl.TestKit.RetryingExtractor<T>.ExtractWorkerAsync(System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.Etl.TestKit.RetryingExtractor(Of T).ExtractWorkerAsync(System.Threading.CancellationToken)
+  nameWithType: RetryingExtractor<T>.ExtractWorkerAsync(CancellationToken)
+  nameWithType.vb: RetryingExtractor(Of T).ExtractWorkerAsync(CancellationToken)
+- uid: Wolfgang.Etl.TestKit.RetryingExtractor`1.ExtractWorkerAsync*
+  name: ExtractWorkerAsync
+  href: api/Wolfgang.Etl.TestKit.RetryingExtractor-1.html#Wolfgang_Etl_TestKit_RetryingExtractor_1_ExtractWorkerAsync_
+  commentId: Overload:Wolfgang.Etl.TestKit.RetryingExtractor`1.ExtractWorkerAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.RetryingExtractor<T>.ExtractWorkerAsync
+  fullName.vb: Wolfgang.Etl.TestKit.RetryingExtractor(Of T).ExtractWorkerAsync
+  nameWithType: RetryingExtractor<T>.ExtractWorkerAsync
+  nameWithType.vb: RetryingExtractor(Of T).ExtractWorkerAsync
+- uid: Wolfgang.Etl.TestKit.RetryingExtractor`1.WrapWorkerExecution(System.Func{System.Threading.CancellationToken,System.Collections.Generic.IAsyncEnumerable{`0}},System.Threading.CancellationToken)
+  name: WrapWorkerExecution(Func<CancellationToken, IAsyncEnumerable<T>>, CancellationToken)
+  href: api/Wolfgang.Etl.TestKit.RetryingExtractor-1.html#Wolfgang_Etl_TestKit_RetryingExtractor_1_WrapWorkerExecution_System_Func_System_Threading_CancellationToken_System_Collections_Generic_IAsyncEnumerable__0___System_Threading_CancellationToken_
+  commentId: M:Wolfgang.Etl.TestKit.RetryingExtractor`1.WrapWorkerExecution(System.Func{System.Threading.CancellationToken,System.Collections.Generic.IAsyncEnumerable{`0}},System.Threading.CancellationToken)
+  name.vb: WrapWorkerExecution(Func(Of CancellationToken, IAsyncEnumerable(Of T)), CancellationToken)
+  fullName: Wolfgang.Etl.TestKit.RetryingExtractor<T>.WrapWorkerExecution(System.Func<System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable<T>>, System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.Etl.TestKit.RetryingExtractor(Of T).WrapWorkerExecution(System.Func(Of System.Threading.CancellationToken, System.Collections.Generic.IAsyncEnumerable(Of T)), System.Threading.CancellationToken)
+  nameWithType: RetryingExtractor<T>.WrapWorkerExecution(Func<CancellationToken, IAsyncEnumerable<T>>, CancellationToken)
+  nameWithType.vb: RetryingExtractor(Of T).WrapWorkerExecution(Func(Of CancellationToken, IAsyncEnumerable(Of T)), CancellationToken)
+- uid: Wolfgang.Etl.TestKit.RetryingExtractor`1.WrapWorkerExecution*
+  name: WrapWorkerExecution
+  href: api/Wolfgang.Etl.TestKit.RetryingExtractor-1.html#Wolfgang_Etl_TestKit_RetryingExtractor_1_WrapWorkerExecution_
+  commentId: Overload:Wolfgang.Etl.TestKit.RetryingExtractor`1.WrapWorkerExecution
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.RetryingExtractor<T>.WrapWorkerExecution
+  fullName.vb: Wolfgang.Etl.TestKit.RetryingExtractor(Of T).WrapWorkerExecution
+  nameWithType: RetryingExtractor<T>.WrapWorkerExecution
+  nameWithType.vb: RetryingExtractor(Of T).WrapWorkerExecution
 - uid: Wolfgang.Etl.TestKit.SnapshotTestLoader`1
   name: SnapshotTestLoader<T>
   href: api/Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html
@@ -1337,6 +1552,46 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.TestTransformer(Of T).TransformWorkerAsync
   nameWithType: TestTransformer<T>.TransformWorkerAsync
   nameWithType.vb: TestTransformer(Of T).TransformWorkerAsync
+- uid: Wolfgang.Etl.TestKit.TimeSourceExtensions
+  name: TimeSourceExtensions
+  href: api/Wolfgang.Etl.TestKit.TimeSourceExtensions.html
+  commentId: T:Wolfgang.Etl.TestKit.TimeSourceExtensions
+  fullName: Wolfgang.Etl.TestKit.TimeSourceExtensions
+  nameWithType: TimeSourceExtensions
+- uid: Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource*
+  name: WithTimeSource
+  href: api/Wolfgang.Etl.TestKit.TimeSourceExtensions.html#Wolfgang_Etl_TestKit_TimeSourceExtensions_WithTimeSource_
+  commentId: Overload:Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource
+  nameWithType: TimeSourceExtensions.WithTimeSource
+- uid: Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource``2(Wolfgang.Etl.Abstractions.ExtractorBase{``0,``1},Wolfgang.Etl.TestKit.ManualTimeSource)
+  name: WithTimeSource<TSource, TProgress>(ExtractorBase<TSource, TProgress>, ManualTimeSource)
+  href: api/Wolfgang.Etl.TestKit.TimeSourceExtensions.html#Wolfgang_Etl_TestKit_TimeSourceExtensions_WithTimeSource__2_Wolfgang_Etl_Abstractions_ExtractorBase___0___1__Wolfgang_Etl_TestKit_ManualTimeSource_
+  commentId: M:Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource``2(Wolfgang.Etl.Abstractions.ExtractorBase{``0,``1},Wolfgang.Etl.TestKit.ManualTimeSource)
+  name.vb: WithTimeSource(Of TSource, TProgress)(ExtractorBase(Of TSource, TProgress), ManualTimeSource)
+  fullName: Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource<TSource, TProgress>(Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>, Wolfgang.Etl.TestKit.ManualTimeSource)
+  fullName.vb: Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource(Of TSource, TProgress)(Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress), Wolfgang.Etl.TestKit.ManualTimeSource)
+  nameWithType: TimeSourceExtensions.WithTimeSource<TSource, TProgress>(ExtractorBase<TSource, TProgress>, ManualTimeSource)
+  nameWithType.vb: TimeSourceExtensions.WithTimeSource(Of TSource, TProgress)(ExtractorBase(Of TSource, TProgress), ManualTimeSource)
+- uid: Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource``2(Wolfgang.Etl.Abstractions.LoaderBase{``0,``1},Wolfgang.Etl.TestKit.ManualTimeSource)
+  name: WithTimeSource<TDestination, TProgress>(LoaderBase<TDestination, TProgress>, ManualTimeSource)
+  href: api/Wolfgang.Etl.TestKit.TimeSourceExtensions.html#Wolfgang_Etl_TestKit_TimeSourceExtensions_WithTimeSource__2_Wolfgang_Etl_Abstractions_LoaderBase___0___1__Wolfgang_Etl_TestKit_ManualTimeSource_
+  commentId: M:Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource``2(Wolfgang.Etl.Abstractions.LoaderBase{``0,``1},Wolfgang.Etl.TestKit.ManualTimeSource)
+  name.vb: WithTimeSource(Of TDestination, TProgress)(LoaderBase(Of TDestination, TProgress), ManualTimeSource)
+  fullName: Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource<TDestination, TProgress>(Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>, Wolfgang.Etl.TestKit.ManualTimeSource)
+  fullName.vb: Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource(Of TDestination, TProgress)(Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress), Wolfgang.Etl.TestKit.ManualTimeSource)
+  nameWithType: TimeSourceExtensions.WithTimeSource<TDestination, TProgress>(LoaderBase<TDestination, TProgress>, ManualTimeSource)
+  nameWithType.vb: TimeSourceExtensions.WithTimeSource(Of TDestination, TProgress)(LoaderBase(Of TDestination, TProgress), ManualTimeSource)
+- uid: Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource``3(Wolfgang.Etl.Abstractions.TransformerBase{``0,``1,``2},Wolfgang.Etl.TestKit.ManualTimeSource)
+  name: WithTimeSource<TSource, TDestination, TProgress>(TransformerBase<TSource, TDestination, TProgress>, ManualTimeSource)
+  href: api/Wolfgang.Etl.TestKit.TimeSourceExtensions.html#Wolfgang_Etl_TestKit_TimeSourceExtensions_WithTimeSource__3_Wolfgang_Etl_Abstractions_TransformerBase___0___1___2__Wolfgang_Etl_TestKit_ManualTimeSource_
+  commentId: M:Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource``3(Wolfgang.Etl.Abstractions.TransformerBase{``0,``1,``2},Wolfgang.Etl.TestKit.ManualTimeSource)
+  name.vb: WithTimeSource(Of TSource, TDestination, TProgress)(TransformerBase(Of TSource, TDestination, TProgress), ManualTimeSource)
+  fullName: Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource<TSource, TDestination, TProgress>(Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>, Wolfgang.Etl.TestKit.ManualTimeSource)
+  fullName.vb: Wolfgang.Etl.TestKit.TimeSourceExtensions.WithTimeSource(Of TSource, TDestination, TProgress)(Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress), Wolfgang.Etl.TestKit.ManualTimeSource)
+  nameWithType: TimeSourceExtensions.WithTimeSource<TSource, TDestination, TProgress>(TransformerBase<TSource, TDestination, TProgress>, ManualTimeSource)
+  nameWithType.vb: TimeSourceExtensions.WithTimeSource(Of TSource, TDestination, TProgress)(TransformerBase(Of TSource, TDestination, TProgress), ManualTimeSource)
 - uid: Wolfgang.Etl.TestKit.Xunit
   name: Wolfgang.Etl.TestKit.Xunit
   href: api/Wolfgang.Etl.TestKit.Xunit.html
@@ -2115,6 +2370,127 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlPipelineContractTests(Of TItem, TProgress).Sink
   nameWithType: EtlPipelineContractTests<TItem, TProgress>.Sink
   nameWithType.vb: EtlPipelineContractTests(Of TItem, TProgress).Sink
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlScenario
+  name: EtlScenario
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlScenario.html
+  commentId: T:Wolfgang.Etl.TestKit.Xunit.EtlScenario
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlScenario
+  nameWithType: EtlScenario
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlScenario.From*
+  name: From
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlScenario.html#Wolfgang_Etl_TestKit_Xunit_EtlScenario_From_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.EtlScenario.From
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlScenario.From
+  nameWithType: EtlScenario.From
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlScenario.From``1(``0[])
+  name: From<T>(params T[])
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlScenario.html#Wolfgang_Etl_TestKit_Xunit_EtlScenario_From__1___0___
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.EtlScenario.From``1(``0[])
+  name.vb: From(Of T)(ParamArray T())
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlScenario.From<T>(params T[])
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlScenario.From(Of T)(ParamArray T())
+  nameWithType: EtlScenario.From<T>(params T[])
+  nameWithType.vb: EtlScenario.From(Of T)(ParamArray T())
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlScenario`1
+  name: EtlScenario<T>
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html
+  commentId: T:Wolfgang.Etl.TestKit.Xunit.EtlScenario`1
+  name.vb: EtlScenario(Of T)
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlScenario(Of T)
+  nameWithType: EtlScenario<T>
+  nameWithType.vb: EtlScenario(Of T)
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.RunAndAssertAsync(System.Collections.Generic.IReadOnlyList{`0},System.Int32)
+  name: RunAndAssertAsync(IReadOnlyList<T>, int)
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html#Wolfgang_Etl_TestKit_Xunit_EtlScenario_1_RunAndAssertAsync_System_Collections_Generic_IReadOnlyList__0__System_Int32_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.RunAndAssertAsync(System.Collections.Generic.IReadOnlyList{`0},System.Int32)
+  name.vb: RunAndAssertAsync(IReadOnlyList(Of T), Integer)
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.RunAndAssertAsync(System.Collections.Generic.IReadOnlyList<T>, int)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlScenario(Of T).RunAndAssertAsync(System.Collections.Generic.IReadOnlyList(Of T), Integer)
+  nameWithType: EtlScenario<T>.RunAndAssertAsync(IReadOnlyList<T>, int)
+  nameWithType.vb: EtlScenario(Of T).RunAndAssertAsync(IReadOnlyList(Of T), Integer)
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.RunAndAssertAsync*
+  name: RunAndAssertAsync
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html#Wolfgang_Etl_TestKit_Xunit_EtlScenario_1_RunAndAssertAsync_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.RunAndAssertAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.RunAndAssertAsync
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlScenario(Of T).RunAndAssertAsync
+  nameWithType: EtlScenario<T>.RunAndAssertAsync
+  nameWithType.vb: EtlScenario(Of T).RunAndAssertAsync
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.RunAndAssertThrowsAsync*
+  name: RunAndAssertThrowsAsync
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html#Wolfgang_Etl_TestKit_Xunit_EtlScenario_1_RunAndAssertThrowsAsync_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.RunAndAssertThrowsAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.RunAndAssertThrowsAsync
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlScenario(Of T).RunAndAssertThrowsAsync
+  nameWithType: EtlScenario<T>.RunAndAssertThrowsAsync
+  nameWithType.vb: EtlScenario(Of T).RunAndAssertThrowsAsync
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.RunAndAssertThrowsAsync``1
+  name: RunAndAssertThrowsAsync<TException>()
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html#Wolfgang_Etl_TestKit_Xunit_EtlScenario_1_RunAndAssertThrowsAsync__1
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.RunAndAssertThrowsAsync``1
+  name.vb: RunAndAssertThrowsAsync(Of TException)()
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.RunAndAssertThrowsAsync<TException>()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlScenario(Of T).RunAndAssertThrowsAsync(Of TException)()
+  nameWithType: EtlScenario<T>.RunAndAssertThrowsAsync<TException>()
+  nameWithType.vb: EtlScenario(Of T).RunAndAssertThrowsAsync(Of TException)()
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.Through(Wolfgang.Etl.Abstractions.TransformerBase{`0,`0,Wolfgang.Etl.Abstractions.Report})
+  name: Through(TransformerBase<T, T, Report>)
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html#Wolfgang_Etl_TestKit_Xunit_EtlScenario_1_Through_Wolfgang_Etl_Abstractions_TransformerBase__0__0_Wolfgang_Etl_Abstractions_Report__
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.Through(Wolfgang.Etl.Abstractions.TransformerBase{`0,`0,Wolfgang.Etl.Abstractions.Report})
+  name.vb: Through(TransformerBase(Of T, T, Report))
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.Through(Wolfgang.Etl.Abstractions.TransformerBase<T, T, Wolfgang.Etl.Abstractions.Report>)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlScenario(Of T).Through(Wolfgang.Etl.Abstractions.TransformerBase(Of T, T, Wolfgang.Etl.Abstractions.Report))
+  nameWithType: EtlScenario<T>.Through(TransformerBase<T, T, Report>)
+  nameWithType.vb: EtlScenario(Of T).Through(TransformerBase(Of T, T, Report))
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.Through*
+  name: Through
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html#Wolfgang_Etl_TestKit_Xunit_EtlScenario_1_Through_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.Through
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.Through
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlScenario(Of T).Through
+  nameWithType: EtlScenario<T>.Through
+  nameWithType.vb: EtlScenario(Of T).Through
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.WithExtractorFault(System.Int32,System.Exception,System.Boolean)
+  name: WithExtractorFault(int, Exception, bool)
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html#Wolfgang_Etl_TestKit_Xunit_EtlScenario_1_WithExtractorFault_System_Int32_System_Exception_System_Boolean_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.WithExtractorFault(System.Int32,System.Exception,System.Boolean)
+  name.vb: WithExtractorFault(Integer, Exception, Boolean)
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.WithExtractorFault(int, System.Exception, bool)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlScenario(Of T).WithExtractorFault(Integer, System.Exception, Boolean)
+  nameWithType: EtlScenario<T>.WithExtractorFault(int, Exception, bool)
+  nameWithType.vb: EtlScenario(Of T).WithExtractorFault(Integer, Exception, Boolean)
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.WithExtractorFault*
+  name: WithExtractorFault
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html#Wolfgang_Etl_TestKit_Xunit_EtlScenario_1_WithExtractorFault_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.WithExtractorFault
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.WithExtractorFault
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlScenario(Of T).WithExtractorFault
+  nameWithType: EtlScenario<T>.WithExtractorFault
+  nameWithType.vb: EtlScenario(Of T).WithExtractorFault
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.WithLoaderFault(System.Int32,System.Exception,System.Boolean)
+  name: WithLoaderFault(int, Exception, bool)
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html#Wolfgang_Etl_TestKit_Xunit_EtlScenario_1_WithLoaderFault_System_Int32_System_Exception_System_Boolean_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.WithLoaderFault(System.Int32,System.Exception,System.Boolean)
+  name.vb: WithLoaderFault(Integer, Exception, Boolean)
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.WithLoaderFault(int, System.Exception, bool)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlScenario(Of T).WithLoaderFault(Integer, System.Exception, Boolean)
+  nameWithType: EtlScenario<T>.WithLoaderFault(int, Exception, bool)
+  nameWithType.vb: EtlScenario(Of T).WithLoaderFault(Integer, Exception, Boolean)
+- uid: Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.WithLoaderFault*
+  name: WithLoaderFault
+  href: api/Wolfgang.Etl.TestKit.Xunit.EtlScenario-1.html#Wolfgang_Etl_TestKit_Xunit_EtlScenario_1_WithLoaderFault_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.EtlScenario`1.WithLoaderFault
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.EtlScenario<T>.WithLoaderFault
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.EtlScenario(Of T).WithLoaderFault
+  nameWithType: EtlScenario<T>.WithLoaderFault
+  nameWithType.vb: EtlScenario(Of T).WithLoaderFault
 - uid: Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests`2
   name: ExtractAsyncContractTests<TSut, TItem>
   href: api/Wolfgang.Etl.TestKit.Xunit.ExtractAsyncContractTests-2.html
@@ -5451,6 +5827,200 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.Xunit.ProgressCapture(Of T).Reports
   nameWithType: ProgressCapture<T>.Reports
   nameWithType.vb: ProgressCapture(Of T).Reports
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1
+  name: RetryContractTests<TSut>
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html
+  commentId: T:Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1
+  name.vb: RetryContractTests(Of TSut)
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryContractTests(Of TSut)
+  nameWithType: RetryContractTests<TSut>
+  nameWithType.vb: RetryContractTests(Of TSut)
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.FailFirstAttempts
+  name: FailFirstAttempts
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_RetryContractTests_1_FailFirstAttempts
+  commentId: P:Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.FailFirstAttempts
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.FailFirstAttempts
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryContractTests(Of TSut).FailFirstAttempts
+  nameWithType: RetryContractTests<TSut>.FailFirstAttempts
+  nameWithType.vb: RetryContractTests(Of TSut).FailFirstAttempts
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.FailFirstAttempts*
+  name: FailFirstAttempts
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_RetryContractTests_1_FailFirstAttempts_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.FailFirstAttempts
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.FailFirstAttempts
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryContractTests(Of TSut).FailFirstAttempts
+  nameWithType: RetryContractTests<TSut>.FailFirstAttempts
+  nameWithType.vb: RetryContractTests(Of TSut).FailFirstAttempts
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.MaxAttempts
+  name: MaxAttempts
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_RetryContractTests_1_MaxAttempts
+  commentId: P:Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.MaxAttempts
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.MaxAttempts
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryContractTests(Of TSut).MaxAttempts
+  nameWithType: RetryContractTests<TSut>.MaxAttempts
+  nameWithType.vb: RetryContractTests(Of TSut).MaxAttempts
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.MaxAttempts*
+  name: MaxAttempts
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_RetryContractTests_1_MaxAttempts_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.MaxAttempts
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.MaxAttempts
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryContractTests(Of TSut).MaxAttempts
+  nameWithType: RetryContractTests<TSut>.MaxAttempts
+  nameWithType.vb: RetryContractTests(Of TSut).MaxAttempts
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.Permanent_fault_fails_after_max_attempts_Async
+  name: Permanent_fault_fails_after_max_attempts_Async()
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_RetryContractTests_1_Permanent_fault_fails_after_max_attempts_Async
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.Permanent_fault_fails_after_max_attempts_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.Permanent_fault_fails_after_max_attempts_Async()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryContractTests(Of TSut).Permanent_fault_fails_after_max_attempts_Async()
+  nameWithType: RetryContractTests<TSut>.Permanent_fault_fails_after_max_attempts_Async()
+  nameWithType.vb: RetryContractTests(Of TSut).Permanent_fault_fails_after_max_attempts_Async()
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.Permanent_fault_fails_after_max_attempts_Async*
+  name: Permanent_fault_fails_after_max_attempts_Async
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_RetryContractTests_1_Permanent_fault_fails_after_max_attempts_Async_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.Permanent_fault_fails_after_max_attempts_Async
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.Permanent_fault_fails_after_max_attempts_Async
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryContractTests(Of TSut).Permanent_fault_fails_after_max_attempts_Async
+  nameWithType: RetryContractTests<TSut>.Permanent_fault_fails_after_max_attempts_Async
+  nameWithType.vb: RetryContractTests(Of TSut).Permanent_fault_fails_after_max_attempts_Async
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.RunWithPermanentFaultAsync(System.Int32)
+  name: RunWithPermanentFaultAsync(int)
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_RetryContractTests_1_RunWithPermanentFaultAsync_System_Int32_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.RunWithPermanentFaultAsync(System.Int32)
+  name.vb: RunWithPermanentFaultAsync(Integer)
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.RunWithPermanentFaultAsync(int)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryContractTests(Of TSut).RunWithPermanentFaultAsync(Integer)
+  nameWithType: RetryContractTests<TSut>.RunWithPermanentFaultAsync(int)
+  nameWithType.vb: RetryContractTests(Of TSut).RunWithPermanentFaultAsync(Integer)
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.RunWithPermanentFaultAsync*
+  name: RunWithPermanentFaultAsync
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_RetryContractTests_1_RunWithPermanentFaultAsync_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.RunWithPermanentFaultAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.RunWithPermanentFaultAsync
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryContractTests(Of TSut).RunWithPermanentFaultAsync
+  nameWithType: RetryContractTests<TSut>.RunWithPermanentFaultAsync
+  nameWithType.vb: RetryContractTests(Of TSut).RunWithPermanentFaultAsync
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.RunWithTransientFaultAsync(System.Int32,System.Int32)
+  name: RunWithTransientFaultAsync(int, int)
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_RetryContractTests_1_RunWithTransientFaultAsync_System_Int32_System_Int32_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.RunWithTransientFaultAsync(System.Int32,System.Int32)
+  name.vb: RunWithTransientFaultAsync(Integer, Integer)
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.RunWithTransientFaultAsync(int, int)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryContractTests(Of TSut).RunWithTransientFaultAsync(Integer, Integer)
+  nameWithType: RetryContractTests<TSut>.RunWithTransientFaultAsync(int, int)
+  nameWithType.vb: RetryContractTests(Of TSut).RunWithTransientFaultAsync(Integer, Integer)
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.RunWithTransientFaultAsync*
+  name: RunWithTransientFaultAsync
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_RetryContractTests_1_RunWithTransientFaultAsync_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.RunWithTransientFaultAsync
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.RunWithTransientFaultAsync
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryContractTests(Of TSut).RunWithTransientFaultAsync
+  nameWithType: RetryContractTests<TSut>.RunWithTransientFaultAsync
+  nameWithType.vb: RetryContractTests(Of TSut).RunWithTransientFaultAsync
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.Transient_fault_causes_more_than_one_attempt_Async
+  name: Transient_fault_causes_more_than_one_attempt_Async()
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_RetryContractTests_1_Transient_fault_causes_more_than_one_attempt_Async
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.Transient_fault_causes_more_than_one_attempt_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.Transient_fault_causes_more_than_one_attempt_Async()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryContractTests(Of TSut).Transient_fault_causes_more_than_one_attempt_Async()
+  nameWithType: RetryContractTests<TSut>.Transient_fault_causes_more_than_one_attempt_Async()
+  nameWithType.vb: RetryContractTests(Of TSut).Transient_fault_causes_more_than_one_attempt_Async()
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.Transient_fault_causes_more_than_one_attempt_Async*
+  name: Transient_fault_causes_more_than_one_attempt_Async
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_RetryContractTests_1_Transient_fault_causes_more_than_one_attempt_Async_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.Transient_fault_causes_more_than_one_attempt_Async
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.Transient_fault_causes_more_than_one_attempt_Async
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryContractTests(Of TSut).Transient_fault_causes_more_than_one_attempt_Async
+  nameWithType: RetryContractTests<TSut>.Transient_fault_causes_more_than_one_attempt_Async
+  nameWithType.vb: RetryContractTests(Of TSut).Transient_fault_causes_more_than_one_attempt_Async
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.Transient_fault_within_budget_eventually_succeeds_Async
+  name: Transient_fault_within_budget_eventually_succeeds_Async()
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_RetryContractTests_1_Transient_fault_within_budget_eventually_succeeds_Async
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.Transient_fault_within_budget_eventually_succeeds_Async
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.Transient_fault_within_budget_eventually_succeeds_Async()
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryContractTests(Of TSut).Transient_fault_within_budget_eventually_succeeds_Async()
+  nameWithType: RetryContractTests<TSut>.Transient_fault_within_budget_eventually_succeeds_Async()
+  nameWithType.vb: RetryContractTests(Of TSut).Transient_fault_within_budget_eventually_succeeds_Async()
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.Transient_fault_within_budget_eventually_succeeds_Async*
+  name: Transient_fault_within_budget_eventually_succeeds_Async
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryContractTests-1.html#Wolfgang_Etl_TestKit_Xunit_RetryContractTests_1_Transient_fault_within_budget_eventually_succeeds_Async_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.RetryContractTests`1.Transient_fault_within_budget_eventually_succeeds_Async
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryContractTests<TSut>.Transient_fault_within_budget_eventually_succeeds_Async
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryContractTests(Of TSut).Transient_fault_within_budget_eventually_succeeds_Async
+  nameWithType: RetryContractTests<TSut>.Transient_fault_within_budget_eventually_succeeds_Async
+  nameWithType.vb: RetryContractTests(Of TSut).Transient_fault_within_budget_eventually_succeeds_Async
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryOutcome
+  name: RetryOutcome
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryOutcome.html
+  commentId: T:Wolfgang.Etl.TestKit.Xunit.RetryOutcome
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryOutcome
+  nameWithType: RetryOutcome
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.#ctor(System.Boolean,System.Int32,System.Int32)
+  name: RetryOutcome(bool, int, int)
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryOutcome.html#Wolfgang_Etl_TestKit_Xunit_RetryOutcome__ctor_System_Boolean_System_Int32_System_Int32_
+  commentId: M:Wolfgang.Etl.TestKit.Xunit.RetryOutcome.#ctor(System.Boolean,System.Int32,System.Int32)
+  name.vb: New(Boolean, Integer, Integer)
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.RetryOutcome(bool, int, int)
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.New(Boolean, Integer, Integer)
+  nameWithType: RetryOutcome.RetryOutcome(bool, int, int)
+  nameWithType.vb: RetryOutcome.New(Boolean, Integer, Integer)
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.#ctor*
+  name: RetryOutcome
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryOutcome.html#Wolfgang_Etl_TestKit_Xunit_RetryOutcome__ctor_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.RetryOutcome.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.RetryOutcome
+  fullName.vb: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.New
+  nameWithType: RetryOutcome.RetryOutcome
+  nameWithType.vb: RetryOutcome.New
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.AttemptCount
+  name: AttemptCount
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryOutcome.html#Wolfgang_Etl_TestKit_Xunit_RetryOutcome_AttemptCount
+  commentId: P:Wolfgang.Etl.TestKit.Xunit.RetryOutcome.AttemptCount
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.AttemptCount
+  nameWithType: RetryOutcome.AttemptCount
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.AttemptCount*
+  name: AttemptCount
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryOutcome.html#Wolfgang_Etl_TestKit_Xunit_RetryOutcome_AttemptCount_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.RetryOutcome.AttemptCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.AttemptCount
+  nameWithType: RetryOutcome.AttemptCount
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.ItemCount
+  name: ItemCount
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryOutcome.html#Wolfgang_Etl_TestKit_Xunit_RetryOutcome_ItemCount
+  commentId: P:Wolfgang.Etl.TestKit.Xunit.RetryOutcome.ItemCount
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.ItemCount
+  nameWithType: RetryOutcome.ItemCount
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.ItemCount*
+  name: ItemCount
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryOutcome.html#Wolfgang_Etl_TestKit_Xunit_RetryOutcome_ItemCount_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.RetryOutcome.ItemCount
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.ItemCount
+  nameWithType: RetryOutcome.ItemCount
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.Succeeded
+  name: Succeeded
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryOutcome.html#Wolfgang_Etl_TestKit_Xunit_RetryOutcome_Succeeded
+  commentId: P:Wolfgang.Etl.TestKit.Xunit.RetryOutcome.Succeeded
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.Succeeded
+  nameWithType: RetryOutcome.Succeeded
+- uid: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.Succeeded*
+  name: Succeeded
+  href: api/Wolfgang.Etl.TestKit.Xunit.RetryOutcome.html#Wolfgang_Etl_TestKit_Xunit_RetryOutcome_Succeeded_
+  commentId: Overload:Wolfgang.Etl.TestKit.Xunit.RetryOutcome.Succeeded
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.Xunit.RetryOutcome.Succeeded
+  nameWithType: RetryOutcome.Succeeded
 - uid: Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests`1
   name: SupportsDryRunContractTests<TSut>
   href: api/Wolfgang.Etl.TestKit.Xunit.SupportsDryRunContractTests-1.html

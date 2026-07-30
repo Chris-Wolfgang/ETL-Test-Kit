@@ -115,6 +115,30 @@ logic without hand-rolling broken fakes.</p>
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.ManualTimeSource.html">ManualTimeSource</a></dt>
+      <dd><p>A controllable time source for tests: time stands still until <a class="xref" href="Wolfgang.Etl.TestKit.ManualTimeSource.html#Wolfgang_Etl_TestKit_ManualTimeSource_Advance_System_TimeSpan_">Advance(TimeSpan)</a> is called,
+making a stage's <span class="xref">Wolfgang.Etl.Abstractions.Report</span> timing metrics — <span class="xref">Wolfgang.Etl.Abstractions.Report.Elapsed</span>,
+<span class="xref">Wolfgang.Etl.Abstractions.Report.ItemsPerSecond</span>, <span class="xref">Wolfgang.Etl.Abstractions.Report.PercentComplete</span>, and
+<span class="xref">Wolfgang.Etl.Abstractions.Report.EstimatedRemaining</span> — deterministic rather than wall-clock-dependent.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.RecordingMiddleware-1.html">RecordingMiddleware&lt;T&gt;</a></dt>
+      <dd><p>A test <span class="xref">Wolfgang.Etl.Abstractions.IItemMiddleware&lt;T&gt;</span> that records every item passed through it and, by default,
+keeps each item flowing. Supply a policy to transform or drop items, and inspect
+<a class="xref" href="Wolfgang.Etl.TestKit.RecordingMiddleware-1.html#Wolfgang_Etl_TestKit_RecordingMiddleware_1_Observed">Observed</a> to assert exactly what the middleware saw, in order.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.RetryingExtractor-1.html">RetryingExtractor&lt;T&gt;</a></dt>
+      <dd><p>An extractor double that throws a transient fault on its first <code>failFirstAttempts</code> worker
+invocations and then succeeds, driven through a retry override of the
+<span class="xref">Wolfgang.Etl.Abstractions</span> 0.20 <code>WrapWorkerExecution</code> resilience seam. It both
+demonstrates how to build stream-level retry on a stage and serves as the reference component
+exercised by <code>RetryContractTests</code> (in <code>Wolfgang.Etl.TestKit.Xunit</code>).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html">SnapshotTestLoader&lt;T&gt;</a></dt>
       <dd><p>An in-memory loader that captures every item it receives and renders them as a single,
 deterministic, diff-friendly <a class="xref" href="Wolfgang.Etl.TestKit.SnapshotTestLoader-1.html#Wolfgang_Etl_TestKit_SnapshotTestLoader_1_Snapshot">Snapshot</a> string — ready to hand to an approval /
@@ -141,6 +165,12 @@ after the load completes.</p>
       <dt><a class="xref" href="Wolfgang.Etl.TestKit.TestTransformer-1.html">TestTransformer&lt;T&gt;</a></dt>
       <dd><p>A pass-through transformer for use in tests, examples, and benchmarks.
 Returns each item unchanged, with no transformation applied.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.TimeSourceExtensions.html">TimeSourceExtensions</a></dt>
+      <dd><p>Extension methods that attach a <a class="xref" href="Wolfgang.Etl.TestKit.ManualTimeSource.html">ManualTimeSource</a> to a stage so its
+<span class="xref">Wolfgang.Etl.Abstractions.Report</span> timing metrics can be driven deterministically in tests.</p>
 </dd>
     </dl>
 
