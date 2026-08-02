@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1785413323714,
+  "lastUpdate": 1785654515079,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Test-Kit",
   "entries": {
     "Mutation score": [
@@ -110,6 +110,33 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/Chris-Wolfgang/ETL-Test-Kit/commit/8fb17b53b7441ad605a4ddf393fa2836b6cdf533"
         },
         "date": 1785413321142,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "Mutation score",
+            "value": 75.32,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang",
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "8fb17b53b7441ad605a4ddf393fa2836b6cdf533",
+          "message": "Merge pull request #276 from Chris-Wolfgang/vNext-0.20.0\n\nRelease 0.13.0 — Abstractions 0.20 adoption: retry / clock / middleware / aggregate-errors + scenario harness",
+          "timestamp": "2026-07-30T12:01:45Z",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Test-Kit/commit/8fb17b53b7441ad605a4ddf393fa2836b6cdf533"
+        },
+        "date": 1785654512210,
         "tool": "customBiggerIsBetter",
         "benches": [
           {
