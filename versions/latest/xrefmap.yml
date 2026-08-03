@@ -784,6 +784,25 @@ references:
   fullName.vb: Wolfgang.Etl.TestKit.FaultyTransformer(Of T).TransformWorkerAsync
   nameWithType: FaultyTransformer<T>.TransformWorkerAsync
   nameWithType.vb: FaultyTransformer(Of T).TransformWorkerAsync
+- uid: Wolfgang.Etl.TestKit.ManualProgressTimerCore
+  name: ManualProgressTimerCore
+  href: api/Wolfgang.Etl.TestKit.ManualProgressTimerCore.html
+  commentId: T:Wolfgang.Etl.TestKit.ManualProgressTimerCore
+  fullName: Wolfgang.Etl.TestKit.ManualProgressTimerCore
+  nameWithType: ManualProgressTimerCore
+- uid: Wolfgang.Etl.TestKit.ManualProgressTimerCore.Tick
+  name: Tick()
+  href: api/Wolfgang.Etl.TestKit.ManualProgressTimerCore.html#Wolfgang_Etl_TestKit_ManualProgressTimerCore_Tick
+  commentId: M:Wolfgang.Etl.TestKit.ManualProgressTimerCore.Tick
+  fullName: Wolfgang.Etl.TestKit.ManualProgressTimerCore.Tick()
+  nameWithType: ManualProgressTimerCore.Tick()
+- uid: Wolfgang.Etl.TestKit.ManualProgressTimerCore.Tick*
+  name: Tick
+  href: api/Wolfgang.Etl.TestKit.ManualProgressTimerCore.html#Wolfgang_Etl_TestKit_ManualProgressTimerCore_Tick_
+  commentId: Overload:Wolfgang.Etl.TestKit.ManualProgressTimerCore.Tick
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.ManualProgressTimerCore.Tick
+  nameWithType: ManualProgressTimerCore.Tick
 - uid: Wolfgang.Etl.TestKit.ManualTimeSource
   name: ManualTimeSource
   href: api/Wolfgang.Etl.TestKit.ManualTimeSource.html
@@ -831,6 +850,46 @@ references:
   isSpec: "True"
   fullName: Wolfgang.Etl.TestKit.ManualTimeSource.Advance
   nameWithType: ManualTimeSource.Advance
+- uid: Wolfgang.Etl.TestKit.ProgressTimerExtensions
+  name: ProgressTimerExtensions
+  href: api/Wolfgang.Etl.TestKit.ProgressTimerExtensions.html
+  commentId: T:Wolfgang.Etl.TestKit.ProgressTimerExtensions
+  fullName: Wolfgang.Etl.TestKit.ProgressTimerExtensions
+  nameWithType: ProgressTimerExtensions
+- uid: Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer*
+  name: WithManualProgressTimer
+  href: api/Wolfgang.Etl.TestKit.ProgressTimerExtensions.html#Wolfgang_Etl_TestKit_ProgressTimerExtensions_WithManualProgressTimer_
+  commentId: Overload:Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer
+  isSpec: "True"
+  fullName: Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer
+  nameWithType: ProgressTimerExtensions.WithManualProgressTimer
+- uid: Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer``2(Wolfgang.Etl.Abstractions.ExtractorBase{``0,``1},Wolfgang.Etl.TestKit.ManualProgressTimerCore)
+  name: WithManualProgressTimer<TSource, TProgress>(ExtractorBase<TSource, TProgress>, ManualProgressTimerCore)
+  href: api/Wolfgang.Etl.TestKit.ProgressTimerExtensions.html#Wolfgang_Etl_TestKit_ProgressTimerExtensions_WithManualProgressTimer__2_Wolfgang_Etl_Abstractions_ExtractorBase___0___1__Wolfgang_Etl_TestKit_ManualProgressTimerCore_
+  commentId: M:Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer``2(Wolfgang.Etl.Abstractions.ExtractorBase{``0,``1},Wolfgang.Etl.TestKit.ManualProgressTimerCore)
+  name.vb: WithManualProgressTimer(Of TSource, TProgress)(ExtractorBase(Of TSource, TProgress), ManualProgressTimerCore)
+  fullName: Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer<TSource, TProgress>(Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>, Wolfgang.Etl.TestKit.ManualProgressTimerCore)
+  fullName.vb: Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer(Of TSource, TProgress)(Wolfgang.Etl.Abstractions.ExtractorBase(Of TSource, TProgress), Wolfgang.Etl.TestKit.ManualProgressTimerCore)
+  nameWithType: ProgressTimerExtensions.WithManualProgressTimer<TSource, TProgress>(ExtractorBase<TSource, TProgress>, ManualProgressTimerCore)
+  nameWithType.vb: ProgressTimerExtensions.WithManualProgressTimer(Of TSource, TProgress)(ExtractorBase(Of TSource, TProgress), ManualProgressTimerCore)
+- uid: Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer``2(Wolfgang.Etl.Abstractions.LoaderBase{``0,``1},Wolfgang.Etl.TestKit.ManualProgressTimerCore)
+  name: WithManualProgressTimer<TDestination, TProgress>(LoaderBase<TDestination, TProgress>, ManualProgressTimerCore)
+  href: api/Wolfgang.Etl.TestKit.ProgressTimerExtensions.html#Wolfgang_Etl_TestKit_ProgressTimerExtensions_WithManualProgressTimer__2_Wolfgang_Etl_Abstractions_LoaderBase___0___1__Wolfgang_Etl_TestKit_ManualProgressTimerCore_
+  commentId: M:Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer``2(Wolfgang.Etl.Abstractions.LoaderBase{``0,``1},Wolfgang.Etl.TestKit.ManualProgressTimerCore)
+  name.vb: WithManualProgressTimer(Of TDestination, TProgress)(LoaderBase(Of TDestination, TProgress), ManualProgressTimerCore)
+  fullName: Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer<TDestination, TProgress>(Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>, Wolfgang.Etl.TestKit.ManualProgressTimerCore)
+  fullName.vb: Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer(Of TDestination, TProgress)(Wolfgang.Etl.Abstractions.LoaderBase(Of TDestination, TProgress), Wolfgang.Etl.TestKit.ManualProgressTimerCore)
+  nameWithType: ProgressTimerExtensions.WithManualProgressTimer<TDestination, TProgress>(LoaderBase<TDestination, TProgress>, ManualProgressTimerCore)
+  nameWithType.vb: ProgressTimerExtensions.WithManualProgressTimer(Of TDestination, TProgress)(LoaderBase(Of TDestination, TProgress), ManualProgressTimerCore)
+- uid: Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer``3(Wolfgang.Etl.Abstractions.TransformerBase{``0,``1,``2},Wolfgang.Etl.TestKit.ManualProgressTimerCore)
+  name: WithManualProgressTimer<TSource, TDestination, TProgress>(TransformerBase<TSource, TDestination, TProgress>, ManualProgressTimerCore)
+  href: api/Wolfgang.Etl.TestKit.ProgressTimerExtensions.html#Wolfgang_Etl_TestKit_ProgressTimerExtensions_WithManualProgressTimer__3_Wolfgang_Etl_Abstractions_TransformerBase___0___1___2__Wolfgang_Etl_TestKit_ManualProgressTimerCore_
+  commentId: M:Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer``3(Wolfgang.Etl.Abstractions.TransformerBase{``0,``1,``2},Wolfgang.Etl.TestKit.ManualProgressTimerCore)
+  name.vb: WithManualProgressTimer(Of TSource, TDestination, TProgress)(TransformerBase(Of TSource, TDestination, TProgress), ManualProgressTimerCore)
+  fullName: Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer<TSource, TDestination, TProgress>(Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>, Wolfgang.Etl.TestKit.ManualProgressTimerCore)
+  fullName.vb: Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer(Of TSource, TDestination, TProgress)(Wolfgang.Etl.Abstractions.TransformerBase(Of TSource, TDestination, TProgress), Wolfgang.Etl.TestKit.ManualProgressTimerCore)
+  nameWithType: ProgressTimerExtensions.WithManualProgressTimer<TSource, TDestination, TProgress>(TransformerBase<TSource, TDestination, TProgress>, ManualProgressTimerCore)
+  nameWithType.vb: ProgressTimerExtensions.WithManualProgressTimer(Of TSource, TDestination, TProgress)(TransformerBase(Of TSource, TDestination, TProgress), ManualProgressTimerCore)
 - uid: Wolfgang.Etl.TestKit.RecordingMiddleware`1
   name: RecordingMiddleware<T>
   href: api/Wolfgang.Etl.TestKit.RecordingMiddleware-1.html

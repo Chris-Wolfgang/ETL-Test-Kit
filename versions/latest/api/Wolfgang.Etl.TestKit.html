@@ -115,11 +115,27 @@ logic without hand-rolling broken fakes.</p>
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.ManualProgressTimerCore.html">ManualProgressTimerCore</a></dt>
+      <dd><p>A manually-driven progress timer for tests: instead of a real <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.timer">Timer</a>
+firing on an interval, the stage's progress callback fires only when <a class="xref" href="Wolfgang.Etl.TestKit.ManualProgressTimerCore.html#Wolfgang_Etl_TestKit_ManualProgressTimerCore_Tick">Tick()</a> is called,
+making progress-callback assertions deterministic. Attach it to a stage with
+<a class="xref" href="Wolfgang.Etl.TestKit.ProgressTimerExtensions.html#Wolfgang_Etl_TestKit_ProgressTimerExtensions_WithManualProgressTimer__2_Wolfgang_Etl_Abstractions_ExtractorBase___0___1__Wolfgang_Etl_TestKit_ManualProgressTimerCore_">WithManualProgressTimer&lt;TSource, TProgress&gt;(ExtractorBase&lt;TSource, TProgress&gt;, ManualProgressTimerCore)</a>
+(and the loader / transformer overloads).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Wolfgang.Etl.TestKit.ManualTimeSource.html">ManualTimeSource</a></dt>
       <dd><p>A controllable time source for tests: time stands still until <a class="xref" href="Wolfgang.Etl.TestKit.ManualTimeSource.html#Wolfgang_Etl_TestKit_ManualTimeSource_Advance_System_TimeSpan_">Advance(TimeSpan)</a> is called,
 making a stage's <span class="xref">Wolfgang.Etl.Abstractions.Report</span> timing metrics — <span class="xref">Wolfgang.Etl.Abstractions.Report.Elapsed</span>,
 <span class="xref">Wolfgang.Etl.Abstractions.Report.ItemsPerSecond</span>, <span class="xref">Wolfgang.Etl.Abstractions.Report.PercentComplete</span>, and
 <span class="xref">Wolfgang.Etl.Abstractions.Report.EstimatedRemaining</span> — deterministic rather than wall-clock-dependent.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Wolfgang.Etl.TestKit.ProgressTimerExtensions.html">ProgressTimerExtensions</a></dt>
+      <dd><p>Extension methods that attach a <a class="xref" href="Wolfgang.Etl.TestKit.ManualProgressTimerCore.html">ManualProgressTimerCore</a> to a stage so its progress
+callback fires deterministically (on <a class="xref" href="Wolfgang.Etl.TestKit.ManualProgressTimerCore.html#Wolfgang_Etl_TestKit_ManualProgressTimerCore_Tick">Tick()</a>) instead of on a
+real timer interval.</p>
 </dd>
     </dl>
     <dl class="jumplist">

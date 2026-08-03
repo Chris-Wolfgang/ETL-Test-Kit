@@ -78,6 +78,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.ManualProgressTimerCore.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.ManualProgressTimerCore.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.ManualProgressTimerCore",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.ManualProgressTimerCore.yml\" sourcestartlinenumber=\"1\">A manually-driven progress timer for tests: instead of a real <xref href=\"System.Threading.Timer\" data-throw-if-not-resolved=\"false\"></xref>\nfiring on an interval, the stage's progress callback fires only when <xref href=\"Wolfgang.Etl.TestKit.ManualProgressTimerCore.Tick\" data-throw-if-not-resolved=\"false\"></xref> is called,\nmaking progress-callback assertions deterministic. Attach it to a stage with\n<xref href=\"Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer%60%602(Wolfgang.Etl.Abstractions.ExtractorBase%7b%60%600%2c%60%601%7d%2cWolfgang.Etl.TestKit.ManualProgressTimerCore)\" data-throw-if-not-resolved=\"false\"></xref>\n(and the loader / transformer overloads).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Wolfgang.Etl.TestKit.ManualTimeSource.yml",
       "output": {
         ".html": {
@@ -89,6 +103,20 @@
       "IsMRef": true,
       "Title": "Wolfgang.Etl.TestKit.ManualTimeSource",
       "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.ManualTimeSource.yml\" sourcestartlinenumber=\"1\">A controllable time source for tests: time stands still until <xref href=\"Wolfgang.Etl.TestKit.ManualTimeSource.Advance(System.TimeSpan)\" data-throw-if-not-resolved=\"false\"></xref> is called,\nmaking a stage's <xref href=\"Wolfgang.Etl.Abstractions.Report\" data-throw-if-not-resolved=\"false\"></xref> timing metrics — <xref href=\"Wolfgang.Etl.Abstractions.Report.Elapsed\" data-throw-if-not-resolved=\"false\"></xref>,\n<xref href=\"Wolfgang.Etl.Abstractions.Report.ItemsPerSecond\" data-throw-if-not-resolved=\"false\"></xref>, <xref href=\"Wolfgang.Etl.Abstractions.Report.PercentComplete\" data-throw-if-not-resolved=\"false\"></xref>, and\n<xref href=\"Wolfgang.Etl.Abstractions.Report.EstimatedRemaining\" data-throw-if-not-resolved=\"false\"></xref> — deterministic rather than wall-clock-dependent.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.Etl.TestKit.ProgressTimerExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.Etl.TestKit.ProgressTimerExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.Etl.TestKit.ProgressTimerExtensions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.Etl.TestKit.ProgressTimerExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods that attach a <xref href=\"Wolfgang.Etl.TestKit.ManualProgressTimerCore\" data-throw-if-not-resolved=\"false\"></xref> to a stage so its progress\ncallback fires deterministically (on <xref href=\"Wolfgang.Etl.TestKit.ManualProgressTimerCore.Tick\" data-throw-if-not-resolved=\"false\"></xref>) instead of on a\nreal timer interval.</p>\n"
     },
     {
       "type": "ManagedReference",
