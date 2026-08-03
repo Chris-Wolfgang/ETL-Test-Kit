@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Wolfgang.Etl.Abstractions;
+using Wolfgang.Etl.TestKit;
 using Xunit;
 
 namespace Wolfgang.Etl.TestKit.Xunit;
@@ -50,9 +51,6 @@ namespace Wolfgang.Etl.TestKit.Xunit;
 ///
 ///     protected override IReadOnlyList&lt;MyRecord&gt; CreateSourceItems() =>
 ///         new List&lt;MyRecord&gt; { new("a"), new("b"), new("c"), new("d"), new("e") };
-///
-///     protected override MyLoader CreateSutWithTimer(IProgressTimer timer) =>
-///         new MyLoader(connectionString, timer);
 /// }
 /// </code>
 /// </example>
@@ -74,15 +72,23 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     protected abstract TSut CreateSut(int itemCount);
 
     /// <summary>
-    /// Creates a <typeparamref name="TSut"/> with the supplied <see cref="IProgressTimer"/>
-    /// injected via the derived class's protected constructor.
+    /// <b>Deprecated.</b> The contract now drives progress timing via
+    /// <see cref="ManualProgressTimerCore"/> and <c>WithManualProgressTimer</c>, which need no
+    /// per-component timer plumbing — so overriding this is no longer required. Retained for source
+    /// compatibility with existing overrides; remove your override (and the component's
+    /// <c>IProgressTimer</c>-injection ctor) and it will be dropped in a future major version.
     /// </summary>
-    /// <param name="timer">
-    /// The <see cref="IProgressTimer"/> to inject. Typically a
-    /// <see cref="ManualProgressTimer"/> so that progress callbacks can be fired
-    /// on demand during tests.
-    /// </param>
-    protected abstract TSut CreateSutWithTimer(IProgressTimer timer);
+    /// <param name="timer">Unused by the contract.</param>
+    /// <returns>A new instance of <typeparamref name="TSut"/> (in existing overrides only).</returns>
+    /// <exception cref="NotSupportedException">
+    /// Always, if the base (non-overridden) implementation is invoked — the contract no longer calls it.
+    /// </exception>
+    protected virtual TSut CreateSutWithTimer(IProgressTimer timer) =>
+        throw new NotSupportedException
+        (
+            "CreateSutWithTimer is no longer used by the contract; progress timing is driven via " +
+            "ManualProgressTimerCore + WithManualProgressTimer. Remove this override."
+        );
 
     /// <summary>
     /// Returns the source items used to feed the loader. Must return at least 5 items.
@@ -107,7 +113,7 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     /// <summary>
     /// Returns an input sequence that pauses after the first item until
     /// <paramref name="gate"/> is released, keeping the load pipeline alive
-    /// so the test can call <see cref="ManualProgressTimer.Fire"/> mid-flight.
+    /// so the test can call <see cref="ManualProgressTimerCore.Tick"/> mid-flight.
     /// </summary>
     private async IAsyncEnumerable<TItem> CreateGatedInputItemsAsync(TaskCompletionSource<bool> gate)
     {
@@ -400,14 +406,15 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     [Fact]
     public async Task LoadAsync_with_progress_invokes_callback_when_timer_fires_Async()
     {
-        using var timer = new ManualProgressTimer();
-        var sut = CreateSutWithTimer(timer);
+        var timer = new ManualProgressTimerCore();
+        var sut = CreateSut();
+        sut.WithManualProgressTimer(timer);
         TProgress? captured = default;
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
         var gate = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
         var task = sut.LoadAsync(CreateGatedInputItemsAsync(gate), progress);
-        timer.Fire();
+        timer.Tick();
         gate.SetResult(true);
         await task.ConfigureAwait(false);
 
@@ -554,14 +561,15 @@ public abstract class LoaderBaseContractTests<TSut, TItem, TProgress>
     [Fact]
     public async Task LoadAsync_with_progress_and_token_invokes_callback_when_timer_fires_Async()
     {
-        using var timer = new ManualProgressTimer();
-        var sut = CreateSutWithTimer(timer);
+        var timer = new ManualProgressTimerCore();
+        var sut = CreateSut();
+        sut.WithManualProgressTimer(timer);
         TProgress? captured = default;
         var progress = new SynchronousProgress<TProgress>(r => captured = r);
         var gate = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
         var task = sut.LoadAsync(CreateGatedInputItemsAsync(gate), progress, CancellationToken.None);
-        timer.Fire();
+        timer.Tick();
         gate.SetResult(true);
         await task.ConfigureAwait(false);
 

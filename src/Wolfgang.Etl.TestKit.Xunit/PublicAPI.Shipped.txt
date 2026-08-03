@@ -255,7 +255,7 @@ abstract Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests<TSut, 
 abstract Wolfgang.Etl.TestKit.Xunit.ExtractWithProgressAsyncContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
 abstract Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>
 abstract Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
-abstract Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSutWithTimer(Wolfgang.Etl.Abstractions.IProgressTimer timer) -> TSut
+virtual Wolfgang.Etl.TestKit.Xunit.ExtractorBaseContractTests<TSut, TItem, TProgress>.CreateSutWithTimer(Wolfgang.Etl.Abstractions.IProgressTimer timer) -> TSut
 abstract Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>!
 abstract Wolfgang.Etl.TestKit.Xunit.IdempotentExtractorContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
 abstract Wolfgang.Etl.TestKit.Xunit.IdempotentLoaderContractTests<TSut, TItem>.CreateSourceItems() -> System.Collections.Generic.IReadOnlyList<TItem>!
@@ -273,7 +273,7 @@ abstract Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests<TSut, TIt
 abstract Wolfgang.Etl.TestKit.Xunit.LoadWithProgressAsyncContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
 abstract Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CreateSourceItems() -> System.Collections.Generic.IReadOnlyList<TItem>
 abstract Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
-abstract Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CreateSutWithTimer(Wolfgang.Etl.Abstractions.IProgressTimer timer) -> TSut
+virtual Wolfgang.Etl.TestKit.Xunit.LoaderBaseContractTests<TSut, TItem, TProgress>.CreateSutWithTimer(Wolfgang.Etl.Abstractions.IProgressTimer timer) -> TSut
 abstract Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests<TSut, TItem>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>
 abstract Wolfgang.Etl.TestKit.Xunit.TransformAsyncContractTests<TSut, TItem>.CreateSut(int itemCount) -> TSut
 abstract Wolfgang.Etl.TestKit.Xunit.TransformWithCancellationAsyncContractTests<TSut, TItem>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>
@@ -284,7 +284,7 @@ abstract Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests<TSut
 abstract Wolfgang.Etl.TestKit.Xunit.TransformWithProgressAsyncContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
 abstract Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CreateExpectedItems() -> System.Collections.Generic.IReadOnlyList<TItem>
 abstract Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CreateSut(int itemCount) -> TSut
-abstract Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CreateSutWithTimer(Wolfgang.Etl.Abstractions.IProgressTimer timer) -> TSut
+virtual Wolfgang.Etl.TestKit.Xunit.TransformerBaseContractTests<TSut, TItem, TProgress>.CreateSutWithTimer(Wolfgang.Etl.Abstractions.IProgressTimer timer) -> TSut
 static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.AllReportsSatisfy<T>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture, System.Func<T, bool>! predicate) -> void
 static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.FinalReportSatisfies<T>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture, System.Func<T, bool>! predicate) -> void
 static Wolfgang.Etl.TestKit.Xunit.ProgressAssert.HasExactly<T>(Wolfgang.Etl.TestKit.Xunit.ProgressCapture<T>! capture, int count) -> void
