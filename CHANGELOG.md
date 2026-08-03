@@ -9,6 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.14.0] - 2026-08-03
+
+Minor release: a manually-driven progress timer (`ManualProgressTimerCore` + `WithManualProgressTimer`)
+so any component is timer-testable without per-type `IProgressTimer` plumbing; the contract-test bases
+adopt it and no longer require `CreateSutWithTimer`. Purely additive — validates against the 0.13.0
+baseline.
+
+### Added
+
 - **`ManualProgressTimerCore` + `WithManualProgressTimer` extensions (#352):** a manually-driven progress
   timer for tests. Attach it to any extractor / loader / transformer with `.WithManualProgressTimer(timer)`
   and fire the stage's progress callback deterministically with `timer.Tick()` — no per-component

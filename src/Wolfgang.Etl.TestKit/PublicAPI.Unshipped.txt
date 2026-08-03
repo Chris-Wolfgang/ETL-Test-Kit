@@ -1,8 +1,1 @@
 #nullable enable
-Wolfgang.Etl.TestKit.ManualProgressTimerCore
-Wolfgang.Etl.TestKit.ManualProgressTimerCore.ManualProgressTimerCore() -> void
-Wolfgang.Etl.TestKit.ManualProgressTimerCore.Tick() -> void
-Wolfgang.Etl.TestKit.ProgressTimerExtensions
-static Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer<TDestination, TProgress>(this Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>! loader, Wolfgang.Etl.TestKit.ManualProgressTimerCore! timer) -> Wolfgang.Etl.Abstractions.LoaderBase<TDestination, TProgress>!
-static Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer<TSource, TDestination, TProgress>(this Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>! transformer, Wolfgang.Etl.TestKit.ManualProgressTimerCore! timer) -> Wolfgang.Etl.Abstractions.TransformerBase<TSource, TDestination, TProgress>!
-static Wolfgang.Etl.TestKit.ProgressTimerExtensions.WithManualProgressTimer<TSource, TProgress>(this Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>! extractor, Wolfgang.Etl.TestKit.ManualProgressTimerCore! timer) -> Wolfgang.Etl.Abstractions.ExtractorBase<TSource, TProgress>!
