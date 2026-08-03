@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1785654515079,
+  "lastUpdate": 1785773738614,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Test-Kit",
   "entries": {
     "Mutation score": [
@@ -137,6 +137,35 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/Chris-Wolfgang/ETL-Test-Kit/commit/8fb17b53b7441ad605a4ddf393fa2836b6cdf533"
         },
         "date": 1785654512210,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "Mutation score",
+            "value": 75.32,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com",
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "aaa5bf8861df0704ee11b2733953e3c35d4cd609",
+          "message": "Merge pull request #279 from Chris-Wolfgang/dependabot/nuget/dotnet-dependencies-3916902d44\n\nBump the dotnet-dependencies group with 3 updates",
+          "timestamp": "2026-08-03T12:09:52-04:00",
+          "tree_id": "27e7cf0ba4718ab6995641ac757fe6ef7365837f",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Test-Kit/commit/aaa5bf8861df0704ee11b2733953e3c35d4cd609"
+        },
+        "date": 1785773735698,
         "tool": "customBiggerIsBetter",
         "benches": [
           {
