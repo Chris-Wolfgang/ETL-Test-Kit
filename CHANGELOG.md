@@ -19,6 +19,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.14.0] - 2026-08-03
+
+Minor release: a manually-driven progress timer (`ManualProgressTimerCore` + `WithManualProgressTimer`)
+so any component is timer-testable without per-type `IProgressTimer` plumbing; the contract-test bases
+adopt it and no longer require `CreateSutWithTimer`. Purely additive — validates against the 0.13.0
+baseline.
+
+### Added
+
+- **`ManualProgressTimerCore` + `WithManualProgressTimer` extensions (#352):** a manually-driven progress
+  timer for tests. Attach it to any extractor / loader / transformer with `.WithManualProgressTimer(timer)`
+  and fire the stage's progress callback deterministically with `timer.Tick()` — no per-component
+  `IProgressTimer`-injection plumbing required. Drives the base's internal timer-core seam via the
+  `Wolfgang.Etl.TestKit` ⇆ `Wolfgang.Etl.Abstractions` friend relationship.
+
+### Changed
+
+- **Contract-test bases now drive progress timing via `ManualProgressTimerCore` (#352).** The
+  `ExtractorBaseContractTests` / `LoaderBaseContractTests` / `TransformerBaseContractTests` timer tests
+  build the SUT with the standard `CreateSut(...)` factory and attach a `ManualProgressTimerCore` — they
+  no longer require `CreateSutWithTimer`. That member is now **`virtual`** (was `abstract`) and throws if
+  the base implementation is invoked; existing overrides still compile. Additive — no downstream change
+  required to adopt the new TestKit.
+
+### Deprecated
+
+- **`*BaseContractTests.CreateSutWithTimer(IProgressTimer)` (#352):** no longer called by the contract.
+  Remove your override (and the component's `IProgressTimer`-injection constructor); it will be dropped in
+  a future major version.
+
+### Removed
+
+### Fixed
+
+### Security
+
 ## [0.13.0] - 2026-07-29
 
 ### Added
