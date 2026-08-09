@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1785781669163,
+  "lastUpdate": 1786256870514,
   "repoUrl": "https://github.com/Chris-Wolfgang/ETL-Test-Kit",
   "entries": {
     "Mutation score": [
@@ -195,6 +195,33 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/Chris-Wolfgang/ETL-Test-Kit/commit/e280811b4e9b8a7195b1f54a0968504c78a55069"
         },
         "date": 1785781666958,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "Mutation score",
+            "value": 76.13,
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Chris Wolfgang",
+            "username": "Chris-Wolfgang",
+            "email": "210299580+Chris-Wolfgang@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "e280811b4e9b8a7195b1f54a0968504c78a55069",
+          "message": "Merge pull request #277 from Chris-Wolfgang/vNext\n\nRelease 0.14.0 — ManualProgressTimerCore progress-timer harness (deprecates CreateSutWithTimer)",
+          "timestamp": "2026-08-03T18:22:22Z",
+          "url": "https://github.com/Chris-Wolfgang/ETL-Test-Kit/commit/e280811b4e9b8a7195b1f54a0968504c78a55069"
+        },
+        "date": 1786256866501,
         "tool": "customBiggerIsBetter",
         "benches": [
           {
