@@ -1,3 +1,20 @@
+> [!IMPORTANT]
+> ## This repository has moved
+>
+> The **`Wolfgang.Etl.TestKit`** and **`Wolfgang.Etl.TestKit.Xunit`** packages have been folded into
+> **[ETL-Abstractions](https://github.com/Chris-Wolfgang/ETL-Abstractions)** and now build, test, and
+> release from that repository alongside `Wolfgang.Etl.Abstractions`.
+>
+> - **Source & tests:** [ETL-Abstractions/src](https://github.com/Chris-Wolfgang/ETL-Abstractions/tree/main/src)
+> - **New issues & contributions:** the [ETL-Abstractions](https://github.com/Chris-Wolfgang/ETL-Abstractions) repo
+> - **NuGet packages are unchanged** — [Wolfgang.Etl.TestKit](https://www.nuget.org/packages/Wolfgang.Etl.TestKit/)
+>   and [Wolfgang.Etl.TestKit.Xunit](https://www.nuget.org/packages/Wolfgang.Etl.TestKit.Xunit/) keep their
+>   IDs and continue to publish (from the new repo). Nothing changes for consumers.
+>
+> This repository is retained (archived) for its release history. The original README follows.
+
+---
+
 # Wolfgang.Etl.TestKit
 
 An Extractor, Transformer and Loader designed to be used in testing libraries built with Wolfgang.Etl.Abstractions
